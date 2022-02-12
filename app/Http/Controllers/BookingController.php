@@ -9,4 +9,5 @@ class BookingController extends Controller
 public function check()
 {
    return 
-}}
+}
+}
