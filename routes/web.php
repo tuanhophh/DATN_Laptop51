@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +19,8 @@ Route::get('/', function () {
 });
 Route::get('check-admin', function () {
     return view('demo_admin');
+});
+Route::prefix('dat-lich')->group(function () {
+    Route::get('/', [BookingController::class, 'listBooking']);
+    Route::get('tao-moi', [BookingController::class, 'formCreateBooking']);
 });
