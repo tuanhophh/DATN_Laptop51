@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
-public function check()
-{
-   return 
-}
+   // public function check()
+   // {
+   //    return 
+   // }
 
 
    public function formCreateBooking()
