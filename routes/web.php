@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +19,9 @@ Route::get('/', function () {
 });
 Route::get('check-admin', function () {
     return view('demo_admin');
+});
+Route::prefix('user')->group(function(){
+    Route::get('/', [UserController::class,'index'])->name('user.index');
+    Route::get('add',[UserController::class,'addForm'])->name('user.add');
+    Route::post('add',[UserController::class,'saveAdd']);
 });
