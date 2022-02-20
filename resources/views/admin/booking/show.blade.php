@@ -12,27 +12,28 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col" class="sort" data-sort="name">Project</th>
-                    <th scope="col" class="sort" data-sort="budget">Budget</th>
-                    <th scope="col" class="sort" data-sort="status">Status</th>
-                    <th scope="col">Users</th>
-                    <th scope="col" class="sort" data-sort="completion">Completion</th>
-                    <th scope="col"></th>
+                    <th scope="col" class="sort" data-sort="name">Họ tên</th>
+                    <th scope="col" class="sort" data-sort="budget">SDT</th>
+                    <th scope="col" class="sort" data-sort="status">Máy tính</th>
+                    <th scope="col">Kiểu sửa</th>
+                    <th scope="col" class="sort" data-sort="completion">Thời gian sửa</th>
+                    <th scope="col">Trạng thái</th>
                   </tr>
                 </thead>
                 <tbody class="list">
                 
               
-             <tr>
+             
                @foreach ($bookings as $b)
-                 <td>{{ $b->full_name }}</td>
+              <tr>   <td>{{ $b->full_name }}</td>
                  <td>{{ $b->phone }}</td>
                  <td>{{ $b->company_computer_id }}</td>
                  <td>{{ $b->repair_type }}</td>
-                 <td>{{ $b->time }}</td>
-                 <td>{{ $b->active }}</td>
-               @endforeach
-             </tr>
+                 <td>{{ $b->interval }}</td>
+                 <td>{{ $b->active==1?'Đã xác nhận':'Chưa xác nhận' }}</td>
+                 <td><a name="" id="" class="btn btn-primary" href="{{ route('dat-lich.edit', ['id'=>$b->id]) }}" role="button">Sửa</a></td>
+             </tr>  @endforeach
+             
                 </tbody>
               </table>
             </div>

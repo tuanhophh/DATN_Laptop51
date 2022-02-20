@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveProductRequest;
@@ -13,14 +14,14 @@ class DetailProductController extends Controller
 {
     public function index(Request $request)
     {
-        $details=DetailProduct::orderBy('id', 'desc')->paginate(10);
+        $details = DetailProduct::orderBy('id', 'desc')->paginate(10);
         return view('admin.detail-products.index', compact('details'));
     }
 
     public function remove($id)
     {
         $model = DetailProduct::find($id);
-        if(!empty($model->image)){
+        if (!empty($model->image)) {
             $imgPath = str_replace('storage/', '', $model->image);
             Storage::delete($imgPath);
         }
@@ -36,14 +37,14 @@ class DetailProductController extends Controller
     public function saveAdd(Request $request)
     {
         $model = new DetailProduct();
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $imgPath = $request->file('image')->store('products');
-            
+
             $img = str_replace('public/', '', $imgPath);
             // dd($imgPath);
             $model->image = $img;
         }
-        
+
         $model->fill($request->all());
         $model->save();
         return redirect(route('detail-product.index'));
@@ -61,8 +62,8 @@ class DetailProductController extends Controller
             compact('pro', 'categories')
         );
     }
-    public function saveEdit(Request $request,$id)
-    {   
+    public function saveEdit(Request $request, $id)
+    {
         // $request la gui du lieu len
         // dd($request->name)
         $model = DetailProduct::find($id);
@@ -70,7 +71,7 @@ class DetailProductController extends Controller
         if (!$model) {
             return back();
         }
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             // $oldImg = str_replace('storage/', 'public/', $model->image);
             Storage::delete($model->image);
 
@@ -78,11 +79,9 @@ class DetailProductController extends Controller
             $imgPath = str_replace('public/', '', $imgPath);
             $model->image = $imgPath;
         }
-        
+
         $model->fill($request->all());
         $model->save();
         return redirect(route('detail-product.index'));
     }
-   
 }
-

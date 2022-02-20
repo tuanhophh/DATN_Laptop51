@@ -4,14 +4,14 @@
     @csrf
     <div class="col-4">
       <label for="">Họ Tên</label>
-      <input type="text" class="form-control " value="{{ old('full_name') }}" name="full_name" id="" aria-describedby="helpId" placeholder="">
+      <input type="text" class="form-control " value="{{ $booking->full_name}}" name="full_name" id="" aria-describedby="helpId" placeholder="">
       @error('full_name')
          <small id="helpId" class="form-text text-danger">{{ $message }}</small>
       @enderror</small>
    </div> 
   <div class="col-4">
       <label for="">SDT</label>
-      <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" id="" aria-describedby="helpId" placeholder="">
+      <input type="text" class="form-control" name="phone" value="{{ $booking->phone}}" id="" aria-describedby="helpId" placeholder="">
    @error('phone')
          <small id="helpId" class="form-text text-danger">{{ $message }}</small>
       @enderror</small>   </div> 
@@ -33,10 +33,14 @@
 
       <div class="form-check form-check-inline">
         <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="repair_type"cchecked id="" value="CH"> Cửa hàng
+              <input class="form-check-input" type="radio" name="repair_type" @if ($booking->repair_type=='CH')
+                  checked
+              @endif checked id="" value="CH"> Cửa hàng
           </label>   
           <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="repair_type"    value="TN"> Tại nhà
+              <input class="form-check-input" type="radio" name="repair_type"  @if ($booking->repair_type=='TN')
+                  checked
+              @endif    value="TN"> Tại nhà
           </label>
          
       </div>  

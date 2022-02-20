@@ -15,7 +15,7 @@ class UpdateBooking extends Migration
     {
         Schema::table('bookings', function (Blueprint $table) {
             $table->date('date')->nullable();
-            $table->text('time')->nullable()->change();
+            $table->enum('interval', [1, 2, 3, 4, 5, 6, 7, 8])->comment('Khoảng thời gian sửa chữa')->nullable();
         });
     }
 
@@ -28,7 +28,7 @@ class UpdateBooking extends Migration
     {
         Schema::table('bookings', function (Blueprint $table) {
             $table->dropColumn('date');
-            $table->dropColumn('time');
+            // $table->dropColumn('time');
         });
     }
 }
