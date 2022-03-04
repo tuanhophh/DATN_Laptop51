@@ -214,7 +214,7 @@ html,body,input,textarea
 {
 	font-size:15px;
 	font-weight:400;
-	font-family:'Lato';
+	font-family:'Tahoma';
 	box-sizing:border-box;
 }
 
@@ -308,7 +308,7 @@ textarea
 
 body,*,input,textarea
 {
-	font-family:"Lato";
+	font-family:"Tahoma";
 }
 
 .template-component-blockquote,
@@ -510,7 +510,16 @@ body,*,input,textarea
 	{
 		background-color:#222222;
 	}
+	.template-component-form-field select {
+		width: 100%;
+            padding: 15px 15px;
+            border: 1px solid #FFFFFF;
+			color: #777777;
+	}
+	.template-component-form-field select option {
 		
+        margin:  20px 20px;
+	}
 	.template-header .template-header-top.template-header-top-sticky,
 	.template-header .template-header-top.template-header-top-static,
 	.template-component-menu-responsive>ul,
@@ -1162,7 +1171,7 @@ form
 
 	input
 	{
-		width:100%;
+		/* width:100%; */
 		border-width:1px;
 		border-style:solid;
 		padding:10px 15px 10px 15px;
@@ -1293,7 +1302,7 @@ form
 	.template-icon-feature-eco-globe:before				{	content:"\77";	}
 	.template-icon-feature-eco-car:before				{	content:"\78";	}
 	.template-icon-feature-eco-nature:before			{	content:"\79";	}
-	.template-icon-feature-inflator-pump:before			{	content:"\7a";	}
+	.template-icon-feature-infTahomar-pump:before			{	content:"\7a";	}
 	.template-icon-feature-lightbulb:before				{	content:"\41";	}
 	.template-icon-feature-gps:before					{	content:"\42";	}
 	.template-icon-feature-oil-can:before				{	content:"\43";	}
