@@ -10,17 +10,16 @@ class UserController extends Controller
 {
     public function index(){
         $users = User::all();
-        $users->load('roles');
-        return view('users.index', [
+        // $users->load('roles');
+        return view('admin.users.index', [
             'users' => $users,
-            'roles' =>$users
+            // 'roles' =>$users
         ]);
     }
     public function addForm(){
         $roles = Role::all();
-        return view('users.add', compact('roles'));
+        return view('admin.users.add', compact('roles'));
     }
-
     public function saveAdd(Request $request){
         // dd($request);
         $model = new User();  
