@@ -14,7 +14,7 @@ class UpdateComputerCompanies extends Migration
     public function up()
     {
         Schema::table('computer_companies', function (Blueprint $table) {
-            $table->string('logo')->nullable();
+            $table->string('logo')->nullable()->after('company_name');
         });
     }
 
