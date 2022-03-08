@@ -29,10 +29,12 @@
         <td> {{$item->name}} </td>
         <td> {{$item->email}} </td>
         <td><img src="{{asset($item->avatar)}}" alt="" width="100"></td>
-       
-        {{-- <td> <button type="button" class="btn btn-primary"><a style="color:white;  text-decoration: none;" href="{{ route('role.edit', ['id'=>$item->id]) }}"> Edit</a></button>
-            <button type="button" class="btn btn-danger"><a style="color:white;  text-decoration: none;" onclick="return confirm('Bạn có chắc muốn User')"  href="{{ route('role.remove', ['id'=>$item->id]) }}"> Delete</a></button>
-        </td> --}}
+        <td> {{$item->phone}} </td>
+        <td> {{$item->address}} </td>
+        <td> {{$item->description}} </td>
+        <td> <button type="button" class="btn btn-primary"><a style="color:white;  text-decoration: none;" href="{{ route('user.edit', ['id'=>$item->id]) }}"> Edit</a></button>
+            <button type="button" class="btn btn-danger"><a style="color:white;  text-decoration: none;" onclick="return confirm('Bạn có chắc muốn User')"  href="{{ route('user.remove', ['id'=>$item->id]) }}"> Delete</a></button>
+        </td>
       </tr>
       @endforeach
     </tbody>

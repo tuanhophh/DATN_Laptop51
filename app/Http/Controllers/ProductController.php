@@ -47,6 +47,7 @@ class ProductController extends Controller
         $searchData['order_by'] = $rq_order_by;
         $searchData['column_names'] = $rq_column_names;
         return view('admin.products.index', compact('products', 'categories', 'column_names', 'order_by', 'searchData'));
+        // return response()->json($products);
     }
 
     public function remove($id)
@@ -57,7 +58,7 @@ class ProductController extends Controller
             Storage::delete($imgPath);
         }
         $model->delete();
-        return redirect(route('product.index'));
+        return redirect(route('product.index'))->with('success','Xóa thành công');
     }
     public function addForm()
     {
@@ -69,11 +70,9 @@ class ProductController extends Controller
     {
         $model = new Product();
         if($request->hasFile('image')){
-            $imgPath = $request->file('image')->store('products');
-            
-            $img = str_replace('public/', '', $imgPath);
-            // dd($imgPath);
-            $model->image = $img;
+            $imgPath = $request->file('avatar')->store('public/detail-product');
+            $imgPath = str_replace('public/', 'storage/', $imgPath);
+            $model->image = $imgPath;
         }
         
         $model->fill($request->all());
@@ -106,8 +105,8 @@ class ProductController extends Controller
             // $oldImg = str_replace('storage/', 'public/', $model->image);
             Storage::delete($model->image);
 
-            $imgPath = $request->file('image')->store('products');
-            $imgPath = str_replace('public/', '', $imgPath);
+            $imgPath = $request->file('avatar')->store('public/detail-product');
+            $imgPath = str_replace('public/', 'storage/', $imgPath);
             $model->image = $imgPath;
         }
         

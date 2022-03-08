@@ -48,6 +48,9 @@ Route::prefix('user')->group(function(){
     Route::get('/', [UserController::class,'index'])->name('user.index');
     Route::get('add',[UserController::class,'addForm'])->name('user.add');
     Route::post('add',[UserController::class,'saveAdd']);
+    Route::get('/remove/{id}', [UserController::class, 'remove'])->name('user.remove');
+    Route::get('edit/{id}',[UserController::class,'editForm'])->name('user.edit');
+    Route::post('edit/{id}',[UserController::class,'saveEdit']);
 });
 
 Route::prefix('dat-lich')->group(function () {
