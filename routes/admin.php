@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DetailProductController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 
 Route::prefix('category')->group(function(){
     Route::get('/', [CategoryController::class, 'index'])->name('category.index');
@@ -42,4 +44,7 @@ Route::prefix('detail-product')->group(function(){
     Route::get('edit/{id}',[DetailProductController::class,'editForm'])->name('detail-product.edit');
     Route::post('edit/{id}',[DetailProductController::class,'saveEdit']);
     Route::get('detail/{id}', [DetailProductController::class, 'detail']);
+});
+Route::prefix('login')->group(function(){
+    Route::get('/', [LoginController::class, 'index'])->name('login');
 });
