@@ -44,10 +44,10 @@ Route::prefix('')->group(function () {
         return view('website.404');
     });
 });
-Route::prefix('user')->group(function(){
-    Route::get('/', [UserController::class,'index'])->name('user.index');
-    Route::get('add',[UserController::class,'addForm'])->name('user.add');
-    Route::post('add',[UserController::class,'saveAdd']);
+Route::prefix('user')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('user.index');
+    Route::get('add', [UserController::class, 'addForm'])->name('user.add');
+    Route::post('add', [UserController::class, 'saveAdd']);
 });
 
 Route::prefix('dat-lich')->group(function () {
@@ -56,8 +56,5 @@ Route::prefix('dat-lich')->group(function () {
     Route::post('tao-moi', [BookingController::class, 'creatBooking']);
     Route::get('sua/{id}', [BookingController::class, 'formEditBooking'])->name('dat-lich.edit');
     Route::post('sua/{id}', [BookingController::class, 'editBooking']);
-<<<<<<< HEAD
     Route::get('xoa/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.delete');
-=======
->>>>>>> a6c866df8f829738bfc4bf0a497e99a55dd0e30c
 });
