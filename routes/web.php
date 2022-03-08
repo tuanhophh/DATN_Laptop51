@@ -15,11 +15,35 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('website.index');
 });
-Route::get('check-admin', function () {
-    return view('demo_admin');
+Route::prefix('')->group(function () {
+    Route::get('/login', function () {
+        return view('login');
+    });
+    Route::get('/profile', function () {
+        return view('website.profile');
+    });
+    Route::get('/product', function () {
+        return view('website.product');
+    });
+    Route::get('/service', function () {
+        return view('website.service');
+    });
+    Route::get('/blog', function () {
+        return view('website.blog');
+    });
+    Route::get('/booking', function () {
+        return view('website.booking');
+    });
+    Route::get('/contact', function () {
+        return view('website.contact');
+    });
+    Route::get('/404', function () {
+        return view('website.404');
+    });
 });
+
 Route::prefix('dat-lich')->group(function () {
     Route::get('/', [BookingController::class, 'listBooking'])->name('dat-lich.index');
     Route::get('tao-moi', [BookingController::class, 'formCreateBooking']);
