@@ -32,6 +32,7 @@ class DetailProductController extends Controller
     {
 
         $categories = Product::all();
+
         return view('admin.detail-products.add', compact('categories'));
     }
     public function saveAdd(Request $request)

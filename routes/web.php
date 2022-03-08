@@ -22,8 +22,9 @@ Route::get('check-admin', function () {
 });
 Route::prefix('dat-lich')->group(function () {
     Route::get('/', [BookingController::class, 'listBooking'])->name('dat-lich.index');
-    Route::get('tao-moi', [BookingController::class, 'formCreateBooking']);
+    Route::get('tao-moi', [BookingController::class, 'formCreateBooking'])->name('dat-lich.add');
     Route::post('tao-moi', [BookingController::class, 'creatBooking']);
     Route::get('sua/{id}', [BookingController::class, 'formEditBooking'])->name('dat-lich.edit');
     Route::post('sua/{id}', [BookingController::class, 'editBooking']);
+    Route::get('xoa/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.delete');
 });
