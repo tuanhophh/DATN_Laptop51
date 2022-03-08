@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::prefix('category')->group(function(){
     Route::get('/', [CategoryController::class, 'index'])->name('category.index');
     Route::get('/remove/{id}', [CategoryController::class, 'remove'])->name('category.remove');
