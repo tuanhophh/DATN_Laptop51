@@ -14,10 +14,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes();
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('check-admin', function () {
     return view('demo_admin');
 });
@@ -33,3 +32,7 @@ Route::prefix('dat-lich')->group(function () {
     Route::get('sua/{id}', [BookingController::class, 'formEditBooking'])->name('dat-lich.edit');
     Route::post('sua/{id}', [BookingController::class, 'editBooking']);
 });
+<<<<<<< Updated upstream
+=======
+//Auth::routes();
+>>>>>>> Stashed changes
