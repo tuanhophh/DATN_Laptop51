@@ -25,6 +25,9 @@ Route::prefix('')->group(function () {
     Route::get('/profile', function () {
         return view('website.profile');
     });
+    Route::get('/profile_edit', function () {
+        return view('website.profile_edit');
+    });
     Route::get('/product', function () {
         return view('website.product');
     });
