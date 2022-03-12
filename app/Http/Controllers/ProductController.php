@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveProductRequest;
 use App\Models\Category;
+use App\Models\ComputerCompany;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -63,7 +64,7 @@ class ProductController extends Controller
     public function addForm()
     {
 
-        $categories = Category::all();
+        $categories = ComputerCompany::all();
         return view('admin.products.add', compact('categories'));
     }
     public function saveAdd(Request $request)

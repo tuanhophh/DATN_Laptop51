@@ -17,6 +17,7 @@
             </button>
         </div>
     @endif
+    <a class="btn btn-warning" href="{{ route('export') }}">Export User Data</a>
     <div class="row">
         <div class="col-12">
             <div class="card">

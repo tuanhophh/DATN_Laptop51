@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ProductExportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,3 +28,4 @@ Route::prefix('dat-lich')->group(function () {
     Route::get('sua/{id}', [BookingController::class, 'formEditBooking'])->name('dat-lich.edit');
     Route::post('sua/{id}', [BookingController::class, 'editBooking']);
 });
+Route::get('export',[ProductExportController::class, 'export'])->name('export');

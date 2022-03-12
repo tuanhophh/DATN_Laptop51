@@ -34,7 +34,7 @@
                             @foreach ($categories as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->company_name }}</td>
                                     <td>
                                         <a href="{{ route('category.edit', ['id' => $item->id]) }}"
                                             class="btn btn-sm btn-primary">Edit</a>
