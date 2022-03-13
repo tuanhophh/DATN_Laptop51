@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ProductExportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,3 +37,9 @@ Route::prefix('dat-lich')->group(function () {
     Route::get('sua/{id}', [BookingController::class, 'formEditBooking'])->name('dat-lich.edit');
     Route::post('sua/{id}', [BookingController::class, 'editBooking']);
 });
+Route::get('export-product',[ProductExportController::class, 'exportProduct'])->name('export-product');
+Route::get('export-detail-product',[ProductExportController::class, 'exportDetailProduct'])->name('export-detail-product');
+Route::get('import-product', [ProductExportController::class, 'importViewProduct'])->name('view-import-product');
+Route::post('import-product', [ProductExportController::class, 'importProduct'])->name('import-product');
+Route::get('import-detail-product', [ProductExportController::class, 'importViewDetailProduct'])->name('view-import-detail-product');
+Route::post('import-detail-product', [ProductExportController::class, 'importDetailProduct'])->name('import-detail-product');

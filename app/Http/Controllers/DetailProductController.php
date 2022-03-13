@@ -15,6 +15,7 @@ class DetailProductController extends Controller
     public function index(Request $request)
     {
         $details = DetailProduct::orderBy('id', 'desc')->paginate(10);
+        $details->load('products');
         return view('admin.detail-products.index', compact('details'));
     }
 
@@ -37,7 +38,7 @@ class DetailProductController extends Controller
     {
         $model = new DetailProduct();
         if ($request->hasFile('image')) {
-            $imgPath = $request->file('avatar')->store('public/product');
+            $imgPath = $request->file('image')->store('public/detail-products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
             $model->image = $imgPath;
         }
@@ -68,7 +69,7 @@ class DetailProductController extends Controller
             return back();
         }
         if ($request->hasFile('image')) {
-            $imgPath = $request->file('avatar')->store('public/product');
+            $imgPath = $request->file('image')->store('public/detail-products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
             $model->image = $imgPath;
         }
