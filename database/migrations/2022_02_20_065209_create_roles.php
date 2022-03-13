@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableProductDetailProduct extends Migration
+class CreateRoles extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateTableProductDetailProduct extends Migration
      */
     public function up()
     {
-        Schema::create('table_product_detail_product', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('detail_product_id');
-            $table->integer('qty');
+            $table->string('name')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateTableProductDetailProduct extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_product_detail_product');
+        Schema::dropIfExists('roles');
     }
 }

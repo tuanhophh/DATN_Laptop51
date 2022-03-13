@@ -17,7 +17,9 @@
             </button>
         </div>
     @endif
-    <a class="btn btn-warning" href="{{ route('export') }}">Export User Data</a>
+    <a class="btn btn-warning" href="{{ route('export') }}">Export Data</a>
+    <a class="btn btn-info" href="{{ route('view-import-product') }}">Import Data</a>
+
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -88,7 +90,7 @@
                                     <td>{{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>
-                                        {{ $item->category->name }}
+                                        {{ $item->category->company_name }}
                                     </td>
                                     <td>
                                         <img src="{{ asset($item->image) }}" width="100">

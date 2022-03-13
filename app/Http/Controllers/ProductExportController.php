@@ -3,32 +3,53 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ProductExport;
+use App\Imports\DetailProductImport;
+use App\Imports\ProductImport;
+use App\Models\ComputerCompany;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
+
+
 class ProductExportController extends Controller
+
 {
 
-    public function importExportView()
+    public function importViewProduct()
     {
-        return view('import');
+        return view('admin.imports.import-product');
     }
 
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function export()
+    public function importProduct()
     {
-        return Excel::download(new ProductExport, 'users.xlsx');
+        Excel::import(new ProductImport, request()->file('file'));
+        return back()->with('success','Thêm thành công');
     }
 
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    // public function import()
-    // {
-    //     Excel::import(new UsersImport, request()->file('file'));
+    public function importViewDetailProduct()
+    {
+        return view('admin.imports.import-detail-product');
+    }
 
-    //     return back();
-    // }
+    public function importDetailProduct()
+    {
+        Excel::import(new DetailProductImport, request()->file('file'));
+        return back()->with('success','Thêm thành công');
+    }
+
+    public function exportProduct(Excel $excel, ProductExport $export)
+    {
+        $export = app()->makeWith(ProductExport::class);
+        // $name =  time() . '_users';
+        return Excel::download($export, Carbon::now()->format('Y-m-d_H:i:s') . '.xlsx');
+    }
+
+    public function exportDetailProduct(Excel $excel, ProductExport $export)
+    {
+        $export = app()->makeWith(DetailProductExport::class);
+        // $name =  time() . '_users';
+        return Excel::download($export, Carbon::now()->format('Y-m-d_H:i:s') . '.xlsx');
+    }
 }

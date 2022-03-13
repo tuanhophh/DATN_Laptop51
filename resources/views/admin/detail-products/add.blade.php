@@ -9,7 +9,7 @@
             <div class="row ml-2">
                 <div class="col-6 mt-2">
                     <div class="form-group">
-                        <label for="">Chi tiết</label>
+                        <label for="">Tên</label>
                         <input type="text" name="name" class="form-control" placeholder="">
                         @error('name')
                             <p class="text-danger">{{ $message }}</p>
@@ -38,7 +38,15 @@
                     </div>
                 </div>
                 <div class="col-6 mt-2">
-                    
+                    <div class="form-group">
+                        <label for="">Sản phẩm</label>
+                        <select name="product_id" class="form-control">
+                            <option value="">Chọn sản phẩm</option>
+                            @foreach ($products as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                         <div class="form-group">
                             <label for="">Mô tả</label>
                             <textarea name="desc" rows="4" class="form-control"></textarea>

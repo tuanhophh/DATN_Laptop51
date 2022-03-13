@@ -21,6 +21,7 @@ class CreateDetailProductsTable extends Migration
             $table->integer('qty');
             $table->string('desc')->nullable();
             $table->boolean('status');
+            $table->unsignedBigInteger('product_id');
             $table->softDeletes();
             $table->timestamps();
         });
