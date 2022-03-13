@@ -31,6 +31,9 @@ Route::prefix('')->group(function () {
     Route::get('/product', function () {
         return view('website.product');
     });
+    Route::get('/cart', function () {
+        return view('website.cart');
+    });
     Route::get('/service', function () {
         return view('website.service');
     });
