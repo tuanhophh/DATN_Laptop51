@@ -18,7 +18,6 @@
 			<form>
 
 				<ul>
-
 					<!-- Vehcile list -->
 
 					<li>
@@ -535,12 +534,12 @@
 
 					</li>
 					<!-- Summary -->
-
-
 					<li>
 
 						<!-- Step -->
 						<div class="template-component-booking-item-header template-clear-fix">
+							<h3>Thông Tin Đặt Lịch</h3>
+=======
 							<span>
 								<span>5</span>
 								<span>/</span>
@@ -569,7 +568,6 @@
 							</ul>
 
 						</div>
-
 						<!-- Content -->
 						<div class="template-component-booking-item-content template-margin-top-reset">
 
@@ -638,6 +636,50 @@
 								<!-- Message -->
 								<li>
 									<div class="template-component-form-field">
+										<label for="booking-form-select">Loại Máy *
+											<select>
+												<option value="1">Laptop</option>
+												<option value="2">Pc</option>
+											</select>
+										</label>
+									</div>
+								</li>
+							</ul>
+							<ul class="template-layout-100 template-layout-margin-reset template-clear-fix">
+
+								<!-- Message -->
+								<li>
+									<div class="template-component-form-field">
+										<label for="booking-form-select">Hình Thức Sửa Chữa
+											<select>
+												<option value="1">Sửa Chữa Tại Nhà</option>
+												<option value="2">Sửa Chữa Tại Cửa Hàng</option>
+											</select>
+										</label>
+									</div>
+								</li>
+							</ul>
+							<ul class="template-layout-100 template-layout-margin-reset template-clear-fix">
+
+								<!-- Message -->
+								<li>
+									<div class="template-component-form-field">
+										<label for="booking-form-select">Dịch Vụ
+											<select>
+												<option value="1">Bảo Hành</option>
+												<option value="2">Cài các phần mềm</option>
+												<option value="2">Cài WIn</option>
+												<option value="2">Khác</option>
+											</select>
+										</label>
+									</div>
+								</li>
+							</ul>
+							<ul class="template-layout-100 template-layout-margin-reset template-clear-fix">
+
+								<!-- Message -->
+								<li>
+									<div class="template-component-form-field">
 										<label for="booking-form-message">Mô Tả Thêm... *</label>
 										<textarea rows="3" cols="3" name="booking-form-message"
 											id="booking-form-message"></textarea>
@@ -645,7 +687,23 @@
 								</li>
 
 							</ul>
+							<div class="template-component-booking-item-content">
 
+								<ul class="template-component-booking-summary template-clear-fix">
+	
+									<!-- Price -->
+									<li class="template-component-booking-summary-price ">
+										<div class="template-icon-booking-meta-total-price"></div>
+										<h5>
+											<span class="template-component-booking-summary-price-value">0</span>
+											<span class="template-component-booking-summary-price-symbol">vnđ</span>
+										</h5>
+										<span>Tổng giá</span>
+									</li>
+	
+								</ul>
+	
+							</div>
 							<!-- Text + submit button -->
 							<div class="template-align-center template-clear-fix template-margin-top-2">
 								<p class="template-padding-reset template-margin-bottom-2">Chúng tôi sẽ xác nhận cuộc
