@@ -6,8 +6,11 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+<<<<<<< HEAD
         "ckfinder/ckfinder-laravel-package": "^3.5",
+=======
         "doctrine/dbal": "^3.3",
+>>>>>>> f28e18b744ead6ab2a10a6d6d00fcdababb1a78a
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.7",
@@ -15,10 +18,13 @@
         "laravel/nexmo-notification-channel": "^2.5",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+<<<<<<< HEAD
         "laravel/ui": "^3.4",
         "maatwebsite/excel": "^3.1",
         "nexmo/client": "^2.4"
+=======
         "maatwebsite/excel": "^3.1"
+>>>>>>> f28e18b744ead6ab2a10a6d6d00fcdababb1a78a
     },
     "require-dev": {
         "facade/ignition": "^2.5",
