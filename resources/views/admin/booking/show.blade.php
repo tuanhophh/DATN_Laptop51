@@ -110,7 +110,8 @@
                       Trạng thái: Đang sửa
                     </div>
                     <div class="mx-auto">
-                      <a name="" id="" class="btn btn-primary" href="#" role="button">Sửa</a>
+                      <a name="" id="" class="btn btn-primary" href="{{ route('suachua.get', ['id'=>$bd['id ']]) }}"
+                        role="button">Sửa</a>
                     </div>
                   </div>
                   <div>

@@ -205,6 +205,13 @@ class BookingController extends Controller
    }
    public function repairDetail($id)
    {
-      # code...
+
+      $booking_detail = BookingDetail::find($id);
+      // dd($booking_detail->booking()->first());
+      if ($booking_detail) {
+         $booking_detail->active = 1;
+         $booking = $booking_detail->booking()->first();
+         return view('admin.booking.repair_detail', compact('booking', 'booking_detail'));
+      }
    }
 }

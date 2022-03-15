@@ -3,10 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DetailProductController;
 use App\Http\Controllers\ProductController;
-<<<<<<< HEAD
 use App\Http\Controllers\LoginController;
-=======
->>>>>>> f28e18b744ead6ab2a10a6d6d00fcdababb1a78a
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,40 +17,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-<<<<<<< HEAD
 
-=======
->>>>>>> f28e18b744ead6ab2a10a6d6d00fcdababb1a78a
-Route::prefix('category')->group(function(){
+Route::prefix('category')->group(function () {
     Route::get('/', [CategoryController::class, 'index'])->name('category.index');
     Route::get('/remove/{id}', [CategoryController::class, 'remove'])->name('category.remove');
-    Route::get('add',[CategoryController::class,'addForm'])->name('category.add');
-    Route::post('add',[CategoryController::class,'saveAdd']);
-    Route::get('edit/{id}',[CategoryController::class,'editForm'])->name('category.edit');
-    Route::post('edit/{id}',[CategoryController::class,'saveEdit']);
+    Route::get('add', [CategoryController::class, 'addForm'])->name('category.add');
+    Route::post('add', [CategoryController::class, 'saveAdd']);
+    Route::get('edit/{id}', [CategoryController::class, 'editForm'])->name('category.edit');
+    Route::post('edit/{id}', [CategoryController::class, 'saveEdit']);
     Route::get('detail/{id}', [CategoryController::class, 'detail']);
 });
-Route::prefix('product')->group(function(){
+Route::prefix('product')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('product.index');
     Route::get('/remove/{id}', [ProductController::class, 'remove'])->name('product.remove');
-    Route::get('add',[ProductController::class,'addForm'])->name('product.add');
-    Route::post('add',[ProductController::class,'saveAdd']);
-    Route::get('edit/{id}',[ProductController::class,'editForm'])->name('product.edit');
-    Route::post('edit/{id}',[ProductController::class,'saveEdit']);
+    Route::get('add', [ProductController::class, 'addForm'])->name('product.add');
+    Route::post('add', [ProductController::class, 'saveAdd']);
+    Route::get('edit/{id}', [ProductController::class, 'editForm'])->name('product.edit');
+    Route::post('edit/{id}', [ProductController::class, 'saveEdit']);
     Route::get('detail/{id}', [ProductController::class, 'detail']);
 });
-Route::prefix('detail-product')->group(function(){
+Route::prefix('detail-product')->group(function () {
     Route::get('/', [DetailProductController::class, 'index'])->name('detail-product.index');
     Route::get('/remove/{id}', [DetailProductController::class, 'remove'])->name('detail-product.remove');
-    Route::get('add',[DetailProductController::class,'addForm'])->name('detail-product.add');
-    Route::post('add',[DetailProductController::class,'saveAdd']);
-    Route::get('edit/{id}',[DetailProductController::class,'editForm'])->name('detail-product.edit');
-    Route::post('edit/{id}',[DetailProductController::class,'saveEdit']);
+    Route::get('add', [DetailProductController::class, 'addForm'])->name('detail-product.add');
+    Route::post('add', [DetailProductController::class, 'saveAdd']);
+    Route::get('edit/{id}', [DetailProductController::class, 'editForm'])->name('detail-product.edit');
+    Route::post('edit/{id}', [DetailProductController::class, 'saveEdit']);
     Route::get('detail/{id}', [DetailProductController::class, 'detail']);
-<<<<<<< HEAD
 });
-Route::prefix('login')->group(function(){
+Route::prefix('login')->group(function () {
     Route::get('/', [LoginController::class, 'index'])->name('login');
-=======
->>>>>>> f28e18b744ead6ab2a10a6d6d00fcdababb1a78a
 });
