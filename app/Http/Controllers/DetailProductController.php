@@ -15,6 +15,7 @@ class DetailProductController extends Controller
     public function index(Request $request)
     {
         $details = DetailProduct::orderBy('id', 'desc')->paginate(10);
+        $details->load('products');
         return view('admin.detail-products.index', compact('details'));
     }
 
@@ -30,14 +31,21 @@ class DetailProductController extends Controller
     }
     public function addForm()
     {
+<<<<<<< HEAD
+
+        $categories = Product::all();
+
+        return view('admin.detail-products.add', compact('categories'));
+=======
         $products=Product::all();
         return view('admin.detail-products.add',compact('products'));
+>>>>>>> f28e18b744ead6ab2a10a6d6d00fcdababb1a78a
     }
     public function saveAdd(Request $request)
     {
         $model = new DetailProduct();
         if ($request->hasFile('image')) {
-            $imgPath = $request->file('avatar')->store('public/product');
+            $imgPath = $request->file('image')->store('public/detail-products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
             $model->image = $imgPath;
         }
@@ -68,7 +76,7 @@ class DetailProductController extends Controller
             return back();
         }
         if ($request->hasFile('image')) {
-            $imgPath = $request->file('avatar')->store('public/product');
+            $imgPath = $request->file('image')->store('public/detail-products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
             $model->image = $imgPath;
         }

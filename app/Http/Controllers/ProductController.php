@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveProductRequest;
 use App\Models\Category;
+use App\Models\ComputerCompany;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -41,7 +42,7 @@ class ProductController extends Controller
             $query->where('category_id', $cate_id);
         }
         $products = $query->paginate($pageSize);
-        $categories = Category::all();
+        $categories = ComputerCompany::all();
         $products->load('category');
         $searchData = compact('keyword', 'cate_id');
         $searchData['order_by'] = $rq_order_by;
@@ -63,14 +64,14 @@ class ProductController extends Controller
     public function addForm()
     {
 
-        $categories = Category::all();
+        $categories = ComputerCompany::all();
         return view('admin.products.add', compact('categories'));
     }
     public function saveAdd(Request $request)
     {
         $model = new Product();
         if($request->hasFile('image')){
-            $imgPath = $request->file('avatar')->store('public/detail-product');
+            $imgPath = $request->file('image')->store('public/products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
             $model->image = $imgPath;
         }
@@ -105,7 +106,7 @@ class ProductController extends Controller
             // $oldImg = str_replace('storage/', 'public/', $model->image);
             Storage::delete($model->image);
 
-            $imgPath = $request->file('avatar')->store('public/detail-product');
+            $imgPath = $request->file('image')->store('public/products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
             $model->image = $imgPath;
         }
