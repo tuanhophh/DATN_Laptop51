@@ -21,7 +21,7 @@
               <th scope="col"><a href="{{ route('dat-lich.add') }}">Tạo mới</a></th>
             </tr>
           </thead>
-          <tbody class="list">
+          {{-- <tbody class="list">
 
 
 
@@ -44,11 +44,102 @@
               <td><a name="" id="" class="btn btn-danger" href="{{ route('dat-lich.delete', ['id'=>$b->id]) }}"
                   role="button">Xóa</a>
               </td>
-            </tr> @endforeach
+            </tr>
+            @endforeach
 
-          </tbody>
+          </tbody> --}}
         </table>
       </div>
+
+      <table class="table">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+                      with font-awesome or any other icon font library -->
+
+          @foreach ($result as $item)
+
+          <li class="nav-item">
+            <div class="nav-link">
+              {{-- <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+                <i class="right fas fa-angle-left"></i>
+              </p> --}}
+              <div class="d-flex ">
+
+                <div class="mx-5">
+                  {{ $item['full_name'] }}
+                </div>
+                <div class="mx-5">
+                  {{ $item['interval'] }}
+                </div>
+                {{-- <div>
+                  {{ $item['phone'] }}
+                </div>
+                <div>
+                  {{ $item['phone'] }}
+                </div> --}}
+
+                <div class="mx-5">
+                  {{ $item['phone'] }}
+                </div>
+                <div class="mx-5"><span class="badge badge-info right">{{ $item['count'] }}</span>
+                </div>
+                <div></div>
+                <a href="#dd">
+                  <div class="">
+                    <a class="btn btn-danger" href="{{ route('dat-lich.delete', ['id'=>$item['id']]) }}"
+                      role="button">Xóa</a>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <ul class="nav nav-treeview">
+              @foreach ($item['booking_detail'] as $bd)
+
+
+              <li class="nav-item">
+                <div class="nav-link">
+                  {{-- <i class="fa fa-laptop" aria-hidden="true"></i> --}}
+                  <div class="mx-5 d-flex ">
+                    <div class="mx-5"><i class="fa fa-laptop" aria-hidden="true"></i>
+                      @isset($bd['name_computer'])
+                      {{ $bd['name_computer']}}
+                      @endisset</div>
+                    <div>
+                      Trạng thái: Đang sửa
+                    </div>
+                    <div class="mx-auto">
+                      <a name="" id="" class="btn btn-primary" href="#" role="button">Sửa</a>
+                    </div>
+                  </div>
+                  <div>
+                    <div>
+
+                    </div>
+                  </div>
+                </div>
+              </li>@endforeach
+              {{-- <li class="nav-item">
+                <a href="../../index2.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dashboard v2</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../index3.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dashboard v3</p>
+                </a>
+              </li> --}}
+            </ul>
+          </li>
+          @endforeach
+        </ul>
+      </table>
+
+
+
       <!-- Card footer -->
       <div class="card-footer py-4">
         <nav aria-label="...">
@@ -77,5 +168,7 @@
       </div>
     </div>
   </div>
-</div>
+</div><select class="js-example-placeholder-multiple js-states form-control" multiple="multiple">
+
+</select>
 @endsection

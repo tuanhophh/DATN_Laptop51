@@ -49,7 +49,7 @@
     </div>
     @error('repair_type')
     <small id="helpId" class="form-text text-danger">{{ $message }}</small>
-    @enderror</small>
+    @enderror</small>gfn
   </div>
   <div class="col-4">
     <div class="form-group">

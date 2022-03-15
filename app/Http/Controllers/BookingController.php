@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\BookingDetail;
 use App\Models\ComputerCompany;
 use Illuminate\Http\Request;
 use Mail;
+use Nexmo\Laravel\Facade\Nexmo;
 
 class BookingController extends Controller
 {
@@ -45,9 +47,9 @@ class BookingController extends Controller
    public function listBooking()
    {
       $computers = ComputerCompany::all();
-
-      $bookings = Booking::all();
-      foreach ($bookings as $b) {
+      $result = [];
+      $bookings = Booking::query()->get();
+      foreach ($bookings as   $key => $b) {
          if ($b->interval == 1) {
             $b->interval = '8h-10h';
          } elseif ($b->interval == 2) {
@@ -64,8 +66,18 @@ class BookingController extends Controller
 
             $b->interval = '20h-22h';
          }
+         array_push($result, $b->toArray());
+
+         $booking_detail = $b->bookingDetail()->get();
+         $result[$key]['count'] = $booking_detail->count();
+         $result[$key]['booking_detail'] = [];
+         foreach ($booking_detail as $b_d) {
+            // dd($b_d->computerCompany()->get());
+            array_push($result[$key]['booking_detail'], $b_d->toArray());
+         }
       }
-      return view('admin.booking.show', compact('bookings', 'computers'));
+      // dd($result);
+      return view('admin.booking.show', compact('result', 'bookings', 'computers'));
    }
 
 
@@ -76,36 +88,123 @@ class BookingController extends Controller
          'full_name' => 'required',
          'phone' => 'required',
          'interval' => 'required',
-         'repair_type' => 'required'
+         // 'repair_type' => 'required'
       ]);
       // dd($request);
-      $request->input($request);
-      $model = Booking::create($request->all());
-      // dd($model);
 
-      if ($model) {
+      $request->input($request);
+      $check_booking = Booking::where('phone', $request->phone)->first();
+      if (!$check_booking) {
+         $data_booking = [
+            'full_name' => $request->full_name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'interval' => $request->interval
+         ];
+         $model = Booking::create($data_booking);
+         // dd($model->id);
+
+         $data_booking_detail = [
+            'booking_id' => $model->id,
+            'company_computer_id' => $request->company_computer_id,
+            // 'repair_type' => $request->repair_type,
+            'description' => $request->description,
+            'name_computer' => $request->name_computer
+         ];
+         $booking_detail = BookingDetail::create($data_booking_detail);
+
          $data = [
             'name' => $model->full_name,
             'email' => $model->email,
             'phone' => $model->phone,
             'interval' => $model->interval,
-            'repair_type' => $model->repair_type,
-            'description' => $model->description
+            'repair_type' => $booking_detail->repair_type,
+            'description' => $booking_detail->description
          ];
          $email = $model->email;
+      } else {
+
+         $data_booking_detail = [
+            'booking_id' => $check_booking->id,
+            'company_computer_id' => $request->company_computer_id,
+            // 'repair_type' => $request->repair_type,
+            'description' => $request->description,
+            'name_computer' => $request->name_computer
+         ];
+         $booking_detail = BookingDetail::create($data_booking_detail);
+         $data = [
+            'name' => $check_booking->full_name,
+            'email' => $check_booking->email,
+            'phone' => $check_booking->phone,
+            'interval' => $check_booking->interval,
+            'repair_type' => $booking_detail->repair_type,
+            'description' => $booking_detail->description
+         ];
+         $email = $check_booking->email;
+      }
+
+
+
+      if (
+         $check_booking
+         && $booking_detail
+      ) {
+
          Mail::send('admin.booking.confirm_mail',  $data,  function ($message) use ($email) {
             // dd($email);
             $message->from('manhhung17062001@gmail.com', 'Laptop 51');
             $message->to($email, 'Laptop 51');
             $message->subject('Đăng ký thành viên hệ thống');
          });
+
+
+         // Nexmo::message()->send([
+         //    'to' => '84353219955',
+         //    // 'from' => '84399958700',
+         //    'text' => 'Cam on ban da dat lich thanh cong'
+
+         // ]);
       }
       return redirect(route('dat-lich.index'));
    }
 
    public function deleteBooking($id)
    {
-      Booking::destroy($id);
+      $booking =  Booking::find($id);
+      if ($booking) {
+         $booking->bookingDetail()->delete();
+         $booking->delete();
+      }
       return redirect(route('dat-lich.index'));
+   }
+   public function listBookingDetail()
+   {
+      # code...
+
+      $booking_details = BookingDetail::query()->get();
+      $arr_detail = [];
+      foreach ($booking_details as $key => $bk) {
+         if ($user =   $bk->booking()->first() != null) {
+
+            $user =   $bk->booking()->first()->toArray();
+         }
+         // dd($user);
+         if ($user == false) {
+            $user = [];
+         };
+         array_push($arr_detail, $bk->toArray() + $user);
+      }
+      // dd($arr_detail);
+
+      return view('admin.booking.repair', compact('booking_details', 'arr_detail'));
+   }
+   public function deleteBookingDetail($id)
+   {
+      Booking::destroy($id);
+      return redirect('dat-lich.danh-sach-may');
+   }
+   public function repairDetail($id)
+   {
+      # code...
    }
 }

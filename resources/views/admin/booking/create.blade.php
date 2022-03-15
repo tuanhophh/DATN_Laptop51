@@ -26,19 +26,7 @@
     <small id="helpId" class="form-text text-danger">{{ $message }}</small>
     @enderror</small>
   </div>
-  <div class="col-4">
-    <div class="form-group">
-      <label for="">Loại máy tính</label>
 
-      <select class="form-control" name="company_computer_id" id="">
-        @foreach ($computers as $item)
-        <option value="{{ $item->id }}">{{ $item->company_name }}</option>
-        @endforeach
-
-
-      </select>
-    </div>
-  </div>
   <div class="col-4">
     <label for="">Hinh thuc</label> <br>
 
@@ -70,9 +58,31 @@
       </select>
     </div>
   </div>
-  <div class="">
+  <div class="row border border-success ">
 
-    <div class="form-group">
+    <div class="col-4">
+      <h5 class="mx-auto">Máy 1</h5>
+      <div class="form-group">
+        <label for="">Tên máy tính</label>
+        <input type="text" class="form-control" name="name_computer" id="" aria-describedby="" placeholder="">
+        <small id="" class="form-text text-muted">Help text</small>
+      </div>
+      <div class="form-group">
+        <label for="">Loại máy tính</label>
+
+        <select class="form-control" name="computer_company_id" id="">
+          @foreach ($computers as $item)
+          <option value="{{ $item->id }}">{{ $item->company_name }}</option>
+          @endforeach
+
+
+        </select>
+      </div>
+    </div>
+
+
+
+    <div class="form-group col-4">
       <label for="">Mô tả</label>
       <textarea class="form-control" name="description" id="ckeditor1" rows="3">ww</textarea>
     </div>
@@ -81,7 +91,8 @@
   <input name="" id="" class="btn btn-primary" type="submit" value="Lưu  ">
 
 </form>
-<script src="{{asset('ckeditor')}}/ckeditor.js"></script>
+{{-- <script src="{{asset('ckeditor')}}/ckeditor.js"></script> --}}
+<script src="//cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 <script type="text/javascript">
   CKEDITOR.replace('ckeditor');
   CKEDITOR.replace('ckeditor1');
