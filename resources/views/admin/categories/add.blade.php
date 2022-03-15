@@ -8,7 +8,7 @@
             <div class="col-6">
                 <div class="form-group mt-2">
                   <label for="">Tên danh mục</label>
-                  <input type="text" name="name" value="{{old('name')}}" class="form-control" placeholder="">
+                  <input type="text" name="company_name" value="{{old('company_name')}}" class="form-control" placeholder="">
                 </div>
                 
             

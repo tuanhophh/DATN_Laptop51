@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveProductRequest;
 use App\Models\Category;
+use App\Models\ComputerCompany;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -41,12 +42,13 @@ class ProductController extends Controller
             $query->where('category_id', $cate_id);
         }
         $products = $query->paginate($pageSize);
-        $categories = Category::all();
+        $categories = ComputerCompany::all();
         $products->load('category');
         $searchData = compact('keyword', 'cate_id');
         $searchData['order_by'] = $rq_order_by;
         $searchData['column_names'] = $rq_column_names;
         return view('admin.products.index', compact('products', 'categories', 'column_names', 'order_by', 'searchData'));
+        // return response()->json($products);
     }
 
     public function remove($id)
@@ -57,23 +59,21 @@ class ProductController extends Controller
             Storage::delete($imgPath);
         }
         $model->delete();
-        return redirect(route('product.index'));
+        return redirect(route('product.index'))->with('success','Xóa thành công');
     }
     public function addForm()
     {
 
-        $categories = Category::all();
+        $categories = ComputerCompany::all();
         return view('admin.products.add', compact('categories'));
     }
     public function saveAdd(Request $request)
     {
         $model = new Product();
         if($request->hasFile('image')){
-            $imgPath = $request->file('image')->store('products');
-            
-            $img = str_replace('public/', '', $imgPath);
-            // dd($imgPath);
-            $model->image = $img;
+            $imgPath = $request->file('image')->store('public/products');
+            $imgPath = str_replace('public/', 'storage/', $imgPath);
+            $model->image = $imgPath;
         }
         
         $model->fill($request->all());
@@ -106,8 +106,8 @@ class ProductController extends Controller
             // $oldImg = str_replace('storage/', 'public/', $model->image);
             Storage::delete($model->image);
 
-            $imgPath = $request->file('image')->store('products');
-            $imgPath = str_replace('public/', '', $imgPath);
+            $imgPath = $request->file('image')->store('public/products');
+            $imgPath = str_replace('public/', 'storage/', $imgPath);
             $model->image = $imgPath;
         }
         

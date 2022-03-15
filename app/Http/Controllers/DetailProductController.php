@@ -15,6 +15,7 @@ class DetailProductController extends Controller
     public function index(Request $request)
     {
         $details = DetailProduct::orderBy('id', 'desc')->paginate(10);
+        $details->load('products');
         return view('admin.detail-products.index', compact('details'));
     }
 
@@ -30,20 +31,23 @@ class DetailProductController extends Controller
     }
     public function addForm()
     {
+<<<<<<< HEAD
 
         $categories = Product::all();
 
         return view('admin.detail-products.add', compact('categories'));
+=======
+        $products=Product::all();
+        return view('admin.detail-products.add',compact('products'));
+>>>>>>> f28e18b744ead6ab2a10a6d6d00fcdababb1a78a
     }
     public function saveAdd(Request $request)
     {
         $model = new DetailProduct();
         if ($request->hasFile('image')) {
-            $imgPath = $request->file('image')->store('products');
-
-            $img = str_replace('public/', '', $imgPath);
-            // dd($imgPath);
-            $model->image = $img;
+            $imgPath = $request->file('image')->store('public/detail-products');
+            $imgPath = str_replace('public/', 'storage/', $imgPath);
+            $model->image = $imgPath;
         }
 
         $model->fill($request->all());
@@ -57,10 +61,9 @@ class DetailProductController extends Controller
         if (!$pro) {
             return back();
         }
-        $categories = Product::all();
         return view(
             'admin.detail-products.edit',
-            compact('pro', 'categories')
+            compact('pro')
         );
     }
     public function saveEdit(Request $request, $id)
@@ -68,16 +71,13 @@ class DetailProductController extends Controller
         // $request la gui du lieu len
         // dd($request->name)
         $model = DetailProduct::find($id);
-
+        Storage::delete($model->image);
         if (!$model) {
             return back();
         }
         if ($request->hasFile('image')) {
-            // $oldImg = str_replace('storage/', 'public/', $model->image);
-            Storage::delete($model->image);
-
-            $imgPath = $request->file('image')->store('products');
-            $imgPath = str_replace('public/', '', $imgPath);
+            $imgPath = $request->file('image')->store('public/detail-products');
+            $imgPath = str_replace('public/', 'storage/', $imgPath);
             $model->image = $imgPath;
         }
 

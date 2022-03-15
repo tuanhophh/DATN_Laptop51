@@ -9,7 +9,7 @@
             <div class="row ml-2">
                 <div class="col-6 mt-2">
                     <div class="form-group">
-                        <label for="">Chi tiết</label>
+                        <label for="">Tên</label>
                         <input type="text" name="name" class="form-control" placeholder="">
                         @error('name')
                             <p class="text-danger">{{ $message }}</p>
@@ -42,7 +42,7 @@
                         <label for="">Sản phẩm</label>
                         <select name="product_id" class="form-control">
                             <option value="">Chọn sản phẩm</option>
-                            @foreach ($categories as $item)
+                            @foreach ($products as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>

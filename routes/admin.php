@@ -3,7 +3,10 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DetailProductController;
 use App\Http\Controllers\ProductController;
+<<<<<<< HEAD
 use App\Http\Controllers\LoginController;
+=======
+>>>>>>> f28e18b744ead6ab2a10a6d6d00fcdababb1a78a
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +20,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f28e18b744ead6ab2a10a6d6d00fcdababb1a78a
 Route::prefix('category')->group(function(){
     Route::get('/', [CategoryController::class, 'index'])->name('category.index');
     Route::get('/remove/{id}', [CategoryController::class, 'remove'])->name('category.remove');
@@ -44,7 +50,10 @@ Route::prefix('detail-product')->group(function(){
     Route::get('edit/{id}',[DetailProductController::class,'editForm'])->name('detail-product.edit');
     Route::post('edit/{id}',[DetailProductController::class,'saveEdit']);
     Route::get('detail/{id}', [DetailProductController::class, 'detail']);
+<<<<<<< HEAD
 });
 Route::prefix('login')->group(function(){
     Route::get('/', [LoginController::class, 'index'])->name('login');
+=======
+>>>>>>> f28e18b744ead6ab2a10a6d6d00fcdababb1a78a
 });
