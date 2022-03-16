@@ -21,11 +21,7 @@
 </head>
 
 <body class="template-page-home">
-
-	<!-- Header -->
 @include('layout_client.header')
-	
-
 	<!-- Content -->
 	<div class="template-content">
 
@@ -243,7 +239,7 @@
 			<div class="template-component-call-to-action">
 				<div class="template-main">
 					<h3>Hệ Thống Đặt Lịch Tiện Lợi</h3>
-					<a href="indexd852.html?page=book-your-wash" class="template-component-button">Đặt Lịch Ngay</a>
+					<a href="{{ asset('') }}dat-lich" class="template-component-button">Đặt Lịch Ngay</a>
 				</div>
 			</div>
 
