@@ -209,7 +209,20 @@ class BookingController extends Controller
       $booking_detail = BookingDetail::find($id);
       // dd($booking_detail->booking()->first());
       if ($booking_detail) {
+
          $booking_detail->active = 1;
+         $booking = $booking_detail->booking()->first();
+         return view('admin.booking.repair_detail', compact('booking', 'booking_detail'));
+      }
+   }
+   public function finishRepairDetail($id, Request $request)
+   {
+
+      $booking_detail = BookingDetail::find($id);
+      // dd($booking_detail->booking()->first());
+      if ($booking_detail) {
+
+         $booking_detail->active = 2;
          $booking = $booking_detail->booking()->first();
          return view('admin.booking.repair_detail', compact('booking', 'booking_detail'));
       }
