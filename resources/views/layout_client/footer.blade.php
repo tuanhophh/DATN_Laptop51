@@ -10,48 +10,48 @@
 
                 <!-- Left column -->
                 <div class="template-layout-column-left">
-                    <h6>About</h6>
-                    <p>Autospan Hand Wash is an eco-friendly hand car wash and detailing service based in Portland.
+                    <h6>Giới Thiệu</h6>
+                    <img src="{{ asset('client') }}/media/image/logo1.png" alt="" class="template-logo" />
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
                     </p>
-                    <img src="media/image/logo.png" alt="" class="template-logo" />
+                    
                 </div>
 
                 <!-- Center left column -->
                 <div class="template-layout-column-center-left">
-                    <h6>Services</h6>
+                    <h6>Dịch Vụ</h6>
                     <ul class="template-list-reset">
-                        <li><a href="index371c.html?page=service-style-1">Exterior Hand Wash</a></li>
-                        <li><a href="index371c.html?page=service-style-1">Tower Hand Dry</a></li>
-                        <li><a href="index371c.html?page=service-style-1">Tire Dressing</a></li>
-                        <li><a href="index371c.html?page=service-style-1">Wheel Shine</a></li>
-                        <li><a href="index371c.html?page=service-style-1">Interior Vacuum</a></li>
-                        <li><a href="index371c.html?page=service-style-1">Sealer Hand Wax</a></li>
+                        <li><a href="{{ asset('') }}sua-laptop-lay-ngay-1h">Sửa Laptop lấy ngay 1h</a></li>
+                        <li><a href="{{ asset('') }}sua-laptop-tai-nha-hoac-van-phong">Sửa Laptop tại
+                            nhà/văn phòng</a></li>
+                        <li><a href="{{ asset('') }}thay-the-va-nang-cap-phan-cung">Thay thế - Nâng cấp
+                            phần cứng</a></li>
+                        <li><a href="{{ asset('') }}dich-vu-cho-macbook">Dịch vụ cho Macbook</a></li>
                     </ul>
                 </div>
 
                 <!-- Center right column -->
                 <div class="template-layout-column-center-right">
-                    <h6>Company</h6>
+                    <h6>Về Chúng Tôi</h6>
                     <ul class="template-list-reset">
-                        <li><a href="index4d99.html?page=about-style-1">About Us</a></li>
-                        <li><a href="indexd590.html?page=gallery">Gallery</a></li>
-                        <li><a href="index3550.html?page=service-style-2">Our Services</a></li>
-                        <li><a href="indexd852.html?page=book-your-wash">Book Your Wash</a></li>
-                        <li><a href="indexd590.html?page=gallery">Portfolio</a></li>
-                        <li><a href="index2a26.html?page=contact-style-1">Contact</a></li>
+                        <li><a href="{{ asset('') }}gioi-thieu">Giới Thiệu</a></li>
+                        <li><a href="">Tin tức</a></li>
+                        <li><a href="">Bảo hành</a></li>
+                        <li><a href="">Hỗ trợ khách hàng</a></li>
+                        <li><a href="{{ asset('') }}lien-he">Liên hệ</a></li>
                     </ul>
                 </div>
 
                 <!-- Right column -->
                 <div class="template-layout-column-right">
-                    <h6>Newsletter</h6>
+                    <h6>Đăng Ký Email Để Nhận Thông Báo Khuyến Mãi</h6>
                     <form class="template-component-newsletter-form">
                         <div class="template-component-form-field template-state-block">
-                            <label for="newsletter-form-email">Your e-mail address *</label>
+                            <label for="newsletter-form-email">Địa chỉ email *</label>
                             <input type="text" name="newsletter-form-email" id="newsletter-form-email" />
                         </div>
                         <div class="template-margin-top-2 template-state-block">
-                            <input type="submit" value="Subscribe" class="template-component-button"
+                            <input type="submit" value="Gửi" class="template-component-button"
                                 name="newsletter-form-submit" id="newsletter-form-submit" />
                         </div>
                     </form>

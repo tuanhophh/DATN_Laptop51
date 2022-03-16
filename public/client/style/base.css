@@ -808,6 +808,8 @@ body,*,input,textarea
 	.template-background-image.template-background-image-4	{	background-image:url('../media/image/background-image/4.jpg');	}
 	.template-background-image.template-background-image-5	{	background-image:url('../media/image/background-image/5.jpg');	}
 	.template-background-image.template-background-image-6	{	background-image:url('../media/image/background-image/6.jpg');	}
+	.template-background-image.template-background-image-7	{	background-image:url('../media/image/background-image/7.jpg');	}
+	.template-background-image.template-background-image-8	{	background-image:url('../media/image/background-image/8.jpg');	}
 	
 /******************************************************************************/
 /* Layout																	  */
@@ -830,7 +832,7 @@ body,*,input,textarea
 {
 	display:block;
 	visibility:hidden;
-	margin-bottom:60px;
+	/* margin-bottom:60px; */
 }
 
 .template-layout-100>.template-layout-column-left
@@ -846,6 +848,37 @@ body,*,input,textarea
 	{
 		width:100%;
 		display:flex;
+	}
+
+		.template-layout-flex>div
+		{
+			flex-basis:50%;
+			padding:120px;
+			min-height:700px;
+		}
+.template-layout-100>.template-layout-column-left
+{
+	visibility:visible;
+}
+
+	/**************************************************************************/
+	/* Layout / Flex														  */
+	/**************************************************************************/
+
+	.template-layout-edit
+	{
+		width:100%;
+	}
+
+		.template-layout-edit>div
+		{
+			flex-basis:50%;
+			padding:120px;
+			min-height:700px;
+		}
+	.template-layout-edit
+	{
+		width:100%;
 	}
 
 		.template-layout-flex>div
@@ -1711,9 +1744,10 @@ form
 	
 	.template-header.template-header-background-1 { background-image:url('../media/image/header/header_01.jpg'); }
 	.template-header.template-header-background-2 { background-image:url('../media/image/header/header_02.jpg'); }
-	.template-header.template-header-background-3 { background-image:url('../media/image/header/header_03.jpg'); }
+	.template-header.template-header-background-3 { background-image:url('../media/image/header/header_3.jpg'); }
 	.template-header.template-header-background-4 { background-image:url('../media/image/header/header_04.jpg'); }
 	.template-header.template-header-background-5 { background-image:url('../media/image/header/header_05.jpg'); }
+	.template-header.template-header-background-6 { background-image:url('../media/image/header/header_06.jpg'); }
 
 		/**********************************************************************/
 		/* Template	/ Header / Top											  */

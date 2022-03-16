@@ -8,7 +8,7 @@
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
 
-				<title>Auto Spa - Car Wash Auto Detail Template</title>
+				<title>Bệnh Viện Laptop 51</title>
 				<meta name="keywords" content="" />
 				<meta name="description" content="" />		
 
