@@ -23,6 +23,7 @@ Route::get('/', function () {
 
 Route::prefix('')->group(function () {
     // đăng nhập
+
     Route::get('login', function () {
         return view('login');
     });
