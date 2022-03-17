@@ -382,6 +382,20 @@
 								<!-- Service -->
 								<li data-id="tire-dressing" class="template-clear-fix">
 									<div class="template-component-booking-service-name">
+										<span>Sửa lấy ngay 1h</span>
+									</div>
+									<div class="template-component-booking-service-price">
+										<span class="template-icon-booking-meta-price"></span>
+										<span class="template-component-booking-service-price-value">69000</span>
+										<span class="template-component-booking-service-price-currency">vnđ</span>
+
+									</div>
+									<div class="template-component-button-box">
+										<a href="#" class="template-component-button">Thêm</a>
+									</div>
+								</li>
+								<li data-id="tire-dressing" class="template-clear-fix">
+									<div class="template-component-booking-service-name">
 										<span>Bảo Dưỡng Laptop</span>
 									</div>
 									<div class="template-component-booking-service-price">
