@@ -31,15 +31,8 @@ class DetailProductController extends Controller
     }
     public function addForm()
     {
-<<<<<<< HEAD
-
-        $categories = Product::all();
-
-        return view('admin.detail-products.add', compact('categories'));
-=======
         $products=Product::all();
         return view('admin.detail-products.add',compact('products'));
->>>>>>> f28e18b744ead6ab2a10a6d6d00fcdababb1a78a
     }
     public function saveAdd(Request $request)
     {

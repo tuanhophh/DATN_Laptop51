@@ -90,7 +90,7 @@
                             data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" data-start="2500"
                             data-splitin="none" data-splitout="none" data-responsive_offset="on">
 
-                            <a class="template-component-button template-color-white" href="#"
+                            <a class="template-component-button template-color-white" href="{{ asset('') }}dat-lich"
                                 title="Purchase Template">Đặt lịch ngay</a>
                         </div>
                     </li>
@@ -179,7 +179,7 @@
                             data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" data-start="2500"
                             data-splitin="none" data-splitout="none" data-responsive_offset="on">
 
-                            <a class="template-component-button template-color-white" href="#"
+                            <a class="template-component-button template-color-white" href="{{ asset('') }}dat-lich"
                                 title="Purchase Template">Đặt lịch ngay</a>
                         </div>
                     </li>
@@ -269,7 +269,7 @@
                             data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" data-start="2500"
                             data-splitin="none" data-splitout="none" data-responsive_offset="on">
 
-                            <a class="template-component-button template-color-white" href="#"
+                            <a class="template-component-button template-color-white" href="{{ asset('') }}dat-lich"
                                 title="Purchase Template">Đặt Lịch Ngay</a>
                         </div>
                     </li>
