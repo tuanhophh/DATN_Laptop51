@@ -16,9 +16,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Trang chủ
-Route::get('/', function () {
-    return view('website.index');
+Auth::routes();
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('check-admin', function () {
+    return view('demo_admin');
 });
 
 Route::prefix('')->group(function () {
@@ -77,6 +79,7 @@ Route::prefix('user')->group(function () {
     Route::post('edit/{id}', [UserController::class, 'saveEdit']);
 });
 
+
 // Route::prefix('dat-lich')->group(function () {
 //     Route::get('/', [BookingController::class, 'listBooking'])->name('dat-lich.index');
 //     Route::get('/danh-sach-may', [BookingController::class, 'listBookingDetail'])->name('dat-lich.danh-sach-may');
@@ -97,3 +100,4 @@ Route::get('import-product', [ProductExportController::class, 'importViewProduct
 Route::post('import-product', [ProductExportController::class, 'importProduct'])->name('import-product');
 Route::get('import-detail-product', [ProductExportController::class, 'importViewDetailProduct'])->name('view-import-detail-product');
 Route::post('import-detail-product', [ProductExportController::class, 'importDetailProduct'])->name('import-detail-product');
+//Auth::routes();
