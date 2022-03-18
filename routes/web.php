@@ -16,22 +16,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
-Route::get('check-admin', function () {
-    return view('demo_admin');
-});
 
 Auth::routes();
-Route::get('/logout', function(){
-    Auth::logout();
-    return view('auth.login');
-});
+Route::get('/',[\App\Http\Controllers\HomeController::class, 'index']);
+
 Route::prefix('')->group(function () {
-    // đăng nhập
-//    Route::get('login', [LoginController::class, 'index']);
-    // trang cá nhân
+//     đăng nhập
+    Route::get('logout', [\App\Http\Controllers\HomeController::class, 'logout']);
+//     trang cá nhân
     Route::get('profile', function () {
         return view('website.profile');
     });
