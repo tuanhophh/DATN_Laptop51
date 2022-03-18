@@ -16,9 +16,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Trang chủ
-Route::get('/', function () {
-    return view('website.index');
+Auth::routes();
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('check-admin', function () {
+    return view('demo_admin');
 });
 
 Auth::routes();
@@ -78,6 +80,7 @@ Route::prefix('user')->group(function () {
     Route::get('edit/{id}', [UserController::class, 'editForm'])->name('user.edit');
     Route::post('edit/{id}', [UserController::class, 'saveEdit']);
 });
+
 
 // Route::prefix('dat-lich')->group(function () {
 //     Route::get('/', [BookingController::class, 'listBooking'])->name('dat-lich.index');
