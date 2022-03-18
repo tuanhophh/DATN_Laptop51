@@ -46,9 +46,9 @@ Route::prefix('detail-product')->group(function () {
     Route::post('edit/{id}', [DetailProductController::class, 'saveEdit']);
     Route::get('detail/{id}', [DetailProductController::class, 'detail']);
 });
-Route::prefix('login')->group(function () {
-    Route::get('/', [LoginController::class, 'index'])->name('login');
-});
+//Route::prefix('login')->group(function () {
+//    Route::get('/', [LoginController::class, 'index'])->name('login');
+//});
 Route::prefix('dat-lich')->group(function () {
     Route::get('/', [BookingController::class, 'listBooking'])->name('dat-lich.index');
     Route::get('/danh-sach-may', [BookingController::class, 'listBookingDetail'])->name('dat-lich.danh-sach-may');

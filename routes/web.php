@@ -4,8 +4,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProductExportController;
 use App\Models\Booking;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,12 +21,14 @@ Route::get('/', function () {
     return view('website.index');
 });
 
+Auth::routes();
+Route::get('/logout', function(){
+    Auth::logout();
+    return view('auth.login');
+});
 Route::prefix('')->group(function () {
     // đăng nhập
-
-    Route::get('login', function () {
-        return view('login');
-    });
+//    Route::get('login', [LoginController::class, 'index']);
     // trang cá nhân
     Route::get('profile', function () {
         return view('website.profile');
