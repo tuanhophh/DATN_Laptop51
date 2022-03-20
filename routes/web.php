@@ -31,6 +31,10 @@ Route::prefix('')->group(function () {
     Route::get('cua-hang', function () {
         return view('website.product');
     });
+    // Giỏ hàng
+    Route::get('cart', function () {
+        return view('website.cart');
+    });
     // trang giới thiệu
     Route::get('gioi-thieu', function () {
         return view('website.gioi-thieu');
