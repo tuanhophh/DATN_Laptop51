@@ -17,10 +17,13 @@
             </button>
         </div>
     @endif
-    <a class="btn btn-warning" href="{{ route('export') }}">Export Data</a>
+    <a class="btn btn-warning" href="{{ route('export-product') }}">Export Data</a>
     <a class="btn btn-info" href="{{ route('view-import-product') }}">Import Data</a>
-
-    <div class="row">
+    <button data-toggle="modal" data-target="#exampleModalCenter-reset"
+        class="btn btn-info">
+        <i class="fas fa-recycle"></i>
+    </button>
+<div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -117,5 +120,27 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="exampleModalCenter-reset" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reset?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn reset mật khẩu không?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <a href="{{ route('order-mail') }}" class="btn btn-danger">Reset</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 @endsection
