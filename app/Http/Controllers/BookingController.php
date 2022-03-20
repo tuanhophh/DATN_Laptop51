@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\BookingDetail;
 use App\Models\ComputerCompany;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Mail;
 use Nexmo\Laravel\Facade\Nexmo;
@@ -212,6 +213,8 @@ class BookingController extends Controller
 
          $booking_detail->active = 1;
          $booking = $booking_detail->booking()->first();
+         $product = Product::all();
+
          return view('admin.booking.repair_detail', compact('booking', 'booking_detail'));
       }
    }
