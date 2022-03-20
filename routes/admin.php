@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\BookingDetailController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DetailProductController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LoginController;
+use App\Models\DetailProduct;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,7 +60,10 @@ Route::prefix('dat-lich')->group(function () {
     Route::get('sua/{id}', [BookingController::class, 'formEditBooking'])->name('dat-lich.edit');
     Route::post('sua/{id}', [BookingController::class, 'editBooking']);
     Route::get('xoa/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.delete');
+    Route::get('demo', [BookingController::class, 'demo']);
 });
 Route::prefix('sua-chua')->group(function () {
     Route::get('/{id}', [BookingController::class, 'repairDetail'])->name('suachua.get');
+    Route::post('/{id}', [BookingController::class, 'FinishRepairDetail']);
+    Route::get('/detail-product/{id}', [BookingDetailController::class, 'getDetailProduct']);
 });

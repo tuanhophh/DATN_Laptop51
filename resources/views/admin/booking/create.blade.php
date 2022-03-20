@@ -1,5 +1,8 @@
 @extends('admin.layouts.main')
-@section('content')
+@section('content')<script src="ckeditor/plugins/ckeditor_wiris/integration/WIRISplugins.js?viewer=image"></script>
+
+<script src="ckeditor/plugins/ckeditor_wiris/integration/WIRISplugins.js?viewer=image"></script>
+
 <form action="" class="row-8" method="POST" enctype="multipart/form-data">
   @csrf
   <div class="col-4">
@@ -92,7 +95,8 @@
 
 </form>
 {{-- <script src="{{asset('ckeditor')}}/ckeditor.js"></script> --}}
-<script src="//cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+<script src="{{asset('ckeditor')}}/ckeditor.js"></script>
+
 <script type="text/javascript">
   CKEDITOR.replace('ckeditor');
   CKEDITOR.replace('ckeditor1');

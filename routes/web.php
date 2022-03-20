@@ -76,19 +76,19 @@ Route::prefix('user')->group(function () {
     Route::post('edit/{id}', [UserController::class, 'saveEdit']);
 });
 
-Route::prefix('dat-lich')->group(function () {
-    Route::get('/', [BookingController::class, 'listBooking'])->name('dat-lich.index');
-    Route::get('/danh-sach-may', [BookingController::class, 'listBookingDetail'])->name('dat-lich.danh-sach-may');
+// Route::prefix('dat-lich')->group(function () {
+//     Route::get('/', [BookingController::class, 'listBooking'])->name('dat-lich.index');
+//     Route::get('/danh-sach-may', [BookingController::class, 'listBookingDetail'])->name('dat-lich.danh-sach-may');
 
-    Route::get('tao-moi', [BookingController::class, 'formCreateBooking'])->name('dat-lich.add');
-    Route::post('tao-moi', [BookingController::class, 'creatBooking']);
-    Route::get('sua/{id}', [BookingController::class, 'formEditBooking'])->name('dat-lich.edit');
-    Route::post('sua/{id}', [BookingController::class, 'editBooking']);
-    Route::get('xoa/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.delete');
-});
-Route::prefix('sua-chua')->group(function () {
-    Route::get('/{id}', [BookingController::class, 'repairDetail'])->name('suachua.get');
-});
+//     Route::get('tao-moi', [BookingController::class, 'formCreateBooking'])->name('dat-lich.add');
+//     Route::post('tao-moi', [BookingController::class, 'creatBooking']);
+//     Route::get('sua/{id}', [BookingController::class, 'formEditBooking'])->name('dat-lich.edit');
+//     Route::post('sua/{id}', [BookingController::class, 'editBooking']);
+//     Route::get('xoa/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.delete');
+// });
+// Route::prefix('sua-chua')->group(function () {
+//     Route::get('/{id}', [BookingController::class, 'repairDetail'])->name('suachua.get');
+// });
 // });
 Route::get('export-product', [ProductExportController::class, 'exportProduct'])->name('export-product');
 Route::get('export-detail-product', [ProductExportController::class, 'exportDetailProduct'])->name('export-detail-product');
