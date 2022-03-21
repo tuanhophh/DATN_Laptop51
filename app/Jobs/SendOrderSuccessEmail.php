@@ -29,6 +29,6 @@ class SendOrderSuccessEmail implements ShouldQueue
     public function handle()
     {
         $email = new FromOrderSuccessEmail($this->details);
-        Mail::to('trungbvph12816@fpt.edu.vn')->send($email);
+        Mail::to($this->details['email'])->send($email);
     }
 }

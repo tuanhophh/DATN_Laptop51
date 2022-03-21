@@ -18,20 +18,12 @@ use Str;
 
 class MailController extends Controller
 {
-    /**
-     * Handle Queue Process
-     */
-    // public function processQueue()
-    // {
-    //     // $emailJob = new SendWelcomeEmail();
-    //     // dispatch($emailJob);
-    // }
 
     public function OrderSuccessEmail()
     {
 
         $details = array(
-            'email' =>'trungbvph12816@fpt.edu.vn',
+            'email' =>'manhhung1762001@gmail.com',
             'name' => 'trung',
             'password' =>'123456'
         );

@@ -1,13 +1,16 @@
 <!-- jQuery -->
 <script src="{{asset('adminlte')}}/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="{{'http://localhost:8000/tuanhophh/app' . '/public/adminlte/'}}plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="{{'http://localhost:8000/tuanhophh/app' . '/public/adminlte/'}}plugins/jquery-ui/jquery-ui.min.js">
+</script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
-    $.widget.bridge('uibutton', $.ui.button)
+  $.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('adminlte')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{asset('ckeditor')}}/ckeditor.js"></script>
+
 <!-- ChartJS -->
 <script src="{{asset('adminlte')}}/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
@@ -38,7 +41,7 @@
 <script src="{{asset('adminlte')}}/dist/js/pages/dashboard.js"></script> --}}
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {{-- <script>
-    function btn_alert(){
+  function btn_alert(){
     Swal.fire(
     'Good job!',
     'You clicked the button!',
@@ -46,4 +49,4 @@
   )
     }
     btn_alert();
-  </script> --}}
+</script> --}}

@@ -20,7 +20,7 @@ class FromOrderSuccessEmail extends Mailable
     public function build()
     {
         $details = $this->details;
-        return $this->from('trantuanhop9678@gmail.com')
+        return $this->from(config('mail.mailers.smtp.username'))
             ->subject('Thông báo đặt hàng thành công')
             ->view('mail.order-mail', ['details' => $details]);
 
