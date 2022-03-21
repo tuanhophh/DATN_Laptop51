@@ -7,6 +7,9 @@ use App\Models\Booking;
 use App\Models\BookingDetail;
 use App\Models\ComputerCompany;
 use Carbon\Carbon;
+use App\Models\DetailProduct;
+use App\Models\Product;
+use App\Models\RepairPart;
 use Illuminate\Http\Request;
 use Mail;
 use Nexmo\Laravel\Facade\Nexmo;
@@ -251,19 +254,41 @@ class BookingController extends Controller
 
          $booking_detail->active = 1;
          $booking = $booking_detail->booking()->first();
-         return view('admin.booking.repair_detail', compact('booking', 'booking_detail'));
+         $product_detail = DetailProduct::all();
+         $arr_pd =  array_column($product_detail->toArray(), 'name');
+
+         return view('admin.booking.repair_detail', compact('booking', 'booking_detail', 'product_detail'));
+         // return response()->json($product_detail);
       }
+   }
+   public function demo()
+   {
+      return view('admin.booking.repair_detail');
    }
    public function finishRepairDetail($id, Request $request)
    {
+      // dd($request);
+
 
       $booking_detail = BookingDetail::find($id);
-      // dd($booking_detail->booking()->first());
-      if ($booking_detail) {
+      $booking_detail->active = 2;
 
-         $booking_detail->active = 2;
-         $booking = $booking_detail->booking()->first();
-         return view('admin.booking.repair_detail', compact('booking', 'booking_detail'));
+      if ($booking_detail) {
+         $repair_part = RepairPart::where('id', $booking_detail->id)->get();
+         $arr_PD_id = array_column($repair_part->toArray(), 'product_detail_id');
+
+         if ($request->btn == 'pause') {
+
+            // foreach ($request->repairs as $r) {
+            // RepairPart::create($r)
+            // }
+            $booking_detail->active = 2;
+            $booking = $booking_detail->booking()->first();
+            return view('admin.booking.repair_detail', compact('booking', 'booking_detail'));
+         }
+         if ($request->btn == 'finish') {
+            $booking_detail->active = 3;
+         }
       }
    }
 }
