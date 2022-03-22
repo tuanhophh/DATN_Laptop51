@@ -1,13 +1,17 @@
 <?php
+
 namespace App\Http\Controllers;
 
+// use App\Helpers\Http;
 use App\Http\Requests\SaveProductRequest;
 use App\Models\Category;
 use App\Models\ComputerCompany;
 use App\Models\Product;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
 
 class ProductController extends Controller
 {
@@ -54,12 +58,12 @@ class ProductController extends Controller
     public function remove($id)
     {
         $model = Product::find($id);
-        if(!empty($model->image)){
+        if (!empty($model->image)) {
             $imgPath = str_replace('storage/', '', $model->image);
             Storage::delete($imgPath);
         }
         $model->delete();
-        return redirect(route('product.index'))->with('success','Xóa thành công');
+        return redirect(route('product.index'))->with('success', 'Xóa thành công');
     }
     public function addForm()
     {
@@ -70,12 +74,12 @@ class ProductController extends Controller
     public function saveAdd(Request $request)
     {
         $model = new Product();
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $imgPath = $request->file('image')->store('public/products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
             $model->image = $imgPath;
         }
-        
+
         $model->fill($request->all());
         $model->save();
         return redirect(route('product.index'));
@@ -93,8 +97,8 @@ class ProductController extends Controller
             compact('pro', 'categories')
         );
     }
-    public function saveEdit(Request $request,$id)
-    {   
+    public function saveEdit(Request $request, $id)
+    {
         // $request la gui du lieu len
         // dd($request->name)
         $model = Product::find($id);
@@ -102,7 +106,7 @@ class ProductController extends Controller
         if (!$model) {
             return back();
         }
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             // $oldImg = str_replace('storage/', 'public/', $model->image);
             Storage::delete($model->image);
 
@@ -110,11 +114,48 @@ class ProductController extends Controller
             $imgPath = str_replace('public/', 'storage/', $imgPath);
             $model->image = $imgPath;
         }
-        
+
         $model->fill($request->all());
         $model->save();
         return redirect(route('product.index'));
     }
-    
-}
 
+    // public function postLogin()
+    // {
+    //     $data = Http::post('http://10.1.38.174:3000/api/v1/login', [
+    //         'username' => 'hop',
+    //         'password' => 'tuanhop96'
+    //     ]);
+    //     $post = json_decode($data->getBody()->getContents());
+    //     $a=session()->put('aa',$post->data->authToken);
+    //     $token = request()->session()->get('aa');
+    //     dd($token);
+    //     // dd($post->data->authToken);
+    //     // return response()->json($post);
+    // }
+
+    // public function getUserInfo()
+    // {
+    //     // dd(request()->session('aa'));
+    //     $response = Http::withHeaders([
+    //         'X-Auth-Token' =>session('aa'),
+    //         'X-User-Id' => "QKCnYgf38Mn4SCsk6",
+    //         'Content-Type'  => "application/json"
+    //     ])
+    //         ->get('http://10.1.38.174:3000/api/v1/users.info', [
+    //             'userId' => 'QKCnYgf38Mn4SCsk6'
+    //         ]);
+    //     dd($response->json());
+    // }
+    
+    // public function logOut()
+    // {
+    //     $response = Http::withHeaders([
+    //         'X-Auth-Token' => cookie()->get('aa'),
+    //         'X-User-Id' => "QKCnYgf38Mn4SCsk6",
+    //         'Content-Type'  => "application/json"
+    //     ])
+    //         ->get('http://10.1.38.174:3000/api/v1/logout');
+    //     dd($response->json());
+    // }
+}

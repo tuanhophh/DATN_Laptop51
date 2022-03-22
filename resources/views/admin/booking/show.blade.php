@@ -188,4 +188,5 @@
 </div><select class="js-example-placeholder-multiple js-states form-control" multiple="multiple">
 
 </select>
+
 @endsection

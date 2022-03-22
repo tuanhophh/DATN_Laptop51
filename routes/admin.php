@@ -3,7 +3,6 @@
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingDetailController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DetailProductController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LoginController;

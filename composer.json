@@ -12,7 +12,7 @@
         "ckfinder/ckfinder-laravel-package": "^3.5",
         "doctrine/dbal": "^3.3",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.4",
         "intervention/image": "^2.7",
         "laravel/framework": "^8.75",
         "laravel/nexmo-notification-channel": "^2.5",

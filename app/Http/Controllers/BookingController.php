@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendOrderSuccessEmail;
 use App\Models\Booking;
 use App\Models\BookingDetail;
 use App\Models\ComputerCompany;
+use Carbon\Carbon;
 use App\Models\DetailProduct;
 use App\Models\Product;
 use App\Models\RepairPart;
@@ -49,6 +51,21 @@ class BookingController extends Controller
    }
    public function listBooking()
    {
+      // $user = BookingDetail::whereMonth('created_at', '=', Carbon::now()->month)
+      //    ->whereDay('created_at', '=', now()->day)
+      //    ->get();
+
+      // foreach ($user as $item) {
+      //    $user->load('booking');
+      //    $email = $item->booking->email;
+      //    $name = $item->booking->full_name;
+      //    $details = [
+      //       'email' => $email,
+      //       'name' => $name,
+      //    ];
+      //    dd($details);
+      // }
+
       $computers = ComputerCompany::all();
       $result = [];
       $bookings = Booking::query()->get();
@@ -118,13 +135,25 @@ class BookingController extends Controller
 
          $data = [
             'name' => $model->full_name,
-            'email' => $model->email,
+            'email' => $check_booking->email,
+
             'phone' => $model->phone,
             'interval' => $model->interval,
             'repair_type' => $booking_detail->repair_type,
             'description' => $booking_detail->description
          ];
          $email = $model->email;
+         // dd(config('mail.from.name'));
+         $details = [
+            'email' => $request->email,
+            'name' => $request->full_name,
+            'computer' => $request->name_computer,
+            'interval' => $request->interval,
+            'repair_type' => $request->repair_type,
+            'desc' => $booking_detail->description,
+            'status' => "đang chờ",
+         ];
+         // dispatch(new SendOrderSuccessEmail($data));
       } else {
 
          $data_booking_detail = [
@@ -144,30 +173,40 @@ class BookingController extends Controller
             'description' => $booking_detail->description
          ];
          $email = $check_booking->email;
+         $details = [
+            'email' => $request->email,
+            'name' => $request->full_name,
+            'computer' => $request->name_computer,
+            'interval' => $request->interval,
+            'repair_type' => $request->repair_type,
+            'desc' => $request->description,
+            'status' => "đang chờ",
+         ];
+         // dd($data['email']);
       }
+      if ($details['interval'] == 1) {
+         $details['interval'] = '8h-10h';
+      } elseif ($details['interval'] == 2) {
+         $details['interval'] = '10h-12h';
+      } elseif ($details['interval'] == 3) {
+         $details['interval'] = '12h-14h';
+      } elseif ($details['interval'] == 4) {
+         $details['interval'] = '14h-16h';
+      } elseif ($details['interval'] == 5) {
+         $details['interval'] = '16h-18h';
+      } elseif ($details['interval'] == 6) {
+         $details['interval'] = '18h-20h';
+      } else {
 
-
-
-      if (
-         $check_booking
-         && $booking_detail
-      ) {
-
-         Mail::send('admin.booking.confirm_mail',  $data,  function ($message) use ($email) {
-            // dd($email);
-            $message->from('manhhung17062001@gmail.com', 'Laptop 51');
-            $message->to($email, 'Laptop 51');
-            $message->subject('Đăng ký thành viên hệ thống');
-         });
-
-
-         // Nexmo::message()->send([
-         //    'to' => '84353219955',
-         //    // 'from' => '84399958700',
-         //    'text' => 'Cam on ban da dat lich thanh cong'
-
-         // ]);
+         $details['interval'] = '20h-22h';
       }
+      // dd($details);
+
+      dispatch(new SendOrderSuccessEmail($details));
+
+
+
+
       return redirect(route('dat-lich.index'));
    }
 
