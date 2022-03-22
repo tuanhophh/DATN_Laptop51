@@ -55,6 +55,10 @@
                             <label for="">Mô tả</label>
                             <textarea name="desc" rows="4" value="{{old('name',$pro->desc)}}" class="form-control"></textarea>
                         </div>
+                        <div class="form-group">
+                            <label for="">Thời gian bảo hành</label>
+                            <input type="number" name="insurance" value="{{old('insurance',$pro->insurance)}}" class="form-control">
+                        </div>
                         <div class="form-group ">
                             <label for="" class="mt-3">Status</label>
                             <select name="status" id="" class="form-control">

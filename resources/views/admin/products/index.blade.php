@@ -1,36 +1,47 @@
 @extends('admin.layouts.main')
 @section('title', 'Danh sách sản phẩm')
 @section('content')
-@if (Session::has('success'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Thông báo: </strong>{{ Session::get('success') }}.
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-@endif
-@if (Session::has('error'))
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong>Thông báo: </strong>{{ Session::get('error') }}.
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-@endif
-{{-- <a class="btn btn-warning" href="{{ route('export') }}">Export Data</a> --}}
-<a class="btn btn-info" href="{{ route('view-import-product') }}">Import Data</a>
-
+    @if (Session::has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Thông báo: </strong>{{ Session::get('success') }}.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+    @if (Session::has('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Thông báo: </strong>{{ Session::get('error') }}.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+    <a class="btn btn-warning" href="{{ route('export-product') }}">Export Data</a>
+    <a class="btn btn-info" href="{{ route('view-import-product') }}">Import Data</a>
+    
 <div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <form action="" method="get">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="">Từ khóa</label>
-                                <input type="text" class="form-control" name="keyword"
-                                    value="{{ $searchData['keyword'] }}" placeholder="Tìm theo tên sản phẩm">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <form action="" method="get">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="">Từ khóa</label>
+                                    <input type="text" class="form-control" name="keyword"
+                                        value="{{ $searchData['keyword'] }}" placeholder="Tìm theo tên sản phẩm">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Danh mục</label>
+                                    <select name="cate_id" class="form-control">
+                                        <option value="">Tất cả</option>
+                                        @foreach ($categories as $item)
+                                            <option @if ($item->id == $searchData['cate_id']) selected @endif
+                                                value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="">Danh mục</label>
@@ -118,4 +129,9 @@
     </div>
 </div>
 
+<<<<<<< HEAD
+
 @endsection
+=======
+@endsection
+>>>>>>> main

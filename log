@@ -1,0 +1,126 @@
+
+   Exception 
+
+  Property [booking] does not exist on this collection instance.
+
+  at C:\xampp3\htdocs\DATN_Laptop51\vendor\laravel\framework\src\Illuminate\Collections\Traits\EnumeratesValues.php:966
+    962▕      */
+    963▕     public function __get($key)
+    964▕     {
+    965▕         if (! in_array($key, static::$proxies)) {
+  ➜ 966▕             throw new Exception("Property [{$key}] does not exist on this collection instance.");
+    967▕         }
+    968▕ 
+    969▕         return new HigherOrderCollectionProxy($this, $key);
+    970▕     }
+
+  1   C:\xampp3\htdocs\DATN_Laptop51\app\Console\Commands\OrderCommand.php:48
+      Illuminate\Support\Collection::__get("booking")
+
+  2   C:\xampp3\htdocs\DATN_Laptop51\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:36
+      App\Console\Commands\OrderCommand::handle()
+
+   Exception 
+
+  Property [booking] does not exist on this collection instance.
+
+  at C:\xampp3\htdocs\DATN_Laptop51\vendor\laravel\framework\src\Illuminate\Collections\Traits\EnumeratesValues.php:966
+    962▕      */
+    963▕     public function __get($key)
+    964▕     {
+    965▕         if (! in_array($key, static::$proxies)) {
+  ➜ 966▕             throw new Exception("Property [{$key}] does not exist on this collection instance.");
+    967▕         }
+    968▕ 
+    969▕         return new HigherOrderCollectionProxy($this, $key);
+    970▕     }
+
+  1   C:\xampp3\htdocs\DATN_Laptop51\app\Console\Commands\OrderCommand.php:48
+      Illuminate\Support\Collection::__get("booking")
+
+  2   C:\xampp3\htdocs\DATN_Laptop51\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:36
+      App\Console\Commands\OrderCommand::handle()
+
+   Exception 
+
+  Property [booking] does not exist on this collection instance.
+
+  at C:\xampp3\htdocs\DATN_Laptop51\vendor\laravel\framework\src\Illuminate\Collections\Traits\EnumeratesValues.php:966
+    962▕      */
+    963▕     public function __get($key)
+    964▕     {
+    965▕         if (! in_array($key, static::$proxies)) {
+  ➜ 966▕             throw new Exception("Property [{$key}] does not exist on this collection instance.");
+    967▕         }
+    968▕ 
+    969▕         return new HigherOrderCollectionProxy($this, $key);
+    970▕     }
+
+  1   C:\xampp3\htdocs\DATN_Laptop51\app\Console\Commands\OrderCommand.php:48
+      Illuminate\Support\Collection::__get("booking")
+
+  2   C:\xampp3\htdocs\DATN_Laptop51\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:36
+      App\Console\Commands\OrderCommand::handle()
+
+   Exception 
+
+  Property [booking] does not exist on this collection instance.
+
+  at C:\xampp3\htdocs\DATN_Laptop51\vendor\laravel\framework\src\Illuminate\Collections\Traits\EnumeratesValues.php:966
+    962▕      */
+    963▕     public function __get($key)
+    964▕     {
+    965▕         if (! in_array($key, static::$proxies)) {
+  ➜ 966▕             throw new Exception("Property [{$key}] does not exist on this collection instance.");
+    967▕         }
+    968▕ 
+    969▕         return new HigherOrderCollectionProxy($this, $key);
+    970▕     }
+
+  1   C:\xampp3\htdocs\DATN_Laptop51\app\Console\Commands\OrderCommand.php:48
+      Illuminate\Support\Collection::__get("booking")
+
+  2   C:\xampp3\htdocs\DATN_Laptop51\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:36
+      App\Console\Commands\OrderCommand::handle()
+
+   Exception 
+
+  Property [booking] does not exist on this collection instance.
+
+  at C:\xampp3\htdocs\DATN_Laptop51\vendor\laravel\framework\src\Illuminate\Collections\Traits\EnumeratesValues.php:966
+    962▕      */
+    963▕     public function __get($key)
+    964▕     {
+    965▕         if (! in_array($key, static::$proxies)) {
+  ➜ 966▕             throw new Exception("Property [{$key}] does not exist on this collection instance.");
+    967▕         }
+    968▕ 
+    969▕         return new HigherOrderCollectionProxy($this, $key);
+    970▕     }
+
+  1   C:\xampp3\htdocs\DATN_Laptop51\app\Console\Commands\OrderCommand.php:48
+      Illuminate\Support\Collection::__get("booking")
+
+  2   C:\xampp3\htdocs\DATN_Laptop51\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:36
+      App\Console\Commands\OrderCommand::handle()
+
+   Exception 
+
+  Property [booking] does not exist on this collection instance.
+
+  at C:\xampp3\htdocs\DATN_Laptop51\vendor\laravel\framework\src\Illuminate\Collections\Traits\EnumeratesValues.php:966
+    962▕      */
+    963▕     public function __get($key)
+    964▕     {
+    965▕         if (! in_array($key, static::$proxies)) {
+  ➜ 966▕             throw new Exception("Property [{$key}] does not exist on this collection instance.");
+    967▕         }
+    968▕ 
+    969▕         return new HigherOrderCollectionProxy($this, $key);
+    970▕     }
+
+  1   C:\xampp3\htdocs\DATN_Laptop51\app\Console\Commands\OrderCommand.php:48
+      Illuminate\Support\Collection::__get("booking")
+
+  2   C:\xampp3\htdocs\DATN_Laptop51\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:36
+      App\Console\Commands\OrderCommand::handle()
