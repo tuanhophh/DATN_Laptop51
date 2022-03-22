@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\BookingDetail;
 use App\Models\ComputerCompany;
+use App\Models\RepairPart;
 use Illuminate\Http\Request;
 use Mail;
 use Nexmo\Laravel\Facade\Nexmo;
 
-class BookingController extends Controller
+class    BookingController extends Controller
 {
    // public function check()
    // {
@@ -217,14 +218,61 @@ class BookingController extends Controller
    }
    public function finishRepairDetail($id, Request $request)
    {
+      // dd($request);
+      function detailProduct($id)
+      {
+
+         $detail_product = DetailProduct::find($id);
+         if ($detail_product) {
+            return $detail_product;
+         } else {
+            return '';
+         }
+      }
 
       $booking_detail = BookingDetail::find($id);
       // dd($booking_detail->booking()->first());
       if ($booking_detail) {
+         $repair_part = RepairPart::where('id', $booking_detail->id)->get();
+         $arr_PD_id = array_column($repair_part->toArray(), 'product_detail_id');
 
-         $booking_detail->active = 2;
+         $arr_quantity = $request->soluong;
+
+         foreach ($request->repairs as $r) {
+            if (in_array($r, $arr_PD_id) == false) {
+               $dt = [
+                  'booking_detail_id' => $id,
+                  'detail_product_id' => $r,
+                  'unit_price' => detailProduct($r)->price,
+                  'quantity' => $arr_quantity[$r],
+                  'into_money' => detailProduct($r)->price * $arr_quantity[$r],
+               ];
+               // dd($dt);
+               $model = RepairPart::create($dt);
+               // dd($model);
+            } else {
+               $model = RepairPart::where('booking_detail_id', $id)->where('detail_product_id', $r)->first();
+               $dt = [
+                  'booking_detail_id' => $id,
+                  'detail_product_id' => $r,
+                  'unit_price' => detailProduct($r)->price,
+                  'quantity' => $arr_quantity[$r] + $model->quantity,
+                  'into_money' => detailProduct($r)->price * ($arr_quantity[$r] + $model->quantity),
+               ];
+               // dd($dt);
+
+               $model->fill($dt)->save();
+            }
+         }
          $booking = $booking_detail->booking()->first();
          return view('admin.booking.repair_detail', compact('booking', 'booking_detail'));
+         if ($request->btn == 'pause') {
+            $booking_detail->active = 2;
+         }
+         if ($request->btn == 'finish') {
+            $booking_detail->active = 3;
+         }
       }
+      return redirect(route('dat-lich.danh-sach-may'));
    }
 }
