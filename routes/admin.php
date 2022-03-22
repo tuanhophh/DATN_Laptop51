@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\BookingController;
+// use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingDetailController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BookingController;
@@ -62,6 +62,8 @@ Route::prefix('dat-lich')->group(function () {
     Route::post('sua/{id}', [BookingController::class, 'editBooking']);
     Route::get('xoa/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.delete');
     Route::get('demo', [BookingController::class, 'demo']);
+    Route::get('xoa-may/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.deleteBookingDetail');
+
 });
 Route::prefix('sua-chua')->group(function () {
     Route::get('/{id}', [BookingController::class, 'repairDetail'])->name('suachua.get');

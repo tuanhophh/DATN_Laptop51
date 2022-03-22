@@ -68,7 +68,7 @@
               <div class="d-flex ">
 
                 <div class="mx-5">
-                  {{ $item['full_name'] }}
+                  <b>{{ $item['full_name'] }}</b>
                 </div>
                 <div class="mx-5">
                   {{ $item['interval'] }}
@@ -130,61 +130,69 @@
                       role="button">Sửa</a>
                   </div>
                 </div>
+                {{-- <div>
+                  Trạng thái: Đang sửa
+                </div>
+                <div class="mx-auto">
+                  <a name="" id="" class="btn btn-primary" href="{{ route('suachua.get', ['id'=>$bd['id']]) }}"
+                    role="button">Sửa</a>
+                </div> --}}
+              </div>
+              <div>
                 <div>
-                  <div>
 
-                  </div>
                 </div>
               </div>
-            </li>@endforeach
-            {{-- <li class="nav-item">
-              <a href="../../index2.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Dashboard v2</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="../../index3.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Dashboard v3</p>
-              </a>
-            </li> --}}
-          </ul>
+    </div>
+    </li>@endforeach
+    {{-- <li class="nav-item">
+      <a href="../../index2.html" class="nav-link">
+        <i class="far fa-circle nav-icon"></i>
+        <p>Dashboard v2</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="../../index3.html" class="nav-link">
+        <i class="far fa-circle nav-icon"></i>
+        <p>Dashboard v3</p>
+      </a>
+    </li> --}}
+    </ul>
+    </li>
+    @endforeach
+    </ul>
+    </table>
+
+
+
+    <!-- Card footer -->
+    <div class="card-footer py-4">
+      <nav aria-label="...">
+        <ul class="pagination justify-content-end mb-0">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">
+              <i class="fas fa-angle-left"></i>
+              <span class="sr-only">Previous</span>
+            </a>
           </li>
-          @endforeach
+          <li class="page-item active">
+            <a class="page-link" href="#">1</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">
+              <i class="fas fa-angle-right"></i>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
         </ul>
-      </table>
-
-
-
-      <!-- Card footer -->
-      <div class="card-footer py-4">
-        <nav aria-label="...">
-          <ul class="pagination justify-content-end mb-0">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1">
-                <i class="fas fa-angle-left"></i>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-            <li class="page-item active">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                <i class="fas fa-angle-right"></i>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      </nav>
     </div>
   </div>
+</div>
 </div><select class="js-example-placeholder-multiple js-states form-control" multiple="multiple">
 
 </select>

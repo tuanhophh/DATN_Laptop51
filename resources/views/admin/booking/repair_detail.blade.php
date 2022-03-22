@@ -60,7 +60,7 @@
 
 </head>
 
-<body class="">
+<body onload="validateSelectBox()" class="">
     <style>
         .mota img {
             max-width: 70px;
@@ -108,7 +108,9 @@
                                             onchange="validateSelectBox(this)" multiple='multiple'>
 
                                             @foreach ($product_detail as $pd)
-                                            <option value="{{ $pd->id }}">{{ $pd->name }}</option>
+                                            <option @if (in_array($pd->id,$arr_pd)==true)
+                                                selected
+                                                @endif value="{{ $pd->id }}">{{ $pd->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
