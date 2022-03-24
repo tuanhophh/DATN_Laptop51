@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductExportController;
 use App\Models\Booking;
 use App\Http\Controllers\LoginController;
@@ -98,3 +100,8 @@ Route::get('import-product', [ProductExportController::class, 'importViewProduct
 Route::post('import-product', [ProductExportController::class, 'importProduct'])->name('import-product');
 Route::get('import-detail-product', [ProductExportController::class, 'importViewDetailProduct'])->name('view-import-detail-product');
 Route::post('import-detail-product', [ProductExportController::class, 'importDetailProduct'])->name('import-detail-product');
+// Route::get('login',[ProductController::class, 'getlogin'])->name('login');
+// Route::get('login',[ProductController::class, 'postLogin']);
+// Route::get('info',[ProductController::class, 'getUserInfo']);
+// Route::get('logout',[ProductController::class, 'logOut']);
+Route::get('order', [MailController::class,'OrderSuccessEmail'])->name('order-mail');

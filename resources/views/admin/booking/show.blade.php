@@ -58,7 +58,7 @@
 
           @foreach ($result as $item)
 
-          <li class="nav-item">
+          <div>
             <div class="nav-link">
               {{-- <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -86,54 +86,70 @@
                 <div class="mx-5"><span class="badge badge-info right">{{ $item['count'] }}</span>
                 </div>
                 <div></div>
-                <a href="#dd">
-                  <div class="">
-                    <a class="btn btn-danger" href="{{ route('dat-lich.delete', ['id'=>$item['id']]) }}"
-                      role="button">Xóa</a>
-                  </div>
-                </a>
+
+
               </div>
+              {{-- <td> --}}
+
+                {{--
+              </td> --}}
             </div>
-            <ul class="nav nav-treeview">
-              @foreach ($item['booking_detail'] as $bd)
+            {{-- <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Dropdown
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li> --}}
+          </div>
+
+          <ul class="nav nav-treeview">
+            @foreach ($item['booking_detail'] as $bd)
 
 
-              <li class="nav-item">
-                <div class="nav-link">
-                  {{-- <i class="fa fa-laptop" aria-hidden="true"></i> --}}
-                  <div class="mx-5 d-flex ">
-                    <div class="mx-5"><i class="fa fa-laptop" aria-hidden="true"></i>
-                      @isset($bd['name_computer'])
-                      {{ $bd['name_computer']}}
-                      @endisset</div>
-                    <div>
-                      Trạng thái: Đang sửa
-                    </div>
-                    <div class="mx-auto">
-                      <a name="" id="" class="btn btn-primary" href="{{ route('suachua.get', ['id'=>$bd['id ']]) }}"
-                        role="button">Sửa</a>
-                    </div>
-                  </div>
+            <li class="nav-item">
+              <div class="nav-link">
+                {{-- <i class="fa fa-laptop" aria-hidden="true"></i> --}}
+                <div class="mx-5 d-flex ">
+                  <div class="mx-5"><i class="fa fa-laptop" aria-hidden="true"></i>
+                    @isset($bd['name_computer'])
+                    {{ $bd['name_computer']}}
+                    @endisset</div>
                   <div>
-                    <div>
-
-                    </div>
+                    Trạng thái: Đang sửa
+                  </div>
+                  <div class="mx-auto">
+                    <a name="" id="" class="btn btn-primary" href="{{ route('suachua.get', ['id'=>$bd['id']]) }}"
+                      role="button">Sửa</a>
                   </div>
                 </div>
-              </li>@endforeach
-              {{-- <li class="nav-item">
-                <a href="../../index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v2</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="../../index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v3</p>
-                </a>
-              </li> --}}
-            </ul>
+                <div>
+                  <div>
+
+                  </div>
+                </div>
+              </div>
+            </li>@endforeach
+            {{-- <li class="nav-item">
+              <a href="../../index2.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Dashboard v2</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="../../index3.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Dashboard v3</p>
+              </a>
+            </li> --}}
+          </ul>
           </li>
           @endforeach
         </ul>
@@ -172,4 +188,5 @@
 </div><select class="js-example-placeholder-multiple js-states form-control" multiple="multiple">
 
 </select>
+
 @endsection
