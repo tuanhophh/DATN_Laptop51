@@ -20,7 +20,7 @@ class FromScheduleOrderEmail extends Mailable
     public function build()
     {
         $details = $this->details;
-        return $this->from(config('mail.username'))
+        return $this->from('trantuanhop9678@gmail.com')
             ->subject('Thông báo phản hồi khách hàng')
             ->view('mail.schedule-mail', ['details' => $details]);
 

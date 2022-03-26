@@ -1,6 +1,6 @@
 <p>hi {{ $details['name'] }} </p>
 <p>Bạn đã đặt hàng thành công tại webiste Laptop51 !</p>
-{{-- <table class="table table-stripped">
+<table class="table table-stripped">
     <thead>
         <th class="col-1">name</th>
         <th class="col-2">email</th>
@@ -22,4 +22,4 @@
             <td>{{ $details['status'] }}</td>
         </tr>
     </tbody>
-</table> --}}
+</table>

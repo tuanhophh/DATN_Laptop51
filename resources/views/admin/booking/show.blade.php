@@ -40,7 +40,7 @@
 
               </td>
               <td><a name="" id="" class="btn btn-primary" href="{{ route('dat-lich.edit', ['id'=>$b->id]) }}"
-                  role="button">Sửa</a></td>
+                  role="button">Lễ tân: sửa</a></td>
               <td><a name="" id="" class="btn btn-danger" href="{{ route('dat-lich.delete', ['id'=>$b->id]) }}"
                   role="button">Xóa</a>
               </td>
