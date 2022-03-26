@@ -169,26 +169,6 @@
 </script>
 <script type="text/javascript">
     $('.itemName').select2(
-//         {
-//   placeholder: 'Select an item',
-//   ajax: {
-//     url: '/admin/sua-chua/4',
-//     dataType: 'json',
-//     delay: 250,
-//     processResults: function (data) {
-//       console.log(data);
-//       return {
-//         results:  $.map(data, function (item) {
-//               return {
-//                   text: item.name,
-//                 //   id: item[0]
-//               }
-//           })
-//       };
-//     },
-//     cache: true
-//   }
-// }
 );
 
 function validateSelectBox(obj){
@@ -202,15 +182,13 @@ for (var i = 0; i < options.length; i++){
      if (options[i].selected){
          var id=options[i].value;
          $.ajax({
-                // console.log(options[i].value)    
-
         url: `/admin/sua-chua/detail-product/`+id,
         method: 'get',
         dataType: 'json',
         success : function (data){
                         console.log(data);
                         
-         html +=`<tr>   
+                 html +=`<tr>   
             
                 <td class="na">${data.id}</td>
                  <td class="na">${data.name}</td>
@@ -221,16 +199,16 @@ for (var i = 0; i < options.length; i++){
                  document.getElementById('abc').innerHTML=html
 
                     }
-            })
+              })
             
-            j++
+              j++
             }   
 
     }
-    if(j==0){
-          document.getElementById('abc').innerHTML=''             }
-    }
-    
+        if(j==0){
+            document.getElementById('abc').innerHTML=''             }
+        }
+        
     function sumMoney(quantity){
         
     }

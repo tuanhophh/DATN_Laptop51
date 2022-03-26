@@ -112,77 +112,77 @@ class    BookingController extends Controller
       // dd($request);
 
       $request->input($request);
-      $check_booking = Booking::where('phone', $request->phone)->first();
-      if (!$check_booking) {
-         $data_booking = [
-            'full_name' => $request->full_name,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'interval' => $request->interval
-         ];
-         $model = Booking::create($data_booking);
-         // dd($model->id);
+      // $check_booking = Booking::where('phone', $request->phone)->first();
+      // if (!$check_booking) {
+      $data_booking = [
+         'full_name' => $request->full_name,
+         'phone' => $request->phone,
+         'email' => $request->email,
+         'interval' => $request->interval
+      ];
+      $model = Booking::create($data_bookng);
+      // dd($model->id);
 
-         $data_booking_detail = [
-            'booking_id' => $model->id,
-            'company_computer_id' => $request->company_computer_id,
-            // 'repair_type' => $request->repair_type,
-            'description' => $request->description,
-            'name_computer' => $request->name_computer
-         ];
-         $booking_detail = BookingDetail::create($data_booking_detail);
+      $data_booking_detail = [
+         'booking_id' => $model->id,
+         'company_computer_id' => $request->company_computer_id,
+         // 'repair_type' => $request->repair_type,
+         'description' => $request->description,
+         'name_computer' => $request->name_computer
+      ];
+      $booking_detail = BookingDetail::create($data_booking_detail);
 
-         $data = [
-            'name' => $model->full_name,
-            'email' => $check_booking->email,
+      $data = [
+         'name' => $model->full_name,
+         'email' => $request->email,
 
-            'phone' => $model->phone,
-            'interval' => $model->interval,
-            'repair_type' => $booking_detail->repair_type,
-            'description' => $booking_detail->description
-         ];
-         $email = $model->email;
-         // dd(config('mail.from.name'));
-         $details = [
-            'email' => $request->email,
-            'name' => $request->full_name,
-            'computer' => $request->name_computer,
-            'interval' => $request->interval,
-            'repair_type' => $request->repair_type,
-            'desc' => $booking_detail->description,
-            'status' => "đang chờ",
-         ];
-         // dispatch(new SendOrderSuccessEmail($data));
-      } else {
+         'phone' => $model->phone,
+         'interval' => $model->interval,
+         'repair_type' => $booking_detail->repair_type,
+         'description' => $booking_detail->description
+      ];
+      $email = $model->email;
+      // dd(config('mail.from.name'));
+      $details = [
+         'email' => $request->email,
+         'name' => $request->full_name,
+         'computer' => $request->name_computer,
+         'interval' => $request->interval,
+         'repair_type' => $request->repair_type,
+         'desc' => $booking_detail->description,
+         'status' => "đang chờ",
+      ];
+      // dispatch(new SendOrderSuccessEmail($data));
+      // } else {
 
-         $data_booking_detail = [
-            'booking_id' => $check_booking->id,
-            'company_computer_id' => $request->company_computer_id,
-            // 'repair_type' => $request->repair_type,
-            'description' => $request->description,
-            'name_computer' => $request->name_computer
-         ];
-         $booking_detail = BookingDetail::create($data_booking_detail);
-         $data = [
-            'name' => $check_booking->full_name,
-            'email' => $check_booking->email,
-            'phone' => $check_booking->phone,
-            'interval' => $check_booking->interval,
-            'repair_type' => $booking_detail->repair_type,
-            'description' => $booking_detail->description
-         ];
-         $email = $check_booking->email;
-         $details = [
-            'email' => $request->email,
-            'name' => $request->full_name,
-            'computer' => $request->name_computer,
-            'interval' => $request->interval,
-            'repair_type' => $request->repair_type,
-            'desc' => $request->description,
-            'status' => "đang chờ",
-         ];
-         // dd($data['email']);
-      }
+      //    $data_booking_detail = [
+      //       'booking_id' => $check_booking->id,
+      //       'company_computer_id' => $request->company_computer_id,
+      //       // 'repair_type' => $request->repair_type,
+      //       'description' => $request->description,
+      //       'name_computer' => $request->name_computer
+      //    ];
+      //    $booking_detail = BookingDetail::create($data_booking_detail);
+      //    $data = [
+      //       'name' => $check_booking->full_name,
+      //       'email' => $check_booking->email,
+      //       'phone' => $check_booking->phone,
+      //       'interval' => $check_booking->interval,
+      //       'repair_type' => $booking_detail->repair_type,
+      //       'description' => $booking_detail->description
+      //    ];
+      //    $email = $check_booking->email;
+      //    $details = [
+      //       'email' => $request->email,
+      //       'name' => $request->full_name,
+      //       'computer' => $request->name_computer,
+      //       'interval' => $request->interval,
+      //       'repair_type' => $request->repair_type,
+      //       'desc' => $request->description,
+      //       'status' => "đang chờ",
+      //    ];
+      //    // dd($data['email']);
+      // }
       if ($details['interval'] == 1) {
          $details['interval'] = '8h-10h';
       } elseif ($details['interval'] == 2) {
