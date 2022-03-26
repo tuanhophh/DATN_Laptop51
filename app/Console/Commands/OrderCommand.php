@@ -45,9 +45,8 @@ class OrderCommand extends Command
         $user = BookingDetail::whereMonth('created_at', '=', Carbon::now()->month)
             ->whereDay('created_at', '=', now()->day)
             ->get();
-
+        $user->load('booking');
         foreach ($user as $item) {
-            $user->load('booking');
             $email = $item->booking->email;
             $name = $item->booking->full_name;
             $details = [

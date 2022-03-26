@@ -4,6 +4,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingDetailController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DetailProductController;
+use App\Http\Controllers\HomeAdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LoginController;
 use App\Models\DetailProduct;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/',[HomeAdminController::class,'index']);
 
 Route::prefix('category')->group(function () {
     Route::get('/', [CategoryController::class, 'index'])->name('category.index');
