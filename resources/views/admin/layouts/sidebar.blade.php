@@ -151,6 +151,27 @@
 
                 </ul>
             </li>
+            <li class="nav-item {{ request()->is('admin/sua-chua*') ? ' menu-is-opening menu-open' : '' }}">
+                <a href="" class="nav-link {{ request()->is('admin/sua-chua*') ? 'active ' : '' }}">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                        Order
+                        <i class="fas fa-angle-left right"></i>
+                        <span class="badge badge-info right">6</span>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="/admin/dat-lich"
+                            class="nav-link {{ request()->is('admin/category') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Danh sách</p>
+                        </a>
+                    </li>
+                    
+
+                </ul>
+            </li>
         </ul>
     </nav>
     <!-- /.sidebar-menu -->

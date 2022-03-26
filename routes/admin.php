@@ -7,6 +7,7 @@ use App\Http\Controllers\DetailProductController;
 use App\Http\Controllers\HomeAdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ThongkeController;
 use App\Models\DetailProduct;
 use Illuminate\Support\Facades\Route;
 
@@ -68,4 +69,8 @@ Route::prefix('sua-chua')->group(function () {
     Route::get('/{id}', [BookingController::class, 'repairDetail'])->name('suachua.get');
     Route::post('/{id}', [BookingController::class, 'FinishRepairDetail']);
     Route::get('/detail-product/{id}', [BookingDetailController::class, 'getDetailProduct']);
+});
+Route::prefix('thongke')->group(function () {
+    Route::get('sanpham', [ThongkeController::class, 'index'])->name('thongke-sanpham');
+    
 });
