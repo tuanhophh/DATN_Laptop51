@@ -20,7 +20,7 @@
             @foreach ($arr_detail as $b)
             <tr>
                 <td>{{ $b['name_computer'] }}</td>
-                <td>@if (!empty($b['full_name'])){
+                <td>@if (!empty($b['full_name']))
                     {{ $b['full_name'] }}
 
 
@@ -28,17 +28,29 @@
                 {{-- <td>{{ $b['computer_conpany'] }}</td> --}}
                 <td>{{ $b['repair_type'] }}</td>
                 {{-- <td>{{ $b->booking()->interval }}</td> --}}
-                <td>{{
-                    $b['active']==1?'Đã xác nhận':'Chưa xác nhận' }}
+                <td>
+                    @if ($b['active']==0)
+                    {{ 'Chưa sửa' }}
+                    @elseif($b['active']==2)
+                    {{ 'Tạm dừng' }}
+                    @elseif($b['active']== 3)
+                    {{ 'Đã hoàn thành' }}
+                    @elseif($b['active']==1 )
+                    {{ 'Đang sửa' }}
+                    @endif
 
 
 
 
                 </td>
-                <td><a name="" id="" class="btn btn-primary" href="{{ route('dat-lich.edit', ['id'=>$b['id']]) }}"
-                        role="button">Sửa</a></td>
-                <td><a name="" id="" class="btn btn-danger" href="{{ route('dat-lich.delete', ['id'=>$b['id']]) }}"
-                        role="button">Xóa</a>
+                <td class="mx-auto">
+                    <a name="" id="" class="btn btn-success" href="{{ route('suachua.get', ['id'=>$b['id']]) }}"
+                        role="button">Sửa chữa</a>
+
+                    <a name="" id="" class="btn btn-primary" href="{{ route('dat-lich.edit', ['id'=>$b['id']]) }}"
+                        role="button">Sửa thông tin</a>
+                    <a name="" id="" class="btn btn-danger"
+                        href="{{ route('dat-lich.deleteBookingDetail', ['id'=>$b['id']]) }}" role="button">Xóa</a>
                 </td>
             </tr>
             @endforeach
