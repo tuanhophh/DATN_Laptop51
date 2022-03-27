@@ -6,8 +6,8 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductExportController;
 use App\Models\Booking;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,24 +18,24 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Trang chủ
-Route::get('/', function () {
-    return view('website.index');
-});
+
+Auth::routes();
+Route::get('/',[\App\Http\Controllers\HomeController::class, 'index']);
 
 Route::prefix('')->group(function () {
-    // đăng nhập
-
-    Route::get('login', function () {
-        return view('login');
-    });
-    // trang cá nhân
+//     đăng nhập
+    Route::get('logout', [\App\Http\Controllers\HomeController::class, 'logout']);
+//     trang cá nhân
     Route::get('profile', function () {
         return view('website.profile');
     });
     // trang cửa hàng
     Route::get('cua-hang', function () {
         return view('website.product');
+    });
+    // Giỏ hàng
+    Route::get('cart', function () {
+        return view('website.cart');
     });
     // trang giới thiệu
     Route::get('gioi-thieu', function () {
@@ -78,6 +78,7 @@ Route::prefix('user')->group(function () {
     Route::get('edit/{id}', [UserController::class, 'editForm'])->name('user.edit');
     Route::post('edit/{id}', [UserController::class, 'saveEdit']);
 });
+
 
 // Route::prefix('dat-lich')->group(function () {
 //     Route::get('/', [BookingController::class, 'listBooking'])->name('dat-lich.index');
