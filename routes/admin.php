@@ -67,3 +67,6 @@ Route::prefix('sua-chua')->group(function () {
     Route::post('/{id}', [BookingController::class, 'FinishRepairDetail']);
     Route::get('/detail-product/{id}', [BookingDetailController::class, 'getDetailProduct']);
 });
+Route::prefix('thongke')->group(function () {
+    Route::get('sanpham', [ThongkeController::class, 'index'])->name('thongke-sanpham');
+});

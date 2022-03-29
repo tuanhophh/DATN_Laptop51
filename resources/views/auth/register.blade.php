@@ -93,7 +93,7 @@
 							Bạn đã có tài khoản?
 						</span>
 
-                    <a class="txt2" href="#">
+                    <a class="txt2" href="/login">
                         Đăng nhập
                     </a>
                 </div>
