@@ -70,10 +70,8 @@ Route::prefix('sua-chua')->group(function () {
     Route::post('/{id}', [BookingController::class, 'FinishRepairDetail']);
     Route::get('/detail-product/{id}', [BookingDetailController::class, 'getDetailProduct']);
 });
-<<<<<<< HEAD
-=======
+
 Route::prefix('thongke')->group(function () {
     Route::get('sanpham', [ThongkeController::class, 'index'])->name('thongke-sanpham');
-    
 });
->>>>>>> 33abbe447e6be2b6565b53dbf4f61f6af4d13985
+
