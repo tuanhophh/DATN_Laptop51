@@ -16,7 +16,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 @include('layout_client.style')
-	
+
 
 </head>
 
@@ -30,6 +30,8 @@
 
 			<!-- Header + subheader -->
 			<div class="template-component-header-subheader">
+                @if(Auth::check())<a href="/logout">Thoát</a>
+                @endif
 				<h2>Who Is Autospa</h2>
 				<div></div>
 				<span>Car wash &amp; detailling service</span>
@@ -452,7 +454,7 @@
 
 	<!-- JS files -->
 @include('layout_client.script')
-	
+
 
 </body>
 

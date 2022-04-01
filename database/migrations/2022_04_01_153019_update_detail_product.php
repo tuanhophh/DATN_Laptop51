@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateUserRepair extends Migration
+class UpdateDetailProduct extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class UpdateUserRepair extends Migration
      */
     public function up()
     {
-        Schema::table('user_repairs', function (Blueprint $table) {
-            $table->integer('booking_detail_id')->nullable();
+        Schema::table('detail_products', function (Blueprint $table) {
+            $table->integer('category_id')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class UpdateUserRepair extends Migration
      */
     public function down()
     {
-        Schema::table('user_repairs', function (Blueprint $table) {
-            $table->dropColumn('booking_detail_id');
+        Schema::table('detail_products', function (Blueprint $table) {
+            $table->dropColumn('category_id');
         });
     }
 }

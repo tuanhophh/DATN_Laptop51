@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookingDetail;
 use App\Models\Category;
 use App\Models\ComputerCompany;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -12,6 +14,20 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
+        // $user = BookingDetail::whereMonth('created_at', '=', Carbon::now()->month)
+        //     ->whereDay('created_at', '=', now()->day)
+        //     ->get();
+        // $user->load('booking');
+        // foreach ($user as $item) {
+
+        //     $email = $item->booking->email;
+        //     $name = $item->booking->full_name;
+        //     $details = [
+        //         'email' => $email,
+        //         'name' => $name,
+        //     ];
+        //     dd($details);
+        // }
 
         $categories = ComputerCompany::orderBy('id', 'desc')->paginate(10);
         return view('admin.categories.index', compact('categories'));
@@ -23,7 +39,7 @@ class CategoryController extends Controller
         $products = Product::where('category_id', '=', $id)->first();
         if (!empty($category)) {
             if (empty($products)) {
-                ComputerCompany::where('id',$id)->delete();
+                ComputerCompany::where('id', $id)->delete();
                 return redirect(route('category.index'))->with('success', 'Xóa thành công');
             } else {
                 return redirect(route('category.index'))->with('error', 'Bạn không thể xóa khi đang còn sản phẩm');

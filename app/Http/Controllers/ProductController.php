@@ -17,6 +17,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
+        // dd($product=Product::all());
         $pageSize = 10;
         $column_names = [
             'name' => 'Tên sản phẩm',
@@ -75,7 +76,7 @@ class ProductController extends Controller
     {
         $model = new Product();
         if ($request->hasFile('image')) {
-            $imgPath = $request->file('image')->store('public/products');
+            $imgPath = $request->file('image')->store('products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
             $model->image = $imgPath;
         }
@@ -110,7 +111,7 @@ class ProductController extends Controller
             // $oldImg = str_replace('storage/', 'public/', $model->image);
             Storage::delete($model->image);
 
-            $imgPath = $request->file('image')->store('public/products');
+            $imgPath = $request->file('image')->store('products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
             $model->image = $imgPath;
         }

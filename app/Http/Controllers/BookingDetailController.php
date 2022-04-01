@@ -27,13 +27,16 @@ class BookingDetailController extends Controller
 
     public function hoaDon($booking_detail_id)
     {
-        $repair_parts = RepairPart::where("booking_detail_id", $booking_detail_id)->get();
-        if ($repair_parts) {
-            $repair_parts->load('detail_product');
-            $repair_parts->load('booking_detail');
-            // Auth
-            dd($repair_parts);
+        $booking_detail = BookingDetail::find($booking_detail_id);
+        if ($booking_detail) {
+            $repair_parts = RepairPart::where("booking_detail_id", $booking_detail_id)->get();
+            if ($repair_parts) {
+                $repair_parts->load('detail_product');
+                $repair_parts->load('booking_detail');
+                // Auth
+                dd($repair_parts);
+            }
+            return view('admin.booking.hoa_don', compact('booking_detail', 'repair_parts'));
         }
-        return "hung";
     }
 }
