@@ -34,26 +34,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="">Danh mục</label>
-                                    <select name="cate_id" class="form-control">
+                                    <select name="category_id" class="form-control">
                                         <option value="">Tất cả</option>
                                         @foreach ($categories as $item)
                                             <option @if ($item->id == $searchData['cate_id']) selected @endif
-                                                value="{{ $item->id }}">{{ $item->name }}</option>
+                                                value="{{ $item->id }}">{{ $item->company_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="">Danh mục</label>
-                                <select name="cate_id" class="form-control">
-                                    <option value="">Tất cả</option>
-                                    @foreach ($categories as $item)
-                                    <option @if ($item->id == $searchData['cate_id']) selected @endif
-                                        value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+                            
+                        
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="">Tên cột</label>
@@ -85,8 +76,9 @@
                     <thead>
                         <th>STT</th>
                         <th>Name</th>
-                        <th>Category</th>
+                        <th>CompanyComputer</th>
                         <th>Image</th>
+                        <th>import_Price</th>
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Desc</th>
@@ -101,16 +93,19 @@
                             <td>{{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}</td>
                             <td>{{ $item->name }}</td>
                             <td>
-                                {{ $item->category->company_name }}
+                                {{ $item->CompanyComputer->company_name }}
                             </td>
                             <td>
                                 <img src="{{ asset($item->image) }}" width="100">
                             </td>
+                            <td>{{ $item->import_price }}</td>
                             <td>{{ $item->price }}</td>
                             <td>{{ $item->qty }}</td>
                             <td>{{ $item->desc }}</td>
-                            <td>{{ $item->status == 1 ? 'Còn hàng' : 'Hết hàng' }}</td>
+                            <td>{{ $item->status == 1 ? 'Bán' : 'Không bán' }}</td>
                             <td>
+                                <a href="{{ route('nhap-sanpham.add', ['id' => $item->id]) }}"
+                                    class="btn btn-sm btn-primary">them sl</a>
                                 <a href="{{ route('product.edit', ['id' => $item->id]) }}"
                                     class="btn btn-sm btn-primary">Edit</a>
                                 <a onclick="return confirm('Bạn có chắc muốn xóa')"

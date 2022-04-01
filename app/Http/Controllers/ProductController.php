@@ -48,6 +48,7 @@ class ProductController extends Controller
         }
         $products = $query->paginate($pageSize);
         $categories = ComputerCompany::all();
+        
         $products->load('category');
         $searchData = compact('keyword', 'cate_id');
         $searchData['order_by'] = $rq_order_by;
@@ -92,7 +93,7 @@ class ProductController extends Controller
         if (!$pro) {
             return back();
         }
-        $categories = Category::all();
+        $categories = ComputerCompany::all();
         return view(
             'admin.products.edit',
             compact('pro', 'categories')
@@ -107,6 +108,7 @@ class ProductController extends Controller
         if (!$model) {
             return back();
         }
+        
         if ($request->hasFile('image')) {
             // $oldImg = str_replace('storage/', 'public/', $model->image);
             Storage::delete($model->image);
