@@ -15,6 +15,10 @@ class CreateUserRepairsTable extends Migration
     {
         Schema::create('user_repairs', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id')->nullable();
+            $table->integer('booking_id')->nullable();
+            $table->longText('desc')->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

@@ -9,6 +9,7 @@ use App\Models\Booking;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\Auth\ForgotPasswordController;
 /*
 |--------------------------------------------------------------------------
@@ -20,17 +21,18 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
-Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 Auth::routes();
-Route::get('/',[\App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
 
 Route::prefix('')->group(function () {
-//     đăng nhập
+    //     đăng nhập
     Route::get('logout', [\App\Http\Controllers\HomeController::class, 'logout']);
-//     trang cá nhân
+    //     trang cá nhân
     Route::get('profile', function () {
         return view('website.profile');
     });
@@ -109,4 +111,4 @@ Route::post('import-detail-product', [ProductExportController::class, 'importDet
 // Route::get('login',[ProductController::class, 'postLogin']);
 // Route::get('info',[ProductController::class, 'getUserInfo']);
 // Route::get('logout',[ProductController::class, 'logOut']);
-Route::get('order', [MailController::class,'OrderSuccessEmail'])->name('order-mail');
+Route::get('order', [MailController::class, 'OrderSuccessEmail'])->name('order-mail');

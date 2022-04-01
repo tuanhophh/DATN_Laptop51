@@ -73,7 +73,7 @@
       <div class="form-group">
         <label for="">Loại máy tính</label>
 
-        <select class="form-control" name="computer_company_id" id="">
+        <select class="form-control" name="company_computer_id" id="">
           @foreach ($computers as $item)
           <option value="{{ $item->id }}">{{ $item->company_name }}</option>
           @endforeach

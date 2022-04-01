@@ -18,4 +18,13 @@ class BookingDetail extends Model
     {
         return $this->belongsTo(Booking::class);
     }
+    /**
+     * The roles that belong to the BookingDetail
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function user_repair()
+    {
+        return $this->hasOne(UserRepair::class, 'booking_detail_id');
+    }
 }

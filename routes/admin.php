@@ -66,6 +66,9 @@ Route::prefix('detail-product')->group(function () {
 Route::prefix('dat-lich')->group(function () {
     Route::get('/', [BookingController::class, 'listBooking'])->name('dat-lich.index');
     Route::get('/danh-sach-may', [BookingController::class, 'listBookingDetail'])->name('dat-lich.danh-sach-may');
+    Route::post('/danh-sach-may', [BookingController::class, 'selectUserRepair']);
+    // Route::get('/danh-sach-may-phan-cong', [BookingController::class, 'listBookingDetail'])->name('dat-lich.danh-sach-may');
+
 
     Route::get('tao-moi', [BookingController::class, 'formCreateBooking'])->name('dat-lich.add');
     Route::post('tao-moi', [BookingController::class, 'creatBooking']);
@@ -73,6 +76,8 @@ Route::prefix('dat-lich')->group(function () {
     Route::post('sua/{id}', [BookingController::class, 'editBooking']);
     Route::get('xoa/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.delete');
     Route::get('demo', [BookingController::class, 'demo']);
+    Route::get('hoa-don/{id}', [BookingDetailController::class, 'hoaDon'])->name('dat-lich.hoa-don');
+
     Route::get('xoa-may/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.deleteBookingDetail');
 });
 Route::prefix('sua-chua')->group(function () {

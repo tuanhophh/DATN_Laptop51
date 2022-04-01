@@ -26,7 +26,6 @@ class User extends Authenticatable
         'description',
         'password',
         'id_role'
-
     ];
 
     /**
@@ -46,4 +45,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the user that owns the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'id_role');
+    }
 }
