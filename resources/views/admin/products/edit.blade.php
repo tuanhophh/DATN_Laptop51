@@ -23,31 +23,32 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="">Giá</label>
-                        <input type="number" name="price" value="{{old('name',$pro->price)}}" class="form-control" placeholder="">
+                        <label for="">Giá nhập</label>
+                        <input type="number" name="import_price" value="{{old('import_price',$pro->import_price)}}" class="form-control" placeholder="">
+                        @error('import_price')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="">Giá bán</label>
+                        <input type="number" name="price" value="{{old('price',$pro->price)}}" class="form-control" placeholder="">
                         @error('price')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="">Số lượng:</label>
-                        <input type="text" name="qty" value="{{old('name',$pro->qty)}}" class="form-control" placeholder="">
-                        @error('qty')
-                            <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                    </div>
+                   
                 </div>
                 <div class="col-6 mt-2">
                     <div class="form-group">
-                        <label for="">Danh mục</label>
+                        <label for="">CompanyComputer</label>
                         <select name="category_id" class="form-control">
-                            <option value="">Chọn danh mục</option>
-                            @foreach ($categories as $item)
+                            <option value="">Chọn CompanyComputer</option>
+                            @foreach ($CompanyComputer as $item)
                                 <option
-                                @if($item->id == $pro->category_id)
+                                @if($item->id == $pro->CompanyComputer_id)
                                     selected
                                 @endif
-                                value="{{ $item->id }}">{{ $item->name }}</option>
+                                value="{{ $item->id }}">{{ $item->company_name }}</option>
                             @endforeach
                         </select>
                     </div>

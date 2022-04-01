@@ -45,8 +45,8 @@
 
             </li>
 
-            <li class="nav-item {{ request()->is('admin/category*') ? ' menu-is-opening menu-open' : '' }}">
-                <a href="" class="nav-link {{ request()->is('admin/category*') ? 'active ' : '' }}">
+            <li class="nav-item {{ request()->is('admin/CompanyComputer*') ? ' menu-is-opening menu-open' : '' }}">
+                <a href="" class="nav-link {{ request()->is('admin/CompanyComputer*') ? 'active ' : '' }}">
                     <i class="nav-icon fas fa-copy"></i>
                     <p>
                         Category
@@ -56,15 +56,15 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="/admin/category"
-                            class="nav-link {{ request()->is('admin/category') ? 'active' : '' }}">
+                        <a href="/admin/CompanyComputer"
+                            class="nav-link {{ request()->is('admin/CompanyComputer') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Danh sách</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/admin/category/add"
-                            class="nav-link {{ request()->is('admin/category/add') ? 'active' : '' }}">
+                        <a href="/admin/CompanyComputer/add"
+                            class="nav-link {{ request()->is('admin/CompanyComputer/add') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Thêm mới</p>
                         </a>

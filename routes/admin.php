@@ -2,12 +2,13 @@
 
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingDetailController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CompanyComputerController;
 use App\Http\Controllers\DetailProductController;
 use App\Http\Controllers\HomeAdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ThongkeController;
+use App\Http\Controllers\NhapsanphamController;
 use App\Models\DetailProduct;
 use Illuminate\Support\Facades\Route;
 
@@ -23,14 +24,23 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/',[HomeAdminController::class,'index']);
 
-Route::prefix('category')->group(function () {
-    Route::get('/', [CategoryController::class, 'index'])->name('category.index');
-    Route::get('/remove/{id}', [CategoryController::class, 'remove'])->name('category.remove');
-    Route::get('add', [CategoryController::class, 'addForm'])->name('category.add');
-    Route::post('add', [CategoryController::class, 'saveAdd']);
-    Route::get('edit/{id}', [CategoryController::class, 'editForm'])->name('category.edit');
-    Route::post('edit/{id}', [CategoryController::class, 'saveEdit']);
-    Route::get('detail/{id}', [CategoryController::class, 'detail']);
+Route::prefix('CompanyComputer')->group(function () {
+    Route::get('/', [CompanyComputerController::class, 'index'])->name('CompanyComputer.index');
+    Route::get('/remove/{id}', [CompanyComputerController::class, 'remove'])->name('CompanyComputer.remove');
+    Route::get('add', [CompanyComputerController::class, 'addForm'])->name('CompanyComputer.add');
+    Route::post('add', [CompanyComputerController::class, 'saveAdd']);
+    Route::get('edit/{id}', [CompanyComputerController::class, 'editForm'])->name('CompanyComputer.edit');
+    Route::post('edit/{id}', [CompanyComputerController::class, 'saveEdit']);
+    Route::get('detail/{id}', [CompanyComputerController::class, 'detail']);
+});
+Route::prefix('nhap_sanpham')->group(function () {
+    Route::get('/', [NhapsanphamController::class, 'index'])->name('nhap-sanpham.index');
+    Route::get('/remove/{id}', [NhapsanphamController::class, 'remove'])->name('nhap-sanpham.remove');
+    Route::get('add/{id}', [NhapsanphamController::class, 'addForm'])->name('nhap-sanpham.add');
+    Route::post('add/{id}', [NhapsanphamController::class, 'saveAdd']);
+    Route::get('edit/{id}', [NhapsanphamController::class, 'editForm'])->name('nhap-sanpham.edit');
+    Route::post('edit/{id}', [NhapsanphamController::class, 'saveEdit']);
+    Route::get('detail/{id}', [NhapsanphamController::class, 'detail']);
 });
 Route::prefix('product')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('product.index');
@@ -77,6 +87,10 @@ Route::prefix('sua-chua')->group(function () {
 });
 
 Route::prefix('thongke')->group(function () {
-    Route::get('sanpham', [ThongkeController::class, 'index'])->name('thongke-sanpham');
+    Route::get('sanpham', [ThongkeController::class, 'sanpham'])->name('thongke-sanpham');
+    Route::get('chitiet-sanpham', [ThongkeController::class, 'chitietSanpham'])->name('thongke-chitiet-sanpham');
+    Route::get('order', [ThongkeController::class, 'order'])->name('thongke-order');
+    Route::get('ajax', [ThongkeController::class, 'ajax']);
+
 });
 
