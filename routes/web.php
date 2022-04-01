@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductExportController;
 use App\Models\Booking;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Trang chủ
+// ang chủ
+Auth::routes();
 Route::get('/', function () {
     return view('website.index');
 });
@@ -103,4 +105,4 @@ Route::post('import-detail-product', [ProductExportController::class, 'importDet
 // Route::get('login',[ProductController::class, 'postLogin']);
 // Route::get('info',[ProductController::class, 'getUserInfo']);
 // Route::get('logout',[ProductController::class, 'logOut']);
-Route::get('order', [MailController::class,'OrderSuccessEmail'])->name('order-mail');
+Route::get('order', [MailController::class, 'OrderSuccessEmail'])->name('order-mail');

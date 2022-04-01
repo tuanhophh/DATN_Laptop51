@@ -9,7 +9,10 @@ use App\Models\ComputerCompany;
 use Carbon\Carbon;
 use App\Models\DetailProduct;
 use App\Models\RepairPart;
+use App\Models\User;
+use App\Models\UserRepair;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Mail;
 use Nexmo\Laravel\Facade\Nexmo;
 
@@ -30,8 +33,9 @@ class    BookingController extends Controller
    public function formEditBooking($id)
    {
       $computers = ComputerCompany::all();
-      $booking = Booking::find($id);
-      return view('admin.booking.edit', compact('booking', 'computers'));
+      $booking_detail = BookingDetail::find($id);
+      // dd($booking_detail->booking->id);
+      return view('admin.booking.edit', compact('booking_detail', 'computers'));
    }
    public function EditBooking(Request $request, $id)
    {
@@ -42,28 +46,29 @@ class    BookingController extends Controller
          'interval' => 'required',
          'repair_type' => 'required'
       ]);
-      $booking = Booking::find($id);
-      if ($booking) {
-         $booking->fill($request->all())->save();
+      $booking_detail = BookingDetail::find($id);
+      if ($booking_detail) {
+         $booking_detail->fill([
+            // 'booking_id' => $model->id,
+            'company_computer_id' => $request->company_computer_id,
+            'description' => $request->description,
+            'name_computer' => $request->name_computer
+         ]);
+         $booking_detail->save();
+         $booking = Booking::find($booking_detail->booking_id);
+         $booking->fill([
+            'full_name' => $request->full_name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'interval' => $request->interval
+         ]);
+         $booking->save();
       }
-      return redirect(route('dat-lich.index'));
+      return redirect(route('dat-lich.danh-sach-may'));
    }
    public function listBooking()
    {
-      // $user = BookingDetail::whereMonth('created_at', '=', Carbon::now()->month)
-      //    ->whereDay('created_at', '=', now()->day)
-      //    ->get();
 
-      // foreach ($user as $item) {
-      //    $user->load('booking');
-      //    $email = $item->booking->email;
-      //    $name = $item->booking->full_name;
-      //    $details = [
-      //       'email' => $email,
-      //       'name' => $name,
-      //    ];
-      //    dd($details);
-      // }
 
       $computers = ComputerCompany::all();
       $result = [];
@@ -109,39 +114,28 @@ class    BookingController extends Controller
          'interval' => 'required',
          // 'repair_type' => 'required'
       ]);
-      // dd($request);
 
-      $request->input($request);
-      // $check_booking = Booking::where('phone', $request->phone)->first();
-      // if (!$check_booking) {
+
+      // $request->input($request);
+
       $data_booking = [
          'full_name' => $request->full_name,
          'phone' => $request->phone,
          'email' => $request->email,
          'interval' => $request->interval
       ];
-      $model = Booking::create($data_bookng);
-      // dd($model->id);
+      $model = Booking::create($data_booking);
+
 
       $data_booking_detail = [
          'booking_id' => $model->id,
          'company_computer_id' => $request->company_computer_id,
-         // 'repair_type' => $request->repair_type,
          'description' => $request->description,
          'name_computer' => $request->name_computer
       ];
       $booking_detail = BookingDetail::create($data_booking_detail);
 
-      $data = [
-         'name' => $model->full_name,
-         'email' => $request->email,
 
-         'phone' => $model->phone,
-         'interval' => $model->interval,
-         'repair_type' => $booking_detail->repair_type,
-         'description' => $booking_detail->description
-      ];
-      $email = $model->email;
       // dd(config('mail.from.name'));
       $details = [
          'email' => $request->email,
@@ -152,56 +146,26 @@ class    BookingController extends Controller
          'desc' => $booking_detail->description,
          'status' => "đang chờ",
       ];
-      // dispatch(new SendOrderSuccessEmail($data));
+
+      // if ($details['interval'] == 1) {
+      //    $details['interval'] = '8h-10h';
+      // } elseif ($details['interval'] == 2) {
+      //    $details['interval'] = '10h-12h';
+      // } elseif ($details['interval'] == 3) {
+      //    $details['interval'] = '12h-14h';
+      // } elseif ($details['interval'] == 4) {
+      //    $details['interval'] = '14h-16h';
+      // } elseif ($details['interval'] == 5) {
+      //    $details['interval'] = '16h-18h';
+      // } elseif ($details['interval'] == 6) {
+      //    $details['interval'] = '18h-20h';
       // } else {
 
-      //    $data_booking_detail = [
-      //       'booking_id' => $check_booking->id,
-      //       'company_computer_id' => $request->company_computer_id,
-      //       // 'repair_type' => $request->repair_type,
-      //       'description' => $request->description,
-      //       'name_computer' => $request->name_computer
-      //    ];
-      //    $booking_detail = BookingDetail::create($data_booking_detail);
-      //    $data = [
-      //       'name' => $check_booking->full_name,
-      //       'email' => $check_booking->email,
-      //       'phone' => $check_booking->phone,
-      //       'interval' => $check_booking->interval,
-      //       'repair_type' => $booking_detail->repair_type,
-      //       'description' => $booking_detail->description
-      //    ];
-      //    $email = $check_booking->email;
-      //    $details = [
-      //       'email' => $request->email,
-      //       'name' => $request->full_name,
-      //       'computer' => $request->name_computer,
-      //       'interval' => $request->interval,
-      //       'repair_type' => $request->repair_type,
-      //       'desc' => $request->description,
-      //       'status' => "đang chờ",
-      //    ];
-      //    // dd($data['email']);
+      //    $details['interval'] = '20h-22h';
       // }
-      if ($details['interval'] == 1) {
-         $details['interval'] = '8h-10h';
-      } elseif ($details['interval'] == 2) {
-         $details['interval'] = '10h-12h';
-      } elseif ($details['interval'] == 3) {
-         $details['interval'] = '12h-14h';
-      } elseif ($details['interval'] == 4) {
-         $details['interval'] = '14h-16h';
-      } elseif ($details['interval'] == 5) {
-         $details['interval'] = '16h-18h';
-      } elseif ($details['interval'] == 6) {
-         $details['interval'] = '18h-20h';
-      } else {
-
-         $details['interval'] = '20h-22h';
-      }
       // dd($details);
 
-      dispatch(new SendOrderSuccessEmail($details));
+      // dispatch(new SendOrderSuccessEmail($details));
 
 
 
@@ -218,26 +182,52 @@ class    BookingController extends Controller
       }
       return redirect(route('dat-lich.danh-sach-may'));
    }
-   public function listBookingDetail()
+
+
+   public function listBookingDetail(Request $request)
    {
+
       # code...
-
+      $users = User::query()->where('id_role', 3)->get();
+      $users->load('role');
+      // dd($users);
       $booking_details = BookingDetail::query()->get();
-      $arr_detail = [];
-      foreach ($booking_details as $key => $bk) {
-         if ($user =   $bk->booking()->first() != null) {
+      $booking_details->load('user_repair');
+      $booking_details->load('booking');
+      // dd($users[1]->id);
+      // dd($booking_details);
 
-            $user =   $bk->booking()->first()->toArray();
+
+      return view('admin.booking.repair', compact('booking_details', 'users',));
+   }
+   public function selectUserRepair(Request $request)
+   {
+      // dd($request);
+
+      if ($request->booking_detail_id) {
+         $check = UserRepair::where('booking_detail_id', $request->booking_detail_id)->first();
+         if (!$check) {
+            UserRepair::create(
+               [
+                  'user_id' => $request->staff,
+                  'booking_detail_id' => $request->booking_detail_id
+               ]
+            );
+         } else {
+            $check->user_id = $request->staff;
+            $check->save();
          }
-         // dd($user);
-         if ($user == false) {
-            $user = [];
-         };
-         array_push($arr_detail, $bk->toArray() + $user);
-      }
-      // dd($arr_detail);
 
-      return view('admin.booking.repair', compact('booking_details', 'arr_detail'));
+         // return redirect(route('dat-lich.danh-sach-may'));
+      }
+      if ($request->active) {
+         $check = UserRepair::find($request->id);
+         if (!$check) {
+            $check->active = $request->active;
+            $check->save();
+         }
+      }
+      return redirect(route('dat-lich.danh-sach-may'));
    }
    public function deleteBookingDetail($id)
    {
@@ -263,10 +253,10 @@ class    BookingController extends Controller
          // return response()->json($product_detail);
       }
    }
-   public function demo()
-   {
-      return view('admin.booking.repair_detail');
-   }
+   // public function demo()
+   // {
+   //    return view('admin.booking.repair_detail');
+   // }
    public function finishRepairDetail($id, Request $request)
    {
       // dd($request);
@@ -329,5 +319,18 @@ class    BookingController extends Controller
          }
       }
       return redirect(route('dat-lich.danh-sach-may'));
+   }
+
+
+
+
+   public function userRepair()
+   {
+      if (Auth::check()) {
+         $booking_details = UserRepair::where('user_id', Auth::id())->get();
+         return view('admin.booking.my_repair', compact('user_repais'));
+      } else {
+         return redirect(route('login'));
+      }
    }
 }

@@ -173,7 +173,7 @@
 
 function validateSelectBox(obj){
     
-var options = obj.children;
+var options = obj.children; 
 console.log(obj.valuea);
 var html = '';
 
