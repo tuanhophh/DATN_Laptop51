@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeAdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ThongkeController;
+use App\Http\Controllers\NhapsanphamController;
 use App\Models\DetailProduct;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,15 @@ Route::prefix('category')->group(function () {
     Route::get('edit/{id}', [CategoryController::class, 'editForm'])->name('category.edit');
     Route::post('edit/{id}', [CategoryController::class, 'saveEdit']);
     Route::get('detail/{id}', [CategoryController::class, 'detail']);
+});
+Route::prefix('nhap_sanpham')->group(function () {
+    Route::get('/', [NhapsanphamController::class, 'index'])->name('nhap-sanpham.index');
+    Route::get('/remove/{id}', [NhapsanphamController::class, 'remove'])->name('nhap-sanpham.remove');
+    Route::get('add/{id}', [NhapsanphamController::class, 'addForm'])->name('nhap-sanpham.add');
+    Route::post('add/{id}', [NhapsanphamController::class, 'saveAdd']);
+    Route::get('edit/{id}', [NhapsanphamController::class, 'editForm'])->name('nhap-sanpham.edit');
+    Route::post('edit/{id}', [NhapsanphamController::class, 'saveEdit']);
+    Route::get('detail/{id}', [NhapsanphamController::class, 'detail']);
 });
 Route::prefix('product')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('product.index');
@@ -71,6 +81,10 @@ Route::prefix('sua-chua')->group(function () {
     Route::get('/detail-product/{id}', [BookingDetailController::class, 'getDetailProduct']);
 });
 Route::prefix('thongke')->group(function () {
-    Route::get('sanpham', [ThongkeController::class, 'index'])->name('thongke-sanpham');
-    
+    Route::get('sanpham', [ThongkeController::class, 'sanpham'])->name('thongke-sanpham');
+    Route::get('chitiet-sanpham', [ThongkeController::class, 'chitietSanpham'])->name('thongke-chitiet-sanpham');
+    Route::get('order', [ThongkeController::class, 'order'])->name('thongke-order');
+    Route::get('ajax', [ThongkeController::class, 'ajax']);
+
 });
+

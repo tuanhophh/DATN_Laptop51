@@ -17,5 +17,9 @@ class Product extends Model
     {
         return $this->belongsTo(ComputerCompany::class, 'category_id');
     }
+    public function nhaphangsanpham()
+    {
+        return $this->hasMany(Nhaphangsanpham::class, 'product_id');
+    }
     
 }

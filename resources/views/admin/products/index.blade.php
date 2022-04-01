@@ -111,6 +111,8 @@
                             <td>{{ $item->desc }}</td>
                             <td>{{ $item->status == 1 ? 'Còn hàng' : 'Hết hàng' }}</td>
                             <td>
+                                <a href="{{ route('nhap-sanpham.add', ['id' => $item->id]) }}"
+                                    class="btn btn-sm btn-primary">them sl</a>
                                 <a href="{{ route('product.edit', ['id' => $item->id]) }}"
                                     class="btn btn-sm btn-primary">Edit</a>
                                 <a onclick="return confirm('Bạn có chắc muốn xóa')"

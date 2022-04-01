@@ -33,6 +33,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"></script>
 
+
 <!-- AdminLTE App -->
 <script src="{{asset('adminlte')}}/dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -40,6 +41,9 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('adminlte')}}/dist/js/pages/dashboard.js"></script> --}}
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 {{-- <script>
   function btn_alert(){
     Swal.fire(
@@ -50,3 +54,13 @@
     }
     btn_alert();
 </script> --}}
+<script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
+  <script>
+    $( function() {
+      $( "#datepicker2" ).datepicker();
+    } );
+    </script>

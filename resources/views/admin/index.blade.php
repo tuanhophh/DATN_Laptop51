@@ -43,7 +43,7 @@
     <div class="icon">
     <i class="ion ion-person-add"></i>
     </div>
-    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    <a href="{{route('thongke-chitiet-sanpham')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
     </div>
     </div>
     
@@ -51,13 +51,13 @@
     
     <div class="small-box bg-danger">
     <div class="inner">
-    <h3>65</h3>
-    <p>Unique Visitors</p>
+    <h3>{{$total_order}}</h3>
+    <p>Order</p>
     </div>
     <div class="icon">
     <i class="ion ion-pie-graph"></i>
     </div>
-    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    <a href="{{route('thongke-order')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
     </div>
     </div>
     
