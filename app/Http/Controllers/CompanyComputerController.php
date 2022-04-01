@@ -9,14 +9,14 @@ use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class ComputerCompanyController extends Controller
+class CompanyComputerController extends Controller
 {
 
     public function index(Request $request)
     {
 
         $CompanyComputer = ComputerCompany::orderBy('id', 'desc')->paginate(10);
-        return view('admin.categories.index', compact('CompanyComputer'));
+        return view('admin.CompanyComputer.index', compact('CompanyComputer'));
     }
 
     public function remove($id)

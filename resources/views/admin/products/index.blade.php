@@ -33,11 +33,11 @@
                                         value="{{ $searchData['keyword'] }}" placeholder="Tìm theo tên sản phẩm">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Danh mục</label>
-                                    <select name="category_id" class="form-control">
+                                    <label for="">ComputerCompany</label>
+                                    <select name="computerCompany_id" class="form-control">
                                         <option value="">Tất cả</option>
-                                        @foreach ($categories as $item)
-                                            <option @if ($item->id == $searchData['cate_id']) selected @endif
+                                        @foreach ($ComputerCompany as $item)
+                                            <option @if ($item->id == $searchData['computerCompany_id']) selected @endif
                                                 value="{{ $item->id }}">{{ $item->company_name }}</option>
                                         @endforeach
                                     </select>
@@ -93,7 +93,7 @@
                             <td>{{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}</td>
                             <td>{{ $item->name }}</td>
                             <td>
-                                {{ $item->CompanyComputer->company_name }}
+                                {{ $item->companyComputer->company_name }}
                             </td>
                             <td>
                                 <img src="{{ asset($item->image) }}" width="100">

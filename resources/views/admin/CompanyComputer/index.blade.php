@@ -31,7 +31,7 @@
                             </th>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $item)
+                            @foreach ($CompanyComputer as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->company_name }}</td>
@@ -47,7 +47,7 @@
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-center">
-                        {{$categories->links()}}
+                        {{$CompanyComputer->links()}}
                     </div>
                 </div>
             </div>

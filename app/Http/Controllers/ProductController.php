@@ -31,7 +31,7 @@ class ProductController extends Controller
 
 
         $keyword = $request->has('keyword') ? $request->keyword : "";
-        $cate_id = $request->has('category_id') ? $request->cate_id : "";
+        $computerCompany_id = $request->has('computerCompany_id') ? $request->cate_id : "";
         $rq_order_by = $request->has('order_by') ? $request->order_by : 'asc';
         $rq_column_names = $request->has('column_names') ? $request->column_names : "id";
 
@@ -43,17 +43,17 @@ class ProductController extends Controller
             $query->orderByDesc($rq_column_names);
         }
 
-        if (!empty($cate_id)) {
-            $query->where('category_id', $cate_id);
+        if (!empty($computerCompany_id)) {
+            $query->where('computerCompany_id', $computerCompany_id);
         }
         $products = $query->paginate($pageSize);
-        $categories = ComputerCompany::all();
+        $ComputerCompany = ComputerCompany::all();
         
-        $products->load('category');
-        $searchData = compact('keyword', 'cate_id');
+        $products->load('companyComputer');
+        $searchData = compact('keyword', 'computerCompany_id');
         $searchData['order_by'] = $rq_order_by;
         $searchData['column_names'] = $rq_column_names;
-        return view('admin.products.index', compact('products', 'categories', 'column_names', 'order_by', 'searchData'));
+        return view('admin.products.index', compact('products', 'ComputerCompany', 'column_names', 'order_by', 'searchData'));
         // return response()->json($products);
     }
 
@@ -70,7 +70,7 @@ class ProductController extends Controller
     public function addForm()
     {
 
-        $categories = ComputerCompany::all();
+        $ComputerCompany = ComputerCompany::all();
         return view('admin.products.add', compact('categories'));
     }
     public function saveAdd(Request $request)
@@ -93,10 +93,10 @@ class ProductController extends Controller
         if (!$pro) {
             return back();
         }
-        $categories = ComputerCompany::all();
+        $ComputerCompany = ComputerCompany::all();
         return view(
             'admin.products.edit',
-            compact('pro', 'categories')
+            compact('pro', 'ComputerCompany')
         );
     }
     public function saveEdit(Request $request, $id)
