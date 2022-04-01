@@ -4,7 +4,8 @@
     <div class="template-header-top-logo">
         <a href="{{ asset('') }}" title="">
             <img src="{{ asset('client') }}/media/image/logo1.png" alt="" class="template-logo" />
-            <img src="{{ asset('client') }}/media/image/logo_sticky.png" alt="" class="template-logo template-logo-sticky" />
+            <img src="{{ asset('client') }}/media/image/logo_sticky.png" alt=""
+                class="template-logo template-logo-sticky" />
         </a>
     </div>
 
@@ -89,24 +90,42 @@
 
         </nav>
         <script type="text/javascript">
-            jQuery(document).ready(function ($) {
-                $('.template-header-top').templateHeader();
-            });
+        jQuery(document).ready(function($) {
+            $('.template-header-top').templateHeader();
+        });
         </script>
     </div>
 
     <!-- Social icons -->
     <div class="template-header-top-icon-list template-component-social-icon-list-1">
         <ul class="template-component-social-icon-list">
-            <li><a href="https://twitter.com/quanticalabs" class="template-icon-social-twitter"
-                    target="_blank"></a></li>
+            <!-- <li><a href="https://twitter.com/quanticalabs" class="template-icon-social-twitter" target="_blank"></a>
+            </li>
             <li><a href="https://www.facebook.com/QuanticaLabs" class="template-icon-social-facebook"
-                    target="_blank"></a></li>
-            <li><a href="indexd852.html?page=book-your-wash" class="template-icon-meta-cart"></a></li>
+                    target="_blank"></a></li> -->
+            <li><a href="gio-hang" class="template-icon-meta-cart"></a></li>
             <li><a href="#" class="template-icon-meta-search"></a></li>
-            <li><a href="{{ asset('') }}login" class="template-icon-meta-user"></a></li>
-            <li><a href="#" class="template-icon-meta-menu"></a></li>
+            <!-- <li><a href="{{ asset('') }}login" class="template-icon-meta-user"></a></li> -->
+            <li>
+                <div class="dropdown-right">
+                    <a type="text" class="template-icon-meta-user" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    </a>
+                    <div class="dropdown-menu m-0 p-0" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-item m-0 pr-1"> <a class="text-dark" href="{{ asset('') }}register">
+                               Đăng ký
+                            </a></div>
+
+                        <div class="dropdown-item m-0 pr-1"> <a class="text-dark" href="{{ asset('')}}login">
+                           Đăng nhập
+                            </a></div>
+                    </div>
+                </div>
+            </li>
+
         </ul>
     </div>
+    <!-- Example single danger button -->
+
 
 </div>

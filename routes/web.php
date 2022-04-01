@@ -41,8 +41,11 @@ Route::prefix('')->group(function () {
         return view('website.product');
     });
     // Giỏ hàng
-    Route::get('cart', function () {
+    Route::get('gio-hang', function () {
         return view('website.cart');
+    });
+    Route::get('chi-tiet-san-pham', function () {
+        return view('website.product-detail');
     });
     // trang giới thiệu
     Route::get('gioi-thieu', function () {
@@ -111,4 +114,6 @@ Route::post('import-detail-product', [ProductExportController::class, 'importDet
 // Route::get('login',[ProductController::class, 'postLogin']);
 // Route::get('info',[ProductController::class, 'getUserInfo']);
 // Route::get('logout',[ProductController::class, 'logOut']);
-Route::get('order', [MailController::class, 'OrderSuccessEmail'])->name('order-mail');
+Route::get('order', [MailController::class,'OrderSuccessEmail'])->name('order-mail');
+
+
