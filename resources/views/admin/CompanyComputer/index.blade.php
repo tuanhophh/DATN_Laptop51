@@ -1,5 +1,5 @@
 @extends('admin.layouts.main')
-@section('title', 'Danh mục')
+@section('title', 'CompanyComputer')
 @section('content')
     @if (Session::has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -27,7 +27,7 @@
                             <th>STT</th>
                             <th>Name</th>
                             <th>
-                                <a href="{{route('category.add')}}">Add new</a>
+                                <a href="{{route('CompanyComputer.add')}}">Add new</a>
                             </th>
                         </thead>
                         <tbody>
@@ -36,9 +36,9 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->company_name }}</td>
                                     <td>
-                                        <a href="{{ route('category.edit', ['id' => $item->id]) }}"
+                                        <a href="{{ route('CompanyComputer.edit', ['id' => $item->id]) }}"
                                             class="btn btn-sm btn-primary">Edit</a>
-                                        <a href="{{ route('category.remove', ['id' => $item->id]) }}"
+                                        <a href="{{ route('CompanyComputer.remove', ['id' => $item->id]) }}"
                                             onclick="return confirm('Bạn có chắc muốn xóa')"
                                             class="btn btn-sm btn-danger">Remove</a>
                                     </td>
