@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bệnh Viện Laptop 51</title>
-    @include('layout_client.style')
-    @include('layout_client.header')
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Bệnh Viện Laptop 51</title>
+	@include('layout_client.style')
+	@include('layout_client.header')
 </head>
+
 <body>
-    <div class="template-content">
+	<div class="template-content">
 
 		<!-- Section -->
 		<div class="template-component-booking template-section template-main" id="template-booking">
@@ -21,7 +23,7 @@
 
 					<!-- Vehcile list -->
 
-					<li>
+					{{-- <li>
 
 						<!-- Step -->
 						<div class="template-component-booking-item-header template-clear-fix">
@@ -76,9 +78,9 @@
 
 						</div>
 
-					</li>
+					</li> --}}
 
-					<li>
+					{{-- <li>
 
 						<!-- Step -->
 						<div class="template-component-booking-item-header template-clear-fix">
@@ -146,10 +148,10 @@
 
 						</div>
 
-					</li>
+					</li> --}}
 					<!-- Package list -->
 
-
+					{{--
 					<li>
 
 						<!-- Step -->
@@ -265,11 +267,11 @@
 
 						</div>
 
-					</li>
+					</li> --}}
 					<!-- Service list -->
 
 
-					<li>
+					{{-- <li>
 
 						<!-- Step -->
 						<div class="template-component-booking-item-header template-clear-fix">
@@ -547,7 +549,7 @@
 
 						</div>
 
-					</li>
+					</li> --}}
 					<!-- Summary -->
 
 
@@ -566,7 +568,7 @@
 
 
 						<!-- Content -->
-						<div class="template-component-booking-item-content">
+						{{-- <div class="template-component-booking-item-content">
 
 							<ul class="template-component-booking-summary template-clear-fix">
 
@@ -582,7 +584,7 @@
 
 							</ul>
 
-						</div>
+						</div> --}}
 
 						<!-- Content -->
 						<div class="template-component-booking-item-content template-margin-top-reset">
@@ -609,6 +611,7 @@
 
 							</ul>
 
+
 							<!-- Layout -->
 							<ul class="template-layout-50x50 template-layout-margin-reset template-clear-fix">
 
@@ -630,8 +633,33 @@
 								</li>
 
 							</ul>
+							<ul class="template-layout-50x50 template-layout-margin-reset template-clear-fix">
+
+								<!-- First name -->
+								<li class="template-layout-column-left template-margin-bottom-reset">
+									<div class="template-component-form-field">
+										<label for="booking-form-first-name">Hình thức sửa</label>
+										{{-- <input type="text" name="booking-form-first-name"
+											id="booking-form-first-name" /> --}}
+										<select id="booking-form-first-name" name="">
+											<option value="">Tại cửa hàng</option>
+											<option value="">Tại nha</option>
+										</select>
+									</div>
+								</li>
+
+								<!-- Second name -->
+								<li style="border: none"
+									class="template-layout-column-right template-margin-bottom-reset">
+									<div class="template-component-form-field">
+										<label for="booking-form-email">Tên máy</label>
+										<input type="text" name="booking-form-email" />
+									</div>
+								</li>
+
+							</ul>
 							<!-- Layout -->
-							<ul class="template-layout-100 template-layout-margin-reset template-clear-fix">
+							{{-- <ul class="template-layout-100 template-layout-margin-reset template-clear-fix">
 
 								<!-- Message -->
 								<li>
@@ -646,15 +674,15 @@
 										</label>
 									</div>
 								</li>
-							</ul>
+							</ul> --}}
 							<ul class="template-layout-100 template-layout-margin-reset template-clear-fix">
 
 								<!-- Message -->
 								<li>
 									<div class="template-component-form-field">
-										<label for="booking-form-message">Mô Tả Thêm... *</label>
+										<label for="booking-form-message"><b>Mô Tả Thêm... *</b></label>
 										<textarea rows="3" cols="3" name="booking-form-message"
-											id="booking-form-message"></textarea>
+											id="description"></textarea>
 									</div>
 								</li>
 
@@ -681,7 +709,12 @@
 		</div>
 
 	</div>
-    @include('layout_client.footer')
-    @include('layout_client.script')
+	@include('layout_client.footer')
+	@include('layout_client.script')
+	<script src="//cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
+	<script>
+		CKEDITOR.replace('description');	
+	</script>
 </body>
+
 </html>

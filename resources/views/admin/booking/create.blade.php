@@ -120,11 +120,11 @@
 {{-- <script src="{{asset('ckeditor')}}/ckeditor.js"></script> --}}
 <script src="{{asset('ckeditor')}}/ckeditor.js"></script>
 
-{{-- <script type="text/javascript">
+<script type="text/javascript">
   CKEDITOR.replace('ckeditor');
   CKEDITOR.replace('ckeditor1');
 
-</script>
+</script>{{--
 <script>
   function AddForm(){
   form_may=document.getElementById('form_may');

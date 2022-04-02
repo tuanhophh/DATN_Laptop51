@@ -250,8 +250,10 @@
       rows="3">{{ $booking_detail->description }}</textarea>
   </div>
 </div> --}}
-{{-- <script src="{{asset('ckeditor')}}/ckeditor.js"></script> --}}
-<script src="{{asset('ckeditor')}}/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.18.0/full/ckeditor.js"></script>
+
+{{-- <script src="{{asset('ckeditor')}}/ckeditor.js">
+</script> --}}
 
 <script type="text/javascript">
   CKEDITOR.replace('ckeditor');

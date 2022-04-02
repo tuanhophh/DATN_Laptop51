@@ -148,7 +148,7 @@ class ProductController extends Controller
     //         ]);
     //     dd($response->json());
     // }
-    
+
     // public function logOut()
     // {
     //     $response = Http::withHeaders([
