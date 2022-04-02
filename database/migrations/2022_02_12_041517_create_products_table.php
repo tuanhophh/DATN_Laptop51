@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->integer('qty');
             $table->string('desc')->nullable();
             $table->boolean('status');
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('companyComputer_id');
             
             $table->softDeletes();
             $table->timestamps();

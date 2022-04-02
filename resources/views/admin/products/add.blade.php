@@ -41,8 +41,8 @@
                     <div class="form-group">
                         <label for="">Danh mục</label>
                         <select name="category_id" class="form-control">
-                            <option value="">Chọn danh mục</option>
-                            @foreach ($categories as $item)
+                            <option value="">Chọn CompanyComputer</option>
+                            @foreach ($CompanyComputer as $item)
                                 <option value="{{ $item->id }}">{{ $item->company_name }}</option>
                             @endforeach
                         </select>
@@ -59,8 +59,8 @@
                             <label for="" class="mt-3">Status</label>
                             <select name="status" id="" class="form-control">
                                 <option value="">Chọn trạng thái</option>
-                                <option value="1">Còn hàng</option>
-                                <option value="0">Hết hàng</option>
+                                <option value="1">Bán </option>
+                                <option value="0">Không bán</option>
                             </select>
                     </div>
                 </div>
