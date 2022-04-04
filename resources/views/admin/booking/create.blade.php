@@ -87,13 +87,14 @@
       <textarea class="form-control" name="description" id="ckeditor1" rows="3"></textarea>
     </div>
   </div>
-  <button onclick="AddForm()" type="button" id="btn_themmay">Thêm máy</button>
-  <input name="" id="" class="btn btn-primary" type="submit" value="Lưu  ">
+  {{-- <button onclick="AddForm()" type="button" id="btn_themmay">Thêm máy</button> --}}
+
+  <button class="btn btn-primary" name="btn" id="" value="admin" type="submit">Lưu </button>
 
 </form>
 
 
-<div class="row border border-success" style="display: none" id="form_mayadd">
+{{-- <div class="row border border-success" style="display: none" id="form_mayadd">
 
   <div class="col-4">
     <h5 class="mx-auto">Máy 1</h5>
@@ -116,7 +117,7 @@
     <label for="">Mô tả</label>
     <textarea class="form-control" name="description" id="ckeditor1" rows="3"></textarea>
   </div>
-</div>
+</div> --}}
 {{-- <script src="{{asset('ckeditor')}}/ckeditor.js"></script> --}}
 <script src="{{asset('ckeditor')}}/ckeditor.js"></script>
 

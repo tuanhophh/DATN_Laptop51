@@ -110,12 +110,15 @@ class    BookingController extends Controller
    {
       $request->validate([
          'full_name' => 'required',
-         'phone' => 'required',
-         'interval' => 'required',
+         'phone' => 'required||integer',
+         'email' => 'required||email',
+         'name_computer' => 'required',
+
+         // 'interval' => 'required',
          // 'repair_type' => 'required'
       ]);
 
-
+      // dd($request);
       // $request->input($request);
 
       $data_booking = [
@@ -168,9 +171,13 @@ class    BookingController extends Controller
       // dispatch(new SendOrderSuccessEmail($details));
 
 
+      if ($request->btn == 'admin') {
+         return redirect(route('dat-lich.danh-sach-may'));
+      } else {
+         return redirect(route('dat-lich.add_client'))->with('msg', 'thành công');
+      }
 
-
-      return redirect(route('dat-lich.index'));
+      // return redirect(route('dat-lich.index'));
    }
 
    public function deleteBooking($id)
@@ -221,8 +228,8 @@ class    BookingController extends Controller
          // return redirect(route('dat-lich.danh-sach-may'));
       }
       if ($request->active) {
-         $check = UserRepair::find($request->id);
-         if (!$check) {
+         $check = BookingDetail::find($request->booking_detail_id);
+         if ($check) {
             $check->active = $request->active;
             $check->save();
          }
@@ -318,6 +325,7 @@ class    BookingController extends Controller
             $booking_detail->save();
          }
       }
+
       return redirect(route('dat-lich.danh-sach-may'));
    }
 

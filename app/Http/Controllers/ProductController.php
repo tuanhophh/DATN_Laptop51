@@ -48,7 +48,7 @@ class ProductController extends Controller
         }
         $products = $query->paginate($pageSize);
         $ComputerCompany = ComputerCompany::all();
-        
+
         $products->load('companyComputer');
         $searchData = compact('keyword', 'computerCompany_id');
         $searchData['order_by'] = $rq_order_by;
@@ -70,16 +70,16 @@ class ProductController extends Controller
     public function addForm()
     {
 
-        $ComputerCompany = ComputerCompany::all();
-        return view('admin.products.add', compact('categories'));
+        $CompanyComputer  = ComputerCompany::all();
+        return view('admin.products.add', compact('CompanyComputer'));
     }
     public function saveAdd(Request $request)
     {
         $model = new Product();
         if ($request->hasFile('image')) {
             $imgPath = $request->file('image')->store('products');
-            $imgPath = str_replace('public/', 'storage/', $imgPath);
-            $model->image = $imgPath;
+            $imgPath1 = str_replace('public/', 'storage/', $imgPath);
+            $model->image = $imgPath1;
         }
 
         $model->fill($request->all());
@@ -108,7 +108,7 @@ class ProductController extends Controller
         if (!$model) {
             return back();
         }
-        
+
         if ($request->hasFile('image')) {
             // $oldImg = str_replace('storage/', 'public/', $model->image);
             Storage::delete($model->image);

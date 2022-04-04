@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Models\ComputerCompany;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,8 +67,10 @@ Route::prefix('')->group(function () {
     });
     // trang đặt lịch
     Route::get('dat-lich', function () {
-        return view('website.booking');
-    });
+        $company_computer = ComputerCompany::all();
+        return view('website.booking', compact('company_computer'));
+    })->name('dat-lich.add_client');
+    Route::post('dat-lich', [BookingController::class, 'creatBooking']);
     // trang liên hệ
     Route::get('lien-he', function () {
         return view('website.contact');
