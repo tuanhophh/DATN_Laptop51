@@ -34,10 +34,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="">ComputerCompany</label>
-                                    <select name="computerCompany_id" class="form-control">
+                                    <select name="companyComputer_id" class="form-control">
                                         <option value="">Tất cả</option>
                                         @foreach ($ComputerCompany as $item)
-                                            <option @if ($item->id == $searchData['computerCompany_id']) selected @endif
+                                            <option @if ($item->id == $searchData['companyComputer_id']) selected @endif
                                                 value="{{ $item->id }}">{{ $item->company_name }}</option>
                                         @endforeach
                                     </select>
@@ -83,6 +83,7 @@
                         <th>Quantity</th>
                         <th>Desc</th>
                         <th>Status</th>
+                        <th>Bảo hành</th>
                         <th>
                             <a href="{{ route('product.add') }}">Add new</a>
                         </th>
@@ -93,7 +94,7 @@
                             <td>{{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}</td>
                             <td>{{ $item->name }}</td>
                             <td>
-                                {{ $item->companyComputer->company_name }}
+                                {{ $item->companyComputer_id }}
                             </td>
                             <td>
                                 <img src="{{ asset($item->image) }}" width="100">
@@ -103,6 +104,7 @@
                             <td>{{ $item->qty }}</td>
                             <td>{{ $item->desc }}</td>
                             <td>{{ $item->status == 1 ? 'Bán' : 'Không bán' }}</td>
+                            <td>{{ $item->insurance }}</td>
                             <td>
                                 <a href="{{ route('nhap-sanpham.add', ['id' => $item->id]) }}"
                                     class="btn btn-sm btn-primary">them sl</a>

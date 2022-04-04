@@ -75,6 +75,8 @@ Route::prefix('')->group(function () {
     Route::get('404', function () {
         return view('website.404');
     });
+
+
 });
 Route::prefix('user')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('user.index');
@@ -111,3 +113,7 @@ Route::post('import-detail-product', [ProductExportController::class, 'importDet
 // Route::get('info',[ProductController::class, 'getUserInfo']);
 // Route::get('logout',[ProductController::class, 'logOut']);
 Route::get('order', [MailController::class, 'OrderSuccessEmail'])->name('order-mail');
+
+Route::get('error', function () {
+    return view('error');
+})->name('error');

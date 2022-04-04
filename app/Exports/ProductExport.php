@@ -19,42 +19,44 @@ class ProductExport implements FromCollection, WithHeadings
     public function collection()
     {
         $data = Product::all();
-        $data->load('category');
+        $data->load('companyComputer');
+        
         foreach ($data as $row) {
+            if($row->status===0){
+                $row->status="Không bán";
+            }elseif($row->status===1){
+                $row->status="Bán";
+            }
+            
             $order[] = array(
                 '0' => $row->name,
-
                 '1' => $row->image,
-                '2' => $row->price,
-                '3' => $row->qty,
-                '4' => $row->desc,
-                '5' => $row->status,
-                '6' => $row->category->company_name,
+                '2' => $row->import_price,
+                '3' => $row->price,
+                '4' => $row->qty,
+                '5' => $row->desc,
+                '6' => $row->status,
+                '7' => $row->companyComputer->company_name,
+                '8'=>$row->insurance,
             );
         }
 
         return (collect($order));
     }
 
-    // public function view(): View
-    // {
-    //     $data = Product::all();
-    //     dd($data);
-    //     $data->load('category');
-    //     return view('admin.exports.product-export', [
-    //         'products' =>  $data
-    //     ]);
-    // }
+    
     public function headings(): array
     {
         return [
             'Tên',
             'Ảnh',
+            'Giá nhập',
             'Giá',
             'Số lượng',
             'Mô tả',
             'Trạng thái',
             'Loại sản phẩm',
+            'Bảo hành'
         ];
     }
 }

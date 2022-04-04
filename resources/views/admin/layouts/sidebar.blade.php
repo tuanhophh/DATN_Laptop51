@@ -49,9 +49,9 @@
                 <a href="" class="nav-link {{ request()->is('admin/CompanyComputer*') ? 'active ' : '' }}">
                     <i class="nav-icon fas fa-copy"></i>
                     <p>
-                        Category
+                        CompanyComputer
                         <i class="fas fa-angle-left right"></i>
-                        <span class="badge badge-info right">6</span>
+                        {{-- <span class="badge badge-info right">6</span> --}}
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
@@ -78,12 +78,12 @@
                     <p>
                         Product
                         <i class="fas fa-angle-left right"></i>
-                        <span class="badge badge-info right">6</span>
+                        {{-- <span class="badge badge-info right">6</span> --}}
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="/admin/product" class="nav-link {{ request()->is('admin/product*') ? 'active' : '' }}">
+                        <a href="/admin/product" class="nav-link {{ request()->is('admin/product') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Danh sách</p>
                         </a>
@@ -104,12 +104,12 @@
                     <p>
                         User
                         <i class="fas fa-angle-left right"></i>
-                        <span class="badge badge-info right">6</span>
+                        {{-- <span class="badge badge-info right">6</span> --}}
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="/user" class="nav-link {{ request()->is('/user*') ? 'active' : '' }}">
+                        <a href="/user" class="nav-link {{ request()->is('/user') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Danh sách</p>
                         </a>
@@ -130,7 +130,7 @@
                     <p>
                         Detail product
                         <i class="fas fa-angle-left right"></i>
-                        <span class="badge badge-info right">6</span>
+                        {{-- <span class="badge badge-info right">6</span> --}}
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
@@ -151,27 +151,7 @@
 
                 </ul>
             </li>
-            <li class="nav-item {{ request()->is('admin/sua-chua*') ? ' menu-is-opening menu-open' : '' }}">
-                <a href="" class="nav-link {{ request()->is('admin/sua-chua*') ? 'active ' : '' }}">
-                    <i class="nav-icon fas fa-copy"></i>
-                    <p>
-                        Order
-                        <i class="fas fa-angle-left right"></i>
-                        <span class="badge badge-info right">6</span>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="/admin/dat-lich"
-                            class="nav-link {{ request()->is('admin/category') ? 'active' : '' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Danh sách</p>
-                        </a>
-                    </li>
-                    
-
-                </ul>
-            </li>
+            
         </ul>
     </nav>
     <!-- /.sidebar-menu -->
