@@ -24,28 +24,32 @@ class ProductExport implements FromCollection, WithHeadings
         foreach ($data as $row) {
             $order[] = array(
                 '0' => $row->name,
+
                 '1' => $row->image,
-                '2' => $row->price,
-                '3' => $row->qty,
-                '4' => $row->desc,
-                '5' => $row->status,
-                '6' => $row->products->name,
+                '2' => $row->import_price,
+                '3' => $row->price,
+                '4' => $row->qty,
+                '5' => $row->desc,
+                '6' => $row->status,
+                '7' => $row->companyComputer->company_name,
             );
         }
 
         return (collect($order));
     }
 
+    
     public function headings(): array
     {
         return [
             'Tên',
             'Ảnh',
+            'Giá nhập',
             'Giá',
             'Số lượng',
             'Mô tả',
             'Trạng thái',
-            'Sản phẩm',
+            'Loại sản phẩm',
         ];
     }
 }
