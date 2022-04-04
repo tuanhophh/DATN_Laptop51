@@ -12,8 +12,8 @@ class DetailProduct extends Model
     use SoftDeletes;
     protected $table = "detail_products";
     protected $dates = ['deleted_at'];
-    public $fillable = ['name', 'price', 'qty', 'desc','image', 'status', 'product_id','insurance'];
-    public function products()
+    public $fillable = ['name','import_price', 'price', 'qty', 'desc','image', 'status', 'product_id','insurance'];
+    public function detaiProduct()
     {
         return $this->belongsTo(Product::class, 'product_id');
     }

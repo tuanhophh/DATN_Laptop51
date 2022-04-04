@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CompanyComputerRequest;
 use App\Models\BookingDetail;
 use App\Models\Category;
 use App\Models\ComputerCompany;
@@ -40,7 +41,7 @@ class CompanyComputerController extends Controller
         $CompanyComputer = ComputerCompany::all();
         return view('admin.CompanyComputer.add', compact('CompanyComputer'));
     }
-    public function saveAdd(Request $request)
+    public function saveAdd(CompanyComputerRequest $request)
     {
         $model = new ComputerCompany();
         $model->fill($request->all());
@@ -59,7 +60,7 @@ class CompanyComputerController extends Controller
             compact('CompanyComputer')
         );
     }
-    public function saveEdit(Request $request, $id)
+    public function saveEdit(CompanyComputerRequest $request, $id)
     {
         $model = ComputerCompany::find($id);
         $model->fill($request->all());

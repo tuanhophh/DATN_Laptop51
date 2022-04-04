@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 // use App\Helpers\Http;
+
+use App\Http\Requests\ProductRequest;
 use App\Http\Requests\SaveProductRequest;
 use App\Models\Category;
 use App\Models\ComputerCompany;
@@ -31,7 +33,7 @@ class ProductController extends Controller
 
 
         $keyword = $request->has('keyword') ? $request->keyword : "";
-        $computerCompany_id = $request->has('computerCompany_id') ? $request->cate_id : "";
+        $companyComputer_id = $request->has('companyComputer_id') ? $request->companyComputer_id : "";
         $rq_order_by = $request->has('order_by') ? $request->order_by : 'asc';
         $rq_column_names = $request->has('column_names') ? $request->column_names : "id";
 
@@ -43,14 +45,14 @@ class ProductController extends Controller
             $query->orderByDesc($rq_column_names);
         }
 
-        if (!empty($computerCompany_id)) {
-            $query->where('computerCompany_id', $computerCompany_id);
+        if (!empty($companyComputer_id)) {
+            $query->where('companyComputer_id', $companyComputer_id);
         }
         $products = $query->paginate($pageSize);
         $ComputerCompany = ComputerCompany::all();
 
         $products->load('companyComputer');
-        $searchData = compact('keyword', 'computerCompany_id');
+        $searchData = compact('keyword', 'companyComputer_id');
         $searchData['order_by'] = $rq_order_by;
         $searchData['column_names'] = $rq_column_names;
         return view('admin.products.index', compact('products', 'ComputerCompany', 'column_names', 'order_by', 'searchData'));
@@ -60,20 +62,24 @@ class ProductController extends Controller
     public function remove($id)
     {
         $model = Product::find($id);
-        if (!empty($model->image)) {
-            $imgPath = str_replace('storage/', '', $model->image);
-            Storage::delete($imgPath);
+        if (!empty($model)) {
+            if (!empty($model->image)) {
+                $imgPath = str_replace('storage/', '', $model->image);
+                Storage::delete($imgPath);
+            }
+            $model->delete();
+            return redirect(route('product.index'))->with('success', 'Xóa thành công');
+        } else {
+            return redirect(route('error'));
         }
-        $model->delete();
-        return redirect(route('product.index'))->with('success', 'Xóa thành công');
     }
     public function addForm()
     {
 
-        $CompanyComputer  = ComputerCompany::all();
-        return view('admin.products.add', compact('CompanyComputer'));
+        $ComputerCompany = ComputerCompany::all();
+        return view('admin.products.add', compact('ComputerCompany'));
     }
-    public function saveAdd(Request $request)
+    public function saveAdd(ProductRequest $request)
     {
         $model = new Product();
         if ($request->hasFile('image')) {
@@ -91,7 +97,7 @@ class ProductController extends Controller
     {
         $pro = Product::find($id);
         if (!$pro) {
-            return back();
+            return redirect(route('error'));
         }
         $ComputerCompany = ComputerCompany::all();
         return view(
@@ -99,15 +105,9 @@ class ProductController extends Controller
             compact('pro', 'ComputerCompany')
         );
     }
-    public function saveEdit(Request $request, $id)
+    public function saveEdit(ProductRequest $request, $id)
     {
-        // $request la gui du lieu len
-        // dd($request->name)
         $model = Product::find($id);
-
-        if (!$model) {
-            return back();
-        }
 
         if ($request->hasFile('image')) {
             // $oldImg = str_replace('storage/', 'public/', $model->image);
