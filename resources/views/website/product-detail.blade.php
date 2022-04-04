@@ -21,11 +21,13 @@
     @include('layout_client.header')
     <div class="container-fluid bg-light pt-3">
         <div class="container bg-white">
-            <p class="h6">Laptop</p>
+            <p class=""><a class="text-dark" href="/cua-hang">Cửa hàng</a> \ 
+            <a class="text-dark" href="/cua-hang/{{$pro->companyComputer_id}}">{{$pro->name}}</a> \ 
+            <a class="text-dark" href="{{$pro->id}}">{{$pro->name}}</a></p>
         </div>
         <div class="container bg-white mb-4 pb-3">
 
-            <p class="h5">Laptop Cũ HP Notebook 14s cr2005tu - Intel Core i5</p>
+            <p class="h5">{{$pro->name}}</p>
             <div class="row">
                 <div class="col-6">
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -58,79 +60,106 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <h5 class="font-weight-bold">13.990.000Đ</h5>
-                    <p class="">Laptop cũ HP core i5 thời trang mỏng nhẹ, cấu hình cao đáp ứng mọi nhu cầu làm việc học
-                        tập.
-                        Màn Full HD sáng đẹp sắc nét. Giá cực tốt
+                    <h5 class="font-weight-bold">{{$pro->price}}</h5>
+                    <p class="">{{$pro->desc}}
                     </p>
-                    <div class="row" style="height: 50px;">
-                        <div class="col-3 pr-0">
-                            <p class="pr-0 font-weight-bold">
+                    <div class="row" style="height: auto;">
+                        <div class="col-2 pr-0">
+                            <p class="pr-0  py-0 font-weight-bold">
                                 CPU:
                             </p>
                         </div>
                         <div class="col-9">
                             <ul class="nav">
-                                <li class="nav-item border border-warning m-2 px-2">
-                                    <a class="nav-link active p-0 text-dark" href="#">Intel Core i5-10210U</a>
+                                @foreach($detailPro as $item)
+                                @if($item->category_id==1)
+                                <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
+                                    <a class="nav-link active p-0 text-dark" href="#">
+                                        {{$item->name}}
+                                    </a>
                                 </li>
+                                @endif
+                                @endforeach
                             </ul>
                         </div>
                     </div>
-                    <div class="row" style="height: 50px;">
-                        <div class="col-3 pr-0 py-0">
-                            <p class="pr-0 font-weight-bold">
+                    <div class="row" style="height: auto;">
+                        <div class="col-2 pr-0">
+                            <p class="pr-0  py-0 font-weight-bold">
                                 RAM:
                             </p>
                         </div>
                         <div class="col-9">
                             <ul class="nav">
-                                <li class="nav-item border border-warning m-2 px-2">
-                                    <a class="nav-link active p-0 text-dark" href="#">RAM 8GB DDR4</a>
+                                @foreach($detailPro as $item)
+                                @if($item->category_id==4)
+                                <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
+                                    <a class="nav-link active p-0 text-dark" href="#">
+                                        {{$item->name}}
+                                    </a>
                                 </li>
+                                @endif
+                                @endforeach
                             </ul>
                         </div>
                     </div>
-                    <div class="row" style="height: 50px;">
-                        <div class="col-3 pr-0 py-0">
-                            <p class="pr-0 font-weight-bold">
+                    <div class="row" style="height: auto;">
+                        <div class="col-2 pr-0">
+                            <p class="pr-0  py-0 font-weight-bold">
                                 Ổ cứng:
                             </p>
                         </div>
                         <div class="col-9">
                             <ul class="nav">
-                                <li class="nav-item border border-warning m-2 px-2">
-                                    <a class="nav-link active p-0 text-dark" href="#">SSD 240GB NVMe</a>
+                                @foreach($detailPro as $item)
+                                @if($item->category_id==2)
+                                <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
+                                    <a class="nav-link active p-0 text-dark" href="#">
+                                        {{$item->name}}
+                                    </a>
                                 </li>
+                                @endif
+                                @endforeach
                             </ul>
                         </div>
                     </div>
-                    <div class="row" style="height: 50px;">
-                        <div class="col-3 pr-0 py-0">
-                            <p class="pr-0 font-weight-bold">
+                    <div class="row" style="height: auto;">
+                        <div class="col-2 pr-0">
+                            <p class="pr-0  py-0 font-weight-bold">
                                 Màn hình:
                             </p>
                         </div>
                         <div class="col-9">
                             <ul class="nav">
-                                <li class="nav-item border border-warning m-2 px-2">
-                                    <a class="nav-link active p-0 text-dark" href="#">14 Inch Full HD
+                                @foreach($detailPro as $item)
+                                @if($item->category_id==3)
+                                <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
+                                    <a class="nav-link active p-0 text-dark" href="#">
+                                        {{$item->name}}
                                     </a>
                                 </li>
+                                @endif
+                                @endforeach
                             </ul>
                         </div>
                     </div>
-                    <div class="row" style="height: 50px;">
-                        <div class="col-3 pr-0 py-0">
-                            <p class="pr-0 font-weight-bold">
+                    <div class="row" style="height: auto;">
+                        <div class="col-2 pr-0">
+                            <p class="pr-0  py-0 font-weight-bold">
                                 Card đồ họa:
                             </p>
                         </div>
                         <div class="col-9">
                             <ul class="nav">
-                                <li class="nav-item border border-warning m-2 px-2">
-                                    <a class="nav-link active p-0 text-dark" href="#">Intel UHD Graphics</a>
+                                @foreach($detailPro as $item)
+                                @if($item->category_id==5)
+                                <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
+                                    <a class="nav-link active p-0 text-dark" href="#">
+                                        {{$item->name}}
+                                    </a>
                                 </li>
+                                @endif
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -161,56 +190,17 @@
                 <div class="col-8">
                     <div class="bg-white">
                         <p class='border-bottom pl-3 pb-2 pt-3 border-warning h5'>
-                            Sản phẩm bán chạy
+                            Chi tiết sản phẩm
                         </p>
-                        <p>
-                            HP Notebook 14 cho trải nghiệm hình ảnh sắc nét, sống động
-                            HP Notebook i5 được trang bị màn hình 14 inch với công nghệ viền siêu mỏng 6.5mm cho tỷ lệ
-                            hiển
-                            thị hình ảnh trên khung hình lên đến 81% giúp tăng không gian quan sát, cùng với độ phân
-                            giải
-                            Full HD giúp người dùng có thể trải nghiệm được hình ảnh chi tiết, rõ ràng, sắc nét và sống
-                            động
-                            nhất, dù là làm việc hay giải trí đều cực đã.
-
-
-
-                            HP notebook 14 có bàn phím và touchpad êm ái, linh hoạt và nhạy bén
-                            Để tối ưu hơn cho trải nghiệm sử dụng, HP cũng không quên trang bị cho chiếc laptop HP dưới
-                            15
-                            triệu này bộ bàn phím với các phím có kích thước lớn, hành trình phím sâu, độ nảy tốt, gõ
-                            phím
-                            êm ái dù phải soạn thảo văn bản trong nhiều giờ cũng không sợ mỏi tay.
-
-                            Touchpad thì được thiết kế rộng rãi ở chính giữa với cảm ứng đa điểm nhạy bén, linh hoạt để
-                            bạn
-                            có thể thoải mái làm việc với các ứng dụng cơ bản mà không cần phải dùng đến chuột ngoài.
-
-
-
-                            Cổng kết nối của HP Notebook 14 đầy đủ, kết nối nhanh chóng
-                            Laptop mỏng nhẹ dưới 15 triệu HP Notebook được trang bị đầy đủ các cổng kết nối thông minh
-                            bao
-                            gồm: 3 cổng USB (2 x USB 3.1 Gen 1, 1 x USB 3.1 Type C), 1 cổng HDMI 1.4b, 1 khe cắm thẻ
-                            nhớ,
-                            jack cắm tai nghe, webcam HD sắc nét giúp người dùng thuận tiện để trao đổi dữ liệu đến
-                            những
-                            thiết bị di động, máy tính bảng hoặc laptop khác để tăng hiệu suất làm việc.
-
-
-
-                            Có thể nói, với tất cả những ưu điểm nổi trội cả về ngoại hình lẫn hiệu năng trên HP
-                            Notebook 14
-                            xứng đáng là chiếc laptop giá rẻ đáng mua nhất hiện nay.
-
-
+                        <p class="px-3">
+                            {{$pro->desc}}
                         </p>
                     </div>
                 </div>
                 <div class="col-4 pl-1">
                     <div class="bg-white ">
                         <p class='border-bottom pl-3 pb-2 pt-3 border-warning h5'>
-                            Sản phẩm bán chạy
+                            Sản phẩm cùng hãng
                         </p>
                         <ul class="list-group">
                             <li class="list-group-item border-left-0 border-right-0 border-top-0 d-inline">

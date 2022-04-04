@@ -12,9 +12,13 @@ class DetailProduct extends Model
     use SoftDeletes;
     protected $table = "detail_products";
     protected $dates = ['deleted_at'];
-    public $fillable = ['name', 'price', 'qty', 'desc','image', 'status', 'product_id','insurance'];
+    public $fillable = ['name', 'price', 'qty', 'desc','image', 'status', 'product_id','insurance','category_id'];
     public function products()
     {
         return $this->belongsTo(Product::class, 'product_id');
+    }
+    public function categories()
+    {
+        return $this->belongsTo(Catetgory::class, 'category_id');
     }
 }

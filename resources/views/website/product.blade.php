@@ -70,74 +70,21 @@
                 </div>
             </div>
             <div class="row p-2">
-                <div class="col-lg-3 col-sm-6 p-2">
-                    <div class="card" style="">
-                    <a href="/chi-tiet-san-pham"><img src="https://laptop88.vn/media/product/pro_poster_7010.jpg" class="card-img-top"
+            @foreach ($products as $item)
+            <div class="col-lg-3 col-sm-6 p-2">
+                    <div class="card">
+                        <a href="{{$item->id}}"><img src="https://laptop88.vn/media/product/pro_poster_7010.jpg" class="card-img-top"
                             alt="https://laptop88.vn/media/product/pro_poster_7010.jpg"></a>
                         <div class="card-body">
-                            <p class="card-title h6 fw-bold p-0">Laptop Acer Nitro 5 Eagle AN515-57-536Q / 56FC -
-                                Intel Core i5 11400H GTX
-                                1650</p>
-                            <p class="card-text h6 small p-0">Laptop Acer Nitro 5 Eagle Mạnh Mẽ RẺ NHẤT THỊ TRƯỜNG
-                                Cấu hình Intel Core i5 11400H, Card đồ họa GTX 1650 chiến mượt mọi game
-                                Bảo hành 12 tháng Laptop88
+                            <p class="card-title h6 fw-bold p-0">{{$item->name}}</p>
+                            <p class="card-text h6 small p-0">{{$item->desc}}
                             </p>
                             <p class="h4 bg-warning mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-white"
-                                style="width: 180px;">18.590.000Đ</p>
+                                style="width: 180px;">{{$item->price}}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6 p-2">
-                    <div class="card" style="">
-                    <a href="/chi-tiet-san-pham"><img src="https://laptop88.vn/media/product/pro_poster_7010.jpg" class="card-img-top"
-                            alt="https://laptop88.vn/media/product/pro_poster_7010.jpg"></a>
-                        <div class="card-body">
-                            <p class="card-title h6 fw-bold p-0">Laptop Acer Nitro 5 Eagle AN515-57-536Q / 56FC -
-                                Intel Core i5 11400H GTX
-                                1650</p>
-                            <p class="card-text h6 small p-0">Laptop Acer Nitro 5 Eagle Mạnh Mẽ RẺ NHẤT THỊ TRƯỜNG
-                                Cấu hình Intel Core i5 11400H, Card đồ họa GTX 1650 chiến mượt mọi game
-                                Bảo hành 12 tháng Laptop88
-                            </p>
-                            <p class="h4 bg-warning mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-white"
-                                style="width: 180px;">18.590.000Đ</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 p-2">
-                    <div class="card" style="">
-                        <a href="/chi-tiet-san-pham"><img src="https://laptop88.vn/media/product/pro_poster_7010.jpg" class="card-img-top"
-                            alt="https://laptop88.vn/media/product/pro_poster_7010.jpg"></a>
-                        <div class="card-body">
-                            <p class="card-title h6 fw-bold p-0">Laptop Acer Nitro 5 Eagle AN515-57-536Q / 56FC -
-                                Intel Core i5 11400H GTX
-                                1650</p>
-                            <p class="card-text h6 small p-0">Laptop Acer Nitro 5 Eagle Mạnh Mẽ RẺ NHẤT THỊ TRƯỜNG
-                                Cấu hình Intel Core i5 11400H, Card đồ họa GTX 1650 chiến mượt mọi game
-                                Bảo hành 12 tháng Laptop88
-                            </p>
-                            <p class="h4 bg-warning mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-white"
-                                style="width: 180px;">18.590.000Đ</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 p-2">
-                    <div class="card" style="">
-                    <a href="/chi-tiet-san-pham"><img src="https://laptop88.vn/media/product/pro_poster_7010.jpg" class="card-img-top"
-                            alt="https://laptop88.vn/media/product/pro_poster_7010.jpg"></a>
-                        <div class="card-body">
-                            <p class="card-title h6 fw-bold p-0">Laptop Acer Nitro 5 Eagle AN515-57-536Q / 56FC -
-                                Intel Core i5 11400H GTX
-                                1650</p>
-                            <p class="card-text h6 small p-0">Laptop Acer Nitro 5 Eagle Mạnh Mẽ RẺ NHẤT THỊ TRƯỜNG
-                                Cấu hình Intel Core i5 11400H, Card đồ họa GTX 1650 chiến mượt mọi game
-                                Bảo hành 12 tháng Laptop88
-                            </p>
-                            <p class="h4 bg-warning mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-white"
-                                style="width: 180px;">18.590.000Đ</p>
-                        </div>
-                    </div>
-                </div>
+                        @endforeach
             </div>
         </div>
     </div>

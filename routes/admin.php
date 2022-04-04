@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingDetailController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyComputerController;
 use App\Http\Controllers\DetailProductController;
 use App\Http\Controllers\HomeAdminController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ThongkeController;
 use App\Http\Controllers\NhapsanphamController;
+use App\Models\Category;
 use App\Models\DetailProduct;
 use Illuminate\Support\Facades\Route;
 
@@ -92,5 +94,14 @@ Route::prefix('thongke')->group(function () {
     Route::get('order', [ThongkeController::class, 'order'])->name('thongke-order');
     Route::get('ajax', [ThongkeController::class, 'ajax']);
 
+});
+Route::prefix('category')->group(function () {
+    Route::get('/', [CategoryController::class, 'index'])->name('category.index');
+    Route::get('/remove/{id}', [CategoryController::class, 'remove'])->name('category.remove');
+    Route::get('add', [CategoryController::class, 'addForm'])->name('category.add');
+    Route::post('add', [CategoryController::class, 'saveAdd']);
+    Route::get('edit/{id}', [CategoryController::class, 'editForm'])->name('category.edit');
+    Route::post('edit/{id}', [CategoryController::class, 'saveEdit']);
+    Route::get('detail/{id}', [CategoryController::class, 'detail']);
 });
 

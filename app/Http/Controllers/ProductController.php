@@ -71,17 +71,17 @@ class ProductController extends Controller
     {
 
         $ComputerCompany = ComputerCompany::all();
-        return view('admin.products.add', compact('categories'));
+        return view('admin.products.add', compact('ComputerCompany'));
     }
     public function saveAdd(Request $request)
     {
+        
         $model = new Product();
         if ($request->hasFile('image')) {
             $imgPath = $request->file('image')->store('products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
             $model->image = $imgPath;
         }
-
         $model->fill($request->all());
         $model->save();
         return redirect(route('product.index'));

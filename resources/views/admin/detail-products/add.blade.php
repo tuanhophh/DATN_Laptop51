@@ -47,6 +47,15 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="">Chọn danh mục</label>
+                        <select name="category_id" class="form-control">
+                            <option value="">Chọn danh mục</option>
+                            @foreach ($categories as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>   
+                    </div>
                         <div class="form-group">
                             <label for="">Mô tả</label>
                             <textarea name="desc" rows="4" class="form-control"></textarea>

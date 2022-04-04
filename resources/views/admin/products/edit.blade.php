@@ -43,9 +43,9 @@
                         <label for="">CompanyComputer</label>
                         <select name="category_id" class="form-control">
                             <option value="">Chọn CompanyComputer</option>
-                            @foreach ($CompanyComputer as $item)
+                            @foreach ($ComputerCompany as $item)
                                 <option
-                                @if($item->id == $pro->CompanyComputer_id)
+                                @if($item->id == $pro->company_computer_id)
                                     selected
                                 @endif
                                 value="{{ $item->id }}">{{ $item->company_name }}</option>

@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\HomeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,7 +29,7 @@ Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPa
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
-
+Auth::routes();
 Route::prefix('')->group(function () {
     //     đăng nhập
     Route::get('logout', [\App\Http\Controllers\HomeController::class, 'logout']);
@@ -36,16 +38,14 @@ Route::prefix('')->group(function () {
         return view('website.profile');
     });
     // trang cửa hàng
-    Route::get('cua-hang', function () {
-        return view('website.product');
-    });
+    Route::get('cua-hang', [HomeController::class, 'show'])->name('website.product');
+    
     // Giỏ hàng
     Route::get('gio-hang', function () {
         return view('website.cart');
     });
-    Route::get('chi-tiet-san-pham', function () {
-        return view('website.product-detail');
-    });
+    Route::get('{id}', [HomeController::class, 'detail'])->name('website.product-detail');
+    Route::get('cua-hang/{computerCompany_id}', [HomeController::class, 'company'])->name('website.product');
     // trang giới thiệu
     Route::get('gioi-thieu', function () {
         return view('website.gioi-thieu');

@@ -40,9 +40,9 @@
                 <div class="col-6 mt-2">
                     <div class="form-group">
                         <label for="">Danh mục</label>
-                        <select name="category_id" class="form-control">
+                        <select name="companyComputer_id" class="form-control">
                             <option value="">Chọn CompanyComputer</option>
-                            @foreach ($CompanyComputer as $item)
+                            @foreach ($ComputerCompany as $item)
                                 <option value="{{ $item->id }}">{{ $item->company_name }}</option>
                             @endforeach
                         </select>
