@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductExportController;
@@ -9,10 +10,9 @@ use App\Models\Booking;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\PaymentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,20 +30,24 @@ Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showRese
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
 Auth::routes();
+Route::post('save-cart', [CartController::class,'saveCart']);
+Route::get('gio-hang', [CartController::class,'showCart']);
+Route::get('delete-to-cart/{rowId}', [CartController::class,'deleteToCart']);
+Route::post('update-cart-quantity', [CartController::class,'updateCartQuantity']);
+Route::get('thanh-toan',function(){
+    return view('website.payment');
+});
+Route::post('save-payment',[PaymentController::class, 'savePayment']);
 Route::prefix('')->group(function () {
     //     đăng nhập
     Route::get('logout', [\App\Http\Controllers\HomeController::class, 'logout']);
     //     trang cá nhân
-    Route::get('profile', function () {
+    Route::get('profile', function () { 
         return view('website.profile');
     });
     // trang cửa hàng
     Route::get('cua-hang', [HomeController::class, 'show'])->name('website.product');
-    
-    // Giỏ hàng
-    Route::get('gio-hang', function () {
-        return view('website.cart');
-    });
+
     Route::get('{id}', [HomeController::class, 'detail'])->name('website.product-detail');
     Route::get('cua-hang/{computerCompany_id}', [HomeController::class, 'company'])->name('website.product');
     // trang giới thiệu

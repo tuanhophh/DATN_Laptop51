@@ -21,9 +21,10 @@
     @include('layout_client.header')
     <div class="container-fluid bg-light pt-3">
         <div class="container bg-white">
-            <p class=""><a class="text-dark" href="/cua-hang">Cửa hàng</a> \ 
-            <a class="text-dark" href="/cua-hang/{{$pro->companyComputer_id}}">{{$pro->name}}</a> \ 
-            <a class="text-dark" href="{{$pro->id}}">{{$pro->name}}</a></p>
+            <p class=""><a class="text-dark" href="/cua-hang">Cửa hàng</a> \
+                <a class="text-dark" href="/cua-hang/{{$pro->companyComputer_id}}">{{$pro->name}}</a> \
+                <a class="text-dark" href="{{$pro->id}}">{{$pro->name}}</a>
+            </p>
         </div>
         <div class="container bg-white mb-4 pb-3">
 
@@ -64,7 +65,7 @@
                     <p class="">{{$pro->desc}}
                     </p>
                     <div class="row" style="height: auto;">
-                        <div class="col-2 pr-0">
+                        <div class="col-3 pr-0">
                             <p class="pr-0  py-0 font-weight-bold">
                                 CPU:
                             </p>
@@ -84,7 +85,7 @@
                         </div>
                     </div>
                     <div class="row" style="height: auto;">
-                        <div class="col-2 pr-0">
+                        <div class="col-3 pr-0">
                             <p class="pr-0  py-0 font-weight-bold">
                                 RAM:
                             </p>
@@ -104,7 +105,7 @@
                         </div>
                     </div>
                     <div class="row" style="height: auto;">
-                        <div class="col-2 pr-0">
+                        <div class="col-3 pr-0">
                             <p class="pr-0  py-0 font-weight-bold">
                                 Ổ cứng:
                             </p>
@@ -124,7 +125,7 @@
                         </div>
                     </div>
                     <div class="row" style="height: auto;">
-                        <div class="col-2 pr-0">
+                        <div class="col-3 pr-0">
                             <p class="pr-0  py-0 font-weight-bold">
                                 Màn hình:
                             </p>
@@ -144,7 +145,7 @@
                         </div>
                     </div>
                     <div class="row" style="height: auto;">
-                        <div class="col-2 pr-0">
+                        <div class="col-3 pr-0">
                             <p class="pr-0  py-0 font-weight-bold">
                                 Card đồ họa:
                             </p>
@@ -177,9 +178,20 @@
                                 <div class="col-6">
                                 </div>
                                 <div class="col-6">
-                                    <button class="btn btn-warning" style="width: 220px;">
-                                        <h3 class="font-weight-bold pt-3">Mua ngay</h3>
-                                    </button>
+                                    <div class="col-6">
+
+                                        <form action="{{URL::to('/save-cart')}}" method="POST">
+                                            @csrf
+                                        <input name="qly" type="number" hidden min="1" value="1">
+                                        <input name="id" hidden value="{{$pro->id}}">
+                                        <button class="btn btn-warning" type="submit">
+                                            Thêm giỏ hàng
+                                        </button>
+                                        </form>
+                                    </div>
+                                    <div class="col-6">
+
+                                    </div>
                                 </div>
                             </div>
                 </div>
@@ -283,7 +295,6 @@
                                             về
                                             ngoại hình lẫn hiệu năng trên HP
                                             Notebook 14</p>
-
                                     </div>
                                 </div>
                             </li>

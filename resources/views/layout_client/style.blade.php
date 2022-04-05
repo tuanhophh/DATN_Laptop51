@@ -16,6 +16,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('client') }}/style/revolution/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="{{ asset('client') }}/style/base.css" />
 	<link rel="stylesheet" type="text/css" href="{{ asset('client') }}/style/responsive.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 	<script type="text/javascript" src="{{ asset('client') }}/script/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
