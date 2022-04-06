@@ -38,6 +38,11 @@ Route::get('thanh-toan',function(){
     return view('website.payment');
 });
 Route::post('save-payment',[PaymentController::class, 'savePayment']);
+Route::post('payment/online',[PaymentController::class,'createPayment'])->name('payment.online');
+Route::get('vnpay/return',[PaymentController::class,'vnpayReturn'])->name('vnpay.return');
+// Route::get('vnpay/return', function(){
+//     return view('vnpay.vnpay_return');
+// });
 Route::prefix('')->group(function () {
     //     đăng nhập
     Route::get('logout', [\App\Http\Controllers\HomeController::class, 'logout']);
