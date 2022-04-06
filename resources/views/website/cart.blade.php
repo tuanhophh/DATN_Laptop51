@@ -50,6 +50,8 @@
                                             <th scope="col">Tổng giá</th>
                                         </tr>
                                     </thead>
+
+                                    @if(count(Cart::content()) != 0)
                                     <tbody>
                                         @foreach($content as $cont)
                                         <tr>
@@ -89,28 +91,24 @@
                                                     <!-- <br><small class="text-muted">13.990.000 VND </small> </div> -->
                                             </td>
                                             <td style="width: 150px;">
-                                                        <form action="{{URL::to('/update-cart-quantity')}}"
-                                                            method="POST">
-                                                            @csrf
-                                                            <div class="form-row">
-                                                                <div class="col-4">
-                                                                <input class="form-control p-1 m-0"
-                                                                            type="text" name="cart_quantity"
-                                                                            value="{{$cont->qty}}">
-                                                                </div>
-                                                                <div class="col-7">
-                                                                <input type="submit" value="Câp nhật"
-                                                                            name="update_qty"
-                                                                            class="btn btn-warning form-control m-0">
-                                                                </div>
-                                                                    <input type="hidden" value="{{$cont->rowId}}"
-                                                                        name="rowId_cart">
-                                                                <!-- <input class="cart_quantity_input form-control" type="text"
+                                                <form action="{{URL::to('/update-cart-quantity')}}" method="POST">
+                                                    @csrf
+                                                    <div class="form-row">
+                                                        <div class="col-4">
+                                                            <input class="form-control p-1 m-0" type="text"
+                                                                name="cart_quantity" value="{{$cont->qty}}">
+                                                        </div>
+                                                        <div class="col-7">
+                                                            <input type="submit" value="Câp nhật" name="update_qty"
+                                                                class="btn btn-warning form-control m-0">
+                                                        </div>
+                                                        <input type="hidden" value="{{$cont->rowId}}" name="rowId_cart">
+                                                        <!-- <input class="cart_quantity_input form-control" type="text"
                                                                 name="cart_quantity" value="{{$cont->qty}}">
                                                             
                                                             <input type="submit" value="Câp nhật" name="update_qty"
                                                                 class="btn btn-warning form-control"> -->
-                                                        </form>
+                                                </form>
                                             </td>
                                             <td>
                                                 <div class="price-wrap"> <var class="price font-weight-bold h6 small">
@@ -122,15 +120,18 @@
                                                     <!-- <br><small class="text-muted">13.990.000 VND </small> </div> -->
                                             </td>
                                             <td style="width: 50px;" class="text-center"> <a class="text-danger"
-                                                    href="{{URL::to('/delete-to-cart/'.$cont->rowId)}}"><i class="bi bi-trash"></i></a> </td>
+                                                    href="{{URL::to('/delete-to-cart/'.$cont->rowId)}}"><i
+                                                        class="bi bi-trash"></i></a> </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
+                                    @else
+                                        <p class="text-center">Bạn không có đồ trong giỏ hàng. Vui lòng chọn đồ!</p>
+                                    @endif
                                 </table>
                             </div>
                         </div>
                     </aside>
-
                 </div>
                 <div class="row">
                     <aside class="col-lg-9"></aside>
@@ -150,23 +151,26 @@
                         <div class="card mt-3">
                             <div class="card-body">
                                 <dl class="dlist-align">
-                                    <dt>Tổng giá: {{Cart::subtotal().' '.'vnđ'}}</dt>
+                                    <dt class="text-danger">Tổng tiền: {{$totalBill}} VNĐ</dt>
                                     <dd class="text-right ml-3"></dd>
                                 </dl>
-                                <dl class="dlist-align">
+                                <!-- <dl class="dlist-align">
                                     <dt>Giảm giá:</dt>
                                     <dd class="text-right text-danger ml-3"></dd>
                                 </dl>
                                 <dl class="dlist-align">
                                     <dt>Tổng tiền:</dt>
                                     <dd class="text-right text-dark b ml-3">
-                                        <strong>{{Cart::subtotal().' '.'vnđ'}}</strong>
+                                        <strong>{{$totalBill}}</strong>
                                     </dd>
-                                </dl>
-                                <hr> 
-                                    <a href="#" class="btn btn-out btn- btn-square btn-main text-info"
-                                    data-abc="true"> <small> <<< </small> quay lại </a>
-                                    <a href="{{URL::to('/thanh-toan')}}" class="btn btn-out btn-warning btn-square btn-main" data-abc="true">  Thanh toán</a>
+                                </dl> -->
+                                <hr>
+                                <a href="/cua-hang" class="btn btn-out bg-info btn- btn-square btn-main text-white"
+                                    data-abc="true"> Trở lại </a>
+                                @if(count(Cart::content()) != 0)
+                                <a href="{{URL::to('/thanh-toan')}}" class="btn btn-out btn-warning btn-square btn-main"
+                                    data-abc="true"> Thanh toán</a>
+                                @endif
                             </div>
                         </div>
                     </aside>

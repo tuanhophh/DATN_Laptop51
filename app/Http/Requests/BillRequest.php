@@ -41,6 +41,7 @@ class BillRequest extends FormRequest
             'email.required' => 'Vui lòng nhập email',
             'email.email' => 'Vui lòng nhập thêm @',
             'phone.required' => 'Mời nhập số điện thoại',
+            'phone.min' => 'Nhập đúng số điện thoại',
             'phone.integer' => 'Vui lòng nhập số điện thoại',
             'address.required' => 'Vui lòng nhập địa chỉ',
             'address.min' => 'Vui lòng nhập đúng địa chỉ',

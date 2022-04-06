@@ -30,7 +30,9 @@ class CartController extends Controller
     public function showCart(){
        $cate_product = DB::table('product');
        $user_id = Auth::id();
-        return view('website.cart');
+       $totalBill = str_replace(',', ',', Cart::subtotal(0));
+    //    $totalBill = str_replace(',', '', Cart::subtotal(0)) * 100;
+        return view('website.cart',compact('totalBill'));
     }
     public function deleteToCart($rowId){
         Cart::update($rowId,0);
@@ -39,7 +41,15 @@ class CartController extends Controller
     public function updateCartQuantity(Request $request){
         $rowId = $request->rowId_cart;
         $qty = $request->cart_quantity;
+        $content = Cart::content();
+        // dd(count(Cart::content()));
+        if(count(Cart::content()) == 0){
+            Cart::destroy();
+            return redirect()->to('/gio-hang'); 
+        }
         Cart::update($rowId,$qty);
+        // dd(Cart::update($rowId, $qty));
+        
         return Redirect::to('/gio-hang');
 
     }

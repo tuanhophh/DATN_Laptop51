@@ -11,7 +11,6 @@ class Payment extends Model
 
     protected $table = "payments";
     // protected $dates = ['deleted_at'];
-    public $fillable = ['bill_id', 'user_id', 'money', 'note', 'vnp_response_code', 'code_vnp', 'code_bank', 'time'];
-
+    public $fillable = ['bill_code', 'user_id', 'money', 'note', 'vnp_response_code', 'code_vnp', 'code_bank', 'time'];
 
 }

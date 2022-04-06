@@ -150,6 +150,7 @@
             <div class="table-responsive">
                 <form action="{{ route('payment.online') }}" id="create_form" method="post">
                     @csrf
+                    <input type="hidden" type="text" name='vnp_TxnRef' value="{{$code_length}}">
                     <div class="form-group">
                         <label for="language">Loại hàng hóa </label>
                         <select name="order_type" id="order_type" class="form-control">

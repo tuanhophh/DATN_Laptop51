@@ -22,7 +22,7 @@
     <div class="container-fluid bg-light pt-3">
         <div class="container bg-white">
             <p class=""><a class="text-dark" href="/cua-hang">Cửa hàng</a> \
-                <a class="text-dark" href="/cua-hang/{{$pro->companyComputer_id}}">{{$pro->name}}</a> \
+                <a class="text-dark" href="/cua-hang/{{$pro->companyComputer_id}}">{{$pro->companyComputer->company_name}}</a> \
                 <a class="text-dark" href="{{$pro->id}}">{{$pro->name}}</a>
             </p>
         </div>
@@ -175,23 +175,16 @@
                                 hóa nếu có)
                             </p>
                             <div class="row">
-                                <div class="col-6">
-                                </div>
-                                <div class="col-6">
-                                    <div class="col-6">
-
-                                        <form action="{{URL::to('/save-cart')}}" method="POST">
-                                            @csrf
+                                <div class="col"></div>
+                                <div class="col offset-md-4">
+                                    <form class="align-self-center" action="{{URL::to('/save-cart')}}" method="POST">
+                                        @csrf
                                         <input name="qly" type="number" hidden min="1" value="1">
                                         <input name="id" hidden value="{{$pro->id}}">
                                         <button class="btn btn-warning" type="submit">
                                             Thêm giỏ hàng
                                         </button>
-                                        </form>
-                                    </div>
-                                    <div class="col-6">
-
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                 </div>

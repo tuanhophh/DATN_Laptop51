@@ -98,30 +98,31 @@
 
     <!-- Social icons -->
     <div class="template-header-top-icon-list mt-3 template-component-social-icon-list-1">
-    <nav class="navbar navbar-expand-sm">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-4" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbar-list-4">
-    <ul class="navbar-nav dropdown-menu-right">
-        <li class="nav-item pr-3">
-            <a href="/gio-hang" style="font-size: 2rem;"><i class="fa-1x text-light fas fa-shopping-cart"></i></a>
-        </li>
-        <li class="nav-item dropdown dropdown-menu-right">
-        <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="40" height="40" class="rounded-circle">
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item text-dark" href="#">Dashboard</a>
-          <a class="dropdown-item text-dark" href="#">Edit Profile</a>
-          <a class="dropdown-item text-dark" href="#">Log Out</a>
-        </div>
-      </li>   
-    </ul>
-  </div>
-</nav> 
+        <nav class="navbar navbar-expand-sm">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-4"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-list-4">
+                <ul class="navbar-nav dropdown-menu-right">
+                    <li class="nav-item pr-3">
+                        <a href="/gio-hang" style="font-size: 2rem;"><i
+                                class="fa-1x text-light fas fa-shopping-cart"></i></a>
+                    </li>
+                    <li class="nav-item dropdown dropdown-menu-right">
+                        <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
+                                width="40" height="40" class="rounded-circle">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item text-dark" href="#">Dashboard</a>
+                            <a class="dropdown-item text-dark" href="#">Edit Profile</a>
+                            <a class="dropdown-item text-dark" href="#">Log Out</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </div>
-    <!-- Example single danger button -->
-
-
 </div>
