@@ -42,7 +42,8 @@ class    BookingController extends Controller
       // dd($request);
       $request->validate([
          'full_name' => 'required',
-         'phone' => 'required',
+         'phone' => 'required||numeric||max:11||min:10p78o',
+         'email' => 'required||regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
          'interval' => 'required',
          'repair_type' => 'required'
       ]);
@@ -110,8 +111,8 @@ class    BookingController extends Controller
    {
       $request->validate([
          'full_name' => 'required',
-         'phone' => 'required||integer',
-         'email' => 'required||email',
+         'phone' => 'required||numeric',
+         'email' => 'required||email||regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
          'name_computer' => 'required',
 
          // 'interval' => 'required',
@@ -198,7 +199,8 @@ class    BookingController extends Controller
       $users = User::query()->where('id_role', 3)->get();
       $users->load('role');
       // dd($users);
-      $booking_details = BookingDetail::query()->get();
+      $booking_details = BookingDetail::query()->orderBy('id', 'desc')
+         ->get();
       $booking_details->load('user_repair');
       $booking_details->load('booking');
       // dd($users[1]->id);
@@ -281,7 +283,7 @@ class    BookingController extends Controller
       $booking_detail = BookingDetail::find($id);
       // dd($booking_detail->booking()->first());
       if ($booking_detail) {
-         $repair_part = RepairPart::where('id', $booking_detail->id)->get();
+         $repair_part = RepairPart::where('booking_detail_id', $booking_detail->id)->get();
          $arr_PD_id = array_column($repair_part->toArray(), 'product_detail_id');
 
          $arr_quantity = $request->soluong;
@@ -335,7 +337,9 @@ class    BookingController extends Controller
    public function userRepair()
    {
       if (Auth::check()) {
-         $booking_details = UserRepair::where('user_id', Auth::id())->get();
+         $booking_details = UserRepair::where('user_id', Auth::id())
+            ->join('booking_details', 'user_repairs.booking_detail_id', 'booking_details.id')->get();
+         // dd($booking_details);
          return view('admin.booking.my_repair', compact('user_repais'));
       } else {
          return redirect(route('login'));

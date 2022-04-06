@@ -49,6 +49,8 @@
                                 {{-- <option value="0">Chưa chọn</option> --}}
                                 {{-- @foreach ($users as $u) --}}
                                 {{-- {{ dd($u->id $b->user_repair->id) }} --}}
+                                <option @if ($b->active==0|| $b->active==null|| $b->active) selected @endif
+                                    value="0">Chưa nhận máy</option>
                                 <option @if ($b->active==1) selected @endif value="1">Chưa sửa</option>
                                 <option @if ($b->active==2) selected @endif value="2">Đang sửa</option>
                                 <option @if ($b->active==3) selected @endif value="3">Đã hoàn thành</option>
@@ -67,7 +69,10 @@
                         {{-- <label for=""></label> --}}
                         <form action="" method="POST" class="d-flex">
                             @csrf
-                            <select class="form-control" name="staff" id="">
+                            <select id="" @if ($b->active==1||$b->active==2||!$b->active||$b->active==0)
+                                disabled
+
+                                @endif class="form-control" name="staff">
                                 <option value="0">Chưa chọn</option>
                                 @foreach ($users as $u)
                                 {{-- {{ dd($u->id $b->user_repair->id) }} --}}
@@ -79,12 +84,15 @@
                                     @endif value="{{ $u->id }}">{{ $u->name }}</option>
                                 @endforeach
                             </select><input type="hidden" name="booking_detail_id" value="{{ $b->id }}">
-                            <button class="btn btn-primary" type="submit">Chọn</button>
+                            <button @if ($b->active==1||$b->active==2||!$b->active||$b->active==0)
+                                disabled
+
+                                @endif class="btn btn-primary" type="submit">Chọn</button>
                         </form>
                     </div>
                 </td>
                 <td class="mx-auto">
-                    @if ($b->active==2||$b->active==3)
+                    @if ($b->active==1||$b->active==2)
                     <a name="" id="" class="btn btn-success" href="{{ route('suachua.get', ['id'=>$b->id]) }}"
                         role="button">Sửa chữa</a>
                     @endif

@@ -147,7 +147,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('dat-lich.add') }}"
+                        <a href="{{ route('dat-lich.user_epair') }}"
                             class="nav-link {{ request()->is('user/add') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Danh sách được phân công</p>
@@ -183,7 +183,6 @@
 
                 </ul>
             </li>
-<<<<<<< HEAD
             <li class="nav-item {{ request()->is('admin/sua-chua*') ? ' menu-is-opening menu-open' : '' }}">
                 <a href="" class="nav-link {{ request()->is('admin/sua-chua*') ? 'active ' : '' }}">
                     <i class="nav-icon fas fa-copy"></i>
@@ -205,9 +204,6 @@
 
                 </ul>
             </li>
-=======
-            
->>>>>>> 7030e305b1645815451361278adf55dccbe04ac3
         </ul>
     </nav>
     <!-- /.sidebar-menu -->

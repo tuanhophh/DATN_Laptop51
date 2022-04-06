@@ -145,8 +145,8 @@
                             {{-- <button type="submit">Hoàn thành sửa</button> --}}
                             <div class="d-flex justify-content-between">
                                 <div><a name="btn" id="" class="btn btn-danger" href="#" role="button">Hủy sửa</a>
-                                    <button type="submit" class="btn btn-primary" name="btn" value="pause">Tạm dừng
-                                        sửa</button>
+                                    {{-- <button type="submit" class="btn btn-primary" name="btn" value="pause">Tạm dừng
+                                        sửa</button> --}}
                                 </div>
                                 <div><button name="btn" type="submit" value="finish" class="btn btn-success">Hoàn
                                         thành sửa</button>

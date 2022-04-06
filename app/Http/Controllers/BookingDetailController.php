@@ -34,7 +34,7 @@ class BookingDetailController extends Controller
                 $repair_parts->load('detail_product');
                 $repair_parts->load('booking_detail');
                 // Auth
-                dd($repair_parts);
+                // dd($repair_parts);
             }
             return view('admin.booking.hoa_don', compact('booking_detail', 'repair_parts'));
         }
