@@ -30,8 +30,7 @@
 
 			<!-- Header + subheader -->
 			<div class="template-component-header-subheader">
-                @if(Auth::check())<a href="/logout">Thoát</a>
-                @endif
+
 				<h2>Who Is Autospa</h2>
 				<div></div>
 				<span>Car wash &amp; detailling service</span>

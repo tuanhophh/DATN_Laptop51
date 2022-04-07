@@ -36,9 +36,10 @@ Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
 // Auth::routes();
 Route::get('login',[AuthLoginController::class, 'showLoginForm'])->name('login');
 Route::post('login',[AuthLoginController::class, 'login']);
+Route::get('logout', [\App\Http\Controllers\HomeController::class, 'logout']);
 Route::get('register',[RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('register',[RegisterController::class, 'register']);
-Route::post('logout', 'Auth\AuthLoginController@logout')->name('logout');
+// Route::post('logout', 'Auth\AuthLoginController@logout')->name('logout');
 Route::post('save-cart', [CartController::class,'saveCart']);
 Route::get('gio-hang', [CartController::class,'showCart']);
 Route::get('delete-to-cart/{rowId}', [CartController::class,'deleteToCart']);
@@ -52,7 +53,6 @@ Route::get('vnpay/return',[PaymentController::class,'vnpayReturn'])->name('vnpay
 // });
 Route::prefix('')->group(function () {
     //     đăng nhập
-    // Route::get('logout', [\App\Http\Controllers\HomeController::class, 'logout']);
     //     trang cá nhân
     Route::get('profile', function () { 
         return view('website.profile');

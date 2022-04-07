@@ -10,32 +10,35 @@ use App\Models\Payment;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class PaymentController extends Controller
 {
     public function showPayment()
-    {   
+    {
         $content = Cart::content();
-        if($countCart = count($content) == 0){
-            return Redirect::to('/cua-hang')->with('message', 'Bạn không có đồ trong giỏ hàng, vui lòng thêm đồ vào giỏ rồi thanh toán!'); 
-        }
-        else{
+        if ($countCart = count($content) == 0) {
+            return Redirect::to('/cua-hang')->with('error', 'Bạn không có đồ trong giỏ hàng, vui lòng thêm đồ vào giỏ rồi thanh toán!');
+        } else {
             return view('website.payment');
-        }   
+        }
     }
+
+
     public function savePayment(BillRequest $request)
     {
-        // $quantity = $request->qly;
-
         // Tạo mã ngẫu nhiên 16 số
         $pool = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $length = substr(str_shuffle(str_repeat($pool, 5)), 0, 16);
         $content = Cart::content();
+
+        // Kiểm tra giỏ hàng có sản phẩm không
         if ($countCart = count($content) == 0) {
-            return Redirect::to('/thanh-toan')->with('message', 'Bạn không có đồ trong giỏ hàng, vui lòng thêm đồ vào giỏ');
+            return Redirect::to('/thanh-toan')->with('error', 'Bạn không có đồ trong giỏ hàng, vui lòng thêm đồ vào giỏ');
         }
-        // dd($content);
         if ($request->payment_method == 2) {
             $totalBill = str_replace(',', '', Cart::subtotal(0));
             // Lưu vào bảng bills
@@ -46,7 +49,7 @@ class PaymentController extends Controller
             if (Auth::id()) {
                 $bill->user_id = Auth::id();
             }
-            $bill->payment_status == 0;
+            $bill->payment_status == 1;
             $bill->save();
 
             // Lưu vào bảng bill_details
@@ -111,23 +114,29 @@ class PaymentController extends Controller
                 $bill_user->user_id = Auth::id();
             }
             $bill_user->save();
-            Cart::destroy();
-            return Redirect::to('/thanh-toan')->with('message', 'Thanh toán thành công cho đơn hàng: ', $length);
-        };
-        // Lưu vào bảng bills
 
+            // Mail::send('email.sendBill',['name'=> $bill_user->name ,'phone'=> $bill_user->phone,
+            // 'address'=>$bill_user->address,'bill_code' => $length,'price' => $bill->total], function($message) use($request){
+            //     $message->to($request->email);
+            //     $message->subject('THANH TOÁN HÓA ĐƠN | LAPTOP51');
+            //       });
+            Cart::destroy();
+            
+            return Redirect::to('/cua-hang')
+            ->with('success', 'Đặt hàng thành công, bạn hãy kiểm tra mail để xem chi tiết đơn hàng. Mã đơn hàng: ')
+            ->with('length',$length);
+        };
     }
+
     public function createPayment(Request $request)
     {$vnp_TmnCode = "3EW6FLZG";
         $vnp_HashSecret = "XTRTBABSGMLYLMFNAPKGCBPDUVTJGXXK";
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = "http://localhost:8000/vnpay/return";
-        // $pool = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        // $length = substr(str_shuffle(str_repeat($pool, 5)), 0, 16);
         $vnp_TxnRef = $request->vnp_TxnRef; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = $request->order_desc;
         $vnp_OrderType = $request->order_type;
-        $vnp_Amount = str_replace(',', '', Cart::subtotal(0));
+        $vnp_Amount = str_replace(',', '', Cart::subtotal(0))*100;
         $vnp_Locale = $request->language;
         $vnp_BankCode = $request->bank_code;
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
@@ -148,7 +157,6 @@ class PaymentController extends Controller
             "vnp_OrderType" => $vnp_OrderType,
             "vnp_ReturnUrl" => $vnp_Returnurl,
             "vnp_TxnRef" => $vnp_TxnRef,
-
         );
 
         if (isset($vnp_BankCode) && $vnp_BankCode != "") {
@@ -175,15 +183,14 @@ class PaymentController extends Controller
             $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
             $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
         }
-        // dd($vnp_Url);
-        // dd($request->all());
         return redirect($vnp_Url);
     }
+
+
     public function vnpayReturn(Request $request)
     {
 
         $data = array(
-
             "bill_code" => $request->vnp_TxnRef,
             "money" => $request->vnp_Amount,
             "note" => $request->vnp_OrderInfo,
@@ -193,14 +200,25 @@ class PaymentController extends Controller
             "time" => $request->vnp_PayDate,
             "created_at" => now(),
         );
-        Payment::insert($data);
-        // $request = new Payment();
-        // $request->save();
+        // dd($data['email']);
+        // Update trạng thái đơn hàng
+        if ($data['vnp_response_code'] == 00) {
+            $payment_status = Bill::where('code', $data['bill_code'])->first();
+            $payment_status->payment_status = 9;
+            $payment_status->update();
+            // dd($payment_status);
+        };
 
-        // dd($data);
+        Payment::insert($data);
         Cart::destroy();
-        $length = $data['bill_code'];
-        // dd($length);
-        return view('website.payment')->with('message', 'Thanh toán thành công cho đơn hàng: ', $length);
+            // Mail::send('email.sendBill',['name'=> $bill_user->name ,'phone'=> $bill_user->phone,
+            // 'address'=>$bill_user->address,'bill_code' => $length,'price' => $bill->total], function($message) use($request){
+            //     $message->to($request->email);
+            //     $message->subject('THANH TOÁN HÓA ĐƠN | LAPTOP51');
+            //       });
+        // $bill_code = $data['bill_code'];
+        return Redirect::to('/cua-hang')
+        ->with('success', 'Thanh toán thành công cho đơn hàng: ')
+        ->with('length',$data['bill_code']);
     }
 }

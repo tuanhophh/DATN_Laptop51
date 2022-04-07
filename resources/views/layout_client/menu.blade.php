@@ -109,6 +109,7 @@
                         <a href="/gio-hang" style="font-size: 2rem;"><i
                                 class="fa-1x text-light fas fa-shopping-cart"></i></a>
                     </li>
+                    @if(Auth::check())
                     <li class="nav-item dropdown dropdown-menu-right">
                         <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
@@ -116,11 +117,24 @@
                                 width="40" height="40" class="rounded-circle">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item text-dark" href="#">Dashboard</a>
-                            <a class="dropdown-item text-dark" href="#">Edit Profile</a>
-                            <a class="dropdown-item text-dark" href="#">Log Out</a>
+                            <a class="dropdown-item text-dark" href="{{url('profile')}}">Thông tin</a>
+                            <a class="dropdown-item text-dark" href="#">Hóa đơn</a>
+                            <a class="dropdown-item text-dark" href="{{url('logout')}}">Đăng xuất</a>
                         </div>
                     </li>
+                    @else
+                    <li class="nav-item dropdown dropdown-menu-right">
+                        <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
+                                width="40" height="40" class="rounded-circle">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item text-dark" href="{{url('login')}}">Đăng nhập </a>
+                            <a class="dropdown-item text-dark" href="{{url('register')}}">Đăng ký</a>
+                        </div>
+                    </li>
+                    @endif
                 </ul>
             </div>
         </nav>

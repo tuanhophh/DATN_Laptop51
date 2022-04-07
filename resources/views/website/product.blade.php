@@ -47,11 +47,16 @@
     <div class="container-fluid bg-light">
         <div class="container bg-light">
             <div class="pt-5 mx-0 my-0">
-            @if(session()->has('message'))
-        <div class="alert alert-danger">
-            {{ session()->get('message') }}
-        </div>
-    @endif
+                @if(session()->has('error'))
+                <div class="alert alert-danger">
+                    {{ session()->get('error') }}
+                </div>
+                @elseif(session()->has('success'))
+                <div class="alert alert-success">
+                    {{ session()->get('success') }}
+                    {{ session()->get('length') }}
+                </div>
+                @endif
                 <div class="row bg-white shadow mx-0">
                     <div class="col-auto justify-content-start bg-warning pt-2">
                         <h4 class="text-dark font-weight-bold">
