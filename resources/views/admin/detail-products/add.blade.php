@@ -11,33 +11,27 @@
                     <div class="form-group">
                         <label for="">Tên</label>
                         <input type="text" name="name" class="form-control" placeholder="">
-                        @error('name')
-                            <p class="text-danger">{{ $message }}</p>
-                        @enderror
                     </div>
+                    @error('name')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+
                     <div class="form-group">
                         <label for="">Ảnh</label>
                         <input type="file" name="image" class="form-control" placeholder="">
-                        @error('image')
-                            <p class="text-danger">{{ $message }}</p>
-                        @enderror
                     </div>
+                    @error('image')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+
                     <div class="form-group">
                         <label for="">Giá</label>
                         <input type="number" name="price" class="form-control" placeholder="">
-                        @error('price')
-                            <p class="text-danger">{{ $message }}</p>
-                        @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="">Số lượng:</label>
-                        <input type="text" name="qty" class="form-control" placeholder="">
-                        @error('qty')
-                            <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-6 mt-2">
+                    @error('price')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+
                     <div class="form-group">
                         <label for="">Sản phẩm</label>
                         <select name="product_id" class="form-control">
@@ -47,30 +41,30 @@
                             @endforeach
                         </select>
                     </div>
+                    @error('product_id')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="col-6 mt-2">
+
                     <div class="form-group">
-                        <label for="">Chọn danh mục</label>
-                        <select name="category_id" class="form-control">
-                            <option value="">Chọn danh mục</option>
-                            @foreach ($categories as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>   
+                        <label for="">Mô tả</label>
+                        <textarea name="desc" rows="4" class="form-control"></textarea>
                     </div>
-                        <div class="form-group">
-                            <label for="">Mô tả</label>
-                            <textarea name="desc" rows="4" class="form-control"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Thời gian bảo hành</label>
-                            <input type="number" name="insurance"  class="form-control">
-                        </div>
-                        <div class="form-group ">
-                            <label for="" class="mt-3">Status</label>
-                            <select name="status" id="" class="form-control">
-                                <option value="">Chọn trạng thái</option>
-                                <option value="1">Còn hàng</option>
-                                <option value="0">Hết hàng</option>
-                            </select>
+                    <div class="form-group">
+                        <label for="">Thời gian bảo hành</label>
+                        <input type="number" name="insurance" class="form-control">
+                    </div>
+                    @error('insurance')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                    <div class="form-group ">
+                        <label for="" class="mt-3">Status</label>
+                        <select name="status" id="" class="form-control">
+                            <option value="">Chọn trạng thái</option>
+                            <option value="1">Còn hàng</option>
+                            <option value="0">Hết hàng</option>
+                        </select>
                     </div>
                 </div>
                 <div class="d-flex justify-content-end mb-2 ml-2">

@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentController;
+use App\Models\ComputerCompany;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -83,8 +84,10 @@ Route::prefix('')->group(function () {
     });
     // trang đặt lịch
     Route::get('dat-lich', function () {
-        return view('website.booking');
-    });
+        $company_computer = ComputerCompany::all();
+        return view('website.booking', compact('company_computer'));
+    })->name('dat-lich.add_client');
+    Route::post('dat-lich', [BookingController::class, 'creatBooking']);
     // trang liên hệ
     Route::get('lien-he', function () {
         return view('website.contact');
@@ -128,6 +131,8 @@ Route::post('import-detail-product', [ProductExportController::class, 'importDet
 // Route::get('login',[ProductController::class, 'postLogin']);
 // Route::get('info',[ProductController::class, 'getUserInfo']);
 // Route::get('logout',[ProductController::class, 'logOut']);
-Route::get('order', [MailController::class,'OrderSuccessEmail'])->name('order-mail');
+Route::get('order', [MailController::class, 'OrderSuccessEmail'])->name('order-mail');
 
-
+Route::get('error', function () {
+    return view('error');
+})->name('error');

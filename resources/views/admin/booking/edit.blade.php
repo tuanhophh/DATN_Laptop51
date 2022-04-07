@@ -118,7 +118,7 @@
       @enderror</small>
     </div>
     <div class="col-4">
-      <label for="">SDT</label>
+      <label for="">Số điện thoại</label>
       <input type="text" class="form-control" name="phone" value="{{ $booking_detail->booking->phone}}" id=""
         aria-describedby="helpId" placeholder="">
       @error('phone')
@@ -126,8 +126,8 @@
       @enderror</small>
     </div>
     <label for="">Email</label>
-    <input type="text" class="form-control " value="{{ old('email') }}" name="email" id="" aria-describedby="helpId"
-      placeholder="">
+    <input type="text" class="form-control " value="{{ $booking_detail->email }}" name="email" id=""
+      aria-describedby="helpId" placeholder="">
     @error('email')
     <small id="helpId" class="form-text text-danger">{{ $message }}</small>
     @enderror</small>
@@ -135,7 +135,7 @@
 
 
   <div class="col-4">
-    <label for="">Hinh thuc</label> <br>
+    <label for="">Nơi sửa</label> <br>
 
     <div class="form-check form-check-inline">
       <label class="form-check-label">
@@ -250,8 +250,10 @@
       rows="3">{{ $booking_detail->description }}</textarea>
   </div>
 </div> --}}
-{{-- <script src="{{asset('ckeditor')}}/ckeditor.js"></script> --}}
-<script src="{{asset('ckeditor')}}/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.18.0/full/ckeditor.js"></script>
+
+{{-- <script src="{{asset('ckeditor')}}/ckeditor.js">
+</script> --}}
 
 <script type="text/javascript">
   CKEDITOR.replace('ckeditor');

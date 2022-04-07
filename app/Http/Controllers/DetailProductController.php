@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DetailProductRequest;
 use App\Http\Requests\SaveProductRequest;
 use App\Models\Category;
 use App\Models\DetailProduct;
@@ -14,6 +15,43 @@ class DetailProductController extends Controller
 {
     public function index(Request $request)
     {
+        $pageSize = 10;
+        $column_names = [
+            'name' => 'Tên  phụ kiện',
+            'price' => 'Giá',
+        ];
+
+        $order_by = [
+            'asc' => 'Tăng dần',
+            'desc' => 'Giảm dần'
+        ];
+
+
+        $keyword = $request->has('keyword') ? $request->keyword : "";
+        $companyComputer_id = $request->has('companyComputer_id') ? $request->companyComputer_id : "";
+        $rq_order_by = $request->has('order_by') ? $request->order_by : 'asc';
+        $rq_column_names = $request->has('column_names') ? $request->column_names : "id";
+
+        // dd($keyword, $cate_id, $rq_column_names, $rq_order_by);
+        $query = DetailProduct::where('name', 'like', "%$keyword%");
+        if ($rq_order_by == 'asc') {
+            $query->orderBy($rq_column_names);
+        } else {
+            $query->orderByDesc($rq_column_names);
+        }
+
+        if (!empty($companyComputer_id)) {
+            $query->where('product_id', $companyComputer_id);
+        }
+        $details = $query->paginate($pageSize);
+        $ComputerCompany = Product::all();
+
+        $details->load('detaiProduct');
+        $searchData = compact('keyword', 'companyComputer_id');
+        $searchData['order_by'] = $rq_order_by;
+        $searchData['column_names'] = $rq_column_names;
+        return view('admin.detail-products.index', compact('details', 'ComputerCompany', 'column_names', 'order_by', 'searchData'));
+
         $details = DetailProduct::orderBy('id', 'desc')->paginate(10);
         $details->load('products');
         return view('admin.detail-products.index', compact('details'));
@@ -35,7 +73,7 @@ class DetailProductController extends Controller
         $categories=Category::all();
         return view('admin.detail-products.add',compact('products','categories'));
     }
-    public function saveAdd(Request $request)
+    public function saveAdd(DetailProductRequest $request)
     {
         $model = new DetailProduct();
         if ($request->hasFile('image')) {
@@ -60,7 +98,7 @@ class DetailProductController extends Controller
             compact('pro')
         );
     }
-    public function saveEdit(Request $request, $id)
+    public function saveEdit(DetailProductRequest $request, $id)
     {
         // $request la gui du lieu len
         // dd($request->name)

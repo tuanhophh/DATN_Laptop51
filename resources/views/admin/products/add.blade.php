@@ -18,25 +18,30 @@
                     <div class="form-group">
                         <label for="">Ảnh</label>
                         <input type="file" name="image" class="form-control" placeholder="">
-                        @error('image')
-                            <p class="text-danger">{{ $message }}</p>
-                        @enderror
+
                     </div>
+                    @error('image')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
                     <div class="form-group">
-                        <label for="">Giá</label>
-                        <input type="number" name="price" class="form-control" placeholder="">
-                        @error('price')
-                            <p class="text-danger">{{ $message }}</p>
-                        @enderror
+                        <label for="">Giá nhập</label>
+                        <input type="number" name="import_price" value="{{ old('import_price') }}" class="form-control"
+                            placeholder="">
+
                     </div>
+                    @error('import_price')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
                     <div class="form-group">
-                        <label for="">Số lượng:</label>
-                        <input type="text" name="qty" class="form-control" placeholder="">
-                        @error('qty')
-                            <p class="text-danger">{{ $message }}</p>
-                        @enderror
+                        <label for="">Giá bán</label>
+                        <input type="number" name="price" value="{{ old('price') }}" class="form-control" placeholder="">
+
                     </div>
+                    @error('price')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
                 </div>
+                <input type="hidden" name="qty" value="0">
                 <div class="col-6 mt-2">
                     <div class="form-group">
                         <label for="">Danh mục</label>
@@ -47,22 +52,21 @@
                             @endforeach
                         </select>
                     </div>
-                        <div class="form-group">
-                            <label for="">Mô tả</label>
-                            <textarea name="desc" rows="4" class="form-control"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Thời gian bảo hành</label>
-                            <input type="number" name="insurance" class="form-control">
-                        </div>
-                        <div class="form-group ">
-                            <label for="" class="mt-3">Status</label>
-                            <select name="status" id="" class="form-control">
-                                <option value="">Chọn trạng thái</option>
-                                <option value="1">Bán </option>
-                                <option value="0">Không bán</option>
-                            </select>
+                    @error('companyComputer_id')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                    <div class="form-group">
+                        <label for="">Mô tả</label>
+                        <textarea name="desc" rows="4" class="form-control"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="">Thời gian bảo hành</label>
+                        <input type="number" name="insurance" class="form-control">
+                    </div>
+                    @error('insurance')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                    <input type="hidden" name="status" value="0">
                 </div>
                 <div class="d-flex justify-content-end mb-2 ml-2">
                     <br>

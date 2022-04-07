@@ -22,7 +22,7 @@
     @enderror</small>
   </div>
   <div class="col-4">
-    <label for="">SDT</label>
+    <label for="">Số điện thoại</label>
     <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" id="" aria-describedby="helpId"
       placeholder="">
     @error('phone')
@@ -31,11 +31,11 @@
   </div>
 
   <div class="col-4">
-    <label for="">Hinh thuc</label> <br>
+    <label for="">Nơi sửa chữa</label> <br>
 
     <div class="form-check form-check-inline">
       <label class="form-check-label">
-        <input class="form-check-input" type="radio" name="repair_type" cchecked id="" value="CH"> Cửa hàng
+        <input class="form-check-input" type="radio" name="repair_type" checked id="" value="CH"> Cửa hàng
       </label>
       <label class="form-check-label">
         <input class="form-check-input" type="radio" name="repair_type" value="TN"> Tại nhà
@@ -64,11 +64,14 @@
   <div class="row border border-success " id="form_may">
 
     <div class="col-4">
-      <h5 class="mx-auto">Máy 1</h5>
+      {{-- <h5 class="mx-auto">Máy 1</h5> --}}
       <div class="form-group">
         <label for="">Tên máy tính</label>
-        <input type="text" class="form-control" name="name_computer" id="" aria-describedby="" placeholder="">
-        <small id="" class="form-text text-muted">Help text</small>
+        <input type="text" class="form-control" value="{{ old('name_computer') }}" name="name_computer" id=""
+          aria-describedby="" placeholder="">
+        @error('name_computer')
+        <small id="helpId" class="form-text text-danger">{{ $message }}</small>
+        @enderror</small>
       </div>
       <div class="form-group">
         <label for="">Loại máy tính</label>
@@ -87,13 +90,14 @@
       <textarea class="form-control" name="description" id="ckeditor1" rows="3"></textarea>
     </div>
   </div>
-  <button onclick="AddForm()" type="button" id="btn_themmay">Thêm máy</button>
-  <input name="" id="" class="btn btn-primary" type="submit" value="Lưu  ">
+  {{-- <button onclick="AddForm()" type="button" id="btn_themmay">Thêm máy</button> --}}
+
+  <button class="btn btn-primary" name="btn" id="" value="admin" type="submit">Lưu </button>
 
 </form>
 
 
-<div class="row border border-success" style="display: none" id="form_mayadd">
+{{-- <div class="row border border-success" style="display: none" id="form_mayadd">
 
   <div class="col-4">
     <h5 class="mx-auto">Máy 1</h5>
@@ -116,15 +120,15 @@
     <label for="">Mô tả</label>
     <textarea class="form-control" name="description" id="ckeditor1" rows="3"></textarea>
   </div>
-</div>
+</div> --}}
 {{-- <script src="{{asset('ckeditor')}}/ckeditor.js"></script> --}}
 <script src="{{asset('ckeditor')}}/ckeditor.js"></script>
 
-{{-- <script type="text/javascript">
+<script type="text/javascript">
   CKEDITOR.replace('ckeditor');
   CKEDITOR.replace('ckeditor1');
 
-</script>
+</script>{{--
 <script>
   function AddForm(){
   form_may=document.getElementById('form_may');

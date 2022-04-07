@@ -24,7 +24,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/',[HomeAdminController::class,'index']);
+
+Route::get('/', [HomeAdminController::class, 'index']);
 
 Route::prefix('CompanyComputer')->group(function () {
     Route::get('/', [CompanyComputerController::class, 'index'])->name('CompanyComputer.index');
@@ -62,11 +63,13 @@ Route::prefix('detail-product')->group(function () {
     Route::post('edit/{id}', [DetailProductController::class, 'saveEdit']);
     Route::get('detail/{id}', [DetailProductController::class, 'detail']);
 });
-//Route::prefix('login')->group(function () {
-//    Route::get('/', [LoginController::class, 'index'])->name('login');
-//});
+Route::prefix('login')->group(function () {
+    Route::get('/', [LoginController::class, 'index'])->name('login');
+});
 Route::prefix('dat-lich')->group(function () {
-    Route::get('/', [BookingController::class, 'listBooking'])->name('dat-lich.index');
+    Route::get('/', [BookingController::class, 'listBookingDetail'])->name('dat-lich.index');
+    Route::post('/', [BookingController::class, 'selectUserRepair']);
+
     Route::get('/danh-sach-may', [BookingController::class, 'listBookingDetail'])->name('dat-lich.danh-sach-may');
     Route::post('/danh-sach-may', [BookingController::class, 'selectUserRepair']);
     // Route::get('/danh-sach-may-phan-cong', [BookingController::class, 'listBookingDetail'])->name('dat-lich.danh-sach-may');
@@ -79,7 +82,7 @@ Route::prefix('dat-lich')->group(function () {
     Route::get('xoa/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.delete');
     Route::get('demo', [BookingController::class, 'demo']);
     Route::get('hoa-don/{id}', [BookingDetailController::class, 'hoaDon'])->name('dat-lich.hoa-don');
-
+    Route::get('danh-sach-may-phan-cong', [BookingController::class, 'userRepair'])->name('dat-lich.user_epair');
     Route::get('xoa-may/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.deleteBookingDetail');
 });
 Route::prefix('sua-chua')->group(function () {
