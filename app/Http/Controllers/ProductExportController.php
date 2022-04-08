@@ -24,6 +24,7 @@ class ProductExportController extends Controller
 
     public function importProduct()
     {
+        \request()->validate(["file" => "required|mimes:xlsx,csv"]);
         Excel::import(new ProductImport, request()->file('file'));
         return back()->with('success','Thêm thành công');
     }
