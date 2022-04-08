@@ -20,7 +20,7 @@ class    BookingController extends Controller
 {
    // public function check()
    // {
-   //    return 
+   //    return
    // }
 
 
@@ -69,8 +69,6 @@ class    BookingController extends Controller
    }
    public function listBooking()
    {
-
-
       $computers = ComputerCompany::all();
       $result = [];
       $bookings = Booking::query()->get();
@@ -299,7 +297,7 @@ class    BookingController extends Controller
                      'into_money' => detailProduct($r)->price * $arr_quantity[$r],
                   ];
                   // dd($dt);
-                  $model = RepairPart::create($dt);
+                  $model = RepairPart::query()->create($dt);
                   // dd($model);
                } else {
                   $model = RepairPart::where('booking_detail_id', $id)->where('detail_product_id', $r)->first();
