@@ -9,13 +9,15 @@ use App\Http\Controllers\ProductExportController;
 use App\Models\Booking;
 // use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\LoginController as AuthLoginController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentController;
 use App\Models\ComputerCompany;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,24 +28,30 @@ use App\Models\ComputerCompany;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Auth::routes(['verify' => true]);
 
+Route::get('login',[LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login',[LoginController::class, 'login']);
+Route::get('logout', [LoginController::class, 'logout']);
+
+Route::get('register',[RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('register',[RegisterController::class, 'register']);
+
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
-// Auth::routes(['register' => false]);
-// Auth::routes();
-Route::get('login',[AuthLoginController::class, 'showLoginForm'])->name('login');
-Route::post('login',[AuthLoginController::class, 'login']);
-Route::get('logout', [\App\Http\Controllers\HomeController::class, 'logout']);
-Route::get('register',[RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('register',[RegisterController::class, 'register']);
-// Route::post('logout', 'Auth\AuthLoginController@logout')->name('logout');
+
+// Route::get('email/verify', [VerificationController::class,'show'])->name('verification.notice');
+// Route::get('email/verify/{id}', [VerificationController::class,'verify'])->name('verification.verify');
+// Route::get('email/resend', [VerificationController::class,'resend'])->name('verification.resend');
+
 Route::post('save-cart', [CartController::class,'saveCart']);
 Route::get('gio-hang', [CartController::class,'showCart']);
 Route::get('delete-to-cart/{rowId}', [CartController::class,'deleteToCart']);
 Route::post('update-cart-quantity', [CartController::class,'updateCartQuantity']);
+
 Route::get('thanh-toan',[PaymentController::class,'showPayment']);
 Route::post('save-payment',[PaymentController::class, 'savePayment']);
 Route::post('payment/online',[PaymentController::class,'createPayment'])->name('payment.online');
@@ -51,12 +59,11 @@ Route::get('vnpay/return',[PaymentController::class,'vnpayReturn'])->name('vnpay
 // Route::get('vnpay/return', function(){
 //     return view('vnpay.vnpay_return');
 // });
-Route::prefix('')->group(function () {
-    //     đăng nhập
+
     //     trang cá nhân
     Route::get('profile', function () { 
         return view('website.profile');
-    });
+    })->middleware(['verified']);
     // trang cửa hàng
     Route::get('cua-hang', [HomeController::class, 'show'])->name('website.product');
 
@@ -96,7 +103,7 @@ Route::prefix('')->group(function () {
     Route::get('404', function () {
         return view('website.404');
     });
-});
+
 Route::prefix('user')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('user.index');
     Route::get('add', [UserController::class, 'addForm'])->name('user.add');

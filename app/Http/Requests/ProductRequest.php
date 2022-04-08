@@ -24,7 +24,7 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique',
+            'name' => 'required',
             'image'=>'mimes:jpeg,jpg,png',
             'status' =>'required',
             'price' =>'required|integer|min:0',
@@ -37,7 +37,6 @@ class ProductRequest extends FormRequest
     {
         return [
             'name.required' => 'mời bạn nhập tên sản phẩm',
-            'name.unique' => 'tên sản phẩm đã tồn tại',
             'image.mimes'=>'sai định dạng ảnh',
             'status.required' =>'mời bạn nhập tình trạng bán or không bán',
             'price.required' =>'mời bạn nhập giá',

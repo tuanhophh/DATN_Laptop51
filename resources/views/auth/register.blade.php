@@ -165,7 +165,7 @@
                 <div class="panel-heading">
                     <div class="panel-title">Đăng ký</div>
                     <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink"
-                            href="{{route('login')}}">Đăng nhập</a></div>
+                            href="/login">Đăng nhập</a></div>
                 </div>
                 @if (Session::has('message'))
                 <div class="alert alert-success" role="alert">
@@ -173,7 +173,7 @@
                 </div>
                 @endif
                 <div class="panel-body">
-                    <form id="signupform" method="POST" action="{{ route('register') }}" class="form-horizontal"
+                    <form id="signupform" method="POST" action="{{route('register')}}" class="form-horizontal"
                         role="form">
                         @csrf
                         <div id="signupalert" style="display:none" class="alert alert-danger">
@@ -260,9 +260,4 @@
     </div>
 
 </body>
-
-</html>
-
-</body>
-
 </html>

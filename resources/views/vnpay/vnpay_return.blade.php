@@ -81,6 +81,10 @@
                     <label><?php echo $_GET['vnp_PayDate'] ?></label>
                 </div> 
                 <div class="form-group">
+                    <label >Email:</label>
+                    <label><?php echo $_GET['email'] ?></label>
+                </div> 
+                <div class="form-group">
                     <label >Kết quả:</label>
                     <label>
                         <?php

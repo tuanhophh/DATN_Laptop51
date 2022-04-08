@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingDetailController;
 use App\Http\Controllers\CategoryController;
@@ -26,7 +27,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeAdminController::class, 'index']);
-
+Route::prefix('bill')->group(function(){
+Route::get('/',[BillController::class,'index'])->name('bill.index');
+Route::get('detail/{id}',[BillController::class,'detail'])->name('bill.detail');
+Route::get('edit/{id}',[BillController::class,'edit'])->name('bill.edit');
+Route::post('edit/{id}',[BillController::class,'saveEdit']);
+});
 Route::prefix('CompanyComputer')->group(function () {
     Route::get('/', [CompanyComputerController::class, 'index'])->name('CompanyComputer.index');
     Route::get('/remove/{id}', [CompanyComputerController::class, 'remove'])->name('CompanyComputer.remove');
@@ -64,7 +70,7 @@ Route::prefix('detail-product')->group(function () {
     Route::get('detail/{id}', [DetailProductController::class, 'detail']);
 });
 Route::prefix('login')->group(function () {
-    Route::get('/', [LoginController::class, 'index'])->name('login');
+    Route::get('/', [LoginController::class, 'index'])->name('admin.login');
 });
 Route::prefix('dat-lich')->group(function () {
     Route::get('/', [BookingController::class, 'listBookingDetail'])->name('dat-lich.index');

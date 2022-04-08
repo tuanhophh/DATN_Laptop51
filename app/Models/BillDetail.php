@@ -12,8 +12,12 @@ class BillDetail extends Model
     protected $table = "bill_details";
     public $fillable = ['product_id', 'qty', 'price', 'bill_code'];
 
-    public function bills()
+    public function bill()
     {
-        return $this->belongsTo(Bill::class, 'code');
+        return $this->belongsTo(Bill::class, 'bill_code');
+    }
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
     }
 }

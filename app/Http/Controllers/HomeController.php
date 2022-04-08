@@ -41,8 +41,9 @@ class HomeController extends Controller
     }
     public function detail($id)
     {
-        $ComputerCompany = ComputerCompany::all();    
-        $pro = Product::find($id);
+        $ComputerCompany = ComputerCompany::all();
+        // dd($ComputerCompany);
+        $pro = Product::find(1);
         // $countPro = Product::where('');
         // ->join('computer_companies', 'products.companyComputer_id', '=', 'computer_companies.id')->select()->first();
         $detailPro = DetailProduct::where('product_id', $id)->get();
