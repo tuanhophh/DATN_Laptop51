@@ -22,12 +22,17 @@
     <div class="container-fluid bg-light pt-3">
         <div class="container bg-white">
             <p class=""><a class="text-dark" href="/cua-hang">Cửa hàng</a> \
-                <a class="text-dark" href="/cua-hang/{{$pro->companyComputer_id}}">{{$pro->companyComputer->company_name}}</a> \
+                <a class="text-dark"
+                    href="/cua-hang/{{$pro->companyComputer_id}}">{{$pro->companyComputer->company_name}}</a> \
                 <a class="text-dark" href="{{$pro->id}}">{{$pro->name}}</a>
             </p>
+            @if(session()->has('error'))
+            <div class="alert alert-danger">
+                {{ session()->get('error') }}
+            </div>
+            @endif
         </div>
         <div class="container bg-white mb-4 pb-3">
-
             <p class="h5">{{$pro->name}}</p>
             <div class="row">
                 <div class="col-6">
@@ -60,6 +65,7 @@
                         </a>
                     </div>
                 </div>
+
                 <div class="col-6">
                     <h5 class="font-weight-bold">{{$pro->price}}</h5>
                     <p class="">{{$pro->desc}}
@@ -207,6 +213,7 @@
                         <p class='border-bottom pl-3 pb-2 pt-3 border-warning h5'>
                             Sản phẩm cùng hãng
                         </p>
+                        @foreach($products as $product)
                         <ul class="list-group">
                             <li class="list-group-item border-left-0 border-right-0 border-top-0 d-inline">
                                 <div class="row">
@@ -217,81 +224,15 @@
                                         </a>
                                     </div>
                                     <div class="col-8">
-                                        <p class="h6 small font-weight-bold p-0">Laptop Cũ HP Notebook 14s cr2005tu -
-                                            Intel
-                                            Core i5</p>
-                                        <p class="h6 small font-weight-bold text-danger p-0">13.999.999 VNĐ</p>
-                                        <p class="h6 small p-0">Laptop Có thể nói, với tất cả những ưu điểm nổi trội cả
-                                            về
-                                            ngoại hình lẫn hiệu năng trên HP
-                                            Notebook 14</p>
+                                        <p class="h6 small font-weight-bold p-0">{{$product->name}}</p>
+                                        <p class="h6 small font-weight-bold text-danger p-0">{{$product->price}}</p>
+                                        <p class="h6 small p-0">{{$product->desc}}</p>
 
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item border-left-0 border-right-0 border-top-0 d-inline">
-                                <div class="row">
-                                    <div class="col-4 p-0">
-                                        <a class="" href="">
-                                            <img class="center-block" style="width: 150px;"
-                                                src="https://laptop88.vn/media/lib/28-10-2021/dsc07503.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="col-8">
-                                        <p class="h6 small font-weight-bold p-0">Laptop Cũ HP Notebook 14s cr2005tu -
-                                            Intel
-                                            Core i5</p>
-                                        <p class="h6 small font-weight-bold text-danger p-0">13.999.999 VNĐ</p>
-                                        <p class="h6 small p-0">Laptop Có thể nói, với tất cả những ưu điểm nổi trội cả
-                                            về
-                                            ngoại hình lẫn hiệu năng trên HP
-                                            Notebook 14</p>
-
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item border-left-0 border-right-0 border-top-0 d-inline">
-                                <div class="row">
-                                    <div class="col-4 p-0">
-                                        <a class="" href="">
-                                            <img class="center-block" style="width: 150px;"
-                                                src="https://laptop88.vn/media/lib/28-10-2021/dsc07503.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="col-8">
-                                        <p class="h6 small font-weight-bold p-0">Laptop Cũ HP Notebook 14s cr2005tu -
-                                            Intel
-                                            Core i5</p>
-                                        <p class="h6 small font-weight-bold text-danger p-0">13.999.999 VNĐ</p>
-                                        <p class="h6 small p-0">Laptop Có thể nói, với tất cả những ưu điểm nổi trội cả
-                                            về
-                                            ngoại hình lẫn hiệu năng trên HP
-                                            Notebook 14</p>
-
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item border-left-0 border-right-0 border-top-0 d-inline">
-                                <div class="row">
-                                    <div class="col-4 p-0">
-                                        <a class="" href="">
-                                            <img class="center-block" style="width: 150px;"
-                                                src="https://laptop88.vn/media/lib/28-10-2021/dsc07503.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="col-8">
-                                        <p class="h6 small font-weight-bold p-0">Laptop Cũ HP Notebook 14s cr2005tu -
-                                            Intel
-                                            Core i5</p>
-                                        <p class="h6 small font-weight-bold text-danger p-0">13.999.999 VNĐ</p>
-                                        <p class="h6 small p-0">Laptop Có thể nói, với tất cả những ưu điểm nổi trội cả
-                                            về
-                                            ngoại hình lẫn hiệu năng trên HP
-                                            Notebook 14</p>
                                     </div>
                                 </div>
                             </li>
                         </ul>
+                        @endforeach
                     </div>
                 </div>
             </div>

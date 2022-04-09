@@ -35,14 +35,15 @@
             <div class="row">
                 <div class="col-md-7 mt-3">
 
-                    <div class="col-12 border border-dark">
-                        <div class="border-bottom border-dark pl-2 mb-3" style="width: 200px;">
+                    <div class="col-12 border border-warning rounded p-0">
+                        <div class="pl-2">
                             <p class="m-0 p-0 fw-bolder">1. Thông tin khách hàng</p>
                         </div>
+                        <hr class="pt-0 mt-0">
                         @error('name')
                         <small class="font-italic text-danger p-0 m-0">{{ $message }}</small>
                         @enderror
-                        <div class="form-outline mb-2">
+                        <div class="form-outline mb-2 mx-2">
                             <input type="text" name="name" value="{{ old('name') }}" id="form6Example1" class="form-control" />
                             <label class="form-label" for="form6Example1">Họ và tên</label>
                         </div>
@@ -50,7 +51,7 @@
                         <small class="font-italic text-danger p-0 m-0">{{ $message }}</small>
                         @enderror
                         <!-- Email input -->
-                        <div class="form-outline mb-2">
+                        <div class="form-outline mb-2 mx-2">
                             <input type="email" name="email" value="{{ old('email') }}" id="form6Example5" class="form-control" />
                             <label class="form-label" for="form6Example5">Email</label>
                         </div>
@@ -58,7 +59,7 @@
                         <small class="font-italic text-danger p-0 m-0">{{ $message }}</small>
                         @enderror
                         <!-- Number input -->
-                        <div class="form-outline mb-2">
+                        <div class="form-outline mb-2 mx-2">
                             <input type="number" name="phone" value="{{ old('phone') }}" id="form6Example6" class="form-control" />
                             <label class="form-label" for="form6Example6">Số điện thoại</label>
                         </div>
@@ -66,31 +67,32 @@
                         <small class="font-italic text-danger p-0 m-0">{{ $message }}</small>
                         @enderror
                         <!-- Text input -->
-                        <div class="form-outline mb-2">
+                        <div class="form-outline mb-2 mx-2">
                             <input type="text" name="address" value="{{ old('address') }}" id="form6Example4" class="form-control" />
                             <label class="form-label" for="form6Example4">Địa chỉ nhà</label>
                         </div>
                         <!-- Message input -->
-                        <div class="form-outline mb-3">
+                        <div class="form-outline mb-3 mx-2">
                             <textarea class="form-control" name="note" id="form6Example7" rows="4"></textarea>
                             <label class="form-label" for="form6Example7">Ghi chú</label>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-5 pl-2 mb-3 pt-3">
-                    <div class="col-12 ms-auto border border-dark">
-                        <div class="form-outline mt-2">
-                            <div class="border-bottom border-dark pl-2 mb-3" style="width: 220px;">
+                    <div class="col-12 ms-auto border border-warning rounded p-0">
+                        <div class="form-outline">
+                            <div class="mx-2">
                                 <p class="m-0 p-0 fw-bolder">2. Phương thức thanh toán</p>
                             </div>
-                            <div class="form-check">
+                            <hr class="pt-0 mt-0">
+                            <div class="form-check mx-2">
                                 <input class="form-check-input" value="1" type="radio" name="payment_method"
-                                    id="flexRadioDefault1" checked />
+                                    id="flexRadioDefault1" />
                                 <label class="form-check-label" for="flexRadioDefault1"> Thanh toán khi nhận hàng
                                 </label>
                             </div>
                             <!-- Default checked radio -->
-                            <div class="form-check pb-2">
+                            <div class="form-check pb-2 mx-2">
                                 <input class="form-check-input" value="2" type="radio" name="payment_method"
                                     id="flexRadioDefault2" />
                                 <label class="form-check-label" for="flexRadioDefault2"> Thanh toán trực tuyến </label>
@@ -100,18 +102,25 @@
                         @enderror
                         </div>
                     </div>
-                    <div class="col-12 ms-auto border border-dark mt-3">
-                        <div class="form-outline mb-2">
-                            <div class="border-bottom border-dark pl-2 mb-3" style="width:120px; ">
+                    <div class="col-12 ms-auto border border-warning rounded mt-3 p-0">
+                        <div class="form-outline mb-2 p-0">
+                            <div class="pl-2">
                                 <p class="m-0 p-0 fw-bolder ms-auto">3. Tổng tiền</p>
                             </div>
+                            <hr class="pt-0 mt-0">
                             <div class="p-0 m-0">
+                            <?php
+                                    use Gloudemans\Shoppingcart\Facades\Cart;
+
+                                    $total = str_replace(',','.',Cart::subtotal())
+                                    // dd($content);
+                                ?>
                                 <!-- <input class="form-check-input" type="radio" name="flexRadioDefault"
                                     id="flexRadioDefault2" checked /> -->
-                                <label class="form-check-label">
-                                    <p class="p-0 m-0 fw-bold text-danger">Thanh toán: 13.130.130 VNĐ</p>
+                                <label class="form-check-label mx-2">
+                                    <p class="p-0 m-0 fw-bold text-danger">Thanh toán: {{Cart::subtotal()}} VNĐ</p>
                                 </label>
-                                <p class="m-0 p-0">
+                                <p class="m-0 p-0 mx-2">
                                     <small class="fw-lighter">
                                         Bảo hành 12 tháng, 1 đổi 1 trong
                                         vòng 15

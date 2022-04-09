@@ -1,22 +1,20 @@
 <?php
 
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\BookingController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\MailController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProductExportController;
-use App\Models\Booking;
-// use App\Http\Controllers\LoginController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+// use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProductExportController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use App\Models\ComputerCompany;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,82 +25,86 @@ use Illuminate\Support\Facades\Auth;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 // Auth::routes(['verify' => true]);
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
 
-Route::get('login',[LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login',[LoginController::class, 'login']);
+//  Đăng nhập
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
 Route::get('logout', [LoginController::class, 'logout']);
 
-Route::get('register',[RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('register',[RegisterController::class, 'register']);
+//  Đăng ký
+Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('register', [RegisterController::class, 'register']);
 
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
+//  Quên mật khẩu
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
-// Route::get('email/verify', [VerificationController::class,'show'])->name('verification.notice');
-// Route::get('email/verify/{id}', [VerificationController::class,'verify'])->name('verification.verify');
-// Route::get('email/resend', [VerificationController::class,'resend'])->name('verification.resend');
+//  Xác thực mail
+Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
+Route::get('email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify');
+Route::get('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
-Route::post('save-cart', [CartController::class,'saveCart']);
-Route::get('gio-hang', [CartController::class,'showCart']);
-Route::get('delete-to-cart/{rowId}', [CartController::class,'deleteToCart']);
-Route::post('update-cart-quantity', [CartController::class,'updateCartQuantity']);
+//  Giỏ hàng
+Route::post('save-cart', [CartController::class, 'saveCart']);
+Route::get('gio-hang', [CartController::class, 'showCart']);
+Route::get('delete-to-cart/{rowId}', [CartController::class, 'deleteToCart']);
+Route::post('update-cart-quantity', [CartController::class, 'updateCartQuantity']);
 
-Route::get('thanh-toan',[PaymentController::class,'showPayment']);
-Route::post('save-payment',[PaymentController::class, 'savePayment']);
-Route::post('payment/online',[PaymentController::class,'createPayment'])->name('payment.online');
-Route::get('vnpay/return',[PaymentController::class,'vnpayReturn'])->name('vnpay.return');
+//  Thanh toán
+Route::get('thanh-toan', [PaymentController::class, 'showPayment']);
+Route::post('save-payment', [PaymentController::class, 'savePayment']);
+Route::post('payment/online', [PaymentController::class, 'createPayment'])->name('payment.online');
+Route::get('vnpay/return', [PaymentController::class, 'vnpayReturn'])->name('vnpay.return');
 // Route::get('vnpay/return', function(){
 //     return view('vnpay.vnpay_return');
 // });
 
-    //     trang cá nhân
-    Route::get('profile', function () { 
-        return view('website.profile');
-    })->middleware(['verified']);
-    // trang cửa hàng
-    Route::get('cua-hang', [HomeController::class, 'show'])->name('website.product');
+//     trang cá nhân
+Route::get('profile',[ProfileController::class, 'index'])->name('profile')->middleware('auth');
+// trang cửa hàng
+Route::get('cua-hang', [HomeController::class, 'show'])->name('website.product');
 
-    Route::get('{id}', [HomeController::class, 'detail'])->name('website.product-detail');
-    Route::get('cua-hang/{computerCompany_id}', [HomeController::class, 'company'])->name('website.product');
-    // trang giới thiệu
-    Route::get('gioi-thieu', function () {
-        return view('website.gioi-thieu');
-    });
-    //Dịch vụ
-    Route::get('sua-laptop-lay-ngay-1h', function () {
-        return view('website.dv-sua-1h');
-    });
-    Route::get('sua-laptop-tai-nha-hoac-van-phong', function () {
-        return view('website.dv-sua-tai-nha');
-    });
-    Route::get('thay-the-va-nang-cap-phan-cung', function () {
-        return view('website.dv-thay-or-nang-cap');
-    });
-    Route::get('cai-dat-phan-mem-ban-quyen', function () {
-        return view('website.dv-cai-dat-phan-mem');
-    });
-    Route::get('dich-vu-cho-macbook', function () {
-        return view('website.dv-macbook');
-    });
-    // trang đặt lịch
-    Route::get('dat-lich', function () {
-        $company_computer = ComputerCompany::all();
-        return view('website.booking', compact('company_computer'));
-    })->name('dat-lich.add_client');
-    Route::post('dat-lich', [BookingController::class, 'creatBooking']);
-    // trang liên hệ
-    Route::get('lien-he', function () {
-        return view('website.contact');
-    });
-    // trang lỗi 404
-    Route::get('404', function () {
-        return view('website.404');
-    });
+Route::get('{id}', [HomeController::class, 'detail'])->name('website.product-detail');
+Route::get('cua-hang/{computerCompany_id}', [HomeController::class, 'company'])->name('website.product-category.');
+// trang giới thiệu
+Route::get('gioi-thieu', function () {
+    return view('website.gioi-thieu');
+});
+//Dịch vụ
+Route::get('sua-laptop-lay-ngay-1h', function () {
+    return view('website.dv-sua-1h');
+});
+Route::get('sua-laptop-tai-nha-hoac-van-phong', function () {
+    return view('website.dv-sua-tai-nha');
+});
+Route::get('thay-the-va-nang-cap-phan-cung', function () {
+    return view('website.dv-thay-or-nang-cap');
+});
+Route::get('cai-dat-phan-mem-ban-quyen', function () {
+    return view('website.dv-cai-dat-phan-mem');
+});
+Route::get('dich-vu-cho-macbook', function () {
+    return view('website.dv-macbook');
+});
+// trang đặt lịch
+Route::get('dat-lich', function () {
+    $company_computer = ComputerCompany::all();
+    return view('website.booking', compact('company_computer'));
+})->name('dat-lich.add_client');
+Route::post('dat-lich', [BookingController::class, 'creatBooking']);
+// trang liên hệ
+Route::get('lien-he', function () {
+    return view('website.contact');
+});
+// trang lỗi 404
+Route::get('404', function () {
+    return view('website.404');
+});
 
 Route::prefix('user')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('user.index');
@@ -112,7 +114,6 @@ Route::prefix('user')->group(function () {
     Route::get('edit/{id}', [UserController::class, 'editForm'])->name('user.edit');
     Route::post('edit/{id}', [UserController::class, 'saveEdit']);
 });
-
 
 // Route::prefix('dat-lich')->group(function () {
 //     Route::get('/', [BookingController::class, 'listBooking'])->name('dat-lich.index');

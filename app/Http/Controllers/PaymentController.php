@@ -197,7 +197,9 @@ class PaymentController extends Controller
             "code_bank" => $request->vnp_BankCode,
             "time" => $request->vnp_PayDate,
             "created_at" => now(),
+            "user_id" => Auth::id(),
         );
+        // dd($data);
 
         // Update trạng thái đơn hàng
         if ($data['vnp_response_code'] == 00) {

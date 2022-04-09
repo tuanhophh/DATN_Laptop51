@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'Tài khoản chưa có, bạn có muốn tạo?',
+    'failed' => 'Sai mật khẩu hoặc tài khoản?',
     'password' => 'Sai mật khẩu',
     'throttle' => 'Đăng nhập quá nhiều vui lòng đợi ít phút',
 

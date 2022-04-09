@@ -33,8 +33,8 @@ class HomeController extends Controller
         
         $ComputerCompany = ComputerCompany::all();
         $productNew = Product::all();
+        // dd($productNew);
         $products = Product::all();
-
         // $searchData = compact('keyword', 'computerCompany_id');
         return view('website.product', compact('products', 'ComputerCompany','productNew'));
         // return response()->json($products);
@@ -43,32 +43,37 @@ class HomeController extends Controller
     {
         $ComputerCompany = ComputerCompany::all();
         // dd($ComputerCompany);
-        $pro = Product::find(1);
+        $pro = Product::find($id);
+        // dd($pro);
         // $countPro = Product::where('');
         // ->join('computer_companies', 'products.companyComputer_id', '=', 'computer_companies.id')->select()->first();
         $detailPro = DetailProduct::where('product_id', $id)->get();
+        // dd($pro);
+        $products = Product::where('companyComputer_id',$id)->get();
         if (!$pro) {
-            return back();
+            return back()->with('error','Không tìm thấy sản phẩm');
         }
         return view(
             'website.product-detail',
-            compact('pro','detailPro')
+            compact('pro','detailPro','products')
         );
     }
-    public function company($companyComputer_id)
+    public function company($id)
     {   
-
-        $products = Product::where('companyComputer_id',$companyComputer_id)->get();;
+        $products = Product::where('companyComputer_id',$id)->get();;
         
+        $ComputerCompany = ComputerCompany::find($id);
+        // dd($ComputerCompany = ComputerCompany::find($id)->first());
         // $comPany = ComputerCompany::where('companyComputer_id',$companyComputer_id)->get();
+        // $ComputerCompany = ComputerCompany::where('id',$id)->get();
         // $pro = Product::find($id);
         // $detailPro = DetailProduct::where('id', $companyComputer_id)->get();
-        if (!$products) {
-            return back();
+        if ($ComputerCompany == NULL) {
+            return back()->with('error','Không tìm thấy danh mục sản phẩm');
         }
         return view(
-            'website.product',
-            compact('products')
+            'website.product-category',
+            compact('products','ComputerCompany')
         );
     }
 }
