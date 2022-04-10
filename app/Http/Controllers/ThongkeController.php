@@ -4,41 +4,47 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\RepairPart;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Month;
 
 class ThongkeController extends Controller
 {
-    public function sanpham()
+    public function sanpham(Request $request)
     {
         if (isset($_GET['ngay-bd']) && isset($_GET['ngay-kt'])) {
             $ngay_bd = date('Y-m-d', strtotime($_GET['ngay-bd']));
             $ngay_kt = date('Y-m-d', strtotime($_GET['ngay-kt']));
-            $product = Product::with('nhaphangsanpham')->whereBetween('created_at', [$ngay_bd, $ngay_kt])->get();
-            $sum_product= Product::with('nhaphangsanpham')->whereBetween('created_at', [$ngay_bd, $ngay_kt])->sum('qty');
-            
-                        // dd($product);
+            $products = Product::with('nhaphangsanpham')->whereBetween('created_at', [$ngay_bd, $ngay_kt])->get();
+            $sum_product = $products->sum('qty');
         } else {
-            $product = Product::all();
-            $product->load('nhaphangsanpham');
-            $sum_product=DB::table('products')->sum('qty');
+            $products = Product::query()->with('nhaphangsanpham');
+            $sum_product = $products->sum('qty');
+            $products = $products->paginate(10);
         }
-        // dd($product);
-        $a = [];
-        for ($i = 1; $i <= 12; $i++) {
-            $thongke_sp = Product::whereMonth('created_at', $i)->get()->count();
-            array_push($a, $thongke_sp);
-        }
-        //  echo json_encode($product);
-        // return response()->json($product);
-        return view('admin.thongke.sanpham', compact('a', 'product','sum_product'));
+
+        return view('admin.thongke.sanpham', compact( 'products','sum_product', 'request'));
     }
-    public function ajax()
+    public function ajax(Request $request)
     {
-        $product = Product::all();
-        $product->load('nhaphangsanpham');
-        return response()->json($product);    
+        $repair_parts = null;
+//        if (empty($request->start_date) || empty($request->end_date)){
+            $repair_parts = RepairPart::query()
+                ->orderBy("created_at","desc")
+                ->get()->groupBy(function($date) {
+                return Carbon::parse($date->created_at)->format('Y-m-d');
+            })->take(7);
+//        }
+        $results = [];
+        foreach ($repair_parts as $time => $repair_part) {
+            $value = 0;
+            foreach ($repair_part as $item) {
+                $value += $item->quantity;
+            }
+            array_push($results,['time' => $time, 'value' => $value]);
+        }
+        return response()->json($results);
     }
 
     public function chitietSanpham()

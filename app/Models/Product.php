@@ -12,14 +12,13 @@ class Product extends Model
     use SoftDeletes;
     protected $table = "products";
     protected $dates = ['deleted_at'];
-    public $fillable = ['name','import_price', 'price', 'qty', 'desc', 'status', 'companyComputer_id','insurance'];
+    public $fillable = ['name', 'image', 'import_price', 'price', 'qty', 'desc', 'status', 'companyComputer_id', 'insurance'];
     public function companyComputer()
     {
-        return $this->belongsTo(ComputerCompany::class, 'companyComputer_id');
+        return $this->belongsTo(ComputerCompany::class, 'company_computer_id');
     }
     public function nhaphangsanpham()
     {
         return $this->hasMany(Nhaphangsanpham::class, 'product_id');
     }
-    
 }
