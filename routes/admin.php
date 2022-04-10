@@ -30,10 +30,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeAdminController::class, 'index']);
 Route::prefix('bill')->group(function(){
-Route::get('/',[BillController::class,'index'])->name('bill.index');
-Route::get('detail/{id}',[BillController::class,'detail'])->name('bill.detail');
-Route::get('edit/{id}',[BillController::class,'edit'])->name('bill.edit');
-Route::post('edit/{id}',[BillController::class,'saveEdit']);
+Route::get('/',[BillController::class,'index'])->name('bill.index')->middleware('can:list-bill');
+Route::get('detail/{id}',[BillController::class,'detail'])->name('bill.detail')->middleware('can:list-bill');
+Route::get('edit/{id}',[BillController::class,'edit'])->name('bill.edit')->middleware('can:edit-bill');
+Route::post('edit/{id}',[BillController::class,'saveEdit'])->middleware('can:edit-bill');
 });
 Route::prefix('CompanyComputer')->group(function () {
     Route::get('/', [CompanyComputerController::class, 'index'])->name('CompanyComputer.index');
