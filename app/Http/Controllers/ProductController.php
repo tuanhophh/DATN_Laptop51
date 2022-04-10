@@ -81,6 +81,7 @@ class ProductController extends Controller
     }
     public function saveAdd(Request $request)
     {
+        
         $model = new Product();
         if ($request->hasFile('anh')) {
             $imgPath = $request->file('anh')->store('products');

@@ -17,4 +17,8 @@ class DetailProduct extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+    public function categories()
+    {
+        return $this->belongsTo(Catetgory::class, 'category_id');
+    }
 }

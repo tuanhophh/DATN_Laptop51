@@ -69,11 +69,9 @@ class DetailProductController extends Controller
     }
     public function addForm()
     {
-
-
-
-        $products = Product::all();
-        return view('admin.detail-products.add', compact('products'));
+        $products=Product::all();
+        $categories=Category::all();
+        return view('admin.detail-products.add',compact('products','categories'));
     }
     public function saveAdd(DetailProductRequest $request)
     {
@@ -83,7 +81,7 @@ class DetailProductController extends Controller
             $imgPath = str_replace('public/', 'storage/', $imgPath);
             $request->merge(['image'=>$imgPath]);
         }
-
+        
         $model->fill($request->all());
         $model->save();
         return redirect(route('detail-product.index'));

@@ -14,7 +14,7 @@ class UpdateProduct extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->renameColumn('category_id', 'company_computer_id');
+            // $table->renameColumn('category_id', 'company_computer_id');
         });
     }
 

@@ -49,9 +49,13 @@
                                 {{-- <option value="0">Chưa chọn</option> --}}
                                 {{-- @foreach ($users as $u) --}}
                                 {{-- {{ dd($u->id $b->user_repair->id) }} --}}
-                                <option @if ($b->active==1) selected @endif @if ($b->active>1)
+                                <option @if ($b->active>1)
+                                    style="display:none"
+                                    @endif
+                                    @if ($b->active>1)
                                     style="display:none"
                                     @endif @if ($b->active==0|| $b->active==null|| $b->active) selected @endif
+
                                     value="0">Chưa nhận máy</option>
                                 <option @if ($b->active==1) selected @endif @if ($b->active>1)
                                     style="display:none"
@@ -73,7 +77,7 @@
                         {{-- <label for=""></label> --}}
                         <form action="" method="POST" class="d-flex">
                             @csrf
-                            <select id="" @if ($b->active==1||$b->active==2||!$b->active||$b->active==0)
+                            <select id="" @if ($b->active==1||!$b->active||$b->active==0||$b->active==3)
                                 disabled
 
                                 @endif class="form-control" name="staff">

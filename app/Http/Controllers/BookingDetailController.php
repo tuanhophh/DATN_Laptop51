@@ -59,6 +59,7 @@ class BookingDetailController extends Controller
             $data = ['repair_parts' => $repair_parts, 'booking_detail' =>  $booking_detail];
 
             $pdf = PDF::loadView('admin.booking.xuat_hoa_don', $data);
+            dd(config('mail.mailers.smtp.username'));
             return  $pdf->stream();
         }
     }

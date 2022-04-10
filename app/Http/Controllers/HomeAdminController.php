@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 
 class HomeAdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(){
 
         $total_category=ComputerCompany::count('id');
