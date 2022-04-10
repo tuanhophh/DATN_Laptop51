@@ -21,7 +21,6 @@ class BookingDetail extends Model
     /**
      * The roles that belong to the BookingDetail
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function user_repair()
     {
