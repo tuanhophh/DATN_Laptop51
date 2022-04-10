@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -21,9 +22,7 @@ class FromOrderSuccessEmail extends Mailable
     {
         $details = $this->details;
         return $this->from(config('mail.mailers.smtp.username'))
-            ->subject('Thông báo đặt hàng thành công')
+            ->subject('Thông báo đặt lịch thành công')
             ->view('mail.order-mail', ['details' => $details]);
-
     }
-
 }

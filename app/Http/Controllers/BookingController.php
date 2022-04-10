@@ -149,32 +149,32 @@ class    BookingController extends Controller
          'status' => "đang chờ",
       ];
 
-      // if ($details['interval'] == 1) {
-      //    $details['interval'] = '8h-10h';
-      // } elseif ($details['interval'] == 2) {
-      //    $details['interval'] = '10h-12h';
-      // } elseif ($details['interval'] == 3) {
-      //    $details['interval'] = '12h-14h';
-      // } elseif ($details['interval'] == 4) {
-      //    $details['interval'] = '14h-16h';
-      // } elseif ($details['interval'] == 5) {
-      //    $details['interval'] = '16h-18h';
-      // } elseif ($details['interval'] == 6) {
-      //    $details['interval'] = '18h-20h';
-      // } else {
+      if ($details['interval'] == 1) {
+         $details['interval'] = '8h-10h';
+      } elseif ($details['interval'] == 2) {
+         $details['interval'] = '10h-12h';
+      } elseif ($details['interval'] == 3) {
+         $details['interval'] = '12h-14h';
+      } elseif ($details['interval'] == 4) {
+         $details['interval'] = '14h-16h';
+      } elseif ($details['interval'] == 5) {
+         $details['interval'] = '16h-18h';
+      } elseif ($details['interval'] == 6) {
+         $details['interval'] = '18h-20h';
+      } else {
 
-      //    $details['interval'] = '20h-22h';
-      // }
+         $details['interval'] = '20h-22h';
+      }
       // dd($details);
 
-      // dispatch(new SendOrderSuccessEmail($details));
+      dispatch(new SendOrderSuccessEmail($details));
 
 
-      if ($request->btn == 'admin') {
-         return redirect(route('dat-lich.danh-sach-may'));
-      } else {
-         return redirect(route('dat-lich.add_client'))->with('msg', 'thành công');
-      }
+      // if ($request->btn == 'admin') {
+      //    return back()->with('msg', '<script>	alert("Đặt lịch thành công");	</script>');
+      // } else {
+      return back()->with('msg', '<script>	alert("Đặt lịch thành công");	</script>');
+      // }
 
       // return redirect(route('dat-lich.index'));
    }
