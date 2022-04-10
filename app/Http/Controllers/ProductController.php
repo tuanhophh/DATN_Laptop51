@@ -83,9 +83,11 @@ class ProductController extends Controller
     {
         $model = new Product();
         if ($request->hasFile('image')) {
+            $file = $request->file('image');
             $imgPath = $request->file('image')->store('products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
             $model->image = $imgPath;
+
         }
 
         $model->fill($request->all());
