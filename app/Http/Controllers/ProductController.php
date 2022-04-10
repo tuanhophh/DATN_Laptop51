@@ -79,16 +79,14 @@ class ProductController extends Controller
         $ComputerCompany = ComputerCompany::all();
         return view('admin.products.add', compact('ComputerCompany'));
     }
-    public function saveAdd(ProductRgitequest $request)
+    public function saveAdd(Request $request)
     {
         
         $model = new Product();
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $imgPath = $request->file('image')->store('products');
+        if ($request->hasFile('anh')) {
+            $imgPath = $request->file('anh')->store('products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
-            $model->image = $imgPath;
-
+            $request->merge(['image'=>$imgPath]);
         }
         $model->fill($request->all());
         $model->save();
@@ -111,13 +109,13 @@ class ProductController extends Controller
     {
         $model = Product::find($id);
 
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('anh')) {
             // $oldImg = str_replace('storage/', 'public/', $model->image);
             Storage::delete($model->image);
 
-            $imgPath = $request->file('image')->store('products');
+            $imgPath = $request->file('anh')->store('products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
-            $model->image = $imgPath;
+            $request->merge(['image'=>$imgPath]);
         }
 
         $model->fill($request->all());

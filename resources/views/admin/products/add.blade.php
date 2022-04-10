@@ -17,10 +17,10 @@
                     </div>
                     <div class="form-group">
                         <label for="">Ảnh</label>
-                        <input type="file" name="image" class="form-control" placeholder="">
+                        <input type="file" name="anh" class="form-control" placeholder="">
 
                     </div>
-                    @error('image')
+                    @error('anh')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
                     <div class="form-group">
