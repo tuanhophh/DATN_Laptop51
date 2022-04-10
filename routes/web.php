@@ -14,6 +14,7 @@ use App\Http\Controllers\ProductExportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Models\ComputerCompany;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,8 +27,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
-// Auth::routes(['verify' => true]);
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //  Đăng nhập
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -43,11 +43,12 @@ Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPassw
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+Auth::routes(['verify' => true]);
 
-//  Xác thực mail
-Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
-Route::get('email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify');
-Route::get('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
+// //  Xác thực mail
+// Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
+// Route::get('email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify');
+// Route::get('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
 //  Giỏ hàng
 Route::post('save-cart', [CartController::class, 'saveCart']);
@@ -65,7 +66,7 @@ Route::get('vnpay/return', [PaymentController::class, 'vnpayReturn'])->name('vnp
 // });
 
 //     trang cá nhân
-Route::get('profile',[ProfileController::class, 'index'])->name('profile')->middleware('auth');
+Route::get('profile',[ProfileController::class, 'index'])->name('profile')->middleware('verified');
 // trang cửa hàng
 Route::get('cua-hang', [HomeController::class, 'show'])->name('website.product');
 
@@ -74,7 +75,7 @@ Route::get('cua-hang/{computerCompany_id}', [HomeController::class, 'company'])-
 // trang giới thiệu
 Route::get('gioi-thieu', function () {
     return view('website.gioi-thieu');
-});
+})->middleware(['guest','verified']);
 //Dịch vụ
 Route::get('sua-laptop-lay-ngay-1h', function () {
     return view('website.dv-sua-1h');
@@ -95,12 +96,12 @@ Route::get('dich-vu-cho-macbook', function () {
 Route::get('dat-lich', function () {
     $company_computer = ComputerCompany::all();
     return view('website.booking', compact('company_computer'));
-})->name('dat-lich.add_client');
+})->name('dat-lich.add_client')->middleware(['guest','verified']);
 Route::post('dat-lich', [BookingController::class, 'creatBooking']);
 // trang liên hệ
 Route::get('lien-he', function () {
     return view('website.contact');
-});
+})->middleware(['guest','verified']);
 // trang lỗi 404
 Route::get('404', function () {
     return view('website.404');
