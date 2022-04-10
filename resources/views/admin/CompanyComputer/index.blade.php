@@ -1,6 +1,7 @@
 @extends('admin.layouts.main')
 @section('title', 'Danh mục')
 @section('content')
+
 @if (Session::has('success'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>Thông báo: </strong>{{ Session::get('success') }}.
@@ -57,6 +58,7 @@
                 </table>
                 <div class="d-flex justify-content-center">
                     {{$CompanyComputer->links()}}
+
                 </div>
             </div>
         </div>

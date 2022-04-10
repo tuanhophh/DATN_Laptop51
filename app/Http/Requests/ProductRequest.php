@@ -26,7 +26,6 @@ class ProductRequest extends FormRequest
         return [
             'name' => 'required',
             'image'=>'mimes:jpeg,jpg,png',
-            'status' =>'required',
             'price' =>'required|integer|min:0',
             'import_price' =>'required|integer|min:0',
             'companyComputer_id' =>'required',
@@ -38,7 +37,6 @@ class ProductRequest extends FormRequest
         return [
             'name.required' => 'mời bạn nhập tên sản phẩm',
             'image.mimes'=>'sai định dạng ảnh',
-            'status.required' =>'mời bạn nhập tình trạng bán or không bán',
             'price.required' =>'mời bạn nhập giá',
             'price.integer' =>'kiểu dữ liệu bị sai, phải là dạng số',
             'price.min' =>'giá trị tối thiểu là 0',

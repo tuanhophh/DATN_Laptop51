@@ -11,6 +11,11 @@
 </head>
 
 <body>
+	@if (Session::has('msg'))
+	{!! Session::get('msg') !!}.
+
+
+	@endif
 	<div class="template-content">
 
 		<!-- Section -->
@@ -767,14 +772,19 @@
 		CKEDITOR.replace('description');	
 
 	</script>
+	{{-- <strong>Thông báo: </strong>{{ Session::get('msg') }}. --}}
 	@if (Session::has('msg'))
-	<strong>Thông báo: </strong>{{ Session::get('msg') }}.
 
-	<script>
-		return alert('oke')
-	</script>
+	{{ Session::get('msg') }}.
+
 
 	@endif
+	{{-- <script>
+		alert('Đặt lịch thành công');
+
+		
+
+	</script> --}}
 </body>
 
 </html>
