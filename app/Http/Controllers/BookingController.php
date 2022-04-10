@@ -282,7 +282,7 @@ class    BookingController extends Controller
       // dd($booking_detail->booking()->first());
       if ($booking_detail) {
          $repair_part = RepairPart::where('booking_detail_id', $booking_detail->id)->get();
-         $arr_PD_id = array_column($repair_part->toArray(), 'product_detail_id');
+         $arr_PD_id = array_column($repair_part->toArray(), 'detail_product_id');
 
          $arr_quantity = $request->soluong;
 

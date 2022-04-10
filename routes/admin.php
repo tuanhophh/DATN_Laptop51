@@ -80,6 +80,8 @@ Route::prefix('dat-lich')->group(function () {
     Route::get('xoa/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.delete');
     Route::get('demo', [BookingController::class, 'demo']);
     Route::get('hoa-don/{id}', [BookingDetailController::class, 'hoaDon'])->name('dat-lich.hoa-don');
+    Route::get('xuat-hoa-don/{booking_detail_id}', [BookingDetailController::class, 'xuatHoaDon'])->name('dat-lich.xuat-hoa-don');
+
     Route::get('danh-sach-may-phan-cong', [BookingController::class, 'userRepair'])->name('dat-lich.user_epair');
     Route::get('xoa-may/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.deleteBookingDetail');
 });
