@@ -52,6 +52,7 @@ Auth::routes(['verify' => true]);
 
 //  Giỏ hàng
 Route::post('save-cart', [CartController::class, 'saveCart']);
+Route::post('add-cart', [CartController::class, 'add']);
 Route::get('gio-hang', [CartController::class, 'showCart']);
 Route::get('delete-to-cart/{rowId}', [CartController::class, 'deleteToCart']);
 Route::post('update-cart-quantity', [CartController::class, 'updateCartQuantity']);

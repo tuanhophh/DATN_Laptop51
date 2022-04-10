@@ -31,6 +31,14 @@
                 {{ session()->get('error') }}
             </div>
             @endif
+@if (Session::has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Thông báo: </strong>{{ Session::get('success') }}.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
         </div>
         <div class="container bg-white mb-4 pb-3">
             <p class="h5">{{$pro->name}}</p>
@@ -181,14 +189,23 @@
                                 hóa nếu có)
                             </p>
                             <div class="row">
-                                <div class="col"></div>
-                                <div class="col offset-md-4">
-                                    <form class="align-self-center" action="{{URL::to('/save-cart')}}" method="POST">
+                                <div class="col-3">
+                                    <form class="p-0 m-0" action="{{URL::to('/save-cart')}}" method="POST">
                                         @csrf
                                         <input name="qly" type="number" hidden min="1" value="1">
                                         <input name="id" hidden value="{{$pro->id}}">
                                         <button class="btn btn-warning" type="submit">
-                                            Thêm giỏ hàng
+                                            Mua Ngay
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col p-0 m-0">
+                                    <form class="align-self-center" action="{{URL::to('/add-cart')}}" method="POST">
+                                        @csrf
+                                        <input name="qly" type="number" hidden min="1" value="1">
+                                        <input name="id" hidden value="{{$pro->id}}">
+                                        <button  class="btn btn-warning" type="submit">
+                                          Thêm giỏ hàng
                                         </button>
                                     </form>
                                 </div>

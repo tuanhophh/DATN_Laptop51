@@ -27,6 +27,23 @@ class CartController extends Controller
         // dd($data);
         return Redirect::to('/gio-hang');
     }
+    public function add(Request $request){
+        $id = $request->id;
+        $quantity = $request->qly;
+//        dd($productId);
+        $product = DB::table('products')->where('id',$id)->first();
+//        Cart::add('293ad', 'Product 1', 1, 9.99, 550);
+//        dd($product);
+        $data['id'] = $product->id;
+        $data['qty'] = $quantity;
+        $data['name'] = $product->name;
+        $data['price'] = $product->price;
+        $data['weight'] = '50';
+        $data['options']['image'] = $product->image;
+        Cart::add($data);
+        // dd($data)
+        return back()->with('success','Thêm vào giỏ thành công');
+    }
     public function showCart(){
        $cate_product = DB::table('product');
        $user_id = Auth::id();

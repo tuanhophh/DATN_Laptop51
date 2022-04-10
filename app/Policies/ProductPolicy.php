@@ -30,7 +30,7 @@ class ProductPolicy
      */
     public function view(User $user)
     {
-        return $user->checkPermissionAccess('list-bill');
+        return $user->checkPermissionAccess('list-product');
     }
 
     /**
@@ -41,7 +41,7 @@ class ProductPolicy
      */
     public function create(User $user)
     {
-        return $user->checkPermissionAccess('add-bill');
+        return $user->checkPermissionAccess('add-product');
     }
 
     /**
@@ -53,7 +53,7 @@ class ProductPolicy
      */
     public function update(User $user)
     {
-        return $user->checkPermissionAccess('edit-bill');
+        return $user->checkPermissionAccess('edit-product');
     }
 
     /**
@@ -65,7 +65,7 @@ class ProductPolicy
      */
     public function delete(User $user)
     {
-        return $user->checkPermissionAccess('delete-bill');
+        return $user->checkPermissionAccess('delete-product');
     }
 
     /**

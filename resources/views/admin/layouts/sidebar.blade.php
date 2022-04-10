@@ -44,7 +44,7 @@
             </a>
 
         </li>
-
+        @can('list-category')
         <li class="nav-item {{ request()->is('admin/CompanyComputer*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/CompanyComputer*') ? 'active ' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
@@ -55,6 +55,7 @@
                 </p>
             </a>
             <ul class="nav nav-treeview">
+                @can('list-category')
                 <li class="nav-item">
                     <a href="/admin/CompanyComputer"
                         class="nav-link {{ request()->is('admin/CompanyComputer') ? 'active' : '' }}">
@@ -62,6 +63,9 @@
                         <p>Danh sách</p>
                     </a>
                 </li>
+                @endcan
+                @can('add-category')
+
                 <li class="nav-item">
                     <a href="/admin/CompanyComputer/add"
                         class="nav-link {{ request()->is('admin/CompanyComputer/add') ? 'active' : '' }}">
@@ -69,9 +73,11 @@
                         <p>Thêm mới</p>
                     </a>
                 </li>
-
+                @endcan
             </ul>
         </li>
+        @endcan
+        @can('list-category')
         <li class="nav-item {{ request()->is('admin/product*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/product*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
@@ -82,12 +88,15 @@
                 </p>
             </a>
             <ul class="nav nav-treeview">
+                @can('list-category')
                 <li class="nav-item">
                     <a href="/admin/product" class="nav-link {{ request()->is('admin/product') ? 'active' : '' }}">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Danh sách</p>
                     </a>
                 </li>
+                @endcan
+                @can('add-category')
                 <li class="nav-item">
                     <a href="/admin/product/add"
                         class="nav-link {{ request()->is('admin/product/add') ? 'active' : '' }}">
@@ -95,8 +104,11 @@
                         <p>Thêm mới</p>
                     </a>
                 </li>
+                @endcan
             </ul>
         </li>
+        @endcan
+        @can('list-user')
         <li class="nav-item {{ request()->is('admin/user*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
@@ -106,22 +118,27 @@
                     {{-- <span class="badge badge-info right">6</span> --}}
                 </p>
             </a>
+
             <ul class="nav nav-treeview">
+                @can('list-user')
                 <li class="nav-item">
                     <a href="/admin/user" class="nav-link {{ request()->is('/user') ? 'active' : '' }}">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Danh sách</p>
                     </a>
                 </li>
+                @endcan
+                @can('add-user')
                 <li class="nav-item">
                     <a href="/admin/user/add" class="nav-link {{ request()->is('user/add') ? 'active' : '' }}">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Thêm mới</p>
                     </a>
                 </li>
-
+                @endcan
             </ul>
         </li>
+        @endcan
         <!-- <li class="nav-item {{ request()->is('admin/user*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
@@ -154,7 +171,7 @@
                 </li>
             </ul>
         </li> -->
-
+        @can('list-product')
         <li class="nav-item {{ request()->is('admin/detail-product*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/detail-product*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
@@ -165,6 +182,7 @@
                 </p>
             </a>
             <ul class="nav nav-treeview">
+                @can('list-product')
                 <li class="nav-item">
                     <a href="/admin/detail-product"
                         class="nav-link {{ request()->is('admin/detail-product') ? 'active' : '' }}">
@@ -172,6 +190,9 @@
                         <p>Danh sách</p>
                     </a>
                 </li>
+                @endcan
+                @can('add-product')
+
                 <li class="nav-item">
                     <a href="/admin/detail-product/add"
                         class="nav-link {{ request()->is('admin/detail-product/add') ? 'active' : '' }}">
@@ -179,9 +200,10 @@
                         <p>Thêm mới</p>
                     </a>
                 </li>
-
+                @endcan
             </ul>
         </li>
+        @endcan
         <!-- <li class="nav-item {{ request()->is('admin/sua-chua*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/sua-chua*') ? 'active ' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
@@ -229,6 +251,7 @@
             </ul>
 
         </li> -->
+        @can('list-bill')
         <li class="nav-item {{ request()->is('admin/bills*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/bills*') ? 'active ' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
@@ -239,15 +262,18 @@
                 </p>
             </a>
             <ul class="nav nav-treeview">
+                @can('list-bill')
+
                 <li class="nav-item">
                     <a href="/admin/bill" class="nav-link {{ request()->is('admin/bill') ? 'active' : '' }}">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Danh sách</p>
                     </a>
                 </li>
+                @endcan
             </ul>
-
         </li>
+        @endcan
         <li class="nav-item {{ request()->is('admin/roles*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/roles*') ? 'active ' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
@@ -264,7 +290,6 @@
                     </a>
                 </li>
             </ul>
-
         </li>
     </ul>
 </nav>

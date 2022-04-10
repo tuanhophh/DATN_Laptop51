@@ -29,7 +29,7 @@ class UserPolicy
      */
     public function view(User $user)
     {
-        return $user->checkPermissionAccess('list-bill');
+        return $user->checkPermissionAccess('list-user');
     }
 
     /**
@@ -40,7 +40,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->checkPermissionAccess('add-bill');
+        return $user->checkPermissionAccess('add-user');
     }
 
     /**
@@ -52,7 +52,7 @@ class UserPolicy
      */
     public function update(User $user)
     {
-        return $user->checkPermissionAccess('edit-bill');
+        return $user->checkPermissionAccess('edit-user');
     }
 
     /**
@@ -64,7 +64,7 @@ class UserPolicy
      */
     public function delete(User $user)
     {
-        return $user->checkPermissionAccess('delete-bill');
+        return $user->checkPermissionAccess('delete-user');
     }
 
     /**

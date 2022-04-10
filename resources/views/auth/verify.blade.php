@@ -25,8 +25,11 @@
                         </div>
                         @endif
                         <div class="form-group row">
+                            <p>
                             {{ __('Vui lòng xác minh email của bạn để xem thông tin này, kiểm tra email của bạn để biết liên kết xác minh') }}
-                            {{ __('Nếu bạn không nhận được email') }},
+                            </p>
+    <div>  {{ __('Nhấn vào nút để gửi lại email nếu bạn chưa nhận được') }},</div>
+
                         </div>
                         <div class="col-md-6 offset-md-4">
                             <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
