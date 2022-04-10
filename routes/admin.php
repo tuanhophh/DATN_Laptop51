@@ -28,21 +28,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeAdminController::class, 'index']);
+Route::get('/', [HomeAdminController::class, 'index'])->middleware('auth');
+
 Route::prefix('bill')->group(function(){
-Route::get('/',[BillController::class,'index'])->name('bill.index');
-Route::get('detail/{id}',[BillController::class,'detail'])->name('bill.detail');
-Route::get('edit/{id}',[BillController::class,'edit'])->name('bill.edit');
-Route::post('edit/{id}',[BillController::class,'saveEdit']);
+Route::get('/',[BillController::class,'index'])->name('bill.index')->middleware('can:list-bill');
+Route::get('detail/{id}',[BillController::class,'detail'])->name('bill.detail')->middleware('can:list-bill');
+Route::get('edit/{id}',[BillController::class,'edit'])->name('bill.edit')->middleware('can:edit-bill');
+Route::post('edit/{id}',[BillController::class,'saveEdit'])->middleware('can:edit-bill');
 });
 Route::prefix('CompanyComputer')->group(function () {
-    Route::get('/', [CompanyComputerController::class, 'index'])->name('CompanyComputer.index');
-    Route::get('/remove/{id}', [CompanyComputerController::class, 'remove'])->name('CompanyComputer.remove');
-    Route::get('add', [CompanyComputerController::class, 'addForm'])->name('CompanyComputer.add');
-    Route::post('add', [CompanyComputerController::class, 'saveAdd']);
-    Route::get('edit/{id}', [CompanyComputerController::class, 'editForm'])->name('CompanyComputer.edit');
-    Route::post('edit/{id}', [CompanyComputerController::class, 'saveEdit']);
-    Route::get('detail/{id}', [CompanyComputerController::class, 'detail']);
+    Route::get('/', [CompanyComputerController::class, 'index'])->name('CompanyComputer.index')->middleware('can:list-category');
+    Route::get('/remove/{id}', [CompanyComputerController::class, 'remove'])->name('CompanyComputer.remove')->middleware('can:delete-category');
+    Route::get('add', [CompanyComputerController::class, 'addForm'])->name('CompanyComputer.add')->middleware('can:list-category');
+    Route::post('add', [CompanyComputerController::class, 'saveAdd'])->middleware('can:add-category');
+    Route::get('edit/{id}', [CompanyComputerController::class, 'editForm'])->name('CompanyComputer.edit')->middleware('can:edit-category');
+    Route::post('edit/{id}', [CompanyComputerController::class, 'saveEdit'])->middleware('can:edit-category');
+    Route::get('detail/{id}', [CompanyComputerController::class, 'detail'])->middleware('can:list-category');
 });
 Route::prefix('nhap_sanpham')->group(function () {
     Route::get('/', [NhapsanphamController::class, 'index'])->name('nhap-sanpham.index');
@@ -63,17 +64,17 @@ Route::prefix('product')->group(function () {
     Route::get('detail/{id}', [ProductController::class, 'detail'])->middleware('can:edit-product');
 });
 Route::prefix('detail-product')->group(function () {
-    Route::get('/', [DetailProductController::class, 'index'])->name('detail-product.index');
-    Route::get('/remove/{id}', [DetailProductController::class, 'remove'])->name('detail-product.remove');
-    Route::get('add', [DetailProductController::class, 'addForm'])->name('detail-product.add');
-    Route::post('add', [DetailProductController::class, 'saveAdd']);
-    Route::get('edit/{id}', [DetailProductController::class, 'editForm'])->name('detail-product.edit');
-    Route::post('edit/{id}', [DetailProductController::class, 'saveEdit']);
-    Route::get('detail/{id}', [DetailProductController::class, 'detail']);
+    Route::get('/', [DetailProductController::class, 'index'])->name('detail-product.index')->middleware('can:list-product');
+    Route::get('/remove/{id}', [DetailProductController::class, 'remove'])->name('detail-product.remove')->middleware('can:delete-product');
+    Route::get('add', [DetailProductController::class, 'addForm'])->name('detail-product.add')->middleware('can:add-product');
+    Route::post('add', [DetailProductController::class, 'saveAdd'])->middleware('can:add-product');
+    Route::get('edit/{id}', [DetailProductController::class, 'editForm'])->name('detail-product.edit')->middleware('can:edit-product');
+    Route::post('edit/{id}', [DetailProductController::class, 'saveEdit'])->middleware('can:edit-product');
+    Route::get('detail/{id}', [DetailProductController::class, 'detail'])->middleware('can:list-product');
 });
-Route::prefix('login')->group(function () {
-    Route::get('/', [LoginController::class, 'index'])->name('admin.login');
-});
+// Route::prefix('login')->group(function () {
+//     Route::get('/', [LoginController::class, 'index'])->name('admin.login');
+// });
 Route::prefix('dat-lich')->group(function () {
     Route::get('/', [BookingController::class, 'listBookingDetail'])->name('dat-lich.index');
     Route::post('/', [BookingController::class, 'selectUserRepair']);
@@ -117,7 +118,7 @@ Route::prefix('category')->group(function () {
 });
 
 Route::prefix('user')->group(function () {
-    Route::get('/', [UserController::class, 'index'])->name('user.index');
+    Route::get('/', [UserController::class, 'index'])->name('user.index')->middleware('can:list-user');
     Route::get('add', [UserController::class, 'addForm'])->name('user.add')->middleware('can:add-user');
     Route::post('add', [UserController::class, 'saveAdd'])->middleware('can:add-user');
     Route::get('remove/{id}', [UserController::class, 'remove'])->name('user.remove')->middleware('can:edit-user');
@@ -125,11 +126,11 @@ Route::prefix('user')->group(function () {
     Route::post('edit/{id}', [UserController::class, 'saveEdit'])->middleware('can:delete-user');
 });
 Route::prefix('roles')->group(function () {
-    Route::get('/', [RoleController::class, 'index'])->name('roles.index');
-    Route::get('add', [RoleController::class, 'create'])->name('roles.create');
-    Route::post('add', [RoleController::class, 'store'])->name(('roles.store'));
-    Route::get('remove/{id}', [RoleController::class, 'remove'])->name('roles.remove');
-    Route::get('edit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
-    Route::post('edit/{id}', [RoleController::class, 'update'])->name('roles.update');
+    Route::get('/', [RoleController::class, 'index'])->name('roles.index')->middleware('can:list-role');
+    Route::get('add', [RoleController::class, 'create'])->name('roles.create')->middleware('can:add-role');
+    Route::post('add', [RoleController::class, 'store'])->name(('roles.store'))->middleware('can:add-role');
+    Route::get('remove/{id}', [RoleController::class, 'remove'])->name('roles.remove')->middleware('can:delete-role');
+    Route::get('edit/{id}', [RoleController::class, 'edit'])->name('roles.edit')->middleware('can:edit-role');
+    Route::post('edit/{id}', [RoleController::class, 'update'])->name('roles.update')->middleware('can:edit-role');
 });
 

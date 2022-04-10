@@ -34,7 +34,7 @@ class HomeController extends Controller
         $ComputerCompany = ComputerCompany::all();
         $productNew = Product::all();
         // dd($productNew);
-        $products = Product::all();
+        $products = Product::all()->take(8);
         // $searchData = compact('keyword', 'computerCompany_id');
         return view('website.product', compact('products', 'ComputerCompany','productNew'));
         // return response()->json($products);

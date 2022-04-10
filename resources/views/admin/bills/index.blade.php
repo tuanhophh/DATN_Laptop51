@@ -77,14 +77,22 @@ use App\Models\BillUser;
                         </td>
                         <td>{{ $item->created_at }}</td>
                         <td>
+                            @can('list-bill')
                             <a href="{{route('bill.detail',['id' => $item->id])}}" class="btn btn-sm btn-success">Chi
                                 tiết</a>
+                            @endcan
+                            @can('edit-bill')
+
                             <a href="{{ route('bill.edit', ['id' => $item->id]) }}"
                                 class="btn btn-sm btn-warning">Sửa</a>
+                            @endcan
+                            @can('delete-bill')
+
                             <a class="text-secondary" data-toggle="modal" id="mediumButton"
                                 data-target=".bd-example-modal-lg" data-attr="">
                                 <i class="fas fa-edit text-gray-300"></i>
                             </a>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach

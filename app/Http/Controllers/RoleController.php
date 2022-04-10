@@ -59,4 +59,17 @@ class RoleController extends Controller
         return redirect()->route('roles.index');
     }
 
+    public function remove($id)
+    {
+        $role = Role::find($id);
+        $role = Role::where('id', '=', $id)->first();
+            if ($role){
+                Role::where('id', $id)->delete();
+                return redirect(route('roles.index'))->with('success', 'Xóa thành công');
+            }
+            else {
+            return redirect(route('roles.index'))->with('error', 'Không tìm thấy');
+        }
+    }
+
 }
