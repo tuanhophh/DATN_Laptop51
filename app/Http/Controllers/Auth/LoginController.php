@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,7 @@ class LoginController extends Controller
     |
     */
 
+
     use AuthenticatesUsers;
 
     /**
@@ -29,8 +31,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -40,6 +41,20 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->username() => 'required|string|email',
+            'password' => 'required|string',
+        ],
+        [
+            'email.required' => 'Yêu cầu nhập email',
+            'email.string' => 'Cần đúng định dạng',
+            'email.email' => 'Nhập đúng định dạng Email',
+            'password.required' => 'Yêu cầu nhập mật khẩu',
+       ]);
     }
 
     public function authenticate(Request $request)
@@ -53,7 +68,11 @@ class LoginController extends Controller
             return redirect()->intended('website.index');
         }
         return back()->withErrors([
-            'email' => 'Sai mật khẩu hoặc tài khoản, vui lòng nhập lại',
+            'email.required' => 'Vui lòng nhập email',
+            'email.email' => 'Cần nhập đúng định dạng email',
+            'password.required' => 'Yêu cầu nhập mật khẩu'
         ]);
     }
+
+
 }

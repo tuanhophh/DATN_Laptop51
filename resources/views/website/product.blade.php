@@ -1,140 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Bệnh Viện Laptop 51</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- Font Awesome 5 CSS -->
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css'>
     <!-- Products List CSS -->
     <link rel="stylesheet" href="css/style.css">
     <!-- Demo CSS (No need to include it into your project) -->
     <link rel="stylesheet" href="css/demo.css">
+    <style>
+    p.card-title {
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+
+    p.card-text {
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+
+    p.card-title:hover {
+        -webkit-line-clamp: unset;
+        overflow: auto;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+    </style>
     @include('layout_client.style')
 </head>
+
 <body>
     @include('layout_client.header')
-    <div class="container bg-white">
-		<nav class="navbar navbar-expand-md navbar-light bg-white">
-			<div class="container-fluid p-0"> <a class="navbar-brand text-uppercase fw-800" href="#"><span class="border-red pe-2">New</span>Product</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNav" aria-controls="myNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="fas fa-bars"></span> </button>
-				<div class="collapse navbar-collapse" id="myNav">
-					<div class="navbar-nav ms-auto"> <a class="nav-link active" aria-current="page" href="#">All</a> <a class="nav-link" href="#">Women's</a> <a class="nav-link" href="#">Men's</a> <a class="nav-link" href="#">Kid's</a> <a class="nav-link" href="#">Accessories</a> <a class="nav-link" href="#">Cosmetics</a> </div>
-				</div>
-			</div>
-		</nav>
-		<div class="row">
-			<div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-				<div class="product"> <img src="https://images.pexels.com/photos/54203/pexels-photo-54203.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
-					<ul class="d-flex align-items-center justify-content-center list-unstyled icons">
-						<li class="icon"><span class="fas fa-expand-arrows-alt"></span></li>
-						<li class="icon mx-3"><span class="far fa-heart"></span></li>
-						<li class="icon"><span class="fas fa-shopping-bag"></span></li>
-					</ul>
-				</div>
-				<div class="tag bg-red">sale</div>
-				<div class="title pt-4 pb-1">Winter Sweater</div>
-				<div class="d-flex align-content-center justify-content-center"> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> </div>
-				<div class="price">$ 60.0</div>
-			</div>
-			<div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-				<div class="product"> <img src="https://images.pexels.com/photos/6764040/pexels-photo-6764040.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
-					<ul class="d-flex align-items-center justify-content-center list-unstyled icons">
-						<li class="icon"><span class="fas fa-expand-arrows-alt"></span></li>
-						<li class="icon mx-3"><span class="far fa-heart"></span></li>
-						<li class="icon"><span class="fas fa-shopping-bag"></span></li>
-					</ul>
-				</div>
-				<div class="tag bg-black">out of stock</div>
-				<div class="title pt-4 pb-1">Denim Dresses</div>
-				<div class="d-flex align-content-center justify-content-center"> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> </div>
-				<div class="price">$ 55.0</div>
-			</div>
-			<div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-				<div class="product"> <img src="https://images.pexels.com/photos/914668/pexels-photo-914668.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
-					<ul class="d-flex align-items-center justify-content-center list-unstyled icons">
-						<li class="icon"><span class="fas fa-expand-arrows-alt"></span></li>
-						<li class="icon mx-3"><span class="far fa-heart"></span></li>
-						<li class="icon"><span class="fas fa-shopping-bag"></span></li>
-					</ul>
-				</div>
-				<div class="tag bg-green">new</div>
-				<div class="title pt-4 pb-1"> Empire Waist Dresses</div>
-				<div class="d-flex align-content-center justify-content-center"> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> </div>
-				<div class="price">$ 70.0</div>
-			</div>
-			<div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-				<div class="product"> <img src="https://images.pexels.com/photos/6311392/pexels-photo-6311392.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
-					<ul class="d-flex align-items-center justify-content-center list-unstyled icons">
-						<li class="icon"><span class="fas fa-expand-arrows-alt"></span></li>
-						<li class="icon mx-3"><span class="far fa-heart"></span></li>
-						<li class="icon"><span class="fas fa-shopping-bag"></span></li>
-					</ul>
-				</div>
-				<div class="title pt-4 pb-1">Pinafore Dresses</div>
-				<div class="d-flex align-content-center justify-content-center"> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> </div>
-				<div class="price">$ 60.0</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-				<div class="product"> <img src="https://images.pexels.com/photos/54203/pexels-photo-54203.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
-					<ul class="d-flex align-items-center justify-content-center list-unstyled icons">
-						<li class="icon"><span class="fas fa-expand-arrows-alt"></span></li>
-						<li class="icon mx-3"><span class="far fa-heart"></span></li>
-						<li class="icon"><span class="fas fa-shopping-bag"></span></li>
-					</ul>
-				</div>
-				<div class="tag bg-red">sale</div>
-				<div class="title pt-4 pb-1">Winter Sweater</div>
-				<div class="d-flex align-content-center justify-content-center"> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> </div>
-				<div class="price">$ 60.0</div>
-			</div>
-			<div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-				<div class="product"> <img src="https://images.pexels.com/photos/6764040/pexels-photo-6764040.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
-					<ul class="d-flex align-items-center justify-content-center list-unstyled icons">
-						<li class="icon"><span class="fas fa-expand-arrows-alt"></span></li>
-						<li class="icon mx-3"><span class="far fa-heart"></span></li>
-						<li class="icon"><span class="fas fa-shopping-bag"></span></li>
-					</ul>
-				</div>
-				<div class="tag bg-black">out of stock</div>
-				<div class="title pt-4 pb-1">Denim Dresses</div>
-				<div class="d-flex align-content-center justify-content-center"> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> </div>
-				<div class="price">$ 55.0</div>
-			</div>
-			<div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-				<div class="product"> <img src="https://images.pexels.com/photos/914668/pexels-photo-914668.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
-					<ul class="d-flex align-items-center justify-content-center list-unstyled icons">
-						<li class="icon"><span class="fas fa-expand-arrows-alt"></span></li>
-						<li class="icon mx-3"><span class="far fa-heart"></span></li>
-						<li class="icon"><span class="fas fa-shopping-bag"></span></li>
-					</ul>
-				</div>
-				<div class="title pt-4 pb-1"> Empire Waist Dresses</div>
-				<div class="d-flex align-content-center justify-content-center"> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> </div>
-				<div class="price">$ 70.0</div>
-			</div>
-			<div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-				<div class="product"> <img src="https://images.pexels.com/photos/6311392/pexels-photo-6311392.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
-					<ul class="d-flex align-items-center justify-content-center list-unstyled icons">
-						<li class="icon"><span class="fas fa-expand-arrows-alt"></span></li>
-						<li class="icon mx-3"><span class="far fa-heart"></span></li>
-						<li class="icon"><span class="fas fa-shopping-bag"></span></li>
-					</ul>
-				</div>
-				<div class="tag bg-green">new</div>
-				<div class="title pt-4 pb-1">Pinafore Dresses</div>
-				<div class="d-flex align-content-center justify-content-center"> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> </div>
-				<div class="price">$ 60.0</div>
-			</div>
-		</div>
-	</div>
+    <div class="container-fluid bg-light">
+        <div class="container bg-light">
+            <div class="pt-5 mx-0 my-0">
+                @if(session()->has('error'))
+                <div class="alert alert-danger">
+                    {{ session()->get('error') }}
+                </div>
+                @elseif(session()->has('success'))
+                <div class="alert alert-success">
+                    {{ session()->get('success') }}
+                    {{ session()->get('length') }}
+                </div>
+                @endif
+                <div class="row bg-white shadow mx-0">
+                    <div class="col-auto justify-content-start bg-warning pt-2">
+                        <h4 class="text-dark font-weight-bold">
+                            LAPTOP MỚI NHẤT
+                        </h4>
+                    </div>
+                    <!-- <div class="col mx-0">
+                        <ul class="nav justify-content-end">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">Active</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled">Disabled</a>
+                            </li>
+                        </ul>
+                    </div> -->
+                </div>
+            </div>
+            <div class="row p-2">
+                @foreach ($products as $item)
+                <div class="col-lg-3 col-sm-6 p-2">
+                    <div class="card">
+                        <a href="{{$item->id}}"><img src="https://laptop88.vn/media/product/pro_poster_7010.jpg"
+                                class="card-img-top" alt="https://laptop88.vn/media/product/pro_poster_7010.jpg"></a>
+                        <div class="card-body">
+                            <p class="card-title h6 fw-bold p-0">{{$item->name}}</p>
+                            <p class="card-text h6 small p-0">{{$item->desc}}
+                            </p>
+                            <p class="h4 bg-warning mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-white"
+                                style="width: 180px;">{{$item->price}}Đ</p>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @foreach($ComputerCompany as $comP)
+            <div class="pt-2 mx-0 my-0">
+                <div class="row bg-white shadow mx-0">
+                    <div class="col-auto justify-content-start bg-warning pt-2">
+                        <h4 class="text-dark font-weight-bold">
+                            LAPTOP {{$comP->company_name}}
+                        </h4>
+                    </div>
+                    <!-- <div class="col mx-0">
+                        <ul class="nav justify-content-end">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">Active</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled">Disabled</a>
+                            </li>
+                        </ul>
+                    </div> -->
+                </div>
+            </div>
+            <div class="row p-2">
+                @foreach($products as $product)
+                @if($product->companyComputer_id == $comP->id)
+                <div class="col-lg-3 col-sm-6 p-2">
+                    <div class="card">
+                        <a href="{{$product->id}}"><img src="https://laptop88.vn/media/product/pro_poster_7010.jpg"
+                                class="card-img-top" alt="https://laptop88.vn/media/product/pro_poster_7010.jpg"></a>
+                        <div class="card-body">
+                            <p class="card-title h6 fw-bold p-0">{{$product->name}}</p>
+                            <p class="card-text h6 small p-0">{{$product->desc}}
+                            </p>
+                            <p class="h4 bg-warning mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-white"
+                                style="width: 180px;">{{$product->price}}</p>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                @endforeach
+            </div>
+            @endforeach
+        </div>
+    </div>
     @include('layout_client.footer')
     @include('layout_client.script')
 
 
-    
+
 </body>
+
 </html>

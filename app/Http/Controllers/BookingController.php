@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Mail;
 use Nexmo\Laravel\Facade\Nexmo;
 
-class    BookingController extends Controller
+class BookingController extends Controller
 {
    // public function check()
    // {

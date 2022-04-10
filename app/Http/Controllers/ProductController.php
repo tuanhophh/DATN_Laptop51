@@ -81,6 +81,7 @@ class ProductController extends Controller
     }
     public function saveAdd(ProductRgitequest $request)
     {
+        
         $model = new Product();
         if ($request->hasFile('image')) {
             $file = $request->file('image');
@@ -89,7 +90,6 @@ class ProductController extends Controller
             $model->image = $imgPath;
 
         }
-
         $model->fill($request->all());
         $model->save();
         return redirect(route('product.index'));

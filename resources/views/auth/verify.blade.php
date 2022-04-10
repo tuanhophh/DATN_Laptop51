@@ -1,28 +1,47 @@
-@extends('layouts.app')
-
+@extends('layout')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
-
-                <div class="card-body">
-                    @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
-                            {{ __('A fresh verification link has been sent to your email address.') }}
+<main class="login-form">
+    <div class="cotainer">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-8">
+                                <h5>Xác thực email</h5>
+                            </div>
+                            <div class="col-4">
+                            <button class="btn btn-info"><a class="text-end text-white p-0 m-0" style="text-decoration: none" href="{{ route('home') }}">Trang chủ</a>
+                                </button>
+                                <button class="btn btn-danger"><a class="text-end text-white p-0 m-0" style="text-decoration: none" href="{{ route('logout') }}">Đăng xuất</a>
+                                </button>
+                            </div>
                         </div>
-                    @endif
+                    </div>
+                    <div class="card-body">
+                        @if (session('resent'))
+                        <div class="alert alert-success" role="alert">
+                            {{ __('Một liên kết xác minh mới đã được gửi đến địa chỉ email của bạn') }}
+                        </div>
+                        @endif
+                        <div class="form-group row">
+                            <p>
+                            {{ __('Vui lòng xác minh email của bạn để xem thông tin này, kiểm tra email của bạn để biết liên kết xác minh') }}
+                            </p>
+    <div>  {{ __('Nhấn vào nút để gửi lại email nếu bạn chưa nhận được') }},</div>
 
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }},
-                    <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
-                    </form>
+                        </div>
+                        <div class="col-md-6 offset-md-4">
+                            <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
+                                @csrf
+                                <button type="submit"
+                                    class="btn btn-success">{{ __('Nhấn vào đây để gửi lại link') }}</button>.
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</main>
 @endsection

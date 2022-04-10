@@ -1,50 +1,50 @@
 @extends('admin.layouts.main')
 @section('title', 'Danh sách sản phẩm')
 @section('content')
-    @if (Session::has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Thông báo: </strong>{{ Session::get('success') }}.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-    @if (Session::has('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Thông báo: </strong>{{ Session::get('error') }}.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-    <a class="btn btn-warning" href="{{ route('export-product') }}">Export Data</a>
-    <a class="btn btn-info" href="{{ route('view-import-product') }}">Import Data</a>
-    
+@if (Session::has('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Thông báo: </strong>{{ Session::get('success') }}.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+@if (Session::has('error'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Thông báo: </strong>{{ Session::get('error') }}.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+<a class="btn btn-warning" href="{{ route('export-product') }}">Export Data</a>
+<a class="btn btn-info" href="{{ route('view-import-product') }}">Import Data</a>
+
 <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <form action="" method="get">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="">Từ khóa</label>
-                                    <input type="text" class="form-control" name="keyword"
-                                        value="{{ $searchData['keyword'] }}" placeholder="Tìm theo tên sản phẩm">
-                                </div>
-                                <div class="form-group">
-                                    <label for="">ComputerCompany</label>
-                                    <select name="companyComputer_id" class="form-control">
-                                        <option value="">Tất cả</option>
-                                        @foreach ($ComputerCompany as $item)
-                                            <option @if ($item->id == $searchData['companyComputer_id']) selected @endif
-                                                value="{{ $item->id }}">{{ $item->company_name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <form action="" method="get">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="">Từ khóa</label>
+                                <input type="text" class="form-control" name="keyword"
+                                    value="{{ $searchData['keyword'] }}" placeholder="Tìm theo tên sản phẩm">
                             </div>
-                            
-                        
+                            <div class="form-group">
+                                <label for="">Hãng</label>
+                                <select name="companyComputer_id" class="form-control">
+                                    <option value="">Tất cả</option>
+                                    @foreach ($ComputerCompany as $item)
+                                    <option @if ($item->id == $searchData['companyComputer_id']) selected @endif
+                                        value="{{ $item->id }}">{{ $item->company_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="">Tên cột</label>
@@ -75,17 +75,18 @@
                 <table class="table table-stripped">
                     <thead>
                         <th>STT</th>
-                        <th>Name</th>
-                        <th>CompanyComputer</th>
-                        <th>Image</th>
-                        <th>import_Price</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Desc</th>
-                        <th>Status</th>
+                        <th>Tên</th>
+                        <th>Hãng</th>
+                        <th>Ảnh</th>
+                        <th>Giá mua</th>
+                        <th>Giá bán</th>
+                        <th>Số lượng</th>
+                        <th>Trạng thái</th>
                         <th>Bảo hành</th>
                         <th>
-                            <a href="{{ route('product.add') }}">Add new</a>
+                        @can('add-product')
+                            <a href="{{ route('product.add') }}">Thêm</a>
+                        @endcan
                         </th>
                     </thead>
                     <tbody>
@@ -94,7 +95,7 @@
                             <td>{{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}</td>
                             <td>{{ $item->name }}</td>
                             <td>
-                                {{ $item->companyComputer_id }}
+                                {{ $item->companyComputer->company_name }}
                             </td>
                             <td>
                                 <img src="{{ asset($item->image) }}" width="100">
@@ -102,17 +103,21 @@
                             <td>{{ $item->import_price }}</td>
                             <td>{{ $item->price }}</td>
                             <td>{{ $item->qty }}</td>
-                            <td>{{ $item->desc }}</td>
                             <td>{{ $item->status == 1 ? 'Bán' : 'Không bán' }}</td>
                             <td>{{ $item->insurance }}</td>
                             <td>
+                                @can('edit-product')
                                 <a href="{{ route('nhap-sanpham.add', ['id' => $item->id]) }}"
-                                    class="btn btn-sm btn-primary">them sl</a>
+                                    class="btn btn-sm btn-primary">Thêm SL</a>
                                 <a href="{{ route('product.edit', ['id' => $item->id]) }}"
-                                    class="btn btn-sm btn-primary">Edit</a>
+                                    class="btn btn-sm btn-primary">Sửa</a>
+                                @endcan
+
+                                @can('delete-product')
                                 <a onclick="return confirm('Bạn có chắc muốn xóa')"
                                     href="{{ route('product.remove', ['id' => $item->id]) }}"
-                                    class="btn btn-sm btn-danger">Remove</a>
+                                    class="btn btn-sm btn-danger">Xóa</a>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach

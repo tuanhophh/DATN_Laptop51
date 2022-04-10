@@ -15,7 +15,7 @@ class Product extends Model
     public $fillable = ['name', 'image', 'import_price', 'price', 'qty', 'desc', 'status', 'companyComputer_id', 'insurance'];
     public function companyComputer()
     {
-        return $this->belongsTo(ComputerCompany::class, 'company_computer_id');
+        return $this->belongsTo(ComputerCompany::class, 'companyComputer_id');
     }
     public function nhaphangsanpham()
     {

@@ -57,10 +57,10 @@ class ForgotPasswordController extends Controller
   
           Mail::send('email.forgetPassword', ['token' => $token], function($message) use($request){
               $message->to($request->email);
-              $message->subject('Reset Password');
+              $message->subject('QUÊN MẬT KHẨU | LAPTOP51');
           });
   
-          return back()->with('message', 'We have e-mailed your password reset link!');
+          return back()->with('message', 'Đường dẫn dổi mật khẩu đã được gửi vào mail!!!');
       }
       /**
        * Write code on Method
@@ -92,7 +92,7 @@ class ForgotPasswordController extends Controller
                               ->first();
   
           if(!$updatePassword){
-              return back()->withInput()->with('error', 'Invalid token!');
+              return back()->withInput()->with('error', 'Token không hợp lệ!');
           }
   
           $user = User::where('email', $request->email)
@@ -100,7 +100,6 @@ class ForgotPasswordController extends Controller
  
           DB::table('password_resets')->where(['email'=> $request->email])->delete();
   
-          return redirect('/login')->with('message', 'Your password has been changed!');
-      }
-    
+          return redirect('/login')->with('message', 'Mật khẩu đã được thay đổi!');
+      }   
 }
