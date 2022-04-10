@@ -47,7 +47,7 @@ class CategoryController extends Controller
         }
         return view(
             'admin.category.edit',
-            compact('category')
+            compact('Category')
         );
     }
     public function saveEdit(Request $request, $id)

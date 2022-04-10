@@ -18,7 +18,7 @@
         <th scope="col">Address</th>
         <th scope="col">Description </th>
         <th scope="col"> 
-            <button type="button" class="btn btn-primary"><a style="color:white;  text-decoration: none;" style="text-decoration" href="{{route('user.add')}}">Add User</a></button>
+            <button type="button" class="btn btn-primary"><a style="color:white;  text-decoration: none;" href="{{route('user.add')}}">Add User</a></button>
         </th>
       </tr>
     </thead>

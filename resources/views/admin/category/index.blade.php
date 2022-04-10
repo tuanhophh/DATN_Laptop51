@@ -27,7 +27,9 @@
                             <th>STT</th>
                             <th>Name</th>
                             <th>
+                            @can('add-category')
                                 <a href="{{route('category.add')}}">Add new</a>
+                            @endcan    
                             </th>
                         </thead>
                         <tbody>
@@ -36,11 +38,16 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>
+                                        @can('edit-category')
                                         <a href="{{ route('category.edit', ['id' => $item->id]) }}"
                                             class="btn btn-sm btn-primary">Edit</a>
+                                        @endcan
+                                        @can('delete-category')
                                         <a href="{{ route('category.remove', ['id' => $item->id]) }}"
                                             onclick="return confirm('Bạn có chắc muốn xóa')"
                                             class="btn btn-sm btn-danger">Remove</a>
+                                        @endcan
+
                                     </td>
                                 </tr>
                             @endforeach

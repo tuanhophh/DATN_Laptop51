@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -51,8 +52,21 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function role()
+    public function roles()
     {
-        return $this->belongsTo(Role::class, 'id_role');
+        return $this->belongsToMany(Role::class, 'role_user','user_id','role_id');
     }
+
+    public function checkPermissionAccess($permissionsCheck)
+    {
+       $roles = auth()->user()->roles;
+       foreach( $roles as $role){
+           $permissions = $role->permissions;
+           if($permissions->contains('key_code',$permissionsCheck)){
+               return true;
+           }
+       }
+       return false; 
+    }
+
 }

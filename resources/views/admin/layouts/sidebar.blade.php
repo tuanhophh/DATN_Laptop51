@@ -49,7 +49,7 @@
             <a href="" class="nav-link {{ request()->is('admin/CompanyComputer*') ? 'active ' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
-                    CompanyComputer
+                    Danh mục
                     <i class="fas fa-angle-left right"></i>
                     {{-- <span class="badge badge-info right">6</span> --}}
                 </p>
@@ -76,7 +76,7 @@
             <a href="" class="nav-link {{ request()->is('admin/product*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
-                    Product
+                    Sản phẩm
                     <i class="fas fa-angle-left right"></i>
                     {{-- <span class="badge badge-info right">6</span> --}}
                 </p>
@@ -95,27 +95,26 @@
                         <p>Thêm mới</p>
                     </a>
                 </li>
-
             </ul>
         </li>
         <li class="nav-item {{ request()->is('admin/user*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
-                    User
+                    Tài khoản
                     <i class="fas fa-angle-left right"></i>
                     {{-- <span class="badge badge-info right">6</span> --}}
                 </p>
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="/user" class="nav-link {{ request()->is('/user') ? 'active' : '' }}">
+                    <a href="/admin/user" class="nav-link {{ request()->is('/user') ? 'active' : '' }}">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Danh sách</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/user/add" class="nav-link {{ request()->is('user/add') ? 'active' : '' }}">
+                    <a href="/admin/user/add" class="nav-link {{ request()->is('user/add') ? 'active' : '' }}">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Thêm mới</p>
                     </a>
@@ -123,7 +122,7 @@
 
             </ul>
         </li>
-        <li class="nav-item {{ request()->is('admin/user*') ? ' menu-is-opening menu-open' : '' }}">
+        <!-- <li class="nav-item {{ request()->is('admin/user*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
@@ -141,7 +140,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('dat-lich.add') }}"
-                        class="nav-link {{ request()->is('user/add') ? 'active' : '' }}">
+                        class="nav-link {{ request()->is('/user/add') ? 'active' : '' }}">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Thêm mới</p>
                     </a>
@@ -154,13 +153,13 @@
                     </a>
                 </li>
             </ul>
-        </li>
+        </li> -->
 
         <li class="nav-item {{ request()->is('admin/detail-product*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/detail-product*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
-                    Detail product
+                    Chi tiết sản phẩm
                     <i class="fas fa-angle-left right"></i>
                     {{-- <span class="badge badge-info right">6</span> --}}
                 </p>
@@ -183,7 +182,7 @@
 
             </ul>
         </li>
-        <li class="nav-item {{ request()->is('admin/sua-chua*') ? ' menu-is-opening menu-open' : '' }}">
+        <!-- <li class="nav-item {{ request()->is('admin/sua-chua*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/sua-chua*') ? 'active ' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
@@ -202,8 +201,8 @@
 
 
             </ul>
-        </li>
-        <li class="nav-item {{ request()->is('admin/category*') ? ' menu-is-opening menu-open' : '' }}">
+        </li> -->
+        <!-- <li class="nav-item {{ request()->is('admin/category*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/category*') ? 'active ' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
@@ -229,7 +228,7 @@
 
             </ul>
 
-        </li>
+        </li> -->
         <li class="nav-item {{ request()->is('admin/bills*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/bills*') ? 'active ' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
@@ -240,8 +239,26 @@
                 </p>
             </a>
             <ul class="nav nav-treeview">
-                <li class="nav-item">bills
+                <li class="nav-item">
                     <a href="/admin/bill" class="nav-link {{ request()->is('admin/bill') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Danh sách</p>
+                    </a>
+                </li>
+            </ul>
+
+        </li>
+        <li class="nav-item {{ request()->is('admin/roles*') ? ' menu-is-opening menu-open' : '' }}">
+            <a href="" class="nav-link {{ request()->is('admin/roles*') ? 'active ' : '' }}">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                    Phân quyền
+                    <i class="fas fa-angle-left right"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="/admin/roles" class="nav-link {{ request()->is('admin/roles') ? 'active' : '' }}">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Danh sách</p>
                     </a>
