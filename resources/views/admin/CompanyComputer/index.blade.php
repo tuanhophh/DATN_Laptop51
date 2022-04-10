@@ -27,7 +27,7 @@
                         <th>STT</th>
                         <th>Tên</th>
                         <th>
-                            @can('add-product')
+                            @can('add-category')
                             <a href="{{route('CompanyComputer.add')}}">Thêm</a>
                             @endcan
 
@@ -39,12 +39,12 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->company_name }}</td>
                             <td>
-                                @can('edit-product')
+                                @can('edit-category')
 
                                 <a href="{{ route('CompanyComputer.edit', ['id' => $item->id]) }}"
                                     class="btn btn-sm btn-primary">Sửa</a>
                                 @endcan
-                                @can('delete-product')
+                                @can('delete-category')
 
                                 <a href="{{ route('CompanyComputer.remove', ['id' => $item->id]) }}"
                                     onclick="return confirm('Bạn có chắc muốn xóa')"

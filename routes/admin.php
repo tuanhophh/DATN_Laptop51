@@ -39,7 +39,7 @@ Route::post('edit/{id}',[BillController::class,'saveEdit'])->middleware('can:edi
 Route::prefix('CompanyComputer')->group(function () {
     Route::get('/', [CompanyComputerController::class, 'index'])->name('CompanyComputer.index')->middleware('can:list-category');
     Route::get('/remove/{id}', [CompanyComputerController::class, 'remove'])->name('CompanyComputer.remove')->middleware('can:delete-category');
-    Route::get('add', [CompanyComputerController::class, 'addForm'])->name('CompanyComputer.add')->middleware('can:list-category');
+    Route::get('add', [CompanyComputerController::class, 'addForm'])->name('CompanyComputer.add')->middleware('can:add-category');
     Route::post('add', [CompanyComputerController::class, 'saveAdd'])->middleware('can:add-category');
     Route::get('edit/{id}', [CompanyComputerController::class, 'editForm'])->name('CompanyComputer.edit')->middleware('can:edit-category');
     Route::post('edit/{id}', [CompanyComputerController::class, 'saveEdit'])->middleware('can:edit-category');
@@ -121,9 +121,9 @@ Route::prefix('user')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('user.index')->middleware('can:list-user');
     Route::get('add', [UserController::class, 'addForm'])->name('user.add')->middleware('can:add-user');
     Route::post('add', [UserController::class, 'saveAdd'])->middleware('can:add-user');
-    Route::get('remove/{id}', [UserController::class, 'remove'])->name('user.remove')->middleware('can:edit-user');
+    Route::get('remove/{id}', [UserController::class, 'remove'])->name('user.remove')->middleware('can:delete-user');
     Route::get('edit/{id}', [UserController::class, 'editForm'])->name('user.edit')->middleware('can:edit-user');
-    Route::post('edit/{id}', [UserController::class, 'saveEdit'])->middleware('can:delete-user');
+    Route::post('edit/{id}', [UserController::class, 'saveEdit'])->middleware('can:edit-user');
 });
 Route::prefix('roles')->group(function () {
     Route::get('/', [RoleController::class, 'index'])->name('roles.index')->middleware('can:list-role');
