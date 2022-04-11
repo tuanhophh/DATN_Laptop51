@@ -100,6 +100,11 @@
                         {{ Session::get('message') }}
                     </div>
                     @endif
+                    <!-- @if (Session::has('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ Session::get('success') }}
+                    </div>
+                    @endif -->
                     @error('error')
                     <span class="invalid-feedback text-danger small" role="alert">
                         <strong>{{ $error }}</strong>

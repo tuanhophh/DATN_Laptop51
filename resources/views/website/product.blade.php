@@ -83,6 +83,15 @@
             </div>
             <div class="row p-2">
                 @foreach ($products as $item)
+                <?php 
+                if (!function_exists('currency_format')) {
+                    function currency_format($item, $suffix = ' VNĐ') {
+                        if (!empty($item)) {
+                            return number_format($item, 0, ',', '.') . "{$suffix}";
+                        }
+                    }
+                }
+                ?>
                 <div class="col-lg-3 col-sm-6 p-2">
                     <div class="card">
                         <a href="{{$item->id}}"><img src="https://laptop88.vn/media/product/pro_poster_7010.jpg"
@@ -92,7 +101,7 @@
                             <p class="card-text h6 small p-0">{{$item->desc}}
                             </p>
                             <p class="h4 bg-warning mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-white"
-                                style="width: 180px;">{{$item->price}}Đ</p>
+                                style="width: 180px;">{{currency_format($item->price)}}</p>
                         </div>
                     </div>
                 </div>
@@ -124,22 +133,44 @@
                     </div> -->
                 </div>
             </div>
+
             <div class="row p-2">
+                <?php
+                $i = 0;
+                $y = 1;
+                ?>
+
                 @foreach($products as $product)
                 @if($product->companyComputer_id == $comP->id)
+                <?php
+                $i = $i + 1;
+                $y += $y ;
+                if (!function_exists('currency_format')) {
+                    function currency_format($product, $suffix = ' VNĐ') {
+                        if (!empty($product)) {
+                            return number_format($product, 0, ',', '.') . "{$suffix}";
+                        }
+                    }
+                }
+                
+                ?>
                 <div class="col-lg-3 col-sm-6 p-2">
                     <div class="card">
                         <a href="{{$product->id}}"><img src="https://laptop88.vn/media/product/pro_poster_7010.jpg"
-                                class="card-img-top" alt="https://laptop88.vn/media/product/pro_poster_7010.jpg"></a>
+                        class="card-img-top" alt="https://laptop88.vn/media/product/pro_poster_7010.jpg"></a>
                         <div class="card-body">
                             <p class="card-title h6 fw-bold p-0">{{$product->name}}</p>
                             <p class="card-text h6 small p-0">{{$product->desc}}
-                            </p>
-                            <p class="h4 bg-warning mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-white"
-                                style="width: 180px;">{{$product->price}}</p>
+                                </p>
+                                <p class="h4 bg-warning mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-white"
+                                style="width: 180px;">{{currency_format($product->price)}}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                @if($i === 4)
+                @break
+                @endif
                 @endif
                 @endforeach
             </div>
