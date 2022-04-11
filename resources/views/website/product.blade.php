@@ -94,7 +94,7 @@
                 ?>
                 <div class="col-lg-3 col-sm-6 p-2">
                     <div class="card">
-                        <a href="{{$item->id}}"><img src="https://laptop88.vn/media/product/pro_poster_7010.jpg"
+                        <a href="san-pham/{{$item->id}}"><img src="https://laptop88.vn/media/product/pro_poster_7010.jpg"
                                 class="card-img-top" alt="https://laptop88.vn/media/product/pro_poster_7010.jpg"></a>
                         <div class="card-body">
                             <p class="card-title h6 fw-bold p-0">{{$item->name}}</p>
@@ -156,7 +156,7 @@
                 ?>
                 <div class="col-lg-3 col-sm-6 p-2">
                     <div class="card">
-                        <a href="{{$product->id}}"><img src="https://laptop88.vn/media/product/pro_poster_7010.jpg"
+                        <a href="san-pham/{{$product->id}}"><img src="https://laptop88.vn/media/product/pro_poster_7010.jpg"
                         class="card-img-top" alt="https://laptop88.vn/media/product/pro_poster_7010.jpg"></a>
                         <div class="card-body">
                             <p class="card-title h6 fw-bold p-0">{{$product->name}}</p>
