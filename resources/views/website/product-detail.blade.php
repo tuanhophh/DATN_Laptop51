@@ -21,7 +21,7 @@
     @include('layout_client.header')
     <div class="container-fluid bg-light pt-3">
         <div class="container bg-white">
-            <p class=""><a class="text-dark" href="/cua-hang">Cửa hàng</a> \
+            <p class=""><a class="text-dark" href="/cua-hang">CỬA HÀNG</a> \
                 <a class="text-dark"
                     href="/cua-hang/{{$pro->companyComputer_id}}">{{$pro->companyComputer->company_name}}</a> \
                 <a class="text-dark" href="{{$pro->id}}">{{$pro->name}}</a>
@@ -73,9 +73,17 @@
                         </a>
                     </div>
                 </div>
-
+                <?php 
+                if (!function_exists('currency_format')) {
+                    function currency_format($pro, $suffix = ' VNĐ') {
+                        if (!empty($pro)) {
+                            return number_format($pro, 0, ',', '.') . "{$suffix}";
+                        }
+                    }
+                }
+                ?>
                 <div class="col-6">
-                    <h5 class="font-weight-bold">{{$pro->price}}</h5>
+                    <h5 class="font-weight-bold text-danger">{{currency_format($pro->price)}}</h5>
                     <p class="">{{$pro->desc}}
                     </p>
                     <div class="row" style="height: auto;">
@@ -189,23 +197,23 @@
                                 hóa nếu có)
                             </p>
                             <div class="row">
-                                <div class="col-3">
-                                    <form class="p-0 m-0" action="{{URL::to('/save-cart')}}" method="POST">
-                                        @csrf
-                                        <input name="qly" type="number" hidden min="1" value="1">
-                                        <input name="id" hidden value="{{$pro->id}}">
-                                        <button class="btn btn-warning" type="submit">
-                                            Mua Ngay
-                                        </button>
-                                    </form>
-                                </div>
-                                <div class="col p-0 m-0">
+                                <div class="col-9 text-right">
                                     <form class="align-self-center" action="{{URL::to('/add-cart')}}" method="POST">
                                         @csrf
                                         <input name="qly" type="number" hidden min="1" value="1">
                                         <input name="id" hidden value="{{$pro->id}}">
                                         <button  class="btn btn-warning" type="submit">
                                           Thêm giỏ hàng
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col">
+                                    <form class="" action="{{URL::to('/save-cart')}}" method="POST">
+                                        @csrf
+                                        <input name="qly" type="number" hidden min="1" value="1">
+                                        <input name="id" hidden value="{{$pro->id}}">
+                                        <button class="btn btn-warning" type="submit">
+                                            Mua Ngay
                                         </button>
                                     </form>
                                 </div>
@@ -231,6 +239,16 @@
                             Sản phẩm cùng hãng
                         </p>
                         @foreach($products as $product)
+                        <?php
+                        
+                        if (!function_exists('currency_format')) {
+                            function currency_format($product, $suffix = ' VNĐ') {
+                                if (!empty($product)) {
+                                    return number_format($product, 0, ',', '.') . "{$suffix}";
+                                }
+                            }
+                        }
+                        ?>
                         <ul class="list-group">
                             <li class="list-group-item border-left-0 border-right-0 border-top-0 d-inline">
                                 <div class="row">
@@ -242,7 +260,7 @@
                                     </div>
                                     <div class="col-8">
                                         <p class="h6 small font-weight-bold p-0">{{$product->name}}</p>
-                                        <p class="h6 small font-weight-bold text-danger p-0">{{$product->price}}</p>
+                                        <p class="h6 small font-weight-bold text-danger p-0">{{currency_format($product->price)}}</p>
                                         <p class="h6 small p-0">{{$product->desc}}</p>
 
                                     </div>

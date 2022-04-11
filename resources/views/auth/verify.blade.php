@@ -26,7 +26,7 @@
                         @endif
                         <div class="form-group row">
                             <p>
-                            {{ __('Vui lòng xác minh email của bạn để xem thông tin này, kiểm tra email của bạn để biết liên kết xác minh') }}
+                            {{ __('Vui lòng xác minh email của bạn để vào trang này, kiểm tra email của bạn để biết liên kết xác minh') }}
                             </p>
     <div>  {{ __('Nhấn vào nút để gửi lại email nếu bạn chưa nhận được') }},</div>
 

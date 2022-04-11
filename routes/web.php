@@ -71,12 +71,12 @@ Route::get('profile',[ProfileController::class, 'index'])->name('profile')->midd
 // trang cửa hàng
 Route::get('cua-hang', [HomeController::class, 'show'])->name('website.product');
 
-Route::get('{id}', [HomeController::class, 'detail'])->name('website.product-detail');
+Route::get('san-pham/{id}', [HomeController::class, 'detail'])->name('website.product-detail');
 Route::get('cua-hang/{computerCompany_id}', [HomeController::class, 'company'])->name('website.product-category.');
 // trang giới thiệu
 Route::get('gioi-thieu', function () {
     return view('website.gioi-thieu');
-})->middleware(['guest','verified']);
+});
 //Dịch vụ
 Route::get('sua-laptop-lay-ngay-1h', function () {
     return view('website.dv-sua-1h');
@@ -97,12 +97,12 @@ Route::get('dich-vu-cho-macbook', function () {
 Route::get('dat-lich', function () {
     $company_computer = ComputerCompany::all();
     return view('website.booking', compact('company_computer'));
-})->name('dat-lich.add_client')->middleware(['guest','verified']);
+})->name('dat-lich.add_client');
 Route::post('dat-lich', [BookingController::class, 'creatBooking']);
 // trang liên hệ
 Route::get('lien-he', function () {
     return view('website.contact');
-})->middleware(['guest','verified']);
+});
 // trang lỗi 404
 Route::get('404', function () {
     return view('website.404');

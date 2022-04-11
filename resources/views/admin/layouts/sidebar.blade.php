@@ -139,7 +139,7 @@
             </ul>
         </li>
         @endcan
-        <!-- <li class="nav-item {{ request()->is('admin/user*') ? ' menu-is-opening menu-open' : '' }}">
+         <li class="nav-item {{ request()->is('admin/user*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
@@ -170,7 +170,7 @@
                     </a>
                 </li>
             </ul>
-        </li> -->
+        </li>
         @can('list-product')
         <li class="nav-item {{ request()->is('admin/detail-product*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/detail-product*') ? 'active' : '' }}">
@@ -204,7 +204,7 @@
             </ul>
         </li>
         @endcan
-        <!-- <li class="nav-item {{ request()->is('admin/sua-chua*') ? ' menu-is-opening menu-open' : '' }}">
+        <li class="nav-item {{ request()->is('admin/sua-chua*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/sua-chua*') ? 'active ' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
@@ -224,7 +224,7 @@
 
             </ul>
         </li> -->
-        <!-- <li class="nav-item {{ request()->is('admin/category*') ? ' menu-is-opening menu-open' : '' }}">
+         <li class="nav-item {{ request()->is('admin/category*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/category*') ? 'active ' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
@@ -250,7 +250,7 @@
 
             </ul>
 
-        </li> -->
+        </li> 
         @can('list-bill')
         <li class="nav-item {{ request()->is('admin/bills*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/bills*') ? 'active ' : '' }}">
@@ -278,7 +278,7 @@
             <a href="" class="nav-link {{ request()->is('admin/roles*') ? 'active ' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
-                    Phân quyền
+                    Vai trò
                     <i class="fas fa-angle-left right"></i>
                 </p>
             </a>
