@@ -33,7 +33,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"></script>
 
-
+<script></script>
 <!-- AdminLTE App -->
 <script src="{{asset('adminlte')}}/dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->

@@ -19,7 +19,7 @@
                 
                 <a href="{{route('nhap-sanpham.index')}}" class="btn btn-danger">Hủy</a>
                 &nbsp;
-                <button type="submit" class="btn btn-primary">Lưu</button>
+                <button type="submit" class="btn btn-success">Lưu</button>
             </div>
         </div>
     </form>

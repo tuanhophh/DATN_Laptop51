@@ -11,6 +11,7 @@ use App\Models\ComputerCompany;
 use App\Models\Product;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
@@ -79,17 +80,35 @@ class ProductController extends Controller
         $ComputerCompany = ComputerCompany::all();
         return view('admin.products.add', compact('ComputerCompany'));
     }
-    public function saveAdd(Request $request)
-    {
-        
+    public function saveAdd(ProductRequest $request)
+    {   
+
         $model = new Product();
         if ($request->hasFile('anh')) {
             $imgPath = $request->file('anh')->store('products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
             $request->merge(['image'=>$imgPath]);
         }
+        
+        // dd($model['value']);
+        // foreach($model['value'] as $value){
+        //     $value = $request->value;
+        // }
         $model->fill($request->all());
         $model->save();
+        $values = $request->value;
+        $data = [];
+        $i = 0;
+        foreach($values as $value) {
+            $i += 1;
+            $data[] = [
+                'product_id' => $model->id,
+                'category_id' => $i,
+                'value' => $value,
+            ];
+        }
+        DB::table('attribute_value')->insert($data);
+        // dd($data);
         return redirect(route('product.index'));
     }
 
@@ -123,6 +142,24 @@ class ProductController extends Controller
         return redirect(route('product.index'));
     }
 
+    public function ShowHide(Request $request, $id)
+    {
+        $model = Product::find($id);
+            if($model->status == 1){
+            $model['status'] = 0; 
+            // dd($model->save());
+            $model->save();
+            return back()->with('success', 'Hiện thành công');
+        }else{
+            $model['status'] = 1; 
+            // $model->fi;
+            $model->save();
+            // dd($model->save());
+            return back()->with('success', 'Ẩn thành công');
+        }
+        
+        # code...
+    }
     // public function postLogin()
     // {
     //     $data = Http::post('http://10.1.38.174:3000/api/v1/login', [

@@ -31,14 +31,14 @@
                 {{ session()->get('error') }}
             </div>
             @endif
-@if (Session::has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Thông báo: </strong>{{ Session::get('success') }}.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
+            @if (Session::has('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Thông báo: </strong>{{ Session::get('success') }}.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
         </div>
         <div class="container bg-white mb-4 pb-3">
             <p class="h5">{{$pro->name}}</p>
@@ -52,13 +52,13 @@
                         </ol>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="https://laptop88.vn/media/product/6724_dsc07501.jpg" class="" alt="...">
+                                <img src="{{ asset($pro->image) }}" class="" alt="...">
                             </div>
                             <div class="carousel-item">
-                                <img src="https://laptop88.vn/media/product/6724_dsc07501.jpg" class="" alt="...">
+                                <img src="{{ asset($pro->image) }}" class="" alt="...">
                             </div>
                             <div class="carousel-item">
-                                <img src="https://laptop88.vn/media/product/6724_dsc07501.jpg" class="" alt="...">
+                                <img src="{{ asset($pro->image) }}" class="" alt="...">
                             </div>
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
@@ -84,9 +84,11 @@
                 ?>
                 <div class="col-6">
                     <h5 class="font-weight-bold text-danger">{{currency_format($pro->price)}}</h5>
-                    <p class="">{{$pro->desc}}
-                    </p>
+                    <!-- <p class="">{{$pro->desc}}
+                    </p> -->
+                    @foreach($detailPro as $detail)
                     <div class="row" style="height: auto;">
+                        @if($detail->category_id == 1)
                         <div class="col-3 pr-0">
                             <p class="pr-0  py-0 font-weight-bold">
                                 CPU:
@@ -94,19 +96,17 @@
                         </div>
                         <div class="col-9">
                             <ul class="nav">
-                                @foreach($detailPro as $item)
-                                @if($item->category_id==1)
                                 <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
                                     <a class="nav-link active p-0 text-dark" href="#">
-                                        {{$item->name}}
+                                        {{$detail->value}}
                                     </a>
                                 </li>
-                                @endif
-                                @endforeach
                             </ul>
                         </div>
+                        @endif
                     </div>
                     <div class="row" style="height: auto;">
+                        @if($detail->category_id == 2)
                         <div class="col-3 pr-0">
                             <p class="pr-0  py-0 font-weight-bold">
                                 RAM:
@@ -114,19 +114,18 @@
                         </div>
                         <div class="col-9">
                             <ul class="nav">
-                                @foreach($detailPro as $item)
-                                @if($item->category_id==4)
                                 <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
                                     <a class="nav-link active p-0 text-dark" href="#">
-                                        {{$item->name}}
+                                        {{$detail->value}}
                                     </a>
                                 </li>
-                                @endif
-                                @endforeach
+
                             </ul>
                         </div>
+                        @endif
                     </div>
                     <div class="row" style="height: auto;">
+                        @if($detail->category_id == 3)
                         <div class="col-3 pr-0">
                             <p class="pr-0  py-0 font-weight-bold">
                                 Ổ cứng:
@@ -134,19 +133,20 @@
                         </div>
                         <div class="col-9">
                             <ul class="nav">
-                                @foreach($detailPro as $item)
-                                @if($item->category_id==2)
+
                                 <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
                                     <a class="nav-link active p-0 text-dark" href="#">
-                                        {{$item->name}}
+                                        {{$detail->value}}
                                     </a>
                                 </li>
-                                @endif
-                                @endforeach
+
+
                             </ul>
                         </div>
+                        @endif
                     </div>
                     <div class="row" style="height: auto;">
+                        @if($detail->category_id == 4)
                         <div class="col-3 pr-0">
                             <p class="pr-0  py-0 font-weight-bold">
                                 Màn hình:
@@ -154,19 +154,19 @@
                         </div>
                         <div class="col-9">
                             <ul class="nav">
-                                @foreach($detailPro as $item)
-                                @if($item->category_id==3)
+
                                 <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
                                     <a class="nav-link active p-0 text-dark" href="#">
-                                        {{$item->name}}
+                                        {{$detail->value}}
                                     </a>
                                 </li>
-                                @endif
-                                @endforeach
+
                             </ul>
                         </div>
+                        @endif
                     </div>
                     <div class="row" style="height: auto;">
+                        @if($detail->category_id == 5)
                         <div class="col-3 pr-0">
                             <p class="pr-0  py-0 font-weight-bold">
                                 Card đồ họa:
@@ -174,18 +174,18 @@
                         </div>
                         <div class="col-9">
                             <ul class="nav">
-                                @foreach($detailPro as $item)
-                                @if($item->category_id==5)
+
                                 <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
                                     <a class="nav-link active p-0 text-dark" href="#">
-                                        {{$item->name}}
+                                        {{$detail->value}}
                                     </a>
                                 </li>
-                                @endif
-                                @endforeach
                             </ul>
                         </div>
+                        @endif
                     </div>
+                    @endforeach
+
                     <p class="m-0 p-0">✅Bảo hành 12 tháng, 1 đổi 1 trong vòng 15 ngày
                     </p>
                     <p class="m-0 p-0">✅MIỄN PHÍ GIAO HÀNG TẬN NHÀ</p>
@@ -202,8 +202,8 @@
                                         @csrf
                                         <input name="qly" type="number" hidden min="1" value="1">
                                         <input name="id" hidden value="{{$pro->id}}">
-                                        <button  class="btn btn-warning" type="submit">
-                                          Thêm giỏ hàng
+                                        <button class="btn btn-warning" type="submit">
+                                            Thêm giỏ hàng
                                         </button>
                                     </form>
                                 </div>
@@ -228,9 +228,10 @@
                         <p class='border-bottom pl-3 pb-2 pt-3 border-warning h5'>
                             Chi tiết sản phẩm
                         </p>
-                        <p class="px-3">
-                            {{$pro->desc}}
-                        </p>
+                        <div class="px-3">
+                            {!! $pro->desc !!}
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-4 pl-1">
@@ -255,14 +256,14 @@
                                     <div class="col-4 p-0">
                                         <a class="" href="">
                                             <img class="center-block" style="width: 150px;"
-                                                src="https://laptop88.vn/media/lib/28-10-2021/dsc07503.jpg" alt="">
+                                                src="{{ asset($product->image) }}" alt="">
                                         </a>
                                     </div>
                                     <div class="col-8">
                                         <p class="h6 small font-weight-bold p-0">{{$product->name}}</p>
-                                        <p class="h6 small font-weight-bold text-danger p-0">{{currency_format($product->price)}}</p>
-                                        <p class="h6 small p-0">{{$product->desc}}</p>
-
+                                        <p class="h6 small font-weight-bold text-danger p-0">
+                                            {{currency_format($product->price)}}</p>
+                                        <p class="h6 small p-0">{{$product->desc_short}}</p>
                                     </div>
                                 </div>
                             </li>
@@ -272,7 +273,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     @include('layout_client.footer')
     @include('layout_client.script')

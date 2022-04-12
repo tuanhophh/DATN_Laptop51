@@ -89,7 +89,7 @@
         rows="3">{{ $booking_detail->description }}</textarea>
     </div>
   </div>
-  <input name="" id="" class="btn btn-primary" type="submit" value="Lưu  ">
+  <input name="" id="" class="btn btn-success" type="submit" value="Lưu  ">
 
 </form>
 <script src="{{asset('ckeditor')}}/ckeditor.js"></script>

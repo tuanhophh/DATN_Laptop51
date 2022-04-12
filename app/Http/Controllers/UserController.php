@@ -26,10 +26,11 @@ class UserController extends Controller
     }
     public function saveAdd(Request $request){
         // dd($request);
-        $model = new User();  
+        $model = new User();
+        // $model = $request->id_role;
+        $model['id_role'] = 1;
         $model->fill($request->all());
         // dd($model);
-
         if($request->hasFile('avatar')){
             $imgPath = $request->file('avatar')->store('public/users');
             $imgPath = str_replace('public/', 'storage/', $imgPath);

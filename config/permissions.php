@@ -22,7 +22,7 @@ return[
         'add-role' => 'add-role',
         'edit-role' => 'edit-role',
         'delete-role' => 'delete-role',
-
+        'dash-board' => 'dash-board',
     ]
 ]
 ?>

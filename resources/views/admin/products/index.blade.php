@@ -72,21 +72,18 @@
                 </form>
             </div>
             <div class="card-body">
-                <table class="table table-stripped">
+                <table class="table table-bordered">
                     <thead>
-                        <th>STT</th>
+                        <th class="px-0 text-center" style="width: 1px;">STT</th>
                         <th>Tên</th>
-                        <th>Hãng</th>
-                        <th>Ảnh</th>
                         <th>Giá mua</th>
                         <th>Giá bán</th>
-                        <th>Số lượng</th>
-                        <th>Trạng thái</th>
-                        <th>Bảo hành</th>
+                        <th class="px-0 text-center">Bảo hành</th>
+                        <th class="px-0 text-center">Trạng thái</th>
                         <th>
-                        @can('add-product')
-                            <a href="{{ route('product.add') }}">Thêm</a>
-                        @endcan
+                            @can('add-product')
+                            <a class="btn btn-info" href="{{ route('product.add') }}">Thêm</a>
+                            @endcan
                         </th>
                     </thead>
                     <tbody>
@@ -94,30 +91,47 @@
                         <tr>
                             <td>{{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>
+                            <!-- <td>
                                 {{ $item->companyComputer->company_name }}
                             </td>
                             <td>
                                 <img src="{{ asset($item->image) }}" width="100">
-                            </td>
+                            </td> -->
                             <td>{{ $item->import_price }}</td>
                             <td>{{ $item->price }}</td>
-                            <td>{{ $item->qty }}</td>
-                            <td>{{ $item->status == 1 ? 'Bán' : 'Không bán' }}</td>
                             <td>{{ $item->insurance }}</td>
+                            <td>{{ $item->status == 1 ? 'Hiển thị' : 'Không hiển thị' }}</td>
                             <td>
                                 @can('edit-product')
-                                <a href="{{ route('nhap-sanpham.add', ['id' => $item->id]) }}"
-                                    class="btn btn-sm btn-primary">Thêm SL</a>
+                                <!-- <a href="{{ route('nhap-sanpham.add', ['id' => $item->id]) }}"
+                                    class="btn btn-sm btn-success">Thêm SL</a> -->
                                 <a href="{{ route('product.edit', ['id' => $item->id]) }}"
-                                    class="btn btn-sm btn-primary">Sửa</a>
+                                    class="btn btn-sm btn-warning">Sửa</a>
                                 @endcan
 
                                 @can('delete-product')
-                                <a onclick="return confirm('Bạn có chắc muốn xóa')"
-                                    href="{{ route('product.remove', ['id' => $item->id]) }}"
-                                    class="btn btn-sm btn-danger">Xóa</a>
+                                @if($item->status === 0)
+                                <form class="d-inline" action="product/show-hide/{{$item->id}}" method="POST">
+                                    @csrf
+                                    <input name="id" hidden value="{{$item->id}}">
+                                    <button style="font:14px" class="btn btn-danger" type="submit">
+                                        Hiện
+                                    </button>
+                                </form>
+                                @endif
+                                @if($item->status === 1)
+                                <form class="d-inline" action="product/show-hide/{{$item->id}}" method="POST">
+                                    @csrf
+                                    <input name="id" hidden value="{{$item->id}}">
+                                    <button class="btn btn-secondary" type="submit">
+                                        Ẩn
+                                </button>
+                                </form>
+                                @endif
                                 @endcan
+                                <a onclick="return confirm('Bạn có chắc muốn xóa')"
+                                    href="{{route('product.remove', ['id' => $item->id])}}"
+                                    class="btn btn-sm btn-danger">Xóa</a>
                             </td>
                         </tr>
                         @endforeach

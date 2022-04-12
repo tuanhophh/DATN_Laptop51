@@ -12,7 +12,7 @@ class Product extends Model
     use SoftDeletes;
     protected $table = "products";
     protected $dates = ['deleted_at'];
-    public $fillable = ['name', 'image', 'import_price', 'price', 'qty', 'desc', 'status', 'companyComputer_id', 'insurance'];
+    public $fillable = ['name', 'image','desc_short', 'import_price', 'price', 'qty', 'desc', 'status', 'companyComputer_id', 'insurance'];
     public function companyComputer()
     {
         return $this->belongsTo(ComputerCompany::class, 'companyComputer_id');
@@ -20,5 +20,9 @@ class Product extends Model
     public function nhaphangsanpham()
     {
         return $this->hasMany(Nhaphangsanpham::class, 'product_id');
+    }
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'attribute_value','product_id','category_id');
     }
 }

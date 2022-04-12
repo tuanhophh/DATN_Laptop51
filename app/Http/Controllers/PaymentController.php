@@ -75,7 +75,7 @@ class PaymentController extends Controller
             }
             $bill_user->save();
             $email = $request->email;
-
+            // dd($request->all());
             //Xóa giỏ hàng
             // Cart::destroy();
             $code_length = $length;
@@ -116,11 +116,11 @@ class PaymentController extends Controller
             }
             $bill_user->save();
 
-            // Mail::send('email.sendBill',['name'=> $bill_user->name ,'phone'=> $bill_user->phone,
-            // 'address'=>$bill_user->address,'bill_code' => $length,'price' => $bill->total], function($message) use($request){
-            //     $message->to($request->email);
-            //     $message->subject('THANH TOÁN HÓA ĐƠN | LAPTOP51');
-            //       });
+            Mail::send('email.sendBill',['name'=> $bill_user->name ,'phone'=> $bill_user->phone,
+            'address'=>$bill_user->address,'bill_code' => $length,'price' => $bill->total], function($message) use($request){
+                $message->to($request->email);
+                $message->subject('THANH TOÁN HÓA ĐƠN | LAPTOP51');
+                  });
             Cart::destroy();
             
             return Redirect::to('/cua-hang')
@@ -141,6 +141,7 @@ class PaymentController extends Controller
         $vnp_Locale = $request->language;
         $vnp_BankCode = $request->bank_code;
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
+        $email = $request->email;
         //Add Params of 2.0.1 Version
 
         $inputData = array(
@@ -182,9 +183,9 @@ class PaymentController extends Controller
             $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
             $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
         }
+
         return redirect($vnp_Url);
     }
-
 
     public function vnpayReturn(Request $request)
     {
@@ -199,12 +200,12 @@ class PaymentController extends Controller
             "created_at" => now(),
             "user_id" => Auth::id(),
         );
-        // dd($data);
 
         // Update trạng thái đơn hàng
         if ($data['vnp_response_code'] == 00) {
             $payment_status = Bill::where('code', $data['bill_code'])->first();
             $payment_status->payment_status = 9;
+            dd($request->all());
             $payment_status->update();
             Payment::insert($data);
             Cart::destroy();       

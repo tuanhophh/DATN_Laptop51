@@ -19,19 +19,18 @@
 </div>
 @endif
 
-<div class="row text-center">
+<div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <table class="table table-stripped">
+                <table class="table table-bordered">
                     <thead>
                         <th>STT</th>
                         <th>Tên</th>
                         <th>
                             @can('add-category')
-                            <a href="{{route('CompanyComputer.add')}}">Thêm</a>
+                            <a class="btn btn-info" href="{{route('CompanyComputer.add')}}">Thêm</a>
                             @endcan
-
                         </th>
                     </thead>
                     <tbody>
@@ -43,7 +42,7 @@
                                 @can('edit-category')
 
                                 <a href="{{ route('CompanyComputer.edit', ['id' => $item->id]) }}"
-                                    class="btn btn-sm btn-primary">Sửa</a>
+                                    class="btn btn-sm btn-warning">Sửa</a>
                                 @endcan
                                 @can('delete-category')
 

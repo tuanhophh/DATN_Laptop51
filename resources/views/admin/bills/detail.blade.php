@@ -113,18 +113,18 @@
                 @foreach($bill_detail as $bill_d)
                 <div class="row">
                     <div class="col-7">
-                        <input type="text" name="created_at" disabled value="{{$bill_d->product->name}}"
+                        <input type="text" name="" disabled value="{{$bill_d->product->name}}"
                             class="form-control" placeholder="">
                     </div>
                     <div class="col-3">
                         <div class="form-group">
-                            <input type="text" name="created_at" disabled value="{{$bill_d->price}} VNĐ"
+                            <input type="text" name="" disabled value="{{$bill_d->price}} VNĐ"
                                 class="form-control" placeholder="">
                         </div>
                     </div>
                     <div class="col-2">
                         <div class="form-group">
-                            <input type="text" name="created_at" disabled value="{{$bill_d->qty}}"
+                            <input type="text" name="" disabled value="{{$bill_d->qty}}"
                                 class="form-control" placeholder="">
                         </div>
 

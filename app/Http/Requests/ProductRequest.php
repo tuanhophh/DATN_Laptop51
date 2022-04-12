@@ -30,6 +30,8 @@ class ProductRequest extends FormRequest
             'import_price' =>'required|integer|min:0',
             'companyComputer_id' =>'required',
             'insurance'=>'required',
+            'value' => 'required',
+            'desc_short'=>'required',
         ];
     }
     public function messages()
@@ -45,6 +47,7 @@ class ProductRequest extends FormRequest
             'import_price.min' =>'giá trị tối thiểu là 0',
             'companyComputer_id.required' =>'bạn chưa chọn danh mục laptop',
             'insurance.required'=>'bạn chưa nhập thời gian bảo hành',
+            'value.required' => 'Mời bạn nhập chi tiết sản phẩm',
         ];
     }
 

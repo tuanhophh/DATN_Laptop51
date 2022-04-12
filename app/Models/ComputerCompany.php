@@ -10,4 +10,9 @@ class ComputerCompany extends Model
     use HasFactory;
     public $table = 'computer_companies';
     public $fillable = ['company_name'];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
