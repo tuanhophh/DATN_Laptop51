@@ -7,6 +7,7 @@ use App\Models\DetailProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -37,9 +38,9 @@ class HomeController extends Controller
         // dd($keyword, $cate_id, $rq_column_names, $rq_order_by);
         
         $ComputerCompany = ComputerCompany::all();
-        $productNew = Product::all();
+        $productNew = Product::where('status',1)->orderBy('id', 'DESC')->get()->take(4);
         // dd($productNew);
-        $products = Product::all()->take(8);
+        $products = Product::where('status',1)->get();
         // $searchData = compact('keyword', 'computerCompany_id');
         return view('website.product', compact('products', 'ComputerCompany','productNew'));
         // return response()->json($products);
@@ -52,9 +53,10 @@ class HomeController extends Controller
         // dd($pro);
         // $countPro = Product::where('');
         // ->join('computer_companies', 'products.companyComputer_id', '=', 'computer_companies.id')->select()->first();
-        $detailPro = DetailProduct::where('product_id', $id)->get();
-        // dd($pro);
-        $products = Product::where('companyComputer_id',$id)->get();
+        $detailPro = DB::table('attribute_value')->where('product_id',$id)->get();
+        // dd(DB::table('attribute_value')->where('product_id',$id)->get());
+        $products = Product::where('companyComputer_id', $pro->companyComputer_id)->where('status',1)->get()->take(4);
+        // dd($detailPro);
         if (!$pro) {
             return back()->with('error','Không tìm thấy sản phẩm');
         }

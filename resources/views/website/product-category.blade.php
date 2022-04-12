@@ -85,11 +85,11 @@
                 @foreach ($products as $item)
                 <div class="col-lg-3 col-sm-6 p-2">
                     <div class="card">
-                        <a href="{{$item->id}}"><img src="https://laptop88.vn/media/product/pro_poster_7010.jpg"
-                                class="card-img-top" alt="https://laptop88.vn/media/product/pro_poster_7010.jpg"></a>
+                        <a href="/san-pham/{{$item->id}}"><img src="{{ asset($item->image) }}"
+                                class="card-img-top" alt="{{ asset($item->image) }}"></a>
                         <div class="card-body">
                             <p class="card-title h6 fw-bold p-0">{{$item->name}}</p>
-                            <p class="card-text h6 small p-0">{{$item->desc}}
+                            <p class="card-text h6 small p-0">{{$item->desc_short}}
                             </p>
                             <p class="h4 bg-warning mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-white"
                                 style="width: 180px;">{{$item->price}}Đ</p>

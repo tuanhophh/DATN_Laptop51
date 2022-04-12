@@ -28,8 +28,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeAdminController::class, 'index'])->middleware('auth');
-
+Route::get('/', [HomeAdminController::class, 'index'])->name('admin.dashboard')->middleware('can:dash-board');
 Route::prefix('bill')->group(function(){
 Route::get('/',[BillController::class,'index'])->name('bill.index')->middleware('can:list-bill');
 Route::get('detail/{id}',[BillController::class,'detail'])->name('bill.detail')->middleware('can:list-bill');
@@ -62,6 +61,8 @@ Route::prefix('product')->group(function () {
     Route::get('edit/{id}', [ProductController::class, 'editForm'])->name('product.edit')->middleware('can:edit-product');
     Route::post('edit/{id}', [ProductController::class, 'saveEdit'])->middleware('can:edit-product');
     Route::get('detail/{id}', [ProductController::class, 'detail'])->middleware('can:edit-product');
+    Route::post('show-hide/{id}', [ProductController::class, 'ShowHide'])->name('product.show-hide')->middleware('can:edit-product');
+
 });
 Route::prefix('detail-product')->group(function () {
     Route::get('/', [DetailProductController::class, 'index'])->name('detail-product.index')->middleware('can:list-product');

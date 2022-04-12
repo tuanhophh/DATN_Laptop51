@@ -7,6 +7,7 @@
     @include('admin.layouts.style')
     
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         
@@ -42,7 +43,7 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item"><a class="text-dark" href="/admin">Trang chủ</a></li>
                                 <li class="breadcrumb-item active">@yield('title')</li>
                             </ol>
                         </div><!-- /.col -->

@@ -1,5 +1,5 @@
 @extends('admin.layouts.main')
-@section('title', 'sua CompanyComputer')
+@section('title', 'Sửa thông tin danh mục')
 @section('content')
 
 
@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
-                    <label for="">Tên CompanyComputer</label>
+                    <label for="">Tên danh mục</label>
                     <input type="text" name="company_name"
                         value="{{ old('company_name', $CompanyComputer->company_name) }}" class="form-control"
                         placeholder="">
@@ -22,7 +22,7 @@
 
                 <a href="{{ route('CompanyComputer.index') }}" class="btn btn-danger">Hủy</a>
                 &nbsp;
-                <button type="submit" class="btn btn-primary">Lưu</button>
+                <button type="submit" class="btn btn-success">Lưu</button>
             </div>
         </div>
     </form>

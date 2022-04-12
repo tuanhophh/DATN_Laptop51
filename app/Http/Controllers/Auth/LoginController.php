@@ -31,7 +31,8 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = RouteServiceProvider::HOME;
+
 
     /**
      * Create a new controller instance.
@@ -72,6 +73,29 @@ class LoginController extends Controller
             'email.email' => 'Cần nhập đúng định dạng email',
             'password.required' => 'Yêu cầu nhập mật khẩu'
         ]);
+    }
+
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        if ($response = $this->authenticated($request, $this->guard()->user())) {
+            return $response;
+        }
+        if(Auth::user()->id_role === 0){
+            return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect()->intended($this->redirectPath());
+        }
+        else{
+            return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect()->route('admin.dashboard')->with('message', 'Đăng nhập tài khoản thành công!');
+        }
+        
+
     }
 
 

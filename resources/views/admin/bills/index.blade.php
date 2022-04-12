@@ -37,11 +37,11 @@ use App\Models\BillUser;
     </button>
 </div>
 @endif
-
+<div class="bg-white">
 <div class="row">
     <div class="col-12">
         <div class="card-body">
-            <table class="table table-stripped">
+            <table class="table table-bordered">
                 <thead>
                     <th>STT</th>
                     <th>Mã hóa đơn</th>

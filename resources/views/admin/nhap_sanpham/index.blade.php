@@ -22,13 +22,13 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-stripped">
+                    <table class="table table-bordered">
                         <thead>
                             <th>STT</th>
                             <th>Name</th>
                             <th>Qty</th>
                             <th>
-                                <a href="{{route('nhap-sanpham.add')}}">Add new</a>
+                                <a class="btn btn-info" href="{{route('nhap-sanpham.add')}}">Add new</a>
                             </th>
                         </thead>
                         <tbody>

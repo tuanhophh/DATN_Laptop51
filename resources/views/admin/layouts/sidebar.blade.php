@@ -139,8 +139,8 @@
             </ul>
         </li>
         @endcan
-         <li class="nav-item {{ request()->is('admin/user*') ? ' menu-is-opening menu-open' : '' }}">
-            <a href="" class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}">
+         <li class="nav-item {{ request()->is('admin/dat-lich*') ? ' menu-is-opening menu-open' : '' }}">
+            <a href="" class="nav-link {{ request()->is('admin/dat-lich*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
                     Máy sửa chữa
@@ -223,7 +223,7 @@
 
 
             </ul>
-        </li> -->
+        </li>
          <li class="nav-item {{ request()->is('admin/category*') ? ' menu-is-opening menu-open' : '' }}">
             <a href="" class="nav-link {{ request()->is('admin/category*') ? 'active ' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>

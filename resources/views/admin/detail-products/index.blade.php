@@ -72,7 +72,7 @@
                 </form>
             </div>
             <div class="card-body">
-                <table class="table table-stripped">
+                <table class="table table-bordered">
                     <thead>
                         <th>STT</th>
                         <th>Tên</th>
@@ -83,7 +83,7 @@
                         <th>Trạng thái</th>
                         <th>
                         @can('add-product')
-                            <a href="{{route('detail-product.add')}}">Thêm</a>
+                            <a class="btn btn-info" href="{{route('detail-product.add')}}">Thêm</a>
                         @endcan
                         </th>
                     </thead>
@@ -104,7 +104,7 @@
                             <td>
                                 @can('edit-product')
                                 <a href="{{route('detail-product.edit', ['id' => $item->id])}}"
-                                    class="btn btn-sm btn-primary">Sửa</a>
+                                    class="btn btn-sm btn-warning">Sửa</a>
                                 @endcan
                                 @can('delete-product')
                                 <a onclick="return confirm('Bạn có chắc muốn xóa')"
