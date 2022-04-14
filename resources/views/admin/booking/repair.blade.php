@@ -77,7 +77,7 @@
                         {{-- <label for=""></label> --}}
                         <form action="" method="POST" class="d-flex">
                             @csrf
-                            <select id="" @if ($b->active==1||!$b->active||$b->active==0||$b->active==3)
+                            <select id="" @if ($b->active==0||$b->active==3||$b->active==4)
                                 disabled
 
                                 @endif class="form-control" name="staff">

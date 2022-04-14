@@ -12,16 +12,28 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script> --}}
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 760px;
+
+        }
+
+        .nguoi {
+            display: flex;
+            justify-content: center
+        }
+    </style>
 </head>
 
-<body>
+<body style="max-width: 1024px;">
     <div>
-        <h4 class="mx-auto">HOA DON SUA CHUA</h4>
+        <h4 style="text-align: center">HÓA ĐƠN SỬA CHỮA</h4>
         <p>Ho va ten: {{ $booking_detail->booking->full_name }}</p>
         <p>So dien thoai: {{ $booking_detail->booking->phone }}</p>
         <h5>Danh sach linh kien</h5>
 
-        <table class="table">
+        <table class="table" border="1" draggable="false" style="border: red solid 1px">
             <thead>
                 <tr>
                     <th>STT</th>
@@ -44,11 +56,26 @@
                 @endforeach
                 <tr>
                     <th colspan='4'>TONG</th>
-                    <th class="tong-tien"> {{ array_sum(array_column($repair_parts->toArray(),'into_money')) }}</th>
+                    <th colspan="" class="tong-tien"> {{ array_sum(array_column($repair_parts->toArray(),'into_money'))
+                        }}</th>
+                    <td></td>
                 </tr>
 
             </tbody>
         </table>
+
+
+
+    </div>
+    <div class="nguoi" style="">
+        <div>
+            <h5>Người xuất</h5>
+
+        </div>
+        <div>
+            <h5>Người nhận</h5>
+
+        </div>
     </div>
 </body>
 

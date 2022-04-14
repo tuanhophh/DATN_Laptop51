@@ -90,7 +90,7 @@
                     <h5>Mô tả tình trạng: </h5>
 
                     <div class="form-control  border border-success mota mb-4" style="--bs-bg-opacity: .1">
-                        {!! 'eugfieh' !!}
+                        {!! $booking_detail->description !!}
                     </div>
                 </div>
                 <div class="col">
@@ -118,8 +118,20 @@
                             </div>
                             <div class="form-group ">
                                 <label for=""></label>
-                                <h5>Mô tả sửa chữa</h5>
+                                <h5>Mô tả sửa chữa (Sửa linh kiện gì, giá tiền sửa là bn)</h5>
                                 <textarea class="form-control" name="description" id="ckeditor1" rows="3"></textarea>
+
+
+                            </div>
+
+                            <div class="form-group ">
+                                <label for=""></label>
+                                <h5>Mô tả sửa chữa (Sửa linh kiện gì, giá tiền sửa là bn)</h5>
+                                {{-- <textarea class="form-control" name="description" id="ckeditor1"
+                                    rows="3"></textarea> --}}
+                                <input type="number" class="form-control" name="into_money">
+
+
                             </div>
                             <h3>Danh sách Linh kiện bạn đã chọn:</h3>
                             <div>

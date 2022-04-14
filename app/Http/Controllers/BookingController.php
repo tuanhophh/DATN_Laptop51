@@ -167,13 +167,13 @@ class BookingController extends Controller
       }
       // dd($details);
 
-      dispatch(new SendOrderSuccessEmail($details));
-
-
+      // dispatch(new SendOrderSuccessEmail($details));
+      // $mod = $request->all(); 
+      // dd($mod);
       // if ($request->btn == 'admin') {
       //    return back()->with('msg', '<script>	alert("Đặt lịch thành công");	</script>');
       // } else {
-      return back()->with('msg', '<script>	alert("Đặt lịch thành công");	</script>');
+      return back()->with('msg', '<script>alert("Đặt lịch thành công");	</script>');
       // }
 
       // return redirect(route('dat-lich.index'));
@@ -194,8 +194,8 @@ class BookingController extends Controller
    {
 
       # code...
-      $users = User::query()->where('id_role', 3)->get();
-      $users->load('role');
+      $users = User::query()->where('id_role', 12)->get();
+      // $users->load('role');pọi
       // dd($users);
       $booking_details = BookingDetail::query()->orderBy('id', 'desc')
          ->get();
@@ -338,7 +338,7 @@ class BookingController extends Controller
          $booking_details = UserRepair::where('user_id', Auth::id())
             ->join('booking_details', 'user_repairs.booking_detail_id', 'booking_details.id')->get();
          // dd($booking_details);
-         return view('admin.booking.my_repair', compact('user_repais'));
+         return view('admin.booking.my_repair', compact('booking_details'));
       } else {
          return redirect(route('login'));
       }

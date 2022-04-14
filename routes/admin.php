@@ -30,11 +30,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeAdminController::class, 'index'])->middleware('auth');
 
-Route::prefix('bill')->group(function(){
-Route::get('/',[BillController::class,'index'])->name('bill.index')->middleware('can:list-bill');
-Route::get('detail/{id}',[BillController::class,'detail'])->name('bill.detail')->middleware('can:list-bill');
-Route::get('edit/{id}',[BillController::class,'edit'])->name('bill.edit')->middleware('can:edit-bill');
-Route::post('edit/{id}',[BillController::class,'saveEdit'])->middleware('can:edit-bill');
+Route::prefix('bill')->group(function () {
+    Route::get('/', [BillController::class, 'index'])->name('bill.index')->middleware('can:list-bill');
+    Route::get('detail/{id}', [BillController::class, 'detail'])->name('bill.detail')->middleware('can:list-bill');
+    Route::get('edit/{id}', [BillController::class, 'edit'])->name('bill.edit')->middleware('can:edit-bill');
+    Route::post('edit/{id}', [BillController::class, 'saveEdit'])->middleware('can:edit-bill');
 });
 Route::prefix('CompanyComputer')->group(function () {
     Route::get('/', [CompanyComputerController::class, 'index'])->name('CompanyComputer.index')->middleware('can:list-category');
@@ -127,12 +127,10 @@ Route::prefix('user')->group(function () {
     Route::post('edit/{id}', [UserController::class, 'saveEdit'])->middleware('can:edit-user');
 });
 Route::prefix('roles')->group(function () {
-    Route::get('/', [RoleController::class, 'index'])->name('roles.index')->middleware('can:list-role');
-    Route::get('add', [RoleController::class, 'create'])->name('roles.create')->middleware('can:add-role');
-    Route::post('add', [RoleController::class, 'store'])->name(('roles.store'))->middleware('can:add-role');
-    Route::get('remove/{id}', [RoleController::class, 'remove'])->name('roles.remove')->middleware('can:delete-role');
-    Route::get('edit/{id}', [RoleController::class, 'edit'])->name('roles.edit')->middleware('can:edit-role');
-    Route::post('edit/{id}', [RoleController::class, 'update'])->name('roles.update')->middleware('can:edit-role');
+    Route::get('/', [RoleController::class, 'index'])->name('roles.index');
+    Route::get('add', [RoleController::class, 'create'])->name('roles.create');
+    Route::post('add', [RoleController::class, 'store'])->name(('roles.store'));
+    Route::get('remove/{id}', [RoleController::class, 'remove'])->name('roles.remove');
+    Route::get('edit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::post('edit/{id}', [RoleController::class, 'update'])->name('roles.update');
 });
-
-

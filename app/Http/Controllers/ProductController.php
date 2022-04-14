@@ -79,16 +79,15 @@ class ProductController extends Controller
         $ComputerCompany = ComputerCompany::all();
         return view('admin.products.add', compact('ComputerCompany'));
     }
-    public function saveAdd(ProductRgitequest $request)
+    public function saveAdd(ProductRequest $request)
     {
-        
+
         $model = new Product();
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $imgPath = $request->file('image')->store('products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
             $model->image = $imgPath;
-
         }
         $model->fill($request->all());
         $model->save();
