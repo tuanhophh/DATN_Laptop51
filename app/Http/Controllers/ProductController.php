@@ -5,23 +5,19 @@ namespace App\Http\Controllers;
 // use App\Helpers\Http;
 
 use App\Http\Requests\ProductRequest;
-use App\Http\Requests\SaveProductRequest;
-use App\Models\Category;
 use App\Models\ComputerCompany;
 use App\Models\Product;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
     public function index(Request $request)
     {
         // dd($product=Product::all());
-        $pageSize = 10;
+        $pageSize = 8;
         $column_names = [
             'name' => 'Tên sản phẩm',
             'price' => 'Giá',
@@ -29,9 +25,8 @@ class ProductController extends Controller
 
         $order_by = [
             'asc' => 'Tăng dần',
-            'desc' => 'Giảm dần'
+            'desc' => 'Giảm dần',
         ];
-
 
         $keyword = $request->has('keyword') ? $request->keyword : "";
         $companyComputer_id = $request->has('companyComputer_id') ? $request->companyComputer_id : "";
@@ -39,7 +34,7 @@ class ProductController extends Controller
         $rq_column_names = $request->has('column_names') ? $request->column_names : "id";
 
         // dd($keyword, $cate_id, $rq_column_names, $rq_order_by);
-        $query = Product::where('name', 'like', "%$keyword%");
+        $query = Product::orderBy('id', 'desc')->where('name', 'like', "%$keyword%");
         if ($rq_order_by == 'asc') {
             $query->orderBy($rq_column_names);
         } else {
@@ -74,32 +69,32 @@ class ProductController extends Controller
             return redirect(route('error'));
         }
     }
+
     public function addForm()
     {
-
         $ComputerCompany = ComputerCompany::all();
         return view('admin.products.add', compact('ComputerCompany'));
     }
-    public function saveAdd(ProductRequest $request)
-    {   
 
+    public function saveAdd(ProductRequest $request)
+    {
         $model = new Product();
-        if ($request->hasFile('anh')) {
-            $imgPath = $request->file('anh')->store('products');
-            $imgPath = str_replace('public/', 'storage/', $imgPath);
-            $request->merge(['image'=>$imgPath]);
-        }
-        
-        // dd($model['value']);
-        // foreach($model['value'] as $value){
-        //     $value = $request->value;
-        // }
-        $model->fill($request->all());
+
+        $model->name = $request->name;
+        $model->slug = $request->slug;
+        $model->desc_short = $request->desc_short;
+        $model->import_price = $request->import_price;
+        $model->price = $request->price;
+        $model->qty = $request->qty;
+        $model->desc = $request->desc;
+        $model->status = $request->status;
+        $model->companyComputer_id = $request->companyComputer_id;
+        $model->insurance = $request->insurance;
         $model->save();
         $values = $request->value;
         $data = [];
         $i = 0;
-        foreach($values as $value) {
+        foreach ($values as $value) {
             $i += 1;
             $data[] = [
                 'product_id' => $model->id,
@@ -108,94 +103,88 @@ class ProductController extends Controller
             ];
         }
         DB::table('attribute_value')->insert($data);
-        // dd($data);
+        if ($request->hasfile('images')) {
+            foreach ($request->file('images') as $key => $file) {
+                $path = $file->store('products');
+                $path = str_replace('public/', 'storage/', $path);
+                $name = $file->getClientOriginalName();
+                $insert[$key]['name_image'] = $name;
+                $insert[$key]['product_id'] = $model->id;
+                $insert[$key]['path'] = $path;
+            }
+            DB::table('product_images')->insert($insert);
+        }
         return redirect(route('product.index'));
     }
 
     public function editForm($id)
     {
         $pro = Product::find($id);
+        $attribute_value = DB::table('attribute_value')->where('product_id', $pro->id)->get();
+        $images = DB::table('product_images')->where('product_id', $id)->get();
         if (!$pro) {
             return redirect(route('error'));
         }
         $ComputerCompany = ComputerCompany::all();
         return view(
             'admin.products.edit',
-            compact('pro', 'ComputerCompany')
+            compact('pro', 'ComputerCompany', 'attribute_value', 'images')
         );
     }
+
     public function saveEdit(ProductRequest $request, $id)
     {
         $model = Product::find($id);
+        $model->name = $request->name;
+        $model->slug = $request->slug;
+        $model->desc_short = $request->desc_short;
+        $model->import_price = $request->import_price;
+        $model->price = $request->price;
+        $model->qty = $request->qty;
+        $model->desc = $request->desc;
+        $model->status = $request->status;
+        $model->companyComputer_id = $request->companyComputer_id;
+        $model->insurance = $request->insurance;
+        $model->save();
+        $images = DB::table('product_images')->where('product_id', $id)->get();
 
-        if ($request->hasFile('anh')) {
-            // $oldImg = str_replace('storage/', 'public/', $model->image);
-            Storage::delete($model->image);
-
-            $imgPath = $request->file('anh')->store('products');
-            $imgPath = str_replace('public/', 'storage/', $imgPath);
-            $request->merge(['image'=>$imgPath]);
+        if ($request->hasfile('images')) {
+            foreach ($request->file('images') as $key => $file) {
+                $path = $file->store('products');
+                $path = str_replace('public/', 'storage/', $path);
+                $name = $file->getClientOriginalName();
+                $insert[$key]['name_image'] = $name;
+                $insert[$key]['product_id'] = $model->id;
+                $insert[$key]['path'] = $path;
+            }
+            foreach ($images as $image) {
+               
+                $id = $image->id;
+                $image_path = $image->path;
+                // if($image_path){
+                //     unlink($image_path);
+                // }
+                DB::table('product_images')->delete($id);
+            }
+            DB::table('product_images')->insert($insert);
         }
 
-        $model->fill($request->all());
-        $model->save();
         return redirect(route('product.index'));
     }
 
     public function ShowHide(Request $request, $id)
     {
         $model = Product::find($id);
-            if($model->status == 1){
-            $model['status'] = 0; 
-            // dd($model->save());
+        if ($model->status == 1) {
+            $model['status'] = 0;
             $model->save();
             return back()->with('success', 'Hiện thành công');
-        }else{
-            $model['status'] = 1; 
-            // $model->fi;
+        } else {
+            $model['status'] = 1;
             $model->save();
-            // dd($model->save());
             return back()->with('success', 'Ẩn thành công');
         }
-        
-        # code...
+
     }
-    // public function postLogin()
-    // {
-    //     $data = Http::post('http://10.1.38.174:3000/api/v1/login', [
-    //         'username' => 'hop',
-    //         'password' => 'tuanhop96'
-    //     ]);
-    //     $post = json_decode($data->getBody()->getContents());
-    //     $a=session()->put('aa',$post->data->authToken);
-    //     $token = request()->session()->get('aa');
-    //     dd($token);
-    //     // dd($post->data->authToken);
-    //     // return response()->json($post);
-    // }
 
-    // public function getUserInfo()
-    // {
-    //     // dd(request()->session('aa'));
-    //     $response = Http::withHeaders([
-    //         'X-Auth-Token' =>session('aa'),
-    //         'X-User-Id' => "QKCnYgf38Mn4SCsk6",
-    //         'Content-Type'  => "application/json"
-    //     ])
-    //         ->get('http://10.1.38.174:3000/api/v1/users.info', [
-    //             'userId' => 'QKCnYgf38Mn4SCsk6'
-    //         ]);
-    //     dd($response->json());
-    // }
-
-    // public function logOut()
-    // {
-    //     $response = Http::withHeaders([
-    //         'X-Auth-Token' => cookie()->get('aa'),
-    //         'X-User-Id' => "QKCnYgf38Mn4SCsk6",
-    //         'Content-Type'  => "application/json"
-    //     ])
-    //         ->get('http://10.1.38.174:3000/api/v1/logout');
-    //     dd($response->json());
-    // }
 }

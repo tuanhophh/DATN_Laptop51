@@ -15,7 +15,7 @@
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-@include('layout_client.style')
+	@include('layout_client.style')
 
 
 </head>
@@ -432,32 +432,15 @@
 	</div>
 
 	<!-- Footer -->
-    @include('layout_client.footer')
 	<!-- Search box -->
-	<div class="template-component-search-form">
-		<div></div>
-		<form>
-			<div>
-				<input type="search" name="search" />
-				<span class="template-icon-meta-search"></span>
-				<input type="submit" name="submit" value="" />
-			</div>
-		</form>
-	</div>
-
-	<!-- Go to top button -->
-	<a href="#go-to-top" class="template-component-go-to-top template-icon-meta-arrow-large-tb"></a>
-
-	<!-- Wrapper for date picker -->
-	<div id="dtBox"></div>
-
 	<!-- JS files -->
 @include('layout_client.script')
-
+@include('layout_client.footer')
+@include('layout_client.script')
 
 </body>
-
-
-<!-- Mirrored from quanticalabs.com/Autospa/Template/?page=home by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 11 Feb 2022 11:19:52 GMT -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
+</script>
 
 </html>

@@ -60,7 +60,7 @@
                 <div class="row bg-white shadow mx-0">
                     <div class="col-auto justify-content-start bg-warning pt-2">
                         <h4 class="text-dark font-weight-bold">
-                        LAPTOP  {{$ComputerCompany->company_name}}
+                            LAPTOP {{$ComputerCompany->company_name}}
                         </h4>
                     </div>
                     <!-- <div class="col mx-0">
@@ -83,16 +83,31 @@
             </div>
             <div class="row p-2">
                 @foreach ($products as $item)
-                <div class="col-lg-3 col-sm-6 p-2">
-                    <div class="card">
-                        <a href="/san-pham/{{$item->id}}"><img src="{{ asset($item->image) }}"
-                                class="card-img-top" alt="{{ asset($item->image) }}"></a>
+                <?php
+                        
+                        if (!function_exists('currency_format')) {
+                            function currency_format($item, $suffix = ' VNĐ') {
+                                if (!empty($item)) {
+                                    return number_format($item, 0, ',', '.') . "{$suffix}";
+                                }
+                            }
+                        }
+                        ?>
+                <div class="col-lg-3 d-flex col-sm-6 p-2">
+                    <div class="card card flex-fill">
+                        @foreach($images as $image)
+                        @if($image->product_id == $item->id)
+                        <a href="/san-pham/{{$item->slug}}"><img src="{{ asset($image->path) }}" class="card-img-top"
+                                alt="{{ asset($image->path) }}"></a>
+                        @break;
+                        @endif
+                        @endforeach
                         <div class="card-body">
                             <p class="card-title h6 fw-bold p-0">{{$item->name}}</p>
                             <p class="card-text h6 small p-0">{{$item->desc_short}}
                             </p>
-                            <p class="h4 bg-warning mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-white"
-                                style="width: 180px;">{{$item->price}}Đ</p>
+                            <p class="bg-warning font-weight-bold mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-danger"
+                                style="width: 180px;">{{currency_format($item->price)}}</p>
                         </div>
                     </div>
                 </div>

@@ -49,10 +49,10 @@
                             <select name="role_id" class="form-control select2_init">
                                 @foreach($roles as $roleItem)
                                 @foreach($user->roles as $role)
-                                <option @if ($roleItem->role_id == $role->role_id) selected
-                                    @endif
 
-                                    value="{{$role->role_id}}">{{$role->name}}</option>
+                                <option @if ($roleItem->id == $role->role_id) selected
+                                @endif
+                                    value="{{$roleItem->id}}">{{$roleItem->name}}</option>
                                 @endforeach
                                 @endforeach
 

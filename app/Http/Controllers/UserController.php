@@ -74,7 +74,7 @@ class UserController extends Controller
         if (!$user) {
             return back();
         }
-        
+        // dd($roles);
         return view(
             'admin.users.edit',
             compact('user','roles')
