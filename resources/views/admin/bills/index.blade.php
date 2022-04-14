@@ -72,7 +72,6 @@ use App\Models\BillUser;
                             <p class="text-danger">Thanh toán thất bại</p>
                             @else
                             <p class="text-success">Đã thanh toán</p>
-
                             @endif
                         </td>
                         <td>{{ $item->created_at }}</td>

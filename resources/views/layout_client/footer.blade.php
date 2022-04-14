@@ -1,7 +1,7 @@
 <div class="template-footer">
 
     <div class="template-main">
-
+        
         <!-- Footer top -->
         <div class="template-footer-top">
 
@@ -12,8 +12,7 @@
                 <div class="template-layout-column-left">
                     <h6>Giới Thiệu</h6>
                     <img src="{{ asset('client') }}/media/image/logo1.png" alt="" class="template-logo" />
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    </p>
+
                     
                 </div>
 
@@ -43,7 +42,7 @@
                 </div>
 
                 <!-- Right column -->
-                <div class="template-layout-column-right">
+                <!-- <div class="template-layout-column-right">
                     <h6>Đăng Ký Email Để Nhận Thông Báo Khuyến Mãi</h6>
                     <form class="template-component-newsletter-form">
                         <div class="template-component-form-field template-state-block">
@@ -55,39 +54,12 @@
                                 name="newsletter-form-submit" id="newsletter-form-submit" />
                         </div>
                     </form>
-                </div>
+                </div> -->
 
             </div>
 
         </div>
 
-        <!-- Footer bottom -->
-        <div class="template-footer-bottom">
-
-            <!-- Social icon list -->
-            <ul class="template-component-social-icon-list template-component-social-icon-list-2">
-                <li><a href="https://twitter.com/quanticalabs" class="template-icon-social-twitter"
-                        target="_blank"></a></li>
-                <li><a href="https://www.facebook.com/QuanticaLabs" class="template-icon-social-facebook"
-                        target="_blank"></a></li>
-                <li><a href="https://dribbble.com/quanticalabs" class="template-icon-social-dribbble"
-                        target="_blank"></a></li>
-                <li><a href="http://themeforest.net/user/QuanticaLabs/portfolio?ref=quanticalabs"
-                        class="template-icon-social-envato" target="_blank"></a></li>
-                <li><a href="https://www.behance.net/quanticalabs" class="template-icon-social-behance"
-                        target="_blank"></a></li>
-                <li><a href="https://www.youtube.com/user/quanticalabs" class="template-icon-social-youtube"
-                        target="_blank"></a></li>
-            </ul>
-
-            <!-- Copyright -->
-            <div class="template-footer-bottom-copyright">
-                By <a href="http://quanticalabs.com/" target="_blank">QuanticaLabs</a> &copy; 2016 <a
-                    href="http://themeforest.net/user/QuanticaLabs/portfolio?ref=quanticalabs" target="_blank">Auto
-                    Spa Template</a>
-            </div>
-
-        </div>
 
     </div>
 

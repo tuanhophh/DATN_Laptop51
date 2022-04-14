@@ -2,7 +2,7 @@
 @section('title', 'Sửa hóa đơn')
 @section('content')
 
-<form action="" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data">
     @csrf
     <div class="card">
         <div class="row mx-2">
@@ -41,12 +41,12 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="">Phương thức thanh toán</label>
-                            <select disabled name="payment_method" class="form-control">
+                            <select name="payment_method" class="form-control">
                                 @if($bill->payment_method == 1)
-                                <option disabled value="{{$bill->payment_method}}">Tiền mặt</option>
+                                <option value="{{$bill->payment_method}}">Tiền mặt</option>
                                 <option value="2">Chuyển khoản</option>
                                 @elseif($bill->payment_method == 2)
-                                <option disabled value="{{$bill->payment_method}}">Chuyển khoản</option>
+                                <option value="{{$bill->payment_method}}">Chuyển khoản</option>
                                 <option value="1">Tiền mặt</option>
                                 @endif
                             </select>
@@ -66,20 +66,12 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="">Trạng thái thanh toán</label>
-                            <select disabled name="payment_status" class="form-control">
-                                @if($bill->payment_status == 0)
-                                <option disabled value="{{$bill->payment_status}}">Chưa thanh toán</option>
-                                <option value="1">Thanh toán thất bại</option>
-                                <option value="9">Thanh toán thành công</option>
-                                @elseif($bill->payment_status == 1)
-                                <option value="{{$bill->payment_status}}">Thanh toán thất bại</option>
-                                <option value="0">Chưa thanh toán</option>
-                                <option value="9">Thanh toán thành công</option>
-                                @elseif($bill->payment_status == 9)
-                                <option value="{{$bill->payment_status}}">Thanh toán thành công</option>
-                                <option value="0">Chưa thanh toán</option>
-                                <option value="1">Thanh toán thất bại</option>
-                                @endif
+                            <select  name="payment_status" class="form-control">
+                           
+                                <option @if($bill->payment_status == 0) selected @endif value="0">Chưa thanh toán</option>
+                                <option @if($bill->payment_status == 1) selected @endif value="1">Thanh toán thất bại</option>
+                                <option @if($bill->payment_status == 9) selected @endif value="9">Thanh toán thành công</option>
+                             
                             </select>
                         </div>
 
@@ -167,7 +159,7 @@
             <br>
             <a href="{{ route('bill.index') }}" class="btn btn-info mr-2">Quay lại </a>
             <a href="{{ route('bill.index') }}" class="btn btn-warning mr-2" type="submit">Sửa toàn bộ</a>
-            <a href="{{ route('bill.index') }}" class="btn btn-success mr-2">Lưu</a>
+            <button class="btn btn-success" type="submit">Lưu</button>
             &nbsp;
         </div>
     </div>

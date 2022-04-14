@@ -25,7 +25,7 @@ class BillRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:3|',
-            'email' => 'required|email',
+            'email' => 'required|email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
             'phone' => 'required|integer|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'address' => 'required|min:6',
             'payment_method' => 'required'
@@ -40,6 +40,7 @@ class BillRequest extends FormRequest
             'name.min' => 'Vui lòng nhập đầy đủ họ và tên',
             'email.required' => 'Vui lòng nhập email',
             'email.email' => 'Vui lòng nhập thêm @',
+            'email.regex' => 'Vui lòng nhập đúng địa chỉ email',
             'phone.required' => 'Mời nhập số điện thoại',
             'phone.min' => 'Nhập đúng số điện thoại',
             'phone.integer' => 'Vui lòng nhập số điện thoại',

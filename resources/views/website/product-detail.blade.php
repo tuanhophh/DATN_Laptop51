@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="css/style.css">
     <!-- Demo CSS (No need to include it into your project) -->
     <link rel="stylesheet" href="css/demo.css">
+    <script src='jquery-1.8.3.min.js'></script>
+    <script src='jquery.elevatezoom.js'></script>
     @include('layout_client.style')
 </head>
 
@@ -41,36 +43,20 @@
             @endif
         </div>
         <div class="container bg-white mb-4 pb-3">
-            <p class="h5">{{$pro->name}}</p>
+            <p class="h5 font-weight-bold">{{$pro->name}}</p>
             <div class="row">
                 <div class="col-6">
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="{{ asset($pro->image) }}" class="" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset($pro->image) }}" class="" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset($pro->image) }}" class="" alt="...">
+                        <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails"
+                            data-ride="carousel">
+                            <div class="carousel-inner" role="listbox">
+                                @foreach($images as $image)
+                                <div class="carousel-item active">
+                                    <img id="images" src="{{ asset($image->path) }}" alt="{{ asset($image->path) }}">
+                                </div>
+                                @endforeach
                             </div>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                            data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                            data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
                     </div>
                 </div>
                 <?php 
@@ -84,8 +70,8 @@
                 ?>
                 <div class="col-6">
                     <h5 class="font-weight-bold text-danger">{{currency_format($pro->price)}}</h5>
-                    <!-- <p class="">{{$pro->desc}}
-                    </p> -->
+                    <p class="small">{{$pro->desc_short}}
+                    </p>
                     @foreach($detailPro as $detail)
                     <div class="row" style="height: auto;">
                         @if($detail->category_id == 1)
@@ -253,17 +239,24 @@
                         <ul class="list-group">
                             <li class="list-group-item border-left-0 border-right-0 border-top-0 d-inline">
                                 <div class="row">
+                                    
                                     <div class="col-4 p-0">
-                                        <a class="" href="">
+                                        @foreach($images as $image)
+                                        @if($image->product_id == $product->id)
+
+                                        <a href="/san-pham/{{$product->slug}}">
                                             <img class="center-block" style="width: 150px;"
-                                                src="{{ asset($product->image) }}" alt="">
+                                                src="{{ asset($image->path) }}" alt="">
                                         </a>
+                                        @break;
+                                        @endif
+                                        @endforeach
                                     </div>
                                     <div class="col-8">
-                                        <p class="h6 small font-weight-bold p-0">{{$product->name}}</p>
-                                        <p class="h6 small font-weight-bold text-danger p-0">
-                                            {{currency_format($product->price)}}</p>
-                                        <p class="h6 small p-0">{{$product->desc_short}}</p>
+                                    <a href="/san-pham/{{$product->slug}}" style="text-decoration: none;"><p class="h6 small font-weight-bold p-0 text-dark">{{$product->name}}</p></a>
+                                    <a href="/san-pham/{{$product->slug}}" style="text-decoration: none;"> <p class="bg-warning font-weight-bold mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-danger">
+                                            {{currency_format($product->price)}}</p></a>
+                                            <a href="/san-pham/{{$product->slug}}" style="text-decoration: none;">   <p class="h6 small p-0 text-dark">{{$product->desc_short}}</p></a>
                                     </div>
                                 </div>
                             </li>
@@ -276,7 +269,6 @@
     </div>
     @include('layout_client.footer')
     @include('layout_client.script')
-
 </body>
 
 </html>

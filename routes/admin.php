@@ -110,12 +110,12 @@ Route::prefix('thongke')->group(function () {
     Route::get('ajax', [ThongkeController::class, 'ajax']);
 });
 Route::prefix('category')->group(function () {
-    Route::get('/', [CategoryController::class, 'index'])->name('category.index')->middleware('can:list-category');
-    Route::get('/remove/{id}', [CategoryController::class, 'remove'])->name('category.remove')->middleware('can:delete-category');
-    Route::get('add', [CategoryController::class, 'addForm'])->name('category.add')->middleware('can:add-category');
-    Route::post('add', [CategoryController::class, 'saveAdd'])->middleware('can:add-category');
-    Route::get('edit/{id}', [CategoryController::class, 'editForm'])->name('category.edit')->middleware('can:edit-category');
-    Route::post('edit/{id}', [CategoryController::class, 'saveEdit'])->middleware('can:edit-category');
+    Route::get('/', [CategoryController::class, 'index'])->name('category.index')->middleware('can:list-product');
+    Route::get('/remove/{id}', [CategoryController::class, 'remove'])->name('category.remove')->middleware('can:delete-product');
+    Route::get('add', [CategoryController::class, 'addForm'])->name('category.add')->middleware('can:add-product');
+    Route::post('add', [CategoryController::class, 'saveAdd'])->middleware('can:add-product');
+    Route::get('edit/{id}', [CategoryController::class, 'editForm'])->name('category.edit')->middleware('can:edit-product');
+    Route::post('edit/{id}', [CategoryController::class, 'saveEdit'])->middleware('can:edit-product');
     // Route::get('detail/{id}', [CategoryController::class, 'detail'])->middleware('can:delete-category');
 });
 

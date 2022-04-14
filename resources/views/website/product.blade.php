@@ -76,7 +76,8 @@
             </div>
             <div class="row p-2">
                 @foreach ($productNew as $item)
-                <?php 
+                <?php
+
                 if (!function_exists('currency_format')) {
                     function currency_format($item, $suffix = ' VNĐ') {
                         if (!empty($item)) {
@@ -85,16 +86,21 @@
                     }
                 }
                 ?>
-                <div class="col-lg-3 col-sm-6 p-2">
-                    <div class="card">
-                        <a href="san-pham/{{$item->id}}"><img src="{{ asset($item->image) }}"
-                                class="card-img-top" alt="{{ asset($item->image) }}"></a>
+                <div class="col-lg-3 d-flex col-sm-6 p-2">
+                    <div class="card flex-fill">
+                        @foreach($images as $image)
+                        @if($image->product_id == $item->id)
+                        <a href="/san-pham/{{$item->slug}}"><img src="{{ asset($image->path) }}"
+                                class="card-img-top" alt="{{ asset($image->path) }}"></a>
+                        @break;
+                        @endif
+                        @endforeach
                         <div class="card-body">
                             <p class="card-title h6 fw-bold p-0">{{$item->name}}</p>
                             <p class="card-text h6 small p-0">{{$item->desc_short}}
                             </p>
-                            <p class="h4 bg-warning mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-white"
-                                style="width: 180px;">{{currency_format($item->price)}}</p>
+                            <h6 class="bg-warning font-weight-bold mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-danger"
+                                style="width: 180px;">{{currency_format($item->price)}}</h6>
                         </div>
                     </div>
                 </div>
@@ -147,16 +153,21 @@
                 }
                 
                 ?>
-                <div class="col-lg-3 col-sm-6 p-2">
-                    <div class="card">
-                        <a href="san-pham/{{$product->id}}"><img src="{{ asset($item->image) }}"
-                        class="card-img-top" alt="{{ asset($item->image) }}"></a>
+                <div class="col-lg-3 d-flex col-sm-6 p-2">
+                    <div class="card flex-fill">
+                    @foreach($images as $image)
+                        @if($image->product_id == $product->id)
+                        <a href="/san-pham/{{$product->slug}}"><img src="{{ asset($image->path) }}"
+                                class="card-img-top" alt="{{ asset($image->path) }}"></a>
+                        @break;
+                        @endif
+                        @endforeach
                         <div class="card-body">
                             <p class="card-title h6 fw-bold p-0">{{$product->name}}</p>
                             <p class="card-text h6 small p-0">{{$product->desc_short}}
                                 </p>
-                                <p class="h4 bg-warning mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-white"
-                                style="width: 180px;">{{currency_format($product->price)}}</p>
+                                <h6 class="bg-warning font-weight-bold mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-danger"
+                                style="width: 180px;">{{currency_format($product->price)}}</h6>
                             </div>
                         </div>
                     </div>
