@@ -92,7 +92,7 @@
                                     @endif value="{{ $u->id }}">{{ $u->name }}</option>
                                 @endforeach
                             </select><input type="hidden" name="booking_detail_id" value="{{ $b->id }}">
-                            <button @if ($b->active==1||$b->active==2||!$b->active||$b->active==0)
+                            <button @if ($b->active==0||$b->active==3||$b->active==4)
                                 disabled
 
                                 @endif class="btn btn-primary" type="submit">Chọn</button>

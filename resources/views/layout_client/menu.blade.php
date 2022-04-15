@@ -95,7 +95,6 @@
         });
         </script>
     </div>
-
     <!-- Social icons -->
     <div class="template-header-top-icon-list mt-3 template-component-social-icon-list-1">
         <nav class="navbar navbar-expand-sm">
@@ -105,16 +104,30 @@
             </button>
             <div class="collapse navbar-collapse" id="navbar-list-4">
                 <ul class="navbar-nav dropdown-menu-right">
-                    <li class="nav-item pr-3">
-                        <a href="/gio-hang" style="font-size: 2rem;"><i
-                                class="fa-1x text-light fas fa-shopping-cart"></i></a>
+                    <li class="nav-item">
+                        <a href="/gio-hang" style="font-size: 2rem;">
+                        <i class="fa" style="font-size:24px">&#xf07a;</i>
+                        <?php
+                                    use Gloudemans\Shoppingcart\Facades\Cart;
+                                    use Illuminate\Support\Facades\Auth;
+
+                                    $count = Cart::count();
+                                    $user = Auth::user();
+                                    // dd($content);
+                                ?>
+                            <span class='badge badge-warning' id='lblCartCount'>{{Cart::count()}}</span></a>
                     </li>
                     @if(Auth::check())
                     <li class="nav-item dropdown dropdown-menu-right">
                         <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
-                                width="40" height="40" class="rounded-circle">
+                        aria-haspopup="true" aria-expanded="false">
+                        @if($user->avatar == "")
+                            <img src="{{ asset('products/user_icon.png') }}" 
+                                width="40px" height="40px" class="rounded-circle">
+                        @else
+                        <img src="{{ asset($user->avatar) }}"
+                                width="40px" height="auto" class="rounded-circle">
+                        @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item text-dark" href="{{url('profile')}}">Thông tin</a>
@@ -124,9 +137,9 @@
                     </li>
                     @else
                     <li class="nav-item dropdown dropdown-menu-right">
-                        <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+                        <a class="nav-link" href="/#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
-                            <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
+                            <img src="{{ asset('products/user_icon.png') }}"
                                 width="40" height="40" class="rounded-circle">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">

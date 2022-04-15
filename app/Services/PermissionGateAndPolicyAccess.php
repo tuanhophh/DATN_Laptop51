@@ -15,6 +15,9 @@ class PermissionGateAndPolicyAccess{
 
     public function defineGateCategory(){
 
+
+        Gate::define('dash-board', 'App\Policies\DashBoardPolicy@view');
+
         //  Danh mục
         Gate::define('list-category', 'App\Policies\CategoryPolicy@view');
         Gate::define('add-category', 'App\Policies\CategoryPolicy@create');

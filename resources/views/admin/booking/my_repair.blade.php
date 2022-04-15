@@ -24,7 +24,7 @@
                     {{ $b->booking->full_name }}
 
                     @endif</td>
-                <td>{{ $b->booking->phone }}</td>
+                {{-- <td>{{ $b->booking->phone }}</td> --}}
                 <td>@if ($b->repair_type=='TN')
                     {{ 'Tại nhà' }}
                     @else

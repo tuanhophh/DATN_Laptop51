@@ -92,7 +92,7 @@
   </div>
   {{-- <button onclick="AddForm()" type="button" id="btn_themmay">Thêm máy</button> --}}
 
-  <button class="btn btn-primary" name="btn" id="" value="admin" type="submit">Lưu </button>
+  <button class="btn btn-success" name="btn" id="" value="admin" type="submit">Lưu </button>
 
 </form>
 

@@ -68,16 +68,19 @@ Route::get('vnpay/return', [PaymentController::class, 'vnpayReturn'])->name('vnp
 // });
 
 //     trang cá nhân
-Route::get('profile', [ProfileController::class, 'index'])->name('profile')->middleware('verified');
+Route::get('profile', [ProfileController::class, 'index'])->name('profile');
+Route::post('profile/update-avatar', [ProfileController::class, 'changeImage'])->name('changeImage');
+Route::post('profile/update-info', [ProfileController::class, 'changeInfo'])->name('changeInfo');
+Route::post('profile/update-password',  [ProfileController::class, 'changePassword'])->name('changePassword');
 // trang cửa hàng
 Route::get('cua-hang', [HomeController::class, 'show'])->name('website.product');
 
-Route::get('san-pham/{id}', [HomeController::class, 'detail'])->name('website.product-detail');
-Route::get('cua-hang/{computerCompany_id}', [HomeController::class, 'company'])->name('website.product-category.');
+Route::get('san-pham/{slug}', [HomeController::class, 'detail'])->name('website.product-detail');
+Route::get('cua-hang/{id}', [HomeController::class, 'company'])->name('website.product-category.');
 // trang giới thiệu
 Route::get('gioi-thieu', function () {
     return view('website.gioi-thieu');
-})->middleware(['guest', 'verified']);
+});
 //Dịch vụ
 Route::get('sua-laptop-lay-ngay-1h', function () {
     return view('website.dv-sua-1h');
@@ -103,7 +106,7 @@ Route::post('dat-lich', [BookingController::class, 'creatBooking']);
 // trang liên hệ
 Route::get('lien-he', function () {
     return view('website.contact');
-})->middleware(['guest', 'verified']);
+});
 // trang lỗi 404
 Route::get('404', function () {
     return view('website.404');

@@ -28,8 +28,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeAdminController::class, 'index'])->middleware('auth');
-
+Route::get('/', [HomeAdminController::class, 'index'])->name('admin.dashboard')->middleware('can:dash-board');
 Route::prefix('bill')->group(function () {
     Route::get('/', [BillController::class, 'index'])->name('bill.index')->middleware('can:list-bill');
     Route::get('detail/{id}', [BillController::class, 'detail'])->name('bill.detail')->middleware('can:list-bill');
@@ -62,6 +61,7 @@ Route::prefix('product')->group(function () {
     Route::get('edit/{id}', [ProductController::class, 'editForm'])->name('product.edit')->middleware('can:edit-product');
     Route::post('edit/{id}', [ProductController::class, 'saveEdit'])->middleware('can:edit-product');
     Route::get('detail/{id}', [ProductController::class, 'detail'])->middleware('can:edit-product');
+    Route::post('show-hide/{id}', [ProductController::class, 'ShowHide'])->name('product.show-hide')->middleware('can:edit-product');
 });
 Route::prefix('detail-product')->group(function () {
     Route::get('/', [DetailProductController::class, 'index'])->name('detail-product.index')->middleware('can:list-product');
@@ -109,12 +109,12 @@ Route::prefix('thongke')->group(function () {
     Route::get('ajax', [ThongkeController::class, 'ajax']);
 });
 Route::prefix('category')->group(function () {
-    Route::get('/', [CategoryController::class, 'index'])->name('category.index')->middleware('can:list-category');
-    Route::get('/remove/{id}', [CategoryController::class, 'remove'])->name('category.remove')->middleware('can:delete-category');
-    Route::get('add', [CategoryController::class, 'addForm'])->name('category.add')->middleware('can:add-category');
-    Route::post('add', [CategoryController::class, 'saveAdd'])->middleware('can:add-category');
-    Route::get('edit/{id}', [CategoryController::class, 'editForm'])->name('category.edit')->middleware('can:edit-category');
-    Route::post('edit/{id}', [CategoryController::class, 'saveEdit'])->middleware('can:edit-category');
+    Route::get('/', [CategoryController::class, 'index'])->name('category.index')->middleware('can:list-product');
+    Route::get('/remove/{id}', [CategoryController::class, 'remove'])->name('category.remove')->middleware('can:delete-product');
+    Route::get('add', [CategoryController::class, 'addForm'])->name('category.add')->middleware('can:add-product');
+    Route::post('add', [CategoryController::class, 'saveAdd'])->middleware('can:add-product');
+    Route::get('edit/{id}', [CategoryController::class, 'editForm'])->name('category.edit')->middleware('can:edit-product');
+    Route::post('edit/{id}', [CategoryController::class, 'saveEdit'])->middleware('can:edit-product');
     // Route::get('detail/{id}', [CategoryController::class, 'detail'])->middleware('can:delete-category');
 });
 

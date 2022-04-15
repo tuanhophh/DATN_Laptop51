@@ -1,4 +1,5 @@
 @extends('admin.layouts.main')
+@section('title', 'Sửa vai trò')
 @section('content')
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -19,8 +20,7 @@ $(function() {
     });
 });
 </script>
-<div class="container">
-    <h5 class="alert alert-danger  text-center">ADD USER</h5>
+<div class="container bg-white">
     <form action="{{route('roles.update', ['id' => $role->id])}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="row">
@@ -39,8 +39,8 @@ $(function() {
                 Checkall
                 </label>
                 @foreach($permissionsParent as $permissionsParentItem)
-                <div class="card border-primary mb-3 col-md-12">
-                    <div class="card-header">
+                <div class="card border-primary mb-3 p-0 col-md-12">
+                    <div class="card-header py-0">
                         <label>
                             <input type="checkbox" class="checkbox_wrapper">
                         </label>
@@ -69,7 +69,7 @@ $(function() {
             <br>
             <a href="{{route('roles.index')}}" class="btn btn-danger">Hủy</a>
             &nbsp;
-            <button type="submit" class="btn btn-primary">Lưu</button>
+            <button type="submit" class="btn btn-success">Lưu</button>
     </form>
 </div>
 

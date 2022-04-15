@@ -76,10 +76,10 @@ class DetailProductController extends Controller
     public function saveAdd(DetailProductRequest $request)
     {
         $model = new DetailProduct();
-        if ($request->hasFile('image')) {
-            $imgPath = $request->file('image')->store('detail-products');
+        if ($request->hasFile('anh')) {
+            $imgPath = $request->file('anh')->store('products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
-            $model->image = $imgPath;
+            $request->merge(['image'=>$imgPath]);
         }
         
         $model->fill($request->all());
@@ -107,10 +107,11 @@ class DetailProductController extends Controller
         if (!$model) {
             return back();
         }
-        if ($request->hasFile('image')) {
-            $imgPath = $request->file('image')->store('public/detail-products');
+        if ($request->hasFile('anh')) {
+            Storage::delete($model->image);
+            $imgPath = $request->file('anh')->store('products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
-            $model->image = $imgPath;
+            $request->merge(['image'=>$imgPath]);
         }
 
         $model->fill($request->all());

@@ -19,7 +19,7 @@
             <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
                 <div class="card p-3">
                     <div class="e-navlist e-navlist--active-bg">
-                        <ul class="nav">
+                        <!-- <ul class="nav">
                             <li class="nav-item"><a class="nav-link px-2 active" href="#"><i
                                         class="fa fa-fw fa-bar-chart mr-1"></i><span>Overview</span></a></li>
                             <li class="nav-item"><a class="nav-link px-2"
@@ -29,7 +29,7 @@
                                     href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page"
                                     target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Settings</span></a>
                             </li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </div>
             </div>
@@ -42,24 +42,40 @@
                                 <div class="e-profile">
                                     <div class="row">
                                         <div class="col-12 col-sm-auto mb-3">
-                                            <div class="mx-auto" style="width: 140px;">
-                                                <div class="d-flex justify-content-center align-items-center rounded"
-                                                    style="height: 140px; background-color: rgb(233, 236, 239);">
-                                                    <span
-                                                        style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span>
+                                            <div class="mx-auto">
+
+                                                <div class="align-items-center rounded-circle">
+
+                                                    <span style="font: bold 8pt Arial;">
+                                                        <div class="photo-img rounded-circle" id="image_user"
+                                                            style="background-size: 150px 150px;width: 150px;height: 150px;background-image:url('{{ asset($user->avatar) }}');">
+                                                        </div>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                                             <div class="text-center text-sm-left mb-2 mb-sm-0">
                                                 <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{$user->name}}</h4>
-                                                <p class="mb-0">@johnny.s</p>
-                                                <div class="text-muted"><small>Last seen 2 hours ago</small></div>
+                                                <p class="mb-0">{{$user->email}}</p>
+                                                <!-- <div class="text-muted"><small>Last seen 2 hours ago</small></div> -->
                                                 <div class="mt-2">
-                                                    <button class="btn btn-primary" type="button">
-                                                        <i class="fa fa-fw fa-camera"></i>
-                                                        <span>Change Photo</span>
-                                                    </button>
+                                                    <form enctype="multipart/form-data"
+                                                        action="{{URL::to('/profile/update-avatar')}}"
+                                                        id="user_save_profile_form" method="POST">
+                                                        @csrf
+
+                                                        <label for="firstimg" class="btn btn-info m-0">
+                                                            Thay ảnh
+                                                        </label>
+                                                        <!-- <span class="change_photo" id="files" style="visibility:none;"
+                                                            for="profile_pic">Thay ảnh</span> -->
+                                                        <input style="display: none;visibility: none;" type="file"
+                                                            onchange="doAfterSelectImage(this)" id="firstimg"
+                                                            name="avatar">
+                                                        <button type="submit" class="btn btn-success m-0">Lưu</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                             <div class="text-center text-sm-right">
@@ -69,35 +85,61 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @if (Session::has('message'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ Session::get('message') }}.
+                                    </div>
+                                    @endif
+                                    @if (Session::has('current_password'))
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ Session::get('current_password') }}.
+                                    </div>
+                                    @endif
+
+                                    @error('avatar')
+                                    <p class="text-danger p-0 m-0">{{ $message }}</p>
+                                    @enderror
                                     <ul class="nav nav-tabs">
-                                        <li class="nav-item"><a href="" class="active nav-link">Thông tin</a></li>
+                                        <li class="nav-item"><a href="" class="text-dark active nav-link">Thông tin</a>
+                                        </li>
+                                        <li class="nav-item"><a href="" class="text-dark nav-link">Hóa đơn</a>
+                                        </li>
                                     </ul>
                                     <div class="tab-content pt-3">
                                         <div class="tab-pane active">
-                                            <form class="form" novalidate="">
+                                            <form class="form" enctype="multipart/form-data"
+                                                action="{{URL::to('/profile/update-info')}}" method="POST"
+                                                novalidate="">
+                                                @csrf
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="row">
                                                             <div class="col">
                                                                 <div class="form-group">
-                                                                    <label>Họ và tên</label>
+                                                                    <label class="p-0 m-0">Họ và tên</label>
+                                                                    @error('name')
+                                                                    <p class="text-danger p-0 m-0">{{ $message }}</p>
+                                                                    @enderror
                                                                     <input class="form-control" type="text" name="name"
                                                                         value="{{$user->name}}">
                                                                 </div>
                                                             </div>
                                                             <div class="col">
                                                                 <div class="form-group">
-                                                                    <label>Số điện thoại</label>
+                                                                    <label class="p-0 m-0">Số điện thoại</label>
                                                                     <input class="form-control" type="text" name="phone"
-                                                                        placeholder="johnny.s" value="{{$user->phone}}">
+                                                                        placeholder="Số điện thoại"
+                                                                        value="{{$user->phone}}">
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                         <div class="row">
                                                             <div class="col">
                                                                 <div class="form-group">
-                                                                    <label>Email</label>
+                                                                    <label class="p-0 m-0">Email</label>
+                                                                    @error('email')
+                                                                    <p class="text-danger p-0 m-0">{{ $message }}</p>
+                                                                    @enderror
                                                                     <input class="form-control" type="text" name="email"
                                                                         value="{{$user->email}}">
                                                                 </div>
@@ -106,7 +148,7 @@
                                                         <div class="row">
                                                             <div class="col">
                                                                 <div class="form-group">
-                                                                    <label>Địa chỉ</label>
+                                                                    <label class="p-0 m-0">Địa chỉ</label>
                                                                     <input class="form-control" type="text"
                                                                         name="address" value="{{$user->address}}">
                                                                 </div>
@@ -115,24 +157,36 @@
                                                         <div class="row">
                                                             <div class="col mb-3">
                                                                 <div class="form-group">
-                                                                    <label>Ghi chú</label>
+                                                                    <label class="p-0 m-0">Ghi chú</label>
                                                                     <textarea class="form-control text-dark"
-                                                                        name="description" rows="5">
-                                                                        {{$user->description}}
-                                                                        </textarea>
+                                                                        name="description"
+                                                                        rows="5">{{$user->description}}</textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col d-flex justify-content-end">
+                                                    <button class="btn btn-success" type="submit">Lưu thay đổi</button>
+                                                </div>
+                                            </form>
+                                            <form class="form" enctype="multipart/form-data"
+                                                action="{{URL::to('/profile/update-password')}}" method="POST">
+                                                @csrf
                                                 <div class="row">
                                                     <div class="col-12 col-sm-6 mb-3">
                                                         <div class="mb-2"><b>Đổi mật khẩu</b></div>
                                                         <div class="row">
+
+
+
                                                             <div class="col">
                                                                 <div class="form-group">
-                                                                    <label>Mật khẩu cũ</label>
-                                                                    <input class="form-control" name="passwordold"
+                                                                    <label class="p-0 m-0">Mật khẩu cũ</label>
+                                                                    @error('current_password')
+                                                                    <p class="text-danger p-0 m-0">{{ $message }}</p>
+                                                                    @enderror
+                                                                    <input class="form-control" name="current_password"
                                                                         type="password" placeholder="Nhập mật khẩu cũ">
                                                                 </div>
                                                             </div>
@@ -140,7 +194,10 @@
                                                         <div class="row">
                                                             <div class="col">
                                                                 <div class="form-group">
-                                                                    <label>Mật khẩu mới</label>
+                                                                    <label class="p-0 m-0">Mật khẩu mới</label>
+                                                                    @error('password')
+                                                                    <p class="text-danger p-0 m-0">{{ $message }}</p>
+                                                                    @enderror
                                                                     <input class="form-control" type="password"
                                                                         name="password" placeholder="Nhập mật khẩu mới">
                                                                 </div>
@@ -149,12 +206,20 @@
                                                         <div class="row">
                                                             <div class="col">
                                                                 <div class="form-group">
-                                                                    <label>Xác nhận <span class="d-none d-xl-inline">Mât
-                                                                            khẩu mới</span></label>
-                                                                    <input class="form-control"
-                                                                        type="password_confirmation"
+                                                                    <label class="p-0 m-0">Xác nhận mật khẩu mới</label>
+                                                                    @error('confirm_password')
+                                                                    <p class="text-danger p-0 m-0">{{ $message }}</p>
+                                                                    @enderror
+                                                                    <input class="form-control" name="confirm_password"
+                                                                        type="password"
                                                                         placeholder="Nhập lại mậu khẩu mới">
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col d-flex justify-content-end">
+                                                                <button class="btn btn-success" type="submit">Đổi mật
+                                                                    khẩu</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -186,15 +251,10 @@
                                                                         <label class="custom-control-label"
                                                                             for="notifications-offers">Personal
                                                                             Offers</label>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div> -->
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col d-flex justify-content-end">
-                                                        <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
+                                                            </div> -->
                                                     </div>
                                                 </div>
                                             </form>
@@ -209,19 +269,19 @@
                         <div class="card mb-3">
                             <div class="card-body">
                                 <div class="px-xl-3">
+                                    <i class="fa fa-sign-out"></i>
                                     <button class="btn btn-block btn-secondary">
-                                        <i class="fa fa-sign-out"></i>
-                                       <a class="text-white" href="/logout"> <span>Đăng xuất</span></a>
+                                        <a class="text-white" href="/logout"> <span>Đăng xuất</span></a>
                                     </button>
                                 </div>
                             </div>
                         </div>
                         <div class="card">
-                            <div class="card-body">
+                            <!-- <div class="card-body">
                                 <h6 class="card-title font-weight-bold">Support</h6>
                                 <p class="card-text">Get fast, free help from our friendly assistants.</p>
                                 <button type="button" class="btn btn-primary">Contact Us</button>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -237,6 +297,21 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
+</script>
+<script>
+function doAfterSelectImage(input) {
+    readURL(input);
+}
+
+function readURL(input) {
+    if (input.files) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#image_user').css('background-image', 'url(' + e.target.result + ')');
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 </script>
 
 </html>

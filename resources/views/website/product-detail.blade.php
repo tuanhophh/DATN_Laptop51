@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="css/style.css">
     <!-- Demo CSS (No need to include it into your project) -->
     <link rel="stylesheet" href="css/demo.css">
+    <script src='jquery-1.8.3.min.js'></script>
+    <script src='jquery.elevatezoom.js'></script>
     @include('layout_client.style')
 </head>
 
@@ -21,7 +23,7 @@
     @include('layout_client.header')
     <div class="container-fluid bg-light pt-3">
         <div class="container bg-white">
-            <p class=""><a class="text-dark" href="/cua-hang">Cửa hàng</a> \
+            <p class=""><a class="text-dark" href="/cua-hang">CỬA HÀNG</a> \
                 <a class="text-dark"
                     href="/cua-hang/{{$pro->companyComputer_id}}">{{$pro->companyComputer->company_name}}</a> \
                 <a class="text-dark" href="{{$pro->id}}">{{$pro->name}}</a>
@@ -31,54 +33,48 @@
                 {{ session()->get('error') }}
             </div>
             @endif
-@if (Session::has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Thông báo: </strong>{{ Session::get('success') }}.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
+            @if (Session::has('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Thông báo: </strong>{{ Session::get('success') }}.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
         </div>
         <div class="container bg-white mb-4 pb-3">
-            <p class="h5">{{$pro->name}}</p>
+            <p class="h5 font-weight-bold">{{$pro->name}}</p>
             <div class="row">
                 <div class="col-6">
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://laptop88.vn/media/product/6724_dsc07501.jpg" class="" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://laptop88.vn/media/product/6724_dsc07501.jpg" class="" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://laptop88.vn/media/product/6724_dsc07501.jpg" class="" alt="...">
+                        <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails"
+                            data-ride="carousel">
+                            <div class="carousel-inner" role="listbox">
+                                @foreach($images as $image)
+                                <div class="carousel-item active">
+                                    <img id="images" src="{{ asset($image->path) }}" alt="{{ asset($image->path) }}">
+                                </div>
+                                @endforeach
                             </div>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                            data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                            data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
                     </div>
                 </div>
-
+                <?php 
+                if (!function_exists('currency_format')) {
+                    function currency_format($pro, $suffix = ' VNĐ') {
+                        if (!empty($pro)) {
+                            return number_format($pro, 0, ',', '.') . "{$suffix}";
+                        }
+                    }
+                }
+                ?>
                 <div class="col-6">
-                    <h5 class="font-weight-bold">{{$pro->price}}</h5>
-                    <p class="">{{$pro->desc}}
+                    <h5 class="font-weight-bold text-danger">{{currency_format($pro->price)}}</h5>
+                    <p class="small">{{$pro->desc_short}}
                     </p>
+                    @foreach($detailPro as $detail)
                     <div class="row" style="height: auto;">
+                        @if($detail->category_id == 1)
                         <div class="col-3 pr-0">
                             <p class="pr-0  py-0 font-weight-bold">
                                 CPU:
@@ -86,19 +82,17 @@
                         </div>
                         <div class="col-9">
                             <ul class="nav">
-                                @foreach($detailPro as $item)
-                                @if($item->category_id==1)
                                 <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
                                     <a class="nav-link active p-0 text-dark" href="#">
-                                        {{$item->name}}
+                                        {{$detail->value}}
                                     </a>
                                 </li>
-                                @endif
-                                @endforeach
                             </ul>
                         </div>
+                        @endif
                     </div>
                     <div class="row" style="height: auto;">
+                        @if($detail->category_id == 2)
                         <div class="col-3 pr-0">
                             <p class="pr-0  py-0 font-weight-bold">
                                 RAM:
@@ -106,19 +100,18 @@
                         </div>
                         <div class="col-9">
                             <ul class="nav">
-                                @foreach($detailPro as $item)
-                                @if($item->category_id==4)
                                 <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
                                     <a class="nav-link active p-0 text-dark" href="#">
-                                        {{$item->name}}
+                                        {{$detail->value}}
                                     </a>
                                 </li>
-                                @endif
-                                @endforeach
+
                             </ul>
                         </div>
+                        @endif
                     </div>
                     <div class="row" style="height: auto;">
+                        @if($detail->category_id == 3)
                         <div class="col-3 pr-0">
                             <p class="pr-0  py-0 font-weight-bold">
                                 Ổ cứng:
@@ -126,19 +119,20 @@
                         </div>
                         <div class="col-9">
                             <ul class="nav">
-                                @foreach($detailPro as $item)
-                                @if($item->category_id==2)
+
                                 <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
                                     <a class="nav-link active p-0 text-dark" href="#">
-                                        {{$item->name}}
+                                        {{$detail->value}}
                                     </a>
                                 </li>
-                                @endif
-                                @endforeach
+
+
                             </ul>
                         </div>
+                        @endif
                     </div>
                     <div class="row" style="height: auto;">
+                        @if($detail->category_id == 4)
                         <div class="col-3 pr-0">
                             <p class="pr-0  py-0 font-weight-bold">
                                 Màn hình:
@@ -146,19 +140,19 @@
                         </div>
                         <div class="col-9">
                             <ul class="nav">
-                                @foreach($detailPro as $item)
-                                @if($item->category_id==3)
+
                                 <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
                                     <a class="nav-link active p-0 text-dark" href="#">
-                                        {{$item->name}}
+                                        {{$detail->value}}
                                     </a>
                                 </li>
-                                @endif
-                                @endforeach
+
                             </ul>
                         </div>
+                        @endif
                     </div>
                     <div class="row" style="height: auto;">
+                        @if($detail->category_id == 5)
                         <div class="col-3 pr-0">
                             <p class="pr-0  py-0 font-weight-bold">
                                 Card đồ họa:
@@ -166,18 +160,18 @@
                         </div>
                         <div class="col-9">
                             <ul class="nav">
-                                @foreach($detailPro as $item)
-                                @if($item->category_id==5)
+
                                 <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
                                     <a class="nav-link active p-0 text-dark" href="#">
-                                        {{$item->name}}
+                                        {{$detail->value}}
                                     </a>
                                 </li>
-                                @endif
-                                @endforeach
                             </ul>
                         </div>
+                        @endif
                     </div>
+                    @endforeach
+
                     <p class="m-0 p-0">✅Bảo hành 12 tháng, 1 đổi 1 trong vòng 15 ngày
                     </p>
                     <p class="m-0 p-0">✅MIỄN PHÍ GIAO HÀNG TẬN NHÀ</p>
@@ -189,23 +183,23 @@
                                 hóa nếu có)
                             </p>
                             <div class="row">
-                                <div class="col-3">
-                                    <form class="p-0 m-0" action="{{URL::to('/save-cart')}}" method="POST">
+                                <div class="col-9 text-right">
+                                    <form class="align-self-center" action="{{URL::to('/add-cart')}}" method="POST">
+                                        @csrf
+                                        <input name="qly" type="number" hidden min="1" value="1">
+                                        <input name="id" hidden value="{{$pro->id}}">
+                                        <button class="btn btn-warning" type="submit">
+                                            Thêm giỏ hàng
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col">
+                                    <form class="" action="{{URL::to('/save-cart')}}" method="POST">
                                         @csrf
                                         <input name="qly" type="number" hidden min="1" value="1">
                                         <input name="id" hidden value="{{$pro->id}}">
                                         <button class="btn btn-warning" type="submit">
                                             Mua Ngay
-                                        </button>
-                                    </form>
-                                </div>
-                                <div class="col p-0 m-0">
-                                    <form class="align-self-center" action="{{URL::to('/add-cart')}}" method="POST">
-                                        @csrf
-                                        <input name="qly" type="number" hidden min="1" value="1">
-                                        <input name="id" hidden value="{{$pro->id}}">
-                                        <button  class="btn btn-warning" type="submit">
-                                          Thêm giỏ hàng
                                         </button>
                                     </form>
                                 </div>
@@ -220,9 +214,10 @@
                         <p class='border-bottom pl-3 pb-2 pt-3 border-warning h5'>
                             Chi tiết sản phẩm
                         </p>
-                        <p class="px-3">
-                            {{$pro->desc}}
-                        </p>
+                        <div class="px-3">
+                            {!! $pro->desc !!}
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-4 pl-1">
@@ -231,20 +226,37 @@
                             Sản phẩm cùng hãng
                         </p>
                         @foreach($products as $product)
+                        <?php
+                        
+                        if (!function_exists('currency_format')) {
+                            function currency_format($product, $suffix = ' VNĐ') {
+                                if (!empty($product)) {
+                                    return number_format($product, 0, ',', '.') . "{$suffix}";
+                                }
+                            }
+                        }
+                        ?>
                         <ul class="list-group">
                             <li class="list-group-item border-left-0 border-right-0 border-top-0 d-inline">
                                 <div class="row">
+                                    
                                     <div class="col-4 p-0">
-                                        <a class="" href="">
+                                        @foreach($images as $image)
+                                        @if($image->product_id == $product->id)
+
+                                        <a href="/san-pham/{{$product->slug}}">
                                             <img class="center-block" style="width: 150px;"
-                                                src="https://laptop88.vn/media/lib/28-10-2021/dsc07503.jpg" alt="">
+                                                src="{{ asset($image->path) }}" alt="">
                                         </a>
+                                        @break;
+                                        @endif
+                                        @endforeach
                                     </div>
                                     <div class="col-8">
-                                        <p class="h6 small font-weight-bold p-0">{{$product->name}}</p>
-                                        <p class="h6 small font-weight-bold text-danger p-0">{{$product->price}}</p>
-                                        <p class="h6 small p-0">{{$product->desc}}</p>
-
+                                    <a href="/san-pham/{{$product->slug}}" style="text-decoration: none;"><p class="h6 small font-weight-bold p-0 text-dark">{{$product->name}}</p></a>
+                                    <a href="/san-pham/{{$product->slug}}" style="text-decoration: none;"> <p class="bg-warning font-weight-bold mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-danger">
+                                            {{currency_format($product->price)}}</p></a>
+                                            <a href="/san-pham/{{$product->slug}}" style="text-decoration: none;">   <p class="h6 small p-0 text-dark">{{$product->desc_short}}</p></a>
                                     </div>
                                 </div>
                             </li>
@@ -254,11 +266,9 @@
                 </div>
             </div>
         </div>
-
     </div>
     @include('layout_client.footer')
     @include('layout_client.script')
-
 </body>
 
 </html>

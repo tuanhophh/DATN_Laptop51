@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,7 +21,7 @@ class RegisterController extends Controller
     | validation and creation. By default this controller uses a trait to
     | provide this functionality without requiring any additional code.
     |
-    */
+     */
 
     use RegistersUsers;
 
@@ -54,20 +55,20 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:5', 'confirmed'],
         ],
-        [
-            'name.required' => 'Yêu cầu nhập tên',
-            'name.string' => 'Cần đúng định dạng',
-            'name.max' => 'Tên dài thế',
-            'email.required' => 'Nhập email',
-            'email.string' => 'Cần đúng định dạng, không ký tự đặc biẹt',
-            'email.email' => 'Cần đúng định dạng email',
-            'email.max' => 'Email dài thế, nhập lại đi',
-            'email.unique' => 'Bị trùng mail rồi',
-            'password.required' => 'Yêu cầu nhập mật khẩu',
-            'password.string' => 'Sai định dạng mật khẩu',
-            'password.min' => 'Mật khẩu lớn hơn 6 ký tự',
-            'password.confirmed' => 'Mật khẩu không trùng',
-       ]);
+            [
+                'name.required' => 'Yêu cầu nhập tên',
+                'name.string' => 'Cần đúng định dạng',
+                'name.max' => 'Tên dài thế',
+                'email.required' => 'Nhập email',
+                'email.string' => 'Cần đúng định dạng, không ký tự đặc biẹt',
+                'email.email' => 'Cần đúng định dạng email',
+                'email.max' => 'Email dài thế, nhập lại đi',
+                'email.unique' => 'Bị trùng mail rồi',
+                'password.required' => 'Yêu cầu nhập mật khẩu',
+                'password.string' => 'Sai định dạng mật khẩu',
+                'password.min' => 'Mật khẩu lớn hơn 6 ký tự',
+                'password.confirmed' => 'Mật khẩu không trùng',
+            ]);
     }
 
     /**
@@ -85,4 +86,17 @@ class RegisterController extends Controller
             'id_role' => 0,
         ]);
     }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        if ($user = $this->create($request->all())) {
+            event(new Registered($user));
+            // dd($user);
+            return redirect()->route('login')->with('message', 'Đăng ký tài khoản thành công!');
+        }
+
+        return redirect()->back()->with('error', 'Đăng ký không thành công');
+    }
+
 }

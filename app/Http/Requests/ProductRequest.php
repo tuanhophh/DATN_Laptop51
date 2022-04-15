@@ -25,26 +25,37 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'image'=>'mimes:jpeg,jpg,png',
-            'price' =>'required|integer|min:0',
-            'import_price' =>'required|integer|min:0',
+            'price' =>'required|integer|min:1',
+            'import_price' =>'required|integer|min:1',
             'companyComputer_id' =>'required',
             'insurance'=>'required',
+            'value.*' => 'required',
+            'value' => 'required',
+            'status' => 'required',
+            'desc_short'=>'required',
+            'path.*' => 'mimes:jpg,png,jpeg,gif,svg',
+            'slug'=>'required|unique:products,slug,'.$this->id
         ];
     }
     public function messages()
     {
         return [
-            'name.required' => 'mời bạn nhập tên sản phẩm',
-            'image.mimes'=>'sai định dạng ảnh',
-            'price.required' =>'mời bạn nhập giá',
-            'price.integer' =>'kiểu dữ liệu bị sai, phải là dạng số',
-            'price.min' =>'giá trị tối thiểu là 0',
-            'import_price.required' =>'mời bạn nhập giá',
-            'import_price.integer' =>'kiểu dữ liệu bị sai, phải là dạng số',
-            'import_price.min' =>'giá trị tối thiểu là 0',
-            'companyComputer_id.required' =>'bạn chưa chọn danh mục laptop',
-            'insurance.required'=>'bạn chưa nhập thời gian bảo hành',
+            'name.required' => 'Mời bạn nhập tên sản phẩm',
+            'path.*.mimes'=>'Sai định dạng ảnh',
+            'price.required' =>'Mời bạn nhập giá',
+            'price.integer' =>'Kiểu dữ liệu bị sai, phải là dạng số',
+            'price.min' =>'Giá trị tối thiểu là 1',
+            'import_price.required' =>'Mời bạn nhập giá',
+            'import_price.integer' =>'Kiểu dữ liệu bị sai, phải là dạng số',
+            'import_price.min' =>'Giá trị tối thiểu là 1',
+            'companyComputer_id.required' =>'Bạn chưa chọn danh mục laptop',
+            'insurance.required'=>'Bạn chưa nhập thời gian bảo hành',
+            'value.*.required' => 'Mời bạn nhập chi tiết sản phẩm',
+            'value.required' => 'Mời bạn nhập chi tiết sản phẩm',
+            'desc_short.required' => 'Mời bạn nhập mô tả',
+            'status.required' => 'Mời bạn nhập trạng thái',
+            'slug.required' => 'Mời bạn slug',
+            'slug.unique' => 'Slug không được trùng',
         ];
     }
 
