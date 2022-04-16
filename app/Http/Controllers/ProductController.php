@@ -187,7 +187,6 @@ class ProductController extends Controller
 
     }
 
-<<<<<<< HEAD
     // public function logOut()
     // {
     //     $response = Http::withHeaders([
@@ -199,6 +198,3 @@ class ProductController extends Controller
     //     dd($response->json());
     // }
 }
-=======
-}
->>>>>>> 7d1eba297b676f2bf0849ad7ec3282eedf4eafd7
