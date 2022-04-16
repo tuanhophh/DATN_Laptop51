@@ -109,7 +109,7 @@ class BookingController extends Controller
    {
       $request->validate([
          'full_name' => 'required',
-         'phone' => 'required||numeric',
+         'phone' => 'required||numeric||min:10||max:11',
          'email' => 'required||email||regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
          'name_computer' => 'required',
 
@@ -330,6 +330,9 @@ class BookingController extends Controller
    }
 
 
+   public function danhSachMayCanSua()
+   {
+   }
 
 
    public function userRepair()

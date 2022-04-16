@@ -1,6 +1,6 @@
 @extends('admin.layouts.main')
 @section('content')
-<div class="table-responsive">
+<div class="table-responsive " style="background-color: white">
     <table class="table align-items-center table-flush">
         <thead class="thead-light">
             <tr>

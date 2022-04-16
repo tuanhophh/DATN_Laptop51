@@ -70,13 +70,13 @@
                     </div>
                 </td> --}}
                 <td class="mx-auto">
-                    @if ($b->active==2||$b->active==3)
+                    @if ($b->active==1||$b->active==2)
                     <a name="" id="" class="btn btn-success" href="{{ route('suachua.get', ['id'=>$b->id]) }}"
                         role="button">Sửa chữa</a>
                     @endif
 
-                    <a name="" id="" class="btn btn-primary" href="{{ route('dat-lich.edit', ['id'=>$b->id]) }}"
-                        role="button">Sửa thông tin</a>
+                    {{-- <a name="" id="" class="btn btn-primary" href="{{ route('dat-lich.edit', ['id'=>$b->id]) }}"
+                        role="button">Sửa thông tin</a> --}}
                     <a name="" id="" class="btn btn-info" href="{{ route('dat-lich.hoa-don', ['id'=>$b->id]) }}"
                         role="button">Chi tiết sửa
                         chữa</a>
