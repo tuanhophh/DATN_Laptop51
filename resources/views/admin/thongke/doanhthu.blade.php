@@ -51,7 +51,8 @@
                     <th class="products_price">{{ $item->price }} </th>
                     <th class="products_money_import">{{ $item->total_qty * $item->import_price }}</th>
                     <th class="products_money_price">{{ $item->total_qty * $item->price }} </th>
-                    <th class="total_sales">{{ $item->total_qty * $item->price - $item->total_qty * $item->import_price }}
+                    <th class="total_sales">
+                        {{ $item->total_qty * $item->price - $item->total_qty * $item->import_price }}
                     </th>
 
                 </tr>
@@ -88,7 +89,8 @@
                 },
                 url: "/admin/thongke/ajax",
                 success: function(data) {
-                    new Morris.Bar({
+
+                    new Morris.Area({
                         // ID of the element in which to draw the chart.
                         element: 'myfirstchart',
                         // Chart data records -- each entry in this array corresponds to a point on

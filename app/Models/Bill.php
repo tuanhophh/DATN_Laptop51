@@ -16,5 +16,10 @@ class Bill extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function billDetail()
+    {
+        return $this->belongsTo(BillDetail::class, 'user_id');
+    }
 }
 
