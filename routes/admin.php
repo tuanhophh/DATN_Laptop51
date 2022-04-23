@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeAdminController::class, 'index'])->name('admin.dashboard')->middleware('can:dash-board');
+Route::get('/', [HomeAdminController::class, 'index'])->name('admin.dashboard');
 Route::prefix('bill')->group(function () {
     Route::get('/', [BillController::class, 'index'])->name('bill.index')->middleware('can:list-bill');
     Route::get('detail/{id}', [BillController::class, 'detail'])->name('bill.detail')->middleware('can:list-bill');
@@ -110,6 +110,8 @@ Route::prefix('thongke')->group(function () {
     Route::get('sanpham', [ThongkeController::class, 'sanpham'])->name('thongke-sanpham');
     Route::get('chitiet-sanpham', [ThongkeController::class, 'chitietSanpham'])->name('thongke-chitiet-sanpham');
     Route::get('order', [ThongkeController::class, 'order'])->name('thongke-order');
+    Route::get('doanhthu', [ThongkeController::class, 'doanhthu'])->name('thongke-doanhthu');
+
     Route::get('ajax', [ThongkeController::class, 'ajax']);
 });
 Route::prefix('category')->group(function () {
