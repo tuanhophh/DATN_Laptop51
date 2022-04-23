@@ -47,19 +47,19 @@ class ThongkeController extends Controller
     }
     public function ajax(Request $request)
     {
-        $repair_parts = null;
+        $order = null;
         //        if (empty($request->start_date) || empty($request->end_date)){
-        $repair_parts = RepairPart::query()
-            ->orderBy("created_at", "desc")
+        $order = BillDetail::query()
+            ->orderBy("created_at", "asc")
             ->get()->groupBy(function ($date) {
                 return Carbon::parse($date->created_at)->format('Y-m-d');
-            })->take(7);
+            });
         //        }
         $results = [];
-        foreach ($repair_parts as $time => $repair_part) {
+        foreach ($order as $time => $order) {
             $value = 0;
-            foreach ($repair_part as $item) {
-                $value += $item->quantity;
+            foreach ($order as $item) {
+                $value += $item->qty;
             }
             array_push($results, ['time' => $time, 'value' => $value]);
         }
@@ -81,9 +81,7 @@ class ThongkeController extends Controller
         //     ->first();
         // dd($users);
 
-        $doanhthu = DB::table('bill_details')
-        ->select('id')
-        ->groupBy('bill_details.product_id')
+        $doanhthu = DB::table('bills')->where('payment_status', '0')
         ->get();
         // dd($doanhthu);
         // foreach($doanhthu as $item){
