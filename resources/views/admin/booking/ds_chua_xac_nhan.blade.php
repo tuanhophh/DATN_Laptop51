@@ -1,14 +1,14 @@
 @extends('admin.layouts.main')
 @section('content')
-<div class="table-responsive">
+<div class="table-responsive " style="background-color: white">
     <table class="table align-items-center table-flush">
         <thead class="thead-light">
             <tr>
                 <th scope="col" class="sort" data-sort="name">Tên máy</th>
                 <th scope="col" class="sort" data-sort="budget">Tên khách hàng</th>
                 <th scope="col" class="sort" data-sort="status">SDT</th>
-                {{-- <th scope="col">Hình thức sửa</th>
-                <th scope="col">Trạng thái</th> --}}
+                <th scope="col">Hình thức sửa</th>
+                <th scope="col">Trạng thái</th>
                 <th scope="col" class="sort" data-sort="completion">Nhân viên</th>
                 <th scope="col"><a href="{{ route('dat-lich.add') }}">Tạo mới</a></th>
             </tr>
@@ -24,24 +24,32 @@
                     {{ $b->booking->full_name }}
 
                     @endif</td>
-                {{-- <td>{{ $b->booking->phone }}</td> --}}
+                <td>{{ $b->booking->phone }}</td>
                 <td>@if ($b->repair_type=='TN')
                     {{ 'Tại nhà' }}
                     @else
                     {{ 'Đem đến cửa hàng' }}
                     @endif</td>
-                {{-- <td>
-
+                <td>
+                    {{-- @if ($b->active==0)
+                    {{ 'Chưa sửa' }}
+                    @elseif($b->active==2)
+                    {{ 'Tạm dừng' }}
+                    @elseif($b->active== 3)
+                    {{ 'Đã hoàn thành' }}
+                    @elseif($b->active==1 )
+                    {{ 'Đang sửa' }}
+                    @endif --}}
 
                     <div class="form-group d-flex" width="50px">
-                        <form action="" method="POST" class="d-flex">
+                        {{-- <label for=""></label> --}}
+                        <form action="{{ route('dat-lich.chuyen-trang-thai') }}" method="POST" class="d-flex">
                             @csrf
-                            <select class="form-control" name="active" id="">
+                            <select class="form-control" name="status_booking" id="">
+                                <option value="received">Chưa xác nhận</option>
+                                <option value="latch">Xác nhận</option>
+                                <option value="cancel">Hủy bỏ</option>
 
-                                <option @if ($b->active==1) selected @endif value="1">Chưa sửa</option>
-                                <option @if ($b->active==2) selected @endif value="2">Đang sửa</option>
-                                <option @if ($b->active==3) selected @endif value="3">Đã hoàn thành</option>
-                                <option @if ($b->active==4) selected @endif value="4">Đã trả khách</option>
                             </select>
                             <input type="hidden" name="booking_detail_id" value="{{ $b->id }}">
                             <button class="btn btn-primary" type="submit">Chọn</button>
@@ -49,12 +57,15 @@
                     </div>
 
 
-                </td> --}}
+                </td>
                 {{-- <td>
                     <div class="form-group d-flex" width="50px">
                         <form action="" method="POST" class="d-flex">
                             @csrf
-                            <select class="form-control" name="staff" id="">
+                            <select id="" @if ($b->active==0||$b->active==3||$b->active==4)
+                                disabled
+
+                                @endif class="form-control" name="staff">
                                 <option value="0">Chưa chọn</option>
                                 @foreach ($users as $u)
                                 <option @if ($b->user_repair !=null )
@@ -65,24 +76,25 @@
                                     @endif value="{{ $u->id }}">{{ $u->name }}</option>
                                 @endforeach
                             </select><input type="hidden" name="booking_detail_id" value="{{ $b->id }}">
-                            <button class="btn btn-primary" type="submit">Chọn</button>
+                            <button @if ($b->active==0||$b->active==3||$b->active==4)
+                                disabled
+
+                                @endif class="btn btn-primary" type="submit">Chọn</button>
                         </form>
                     </div>
                 </td> --}}
                 <td class="mx-auto">
-                    @if ($b->status_repair='waiting')
+                    {{-- @if ($b->active==1||$b->active==2)
                     <a name="" id="" class="btn btn-success" href="{{ route('suachua.get', ['id'=>$b->id]) }}"
                         role="button">Sửa chữa</a>
-                    @endif
+                    @endif --}}
 
-                    {{-- <a name="" id="" class="btn btn-primary" href="{{ route('dat-lich.edit', ['id'=>$b->id]) }}"
-                        role="button">Sửa thông tin</a> --}}
-                    @if ($b->status_repair=='fixing')
-                    <a name="" id="" class="btn btn-info" href="{{ route('dat-lich.hoa-don', ['id'=>$b->id]) }}"
-                        role="button">Chi tiết sửa
-                        chữa</a>
-                    @endif
-
+                    <a name="" id="" class="btn btn-primary" href="{{ route('dat-lich.edit', ['id'=>$b->id]) }}"
+                        role="button">Sửa thông tin</a>
+                    {{-- <a name="" id="" class="btn btn-info" href="{{ route('dat-lich.hoa-don', ['id'=>$b->id]) }}"
+                        role="button">Chi tiết
+                        sửa
+                        chữa</a> --}}
                     {{-- <a name="" id="" class="btn btn-danger"
                         href="{{ route('dat-lich.deleteBookingDetail', ['id'=>$b->id]) }}" role="button">Xóa</a> --}}
                 </td>

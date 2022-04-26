@@ -15,4 +15,13 @@ class ComputerCompany extends Model
     {
         return $this->hasMany(Product::class);
     }
+    /**
+     * The roles that belong to the ComputerCompany
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function component()
+    {
+        return $this->belongsToMany(Component::class, 'component_computer_conpanies', 'computer_conpany_id', 'component_id');
+    }
 }

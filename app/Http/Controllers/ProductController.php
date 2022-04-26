@@ -158,7 +158,7 @@ class ProductController extends Controller
                 $insert[$key]['path'] = $path;
             }
             foreach ($images as $image) {
-               
+
                 $id = $image->id;
                 $image_path = $image->path;
                 // if($image_path){
@@ -184,13 +184,12 @@ class ProductController extends Controller
             $model->save();
             return back()->with('success', 'Ẩn thành công');
         }
-
     }
 
     // public function logOut()
     // {
     //     $response = Http::withHeaders([
-    //         'X-Auth-Token' => cookie()->get('aa'),
+    //         'X-Auth-Token' => cookie()->get('aa'),                                                   
     //         'X-User-Id' => "QKCnYgf38Mn4SCsk6",
     //         'Content-Type'  => "application/json"
     //     ])
@@ -199,4 +198,6 @@ class ProductController extends Controller
     // }
 
 }
+
+
 
