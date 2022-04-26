@@ -649,8 +649,8 @@
 									class="template-layout-column-right template-margin-bottom-reset">
 									<div class="template-component-form-field">
 										<label for="booking-form-email">Tên máy</label>
-										<input value="{{ old('name_computer') }}" type="text" name="name_computer" />
-										<small style="color: red; padding-left: 15px"> @error('name_computer')
+										<input value="{{ old('date') }}" type="text" name="date" />
+										<small style="color: red; padding-left: 15px"> @error('date')
 											{{ $message }}
 											@enderror
 										</small>
@@ -711,7 +711,17 @@
 								</li>
 
 								<!-- Second name -->
-
+								<li style="border: none"
+									class="template-layout-column-right template-margin-bottom-reset">
+									<div class="template-component-form-field">
+										<label for="booking-form-email">Ngày</label>
+										<input value="{{ old('name_computer') }}" type="date" name="name_computer" />
+										<small style="color: red; padding-left: 15px"> @error('name_computer')
+											{{ $message }}
+											@enderror
+										</small>
+									</div>
+								</li>
 
 							</ul>
 							<!-- Layout -->

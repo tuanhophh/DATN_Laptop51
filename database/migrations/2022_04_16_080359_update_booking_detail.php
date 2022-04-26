@@ -15,7 +15,10 @@ class UpdateBookingDetail extends Migration
     {
         Schema::table('booking_details', function (Blueprint $table) {
             //
-            // $table->integer('sta');
+            $table->enum('status_repair', ['fixing', 'waiting', 'finish'])->nullable();
+            $table->enum('status_booking', ['latch', 'cancel', 'received'])->nullable();
+            // $table->date('date')
+            // $table->enum('active','')
         });
     }
 
@@ -27,7 +30,8 @@ class UpdateBookingDetail extends Migration
     public function down()
     {
         Schema::table('booking_details', function (Blueprint $table) {
-            //
+            $table->dropColumn('status_repair');
+            $table->dropColumn('status_booking');
         });
     }
 }

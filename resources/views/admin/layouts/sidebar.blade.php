@@ -163,12 +163,42 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('sua-chua.danh-sach-chua-xac-nhan') }}"
+                            class="nav-link {{ request()->is('user/add') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>DS máy chưa xác nhận (lt)</p>
+                        </a>
+                    </li>
+                    {{-- <li class="nav-item">
                         <a href="{{ route('dat-lich.user_epair') }}"
                             class="nav-link {{ request()->is('user/add') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Danh sách được phân công</p>
+                            <p>DS được phân công</p>
+                        </a>
+                    </li> --}}
+                    <li class="nav-item">
+                        <a href="{{ route('sua-chua.danh-sach-cho-sua') }}"
+                            class="nav-link {{ request()->is('user/add') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>DS máy chờ sửa (t)</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('sua-chua.danh-sach-da-sua-xong') }}"
+                            class="nav-link {{ request()->is('user/add') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>DS máy đã sửa xong(lt+t)</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('dat-lich.user_epair') }}"
+                            class="nav-link {{ request()->is('user/add') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>DS được phân công (t)</p>
+                        </a>
+                    </li>
+
                 </ul>
             </li>
             @can('list-product')
