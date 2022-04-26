@@ -179,7 +179,7 @@ class ProductController extends Controller
             $model['status'] = 0;
             $model->save();
             return back()->with('success', 'Hiện thành công');
-        } else {
+        } else {p0v,l;
             $model['status'] = 1;
             $model->save();
             return back()->with('success', 'Ẩn thành công');
@@ -196,4 +196,8 @@ class ProductController extends Controller
     //         ->get('http://10.1.38.174:3000/api/v1/logout');
     //     dd($response->json());
     // }
+
 }
+
+
+
