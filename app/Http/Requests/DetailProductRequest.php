@@ -24,7 +24,7 @@ class DetailProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique',
+            'name' => 'required|unique:detail_products'.$this->id,
             'image'=>'mimes:jpeg,jpg,png',
             'status' =>'required',
             'price' =>'required|integer|min:0',

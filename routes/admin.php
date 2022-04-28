@@ -3,6 +3,7 @@
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingDetailController;
+use App\Http\Controllers\CategoryComponentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyComputerController;
 use App\Http\Controllers\DetailProductController;
@@ -28,14 +29,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeAdminController::class, 'index'])->name('admin.dashboard')->middleware('can:dash-board');
+Route::get('/', [HomeAdminController::class, 'index'])->name('admin.dashboard');
 Route::prefix('bill')->group(function () {
-    Route::get('/', [BillController::class, 'index'])->name('bill.index')->middleware('can:list-bill');
-    Route::get('detail/{id}', [BillController::class, 'detail'])->name('bill.detail')->middleware('can:list-bill');
-    Route::get('edit/{id}', [BillController::class, 'edit'])->name('bill.edit')->middleware('can:edit-bill');
-    Route::post('edit/{id}', [BillController::class, 'saveEdit'])->middleware('can:edit-bill');
+    Route::get('/', [BillController::class, 'index'])->name('bill.index');
+    Route::get('detail/{id}', [BillController::class, 'detail'])->name('bill.detail');
+    Route::get('edit/{id}', [BillController::class, 'edit'])->name('bill.edit');
+    Route::post('edit/{id}', [BillController::class, 'saveEdit']);
 });
-
 Route::prefix('CompanyComputer')->group(function () {
     Route::get('/', [CompanyComputerController::class, 'index'])->name('CompanyComputer.index')->middleware('can:list-category');
     Route::get('/remove/{id}', [CompanyComputerController::class, 'remove'])->name('CompanyComputer.remove')->middleware('can:delete-category');
@@ -45,7 +45,6 @@ Route::prefix('CompanyComputer')->group(function () {
     Route::post('edit/{id}', [CompanyComputerController::class, 'saveEdit'])->middleware('can:edit-category');
     Route::get('detail/{id}', [CompanyComputerController::class, 'detail'])->middleware('can:list-category');
 });
-
 Route::prefix('nhap_sanpham')->group(function () {
     Route::get('/', [NhapsanphamController::class, 'index'])->name('nhap-sanpham.index');
     Route::get('/remove/{id}', [NhapsanphamController::class, 'remove'])->name('nhap-sanpham.remove');
@@ -55,7 +54,6 @@ Route::prefix('nhap_sanpham')->group(function () {
     Route::post('edit/{id}', [NhapsanphamController::class, 'saveEdit']);
     Route::get('detail/{id}', [NhapsanphamController::class, 'detail']);
 });
-
 Route::prefix('product')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('product.index')->middleware('can:list-product');
     Route::get('/remove/{id}', [ProductController::class, 'remove'])->name('product.remove')->middleware('can:delete-product');
@@ -75,17 +73,25 @@ Route::prefix('detail-product')->group(function () {
     Route::post('edit/{id}', [DetailProductController::class, 'saveEdit'])->middleware('can:edit-product');
     Route::get('detail/{id}', [DetailProductController::class, 'detail'])->middleware('can:list-product');
 });
+Route::prefix('component')->group(function () {
+    Route::get('/', [DetailProductController::class, 'index'])->name('component.index');
+    Route::get('/remove/{id}', [DetailProductController::class, 'remove'])->name('component.remove');
+    Route::get('add', [DetailProductController::class, 'addForm'])->name('component.add');
+    Route::post('add', [DetailProductController::class, 'saveAdd'])->middleware('can:add-product');
+    Route::get('edit/{id}', [DetailProductController::class, 'editForm'])->name('component.edit');
+    Route::post('edit/{id}', [DetailProductController::class, 'saveEdit']);
+    Route::get('detail/{id}', [DetailProductController::class, 'detail']);
+});
 // Route::prefix('login')->group(function () {
 //     Route::get('/', [LoginController::class, 'index'])->name('admin.login');
 // });
 Route::prefix('dat-lich')->group(function () {
     Route::get('/', [BookingController::class, 'listBookingDetail'])->name('dat-lich.index');
-    Route::post('/', [BookingController::class, 'selectUserRepair']);
+    Route::post('/', [BookingController::class, 'selectStatusBooking']);
 
     Route::get('/danh-sach-may', [BookingController::class, 'listBookingDetail'])->name('dat-lich.danh-sach-may');
     Route::post('/danh-sach-may', [BookingController::class, 'selectUserRepair']);
     // Route::get('/danh-sach-may-phan-cong', [BookingController::class, 'listBookingDetail'])->name('dat-lich.danh-sach-may');
-    Route::get('/danh-sach-may-can-sua', [BookingController::class, 'danhSachMayCanSua'])->name('dat-lich.danh-sach-may-can-sua');
 
 
     Route::get('tao-moi', [BookingController::class, 'formCreateBooking'])->name('dat-lich.add');
@@ -104,12 +110,28 @@ Route::prefix('sua-chua')->group(function () {
     Route::get('/{id}', [BookingController::class, 'repairDetail'])->name('suachua.get');
     Route::post('/{id}', [BookingController::class, 'FinishRepairDetail']);
     Route::get('/detail-product/{id}', [BookingDetailController::class, 'getDetailProduct']);
+    // Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaDuocPhanTho']);
+    // Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaDuocPhanTho']);
+    // Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaDuocPhanTho']);
+
 });
 
+Route::post('chuyen-trang-thai', [BookingController::class, 'selectStatusBooking'])->name('dat-lich.chuyen-trang-thai');
+Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaPhanTho'])->name('sua-chua.danh-sach-chua-phan-tho');
+Route::get('/danh-sach-da-sua-xong', [BookingController::class, 'DanhSachDaSuaXong'])->name('sua-chua.danh-sach-da-sua-xong');
+Route::get('/danh-sach-cho-sua', [BookingController::class, 'DanhSachChoSua'])->name('sua-chua.danh-sach-cho-sua');
+Route::get('/danh-sach-chua-xac-nhan', [BookingController::class, 'DanhSachChuaXacNhan'])->name('sua-chua.danh-sach-chua-xac-nhan');
+
+// Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaPhanTho']);
+
+
 Route::prefix('thongke')->group(function () {
+
     Route::get('sanpham', [ThongkeController::class, 'sanpham'])->name('thongke-sanpham');
     Route::get('chitiet-sanpham', [ThongkeController::class, 'chitietSanpham'])->name('thongke-chitiet-sanpham');
     Route::get('order', [ThongkeController::class, 'order'])->name('thongke-order');
+    Route::get('doanhthu', [ThongkeController::class, 'doanhthu'])->name('thongke-doanhthu');
+
     Route::get('ajax', [ThongkeController::class, 'ajax']);
 });
 Route::prefix('category')->group(function () {
@@ -120,6 +142,15 @@ Route::prefix('category')->group(function () {
     Route::get('edit/{id}', [CategoryController::class, 'editForm'])->name('category.edit')->middleware('can:edit-product');
     Route::post('edit/{id}', [CategoryController::class, 'saveEdit'])->middleware('can:edit-product');
     // Route::get('detail/{id}', [CategoryController::class, 'detail'])->middleware('can:delete-category');
+});
+Route::prefix('category_component')->group(function () {
+    Route::get('/', [CategoryComponentController::class, 'index'])->name('category_component.index')->middleware('can:list-product');
+    Route::get('/remove/{id}', [CategoryComponentController::class, 'remove'])->name('category_component.remove')->middleware('can:delete-product');
+    Route::get('add', [CategoryComponentController::class, 'addForm'])->name('category_component.add')->middleware('can:add-product');
+    Route::post('add', [CategoryComponentController::class, 'saveAdd'])->middleware('can:add-product');
+    Route::get('edit/{id}', [CategoryComponentController::class, 'editForm'])->name('category_component.edit')->middleware('can:edit-product');
+    Route::post('edit/{id}', [CategoryComponentController::class, 'saveEdit'])->middleware('can:edit-product');
+    // Route::get('detail/{id}', [CategoryController::class, 'detail'])->middleware('can:delete-category_component');
 });
 
 Route::prefix('user')->group(function () {

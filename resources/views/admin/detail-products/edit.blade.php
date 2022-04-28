@@ -17,11 +17,18 @@
                     </div>
                     <div class="form-group">
                         <label for="">Ảnh</label>
-                        <input type="file" name="image" class="form-control" placeholder="">
+                        <input type="file" name="anh" class="form-control" placeholder="">
                         @error('image')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
+                    <div class="form-group">
+                        <label for="">Giá nhập</label>
+                        <input type="number" name="import_price" class="form-control" placeholder="">
+                    </div>
+                    @error('import_price')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
                     <div class="form-group">
                         <label for="">Giá</label>
                         <input type="number" name="price" value="{{old('name',$pro->price)}}" class="form-control" placeholder="">

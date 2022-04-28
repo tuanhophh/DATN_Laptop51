@@ -18,14 +18,20 @@
 
                     <div class="form-group">
                         <label for="">Ảnh</label>
-                        <input type="file" name="image" class="form-control" placeholder="">
+                        <input type="file" name="anh" class="form-control" placeholder="">
                     </div>
                     @error('image')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
-
                     <div class="form-group">
-                        <label for="">Giá</label>
+                        <label for="">Giá nhập</label>
+                        <input type="number" name="import_price" class="form-control" placeholder="">
+                    </div>
+                    @error('import_price')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                    <div class="form-group">
+                        <label for="">Giá bán</label>
                         <input type="number" name="price" class="form-control" placeholder="">
                     </div>
                     @error('price')
