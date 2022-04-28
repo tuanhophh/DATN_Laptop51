@@ -178,11 +178,11 @@ class ProductController extends Controller
         if ($model->status == 1) {
             $model['status'] = 0;
             $model->save();
-            return back()->with('success', 'Hiện thành công');
+            return back()->with('success', 'Ẩn sản phẩm thành công');
         } else {
             $model['status'] = 1;
             $model->save();
-            return back()->with('success', 'Ẩn thành công');
+            return back()->with('success', 'Hiện sản phẩm thành công');
         }
 
     }

@@ -8,6 +8,8 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
 class HomeController extends Controller
 {
@@ -52,6 +54,7 @@ class HomeController extends Controller
     {   
         $ComputerCompany = ComputerCompany::all();
         $pro = Product::where('slug',$slug)->first();
+        session()->put('url_path', $pro->slug);
         // dd($ComputerCompany);
         if (!$pro || !$ComputerCompany) {
             $productNew = Product::where('status',1)->orderBy('id', 'DESC')->get()->take(4);

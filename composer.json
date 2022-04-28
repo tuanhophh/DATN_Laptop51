@@ -9,9 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
-        "bumbummen99/shoppingcart": "^4.1",
-
         "barryvdh/laravel-dompdf": "^1.0",
+        "bumbummen99/shoppingcart": "^4.1",
         "ckfinder/ckfinder-laravel-package": "^3.5",
         "doctrine/dbal": "^3.3",
         "fruitcake/laravel-cors": "^2.0",
@@ -24,7 +23,8 @@
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.3",
         "maatwebsite/excel": "^3.1",
-        "nexmo/client": "^2.4"
+        "nexmo/client": "^2.4",
+        "twilio/sdk": "^6.36"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

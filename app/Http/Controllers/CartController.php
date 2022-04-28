@@ -28,6 +28,7 @@ class CartController extends Controller
         return Redirect::to('/gio-hang');
     }
     public function add(Request $request){
+
         $id = $request->id;
         $quantity = $request->qly;
 //        dd($productId);
@@ -45,6 +46,7 @@ class CartController extends Controller
         return back()->with('success','Thêm vào giỏ thành công');
     }
     public function showCart(){
+
        $cate_product = DB::table('product');
        $user_id = Auth::id();
        $totalBill = str_replace(',', ',', Cart::subtotal(0));

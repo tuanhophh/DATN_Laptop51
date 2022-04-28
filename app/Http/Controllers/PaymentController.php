@@ -10,15 +10,17 @@ use App\Models\Payment;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Twilio\Rest\Client;
 
 class PaymentController extends Controller
 {
     public function showPayment()
-    {
+    {   
         $content = Cart::content();
         if ($countCart = count($content) == 0) {
             return Redirect::to('/cua-hang')->with('error', 'Bạn không có đồ trong giỏ hàng, vui lòng thêm đồ vào giỏ rồi thanh toán!');
@@ -115,12 +117,23 @@ class PaymentController extends Controller
                 $bill_user->user_id = Auth::id();
             }
             $bill_user->save();
-
-            Mail::send('email.sendBill',['name'=> $bill_user->name ,'phone'=> $bill_user->phone,
-            'address'=>$bill_user->address,'bill_code' => $length,'price' => $bill->total], function($message) use($request){
-                $message->to($request->email);
-                $message->subject('THANH TOÁN HÓA ĐƠN | LAPTOP51');
-                  });
+            // Mail::send('email.sendBill',['name'=> $bill_user->name ,'phone'=> $bill_user->phone,
+            // 'address'=>$bill_user->address,'bill_code' => $length,'price' => $bill->total], function($message) use($request){
+                //     $message->to($request->email);
+                //     $message->subject('THANH TOÁN HÓA ĐƠN | LAPTOP51');
+                //       });
+                // $phoneSend = '+84'. $bill_user->phone;
+                // $token = getenv("TWILIO_AUTH_TOKEN");
+                // $twilio_sid = getenv("TWILIO_SID");
+                // $twilio_from = getenv("TWILIO_FROM");
+                // $twilio = new Client($twilio_sid, $token);
+                // $twilio->messages->create(
+                //     $phoneSend,
+                //     array(
+                //         'from' => $twilio_from,
+                //         'body' => 'Cam on ban da dat hang tai laptop51, ma hoa don cua ban la: ' . $length,
+                //     )
+                //     );
             Cart::destroy();
             
             return Redirect::to('/cua-hang')
@@ -200,12 +213,14 @@ class PaymentController extends Controller
             "created_at" => now(),
             "user_id" => Auth::id(),
         );
-
+        $bill_code = DB::table('bill_users')->where('bill_code',$request->vnp_TxnRef)->first();
+        $phone = $bill_code->phone;
+        // dd($phone);
         // Update trạng thái đơn hàng
         if ($data['vnp_response_code'] == 00) {
             $payment_status = Bill::where('code', $data['bill_code'])->first();
-            $payment_status->payment_status = 9;
-            dd($request->all());
+            $payment_status->payment_status = 2;
+            // dd($request->all());
             $payment_status->update();
             Payment::insert($data);
             Cart::destroy();       
@@ -213,9 +228,21 @@ class PaymentController extends Controller
             //     $message->to($request->email);
             //     $message->subject('THANH TOÁN HÓA ĐƠN | LAPTOP51');
             //       });
+            // $phoneSend = '+84'. $phone;
+            // $token = getenv("TWILIO_AUTH_TOKEN");
+            // $twilio_sid = getenv("TWILIO_SID");
+            // $twilio_from = getenv("TWILIO_FROM");
+            // $twilio = new Client($twilio_sid, $token);
+            // $twilio->messages->create(
+            //     $phoneSend,
+            //     array(
+            //         'from' => $twilio_from,
+            //         'body' => 'Cam on ban da dat hang tai laptop51, ma hoa don cua ban la: ' . $request->vnp_TxnRef,
+            //     )
+            //     );
             return Redirect::to('/cua-hang')
-            ->with('success', 'Thanh toán thành công cho đơn hàng: ')
-            ->with('bill_code',$data['bill_code']);
+            ->with('success', 'Thanh toán thành công cho đơn hàng: '.$request->vnp_TxnRef)
+            ->with('bill_code',$request->vnp_TxnRef);
             // dd($payment_status);
         }
         else{

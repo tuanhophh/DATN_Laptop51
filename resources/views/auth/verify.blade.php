@@ -1,47 +1,52 @@
-@extends('layout')
+@extends('layout_client.app')
 @section('content')
-<main class="login-form">
-    <div class="cotainer">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-8">
-                                <h5>Xác thực email</h5>
-                            </div>
-                            <div class="col-4">
-                            <button class="btn btn-info"><a class="text-end text-white p-0 m-0" style="text-decoration: none" href="{{ route('home') }}">Trang chủ</a>
-                                </button>
-                                <button class="btn btn-danger"><a class="text-end text-white p-0 m-0" style="text-decoration: none" href="{{ route('logout') }}">Đăng xuất</a>
-                                </button>
-                            </div>
-                        </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Verify Your Phone Number') }}</div>
+                <div class="card-body">
+                    @if (session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{session('error')}}
                     </div>
-                    <div class="card-body">
-                        @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
-                            {{ __('Một liên kết xác minh mới đã được gửi đến địa chỉ email của bạn') }}
-                        </div>
-                        @endif
+                    @endif
+                    Please enter the OTP sent to your number: {{Auth::user()->phone}}
+                    <form action="{{route('verify')}}" method="post">
+                        @csrf
                         <div class="form-group row">
-                            <p>
-                            {{ __('Vui lòng xác minh email của bạn để vào trang này, kiểm tra email của bạn để biết liên kết xác minh') }}
-                            </p>
-    <div>  {{ __('Nhấn vào nút để gửi lại email nếu bạn chưa nhận được') }},</div>
-
+                            <label for="verification_code"
+                                class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
+                            <div class="col-md-6">
+                                <input type="hidden" name="phone" value="{{Auth::user()->phone}}">
+                                <input id="verification_code" type="tel"
+                                    class="form-control @error('verification_code') is-invalid @enderror"
+                                    name="verification_code" value="{{ old('verification_code') }}" required>
+                                @error('verification_code')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
                         </div>
-                        <div class="col-md-6 offset-md-4">
-                            <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                                @csrf
-                                <button type="submit"
-                                    class="btn btn-success">{{ __('Nhấn vào đây để gửi lại link') }}</button>.
-                            </form>
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Verify Phone Number') }}
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
+                    <form action="{{route('resend.verify')}}" method="post">
+                        @csrf
+                    <input type="hidden" name="phone" value="{{Auth::user()->phone}}">
+                    <button type="submit">
+                            Gửi lại mã xác minh
+                    </button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</main>
+</div>
 @endsection

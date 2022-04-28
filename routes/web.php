@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -29,21 +30,36 @@ use Illuminate\Support\Facades\Route;
  */
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//  Đăng nhập
+Route::get('/register', function () {
+    return view('auth.register');
+});
+Route::get('/verify', function () {
+    return view('auth.verify');
+});
+
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
+
+Route::post('/register', [AuthController::class,'create'])->name('register');
+Route::post('/verify/resend', [AuthController::class, 'resendVerify'])->name('resend.verify');
+Route::post('/verify', [AuthController::class, 'verify'])->name('verify');
+
+// //  Đăng nhập
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
-Route::get('logout', [LoginController::class, 'logout']);
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
-//  Đăng ký
-Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('register', [RegisterController::class, 'register']);
+// //  Đăng ký
+// Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+// Route::post('register', [RegisterController::class, 'register']);
 
-//  Quên mật khẩu
+// //  Quên mật khẩu
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
-Auth::routes(['verify' => true]);
+Auth::routes(['register' => false]);
 
 // //  Xác thực mail
 // Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
@@ -51,17 +67,17 @@ Auth::routes(['verify' => true]);
 // Route::get('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
 //  Giỏ hàng
-Route::post('save-cart', [CartController::class, 'saveCart']);
-Route::post('add-cart', [CartController::class, 'add']);
-Route::get('gio-hang', [CartController::class, 'showCart']);
-Route::get('delete-to-cart/{rowId}', [CartController::class, 'deleteToCart']);
-Route::post('update-cart-quantity', [CartController::class, 'updateCartQuantity']);
+Route::post('save-cart', [CartController::class, 'saveCart'])->middleware('phoneverify');
+Route::post('add-cart', [CartController::class, 'add'])->middleware('phoneverify');
+Route::get('gio-hang', [CartController::class, 'showCart'])->middleware('phoneverify');
+Route::get('delete-to-cart/{rowId}', [CartController::class, 'deleteToCart'])->middleware('phoneverify');
+Route::post('update-cart-quantity', [CartController::class, 'updateCartQuantity'])->middleware('phoneverify');
 
 //  Thanh toán
-Route::get('thanh-toan', [PaymentController::class, 'showPayment']);
-Route::post('save-payment', [PaymentController::class, 'savePayment']);
-Route::post('payment/online', [PaymentController::class, 'createPayment'])->name('payment.online');
-Route::get('vnpay/return', [PaymentController::class, 'vnpayReturn'])->name('vnpay.return');
+Route::get('thanh-toan', [PaymentController::class, 'showPayment'])->name('payment')->middleware('phoneverify');
+Route::post('save-payment', [PaymentController::class, 'savePayment'])->middleware('phoneverify');
+Route::post('payment/online', [PaymentController::class, 'createPayment'])->name('payment.online')->middleware('phoneverify');
+Route::get('vnpay/return', [PaymentController::class, 'vnpayReturn'])->name('vnpay.return')->middleware('phoneverify');
 // Route::get('vnpay/return', function(){
 //     return view('vnpay.vnpay_return');
 // });

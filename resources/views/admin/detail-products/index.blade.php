@@ -93,7 +93,7 @@
                             <td>{{($details->currentPage() - 1)*$details->perPage() + $loop->iteration}}</td>
                             <td>{{$item->name}}</td>
                             <td>
-                                {{$item->products->name}}
+                                {{$item->name}}
                             </td>
                             <td>
                                 <img src="{{asset($item->image)}}" width="100">
