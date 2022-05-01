@@ -79,7 +79,7 @@ class PaymentController extends Controller
             //Xóa giỏ hàng
             // Cart::destroy();
             $code_length = $length;
-            return view('vnpay.index', compact('totalBill', 'code_length','email'));
+            return view('vnpay.index', compact('totalBill', 'code_length', 'email'));
         } else {
 
             // Lưu vào bảng bills
@@ -116,28 +116,31 @@ class PaymentController extends Controller
             }
             $bill_user->save();
 
-            Mail::send('email.sendBill',['name'=> $bill_user->name ,'phone'=> $bill_user->phone,
-            'address'=>$bill_user->address,'bill_code' => $length,'price' => $bill->total], function($message) use($request){
+            Mail::send('email.sendBill', [
+                'name' => $bill_user->name, 'phone' => $bill_user->phone,
+                'address' => $bill_user->address, 'bill_code' => $length, 'price' => $bill->total
+            ], function ($message) use ($request) {
                 $message->to($request->email);
                 $message->subject('THANH TOÁN HÓA ĐƠN | LAPTOP51');
-                  });
+            });
             Cart::destroy();
-            
+
             return Redirect::to('/cua-hang')
-            ->with('success', 'Đặt hàng thành công, bạn hãy kiểm tra mail để xem chi tiết đơn hàng. Mã đơn hàng: ')
-            ->with('length',$length);
+                ->with('success', 'Đặt hàng thành công, bạn hãy kiểm tra mail để xem chi tiết đơn hàng. Mã đơn hàng: ')
+                ->with('length', $length);
         };
     }
 
     public function createPayment(Request $request)
-    {   $vnp_TmnCode = "3EW6FLZG";
+    {
+        $vnp_TmnCode = "3EW6FLZG";
         $vnp_HashSecret = "XTRTBABSGMLYLMFNAPKGCBPDUVTJGXXK";
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = "http://localhost:8000/vnpay/return";
         $vnp_TxnRef = $request->vnp_TxnRef; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = $request->order_desc;
         $vnp_OrderType = $request->order_type;
-        $vnp_Amount = str_replace(',', '', Cart::subtotal(0))*100;
+        $vnp_Amount = str_replace(',', '', Cart::subtotal(0)) * 100;
         $vnp_Locale = $request->language;
         $vnp_BankCode = $request->bank_code;
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
@@ -157,7 +160,7 @@ class PaymentController extends Controller
             "vnp_OrderType" => $vnp_OrderType,
             "vnp_ReturnUrl" => $vnp_Returnurl,
             "vnp_TxnRef" => $vnp_TxnRef,
-            
+
         );
         if (isset($vnp_BankCode) && $vnp_BankCode != "") {
             $inputData['vnp_BankCode'] = $vnp_BankCode;
@@ -208,19 +211,18 @@ class PaymentController extends Controller
             dd($request->all());
             $payment_status->update();
             Payment::insert($data);
-            Cart::destroy();       
+            Cart::destroy();
             // Mail::send('email.successBill',['bill_code' => $data['bill_code']], function($message) use($request){
             //     $message->to($request->email);
             //     $message->subject('THANH TOÁN HÓA ĐƠN | LAPTOP51');
             //       });
             return Redirect::to('/cua-hang')
-            ->with('success', 'Thanh toán thành công cho đơn hàng: ')
-            ->with('bill_code',$data['bill_code']);
+                ->with('success', 'Thanh toán thành công cho đơn hàng: ')
+                ->with('bill_code', $data['bill_code']);
             // dd($payment_status);
-        }
-        else{
+        } else {
             return Redirect::to('/cua-hang')
-            ->with('error', 'Thanh toán thất bại');
+                ->with('error', 'Thanh toán thất bại');
         }
         // $bill_code = $data['bill_code'];
 

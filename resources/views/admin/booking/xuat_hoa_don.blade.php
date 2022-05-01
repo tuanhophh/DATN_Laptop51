@@ -48,7 +48,7 @@
                 @foreach ($repair_parts as $key=>$p)
                 <tr>
                     <td scope="row">{{ $key +1}}</td>
-                    <td>{{ $p->detail_product->name }}</td>
+                    <td>{{ $p->name_product }}</td>
                     <td>{{ $p->unit_price }}</td>
                     <td>{{ $p->quantity }}</td>
                     <td>{{ $p->into_money }}</td>

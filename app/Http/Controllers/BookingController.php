@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Jobs\SendOrderSuccessEmail;
 use App\Models\Booking;
 use App\Models\BookingDetail;
+use App\Models\CategoryComponent;
+use App\Models\Component;
 use App\Models\ComputerCompany;
 use Carbon\Carbon;
 use App\Models\DetailProduct;
+use App\Models\Product;
 use App\Models\RepairPart;
 use App\Models\User;
 use App\Models\UserRepair;
@@ -221,10 +224,10 @@ class BookingController extends Controller
          if ($booking_detail) {
             $booking_detail->status_booking = $request->status_booking;
             $booking_detail->save();
-            if ($request->status_booking == 'latch') {
-               $booking_detail->status_repair = 'waiting';
-               $booking_detail->save();
-            }
+            // if ($request->status_booking == 'latch') {
+            //    // $booking_detail->status_repair = 'waiting';
+            //    $booking_detail->save();
+            // }
             return redirect(route('sua-chua.danh-sach-chua-xac-nhan'));
          }
       }
@@ -274,26 +277,25 @@ class BookingController extends Controller
          $booking_detail->status_repair = 'fixing';
          $booking_detail->save();
          $booking = $booking_detail->booking()->first();
-         $product_detail = DetailProduct::all();
-         // $arr_pd =  array_column($product_detail->toArray(), 'name');
+         $categories = CategoryComponent::all();
+         $components = Component::join('component_computer_conpanies', 'components.id', 'component_computer_conpanies.component_id')
+            ->where('computer_conpany_id', $booking_detail->company_computer_id)->select('components.id as id', 'name_component')
+            ->get();;
          $repair_parts = RepairPart::where('booking_detail_id', $id)->get();
          $arr_pd = array_column($repair_parts->toArray(), 'detail_product_id');
          // dd($repair_parts->toArray());
-         return view('admin.booking.repair_detail', compact('booking', 'booking_detail', 'product_detail', 'arr_pd'));
+         return view('admin.booking.repair_detail', compact('booking', 'booking_detail', 'components', 'categories', 'arr_pd'));
          // return response()->json($product_detail);
       }
    }
-   // public function demo()
-   // {
-   //    return view('admin.booking.repair_detail');
-   // }
+
    public function finishRepairDetail($id, Request $request)
    {
       // dd($request);
-      function detailProduct($id)
+      function detailComponent($id)
       {
 
-         $detail_product = DetailProduct::find($id);
+         $detail_product = Component::find($id);
          if ($detail_product) {
             return $detail_product;
          } else {
@@ -304,40 +306,40 @@ class BookingController extends Controller
       $booking_detail = BookingDetail::find($id);
 
       if ($booking_detail) {
-         $repair_part = RepairPart::where('booking_detail_id', $booking_detail->id)->get();
-         $arr_PD_id = array_column($repair_part->toArray(), 'detail_product_id');
+         // $repair_part = RepairPart::where('component_id', $booking_detail->id)->get();
+         // $arr_PD_id = array_column($repair_part->toArray(), 'component_id');
 
          $arr_quantity = $request->soluong;
 
          if ($request->repairs) {
-            foreach ($request->repairs as $r) {
-               if (in_array($r, $arr_PD_id) == false) {
-                  $dt = [
-                     'booking_detail_id' => $id,
-                     'detail_product_id' => $r,
-                     'unit_price' => detailProduct($r)->price,
-                     'quantity' => $arr_quantity[$r],
-                     'into_money' => detailProduct($r)->price * $arr_quantity[$r],
-                     'name_product' => detailProduct($r)->name
-                  ];
-                  // dd($dt);
-                  $model = RepairPart::query()->create($dt);
-                  // dd($model);
-               } else {
-                  $model = RepairPart::where('booking_detail_id', $id)->where('detail_product_id', $r)->first();
-                  $dt = [
-                     'booking_detail_id' => $id,
-                     'detail_product_id' => $r,
-                     'unit_price' => detailProduct($r)->price,
-                     'quantity' => $arr_quantity[$r] + $model->quantity,
-                     'into_money' => detailProduct($r)->price * ($arr_quantity[$r] + $model->quantity),
-                     'name_product' => detailProduct($r)->name
+            foreach ($request->repairs as $k => $r) {
+               // if (in_array($r, $arr_PD_id) == false) {
+               $dt = [
+                  'booking_detail_id' => $id,
+                  'component_id' => $r,
+                  'unit_price' => detailComponent($r)->price,
+                  'quantity' => $arr_quantity[$r],
+                  'into_money' => detailComponent($r)->price * $arr_quantity[$r],
+                  'name_product' => detailComponent($r)->name_component
+               ];
 
-                  ];
-                  // dd($dt);
+               RepairPart::create($dt);
+               // dd($model);
+               // } else {
+               //    $model = RepairPart::where('booking_detail_id', $id)->where('detail_product_id', $r)->first();
+               //    $dt = [
+               //       'booking_detail_id' => $id,
+               //       'component_id' => $r->id,
+               //       'unit_price' => detailComponent($r)->price,
+               //       'quantity' => $arr_quantity[$r] + $model->quantity,
+               //       'into_money' => detailComponent($r)->price * ($arr_quantity[$r] + $model->quantity),
+               //       'name_product' => detailComponent($r)->name
 
-                  $model->fill($dt)->save();
-               }
+               //    ];
+               //    // dd($dt);
+
+               //    $model->fill($dt)->save();
+               // }
             }
          }
          if ($request->product_repair) {
@@ -347,19 +349,19 @@ class BookingController extends Controller
                   // 'detail_product_id' => $r,
                   // 'unit_price' => detailProduct($r)->price,
                   // 'quantity' => $arr_quantity[$r],
-                  'into_money' => $request->price_product_price,
-                  'name_product' => $request->product_price
+                  'into_money' => $request->price_product_repair[$key],
+                  'name_product' => $value
 
                ];
                // dd($dt);
-               $model = RepairPart::query()->create($dt);
+               RepairPart::create($dt);
             }
          }
 
-         if ($request->btn == 'finish') {
-            $booking_detail->status_repair = 'finish';
-            $booking_detail->save();
-         }
+         // if ($request->btn == 'finish') {
+         $booking_detail->status_repair = 'finish';
+         $booking_detail->save();
+         // }
       }
 
       return redirect(route('dat-lich.danh-sach-may'));
@@ -416,7 +418,26 @@ class BookingController extends Controller
    public function DanhSachChuaXacNhan()
    {
       $booking_details = BookingDetail::join('bookings', 'booking_details.booking_id', 'bookings.id')
-         ->where('status_repair', null)->where('status_booking', 'received')->orWhereNull('status_booking')->get();
+         ->where('status_repair', null)->orWhereNull('status_booking')->get();
       return view('admin.booking.ds_chua_xac_nhan', compact('booking_details'));
+   }
+
+   public function tiepNhanMay($booking_detail_id)
+   {
+      $pool = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      $rand_code = substr(str_shuffle(str_repeat($pool, 5)), 0, 16);
+
+      $booking_detail = BookingDetail::find($booking_detail_id);
+      if ($booking_detail) {
+         if ($booking_detail->code == null) {
+            $booking_detail->code = $rand_code;
+            $booking_detail->save();
+         }
+         $booking_detail->status_repair = 'waiting';
+         $booking_detail->save();
+
+         return view('admin.booking.nhan-hang', compact('booking_detail'));
+      }
+      // dd($length);
    }
 }

@@ -2,7 +2,7 @@
 @section('content')
 {{-- <button>Xuất hóa đơn</button>
 --}}
-<a name="" id="" class="btn btn-primary"
+<a name="" id="" class="btn btn-primary" target="_blank"
     href="{{ route('dat-lich.xuat-hoa-don', ['booking_detail_id'=>$booking_detail->id]) }}" role="button"> Xuất hóa
     đơn</a>
 <h4 class="mx-auto">Hóa đơn sửa chữa</h4>
@@ -25,7 +25,7 @@
         @foreach ($repair_parts as $key=>$p)
         <tr>
             <td scope="row">{{ $key +1}}</td>
-            <td>{{ $p->detail_product->name }}</td>
+            <td>{{ $p->name_product }}</td>
             <td>{{ $p->unit_price }}</td>
             <td>{{ $p->quantity }}</td>
             <td>{{ $p->into_money }}</td>

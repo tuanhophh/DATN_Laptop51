@@ -139,7 +139,7 @@
                 </ul>
             </li>
             @endcan
-            <li class="nav-item {{ request()->is('admin/user*') ? ' menu-is-opening menu-open' : '' }}">
+            <li class="nav-item active {{ request()->is('admin*') ? ' menu-is-opening menu-open' : '' }}">
                 <a href="" class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-copy"></i>
                     <p>
@@ -166,7 +166,7 @@
                         <a href="{{ route('sua-chua.danh-sach-chua-xac-nhan') }}"
                             class="nav-link {{ request()->is('user/add') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>DS máy chưa xác nhận (lt)</p>
+                            <p>DS máy chưa xác nhận</p>
                         </a>
                     </li>
                     {{-- <li class="nav-item">
@@ -180,14 +180,14 @@
                         <a href="{{ route('sua-chua.danh-sach-cho-sua') }}"
                             class="nav-link {{ request()->is('user/add') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>DS máy chờ sửa (t)</p>
+                            <p>DS máy chờ sửa </p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('sua-chua.danh-sach-da-sua-xong') }}"
                             class="nav-link {{ request()->is('user/add') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>DS máy đã sửa xong(lt+t)</p>
+                            <p>DS máy đã sửa xong</p>
                         </a>
                     </li>
 
@@ -195,7 +195,7 @@
                         <a href="{{ route('dat-lich.user_epair') }}"
                             class="nav-link {{ request()->is('user/add') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>DS được phân công (t)</p>
+                            <p>DS được phân công </p>
                         </a>
                     </li>
 
@@ -306,6 +306,27 @@
                 </ul>
             </li>
             @endcan
+            <li class="nav-item {{ request()->is('admin/bills*') ? ' menu-is-opening menu-open' : '' }}">
+                <a href="" class="nav-link {{ request()->is('admin/bills*') ? 'active ' : '' }}">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                        Hóa đơn sửa chữa
+                        <i class="fas fa-angle-left right"></i>
+                        <span class="badge badge-info right">6</span>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    @can('list-bill')
+
+                    <li class="nav-item">
+                        <a href="/admin/bill" class="nav-link {{ request()->is('admin/bill') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Danh sách</p>
+                        </a>
+                    </li>
+                    @endcan
+                </ul>
+            </li>
             <li class="nav-item {{ request()->is('admin/roles*') ? ' menu-is-opening menu-open' : '' }}">
                 <a href="" class="nav-link {{ request()->is('admin/roles*') ? 'active ' : '' }}">
                     <i class="nav-icon fas fa-copy"></i>
