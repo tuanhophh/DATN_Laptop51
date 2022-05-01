@@ -171,7 +171,7 @@ class BookingController extends Controller
       }
       // dd($details);
 
-      // dispatch(new SendOrderSuccessEmail($details));
+      dispatch(new SendOrderSuccessEmail($details));
       // $mod = $request->all(); 
       // dd($mod);
       // if ($request->btn == 'admin') {

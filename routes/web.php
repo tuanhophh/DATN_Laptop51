@@ -72,6 +72,10 @@ Route::get('profile', [ProfileController::class, 'index'])->name('profile');
 Route::post('profile/update-avatar', [ProfileController::class, 'changeImage'])->name('changeImage');
 Route::post('profile/update-info', [ProfileController::class, 'changeInfo'])->name('changeInfo');
 Route::post('profile/update-password',  [ProfileController::class, 'changePassword'])->name('changePassword');
+Route::get('profile/history',  [ProfileController::class, 'history'])->name('profile.history');
+
+Route::get('profile/history/{code}',  [ProfileController::class, 'historyDetail'])->name('profile.history.detail');
+
 // trang cửa hàng
 Route::get('cua-hang', [HomeController::class, 'show'])->name('website.product');
 

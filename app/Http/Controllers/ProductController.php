@@ -179,7 +179,7 @@ class ProductController extends Controller
             $model['status'] = 0;
             $model->save();
             return back()->with('success', 'Hiện thành công');
-        } else {
+        } else {p0vl;
             $model['status'] = 1;
             $model->save();
             return back()->with('success', 'Ẩn thành công');

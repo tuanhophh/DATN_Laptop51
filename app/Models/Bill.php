@@ -12,5 +12,14 @@ class Bill extends Model
     protected $table = "bills";
     public $fillable = ['code', 'payment_method', 'total', 'user_id', 'payment_status'];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function billDetail()
+    {
+        return $this->belongsTo(BillDetail::class, 'user_id');
+    }
 }
 

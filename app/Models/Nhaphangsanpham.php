@@ -11,4 +11,8 @@ class Nhaphangsanpham extends Model
     
     protected $table = "nhap_hang_sp";
     public $fillable = ['name','qty'];
+    public function importProduct()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }

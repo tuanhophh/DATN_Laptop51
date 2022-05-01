@@ -32,14 +32,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeAdminController::class, 'index'])->name('admin.dashboard')->middleware('can:dash-board');
+Route::get('/', [HomeAdminController::class, 'index'])->name('admin.dashboard');
 Route::prefix('bill')->group(function () {
-    Route::get('/', [BillController::class, 'index'])->name('bill.index')->middleware('can:list-bill');
-    Route::get('detail/{id}', [BillController::class, 'detail'])->name('bill.detail')->middleware('can:list-bill');
-    Route::get('edit/{id}', [BillController::class, 'edit'])->name('bill.edit')->middleware('can:edit-bill');
-    Route::post('edit/{id}', [BillController::class, 'saveEdit'])->middleware('can:edit-bill');
+    Route::get('/', [BillController::class, 'index'])->name('bill.index');
+    Route::get('detail/{id}', [BillController::class, 'detail'])->name('bill.detail');
+    Route::get('edit/{id}', [BillController::class, 'edit'])->name('bill.edit');
+    Route::post('edit/{id}', [BillController::class, 'saveEdit']);
 });
-
 Route::prefix('CompanyComputer')->group(function () {
     Route::get('/', [CompanyComputerController::class, 'index'])->name('CompanyComputer.index')->middleware('can:list-category');
     Route::get('/remove/{id}', [CompanyComputerController::class, 'remove'])->name('CompanyComputer.remove')->middleware('can:delete-category');
@@ -49,7 +48,6 @@ Route::prefix('CompanyComputer')->group(function () {
     Route::post('edit/{id}', [CompanyComputerController::class, 'saveEdit'])->middleware('can:edit-category');
     Route::get('detail/{id}', [CompanyComputerController::class, 'detail'])->middleware('can:list-category');
 });
-
 Route::prefix('nhap_sanpham')->group(function () {
     Route::get('/', [NhapsanphamController::class, 'index'])->name('nhap-sanpham.index');
     Route::get('/remove/{id}', [NhapsanphamController::class, 'remove'])->name('nhap-sanpham.remove');
@@ -59,7 +57,6 @@ Route::prefix('nhap_sanpham')->group(function () {
     Route::post('edit/{id}', [NhapsanphamController::class, 'saveEdit']);
     Route::get('detail/{id}', [NhapsanphamController::class, 'detail']);
 });
-
 Route::prefix('product')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('product.index')->middleware('can:list-product');
     Route::get('/remove/{id}', [ProductController::class, 'remove'])->name('product.remove')->middleware('can:delete-product');
@@ -110,7 +107,6 @@ Route::prefix('dat-lich')->group(function () {
     Route::get('/danh-sach-may', [BookingController::class, 'listBookingDetail'])->name('dat-lich.danh-sach-may');
     Route::post('/danh-sach-may', [BookingController::class, 'selectUserRepair']);
     // Route::get('/danh-sach-may-phan-cong', [BookingController::class, 'listBookingDetail'])->name('dat-lich.danh-sach-may');
-    Route::get('/danh-sach-may-can-sua', [BookingController::class, 'danhSachMayCanSua'])->name('dat-lich.danh-sach-may-can-sua');
 
 
     Route::get('tao-moi', [BookingController::class, 'formCreateBooking'])->name('dat-lich.add');
@@ -151,6 +147,8 @@ Route::prefix('thongke')->group(function () {
     Route::get('sanpham', [ThongkeController::class, 'sanpham'])->name('thongke-sanpham');
     Route::get('chitiet-sanpham', [ThongkeController::class, 'chitietSanpham'])->name('thongke-chitiet-sanpham');
     Route::get('order', [ThongkeController::class, 'order'])->name('thongke-order');
+    Route::get('doanhthu', [ThongkeController::class, 'doanhthu'])->name('thongke-doanhthu');
+
     Route::get('ajax', [ThongkeController::class, 'ajax']);
 });
 Route::prefix('category')->group(function () {
