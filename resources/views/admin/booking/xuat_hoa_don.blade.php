@@ -52,6 +52,7 @@
                     <td>{{ $p->unit_price }}</td>
                     <td>{{ $p->quantity }}</td>
                     <td>{{ $p->into_money }}</td>
+                    <td></td>
                 </tr>
                 @endforeach
                 <tr>

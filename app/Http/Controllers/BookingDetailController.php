@@ -48,6 +48,7 @@ class BookingDetailController extends Controller
 
     public function luuHoaDon($booking_detail_id, Request $request)
     {
+        // dd($request);
         $booking_detail = BookingDetail::find($booking_detail_id);
         $repair_parts = RepairPart::where('booking_detail_id', $booking_detail_id)->get();
 
@@ -56,7 +57,10 @@ class BookingDetailController extends Controller
                 'code_bill' => $booking_detail->code,
                 'booking_detail_id' => $booking_detail_id,
                 'date' => now(),
-                'sum_price' => array_sum(array_column($repair_parts->toArray(), 'into_money'))
+                'sum_price' => array_sum(array_column($repair_parts->toArray(), 'into_money')),
+                'customers_pay' => $request->customers_pay,
+                'excess_cash' => $request->excess_cash,
+
             ];
             $bill_repair =    BillRepair::create($data);
             foreach ($repair_parts as $r) {
@@ -64,6 +68,11 @@ class BookingDetailController extends Controller
                 DetailBillRepair::create($data1);
             }
         }
+    }
+    public function luuThongTinSuaChua($id, Request $request)
+    {
+        dd($request);
+        $booking_detail = BookingDetail::find($id);
     }
     public function xuatHoaDon($booking_detail_id)
     {

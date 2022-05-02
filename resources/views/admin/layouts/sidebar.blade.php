@@ -356,7 +356,8 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="/profile/history" class="nav-link {{ request()->is('profile/history') ? 'active' : '' }}">
+                        <a href="/profile/history"
+                            class="nav-link {{ request()->is('profile/history') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Danh sách</p>
                         </a>
