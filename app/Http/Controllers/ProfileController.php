@@ -33,13 +33,25 @@ class ProfileController extends Controller
         $user = User::find($id);
         // dd($user);
         $bill = DB::table('bill_users')
-        ->join('bills','bill_users.bill_code','bills.code')
+            ->join('bills', 'bill_users.bill_code', 'bills.code')
             ->join('bill_details', 'bills.code', 'bill_details.bill_code')
             ->join('products', 'bill_details.product_id', 'products.id')
-            ->select('bill_users.address','bills.id','bills.total', 'bills.payment_status', 'bill_details.qty', 'bill_details.price', 'bill_details.bill_code', 'bill_details.created_at', 'products.name')
+            ->select('bill_users.address', 'bills.id', 'bills.total', 'bills.payment_status', 'bill_details.qty', 'bill_details.price', 'bill_details.bill_code', 'bill_details.created_at', 'products.name')
             ->where('bills.user_id', '=', auth()->user()->id)
             ->groupBy('bills.total')
             ->get();
+
+        if (!empty(auth()->user())) {
+            $repair = DB::table('bookings')
+                ->join('booking_details', 'bookings.id', 'booking_details.booking_id')
+                ->join('repair_parts', 'booking_details.id', 'repair_parts.booking_detail_id')
+                ->select('repair_parts.into_money','bookings.created_at','booking_details.status_booking','booking_details.code')
+                ->where('bookings.phone', '=', auth()->user()->phone)
+                ->get();
+
+            return view('website.profile', compact('user', 'bill', 'repair'))->with('message', 'Đăng nhập thành công');
+        }
+
         return view('website.profile', compact('user', 'bill'))->with('message', 'Đăng nhập thành công');
     }
 
@@ -55,8 +67,7 @@ class ProfileController extends Controller
     public function restoreOrder(Request $request, $code)
     {
         $data = Bill::where('code', $code)->first();
-        if($data['payment_status'] ==0)
-        {
+        if ($data['payment_status'] == 0) {
             $data['payment_status'] = 1;
             $data->save();
         }
@@ -65,7 +76,7 @@ class ProfileController extends Controller
         //     $data->save();
         // }
         // dd($data);
-        
+
         return redirect()->back();
     }
 
@@ -172,6 +183,6 @@ class ProfileController extends Controller
             ->where('bill_details.bill_code', '=', $code)
             // ->groupBy('bill_details.bill_code')
             ->get();
-        return view('website.history-detail', compact('bill', 'code','user'));
+        return view('website.history-detail', compact('bill', 'code', 'user'));
     }
 }
