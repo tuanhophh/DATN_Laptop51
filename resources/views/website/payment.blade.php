@@ -21,15 +21,28 @@
 </head>
 
 <body class="template-page-home">
-    @include('layout_client.header')
+    @include('layout_client.menu')
     <!-- Content -->
-    <div class="container bg-light mt-4">
-    @if(session()->has('message'))
-        <div class="alert alert-success">
-            {{ session()->get('message') }}
+    <div class="breadcrumbs-section plr-200 mb-80 section">
+        <div class="breadcrumbs overlay-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumbs-inner">
+                            <h1 class="breadcrumbs-title">Thanh Toán</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    @endif
-        <form action="{{URL::to('/save-payment')}}" method="POST">
+    </div>
+    <div class="container bg-light mt-4">
+        @if (session()->has('message'))
+            <div class="alert alert-success">
+                {{ session()->get('message') }}
+            </div>
+        @endif
+        <form action="{{ URL::to('/save-payment') }}" method="POST">
             @csrf
             <!-- 2 column grid layout with text inputs for the first and last names -->
             <div class="row">
@@ -41,34 +54,38 @@
                         </div>
                         <hr class="pt-0 mt-0">
                         @error('name')
-                        <small class="font-italic text-danger p-0 m-0">{{ $message }}</small>
+                            <small class="font-italic text-danger p-0 m-0">{{ $message }}</small>
                         @enderror
                         <div class="form-outline mb-2 mx-2">
-                            <input type="text" name="name" value="{{ old('name') }}" id="form6Example1" class="form-control" />
+                            <input type="text" name="name" value="{{ old('name') }}" id="form6Example1"
+                                class="form-control" />
                             <label class="form-label" for="form6Example1">Họ và tên</label>
                         </div>
                         @error('email')
-                        <small class="font-italic text-danger p-0 m-0">{{ $message }}</small>
+                            <small class="font-italic text-danger p-0 m-0">{{ $message }}</small>
                         @enderror
                         <!-- Email input -->
                         <div class="form-outline mb-2 mx-2">
-                            <input type="email" name="email" value="{{ old('email') }}" id="form6Example5" class="form-control" />
+                            <input type="email" name="email" value="{{ old('email') }}" id="form6Example5"
+                                class="form-control" />
                             <label class="form-label" for="form6Example5">Email</label>
                         </div>
                         @error('phone')
-                        <small class="font-italic text-danger p-0 m-0">{{ $message }}</small>
+                            <small class="font-italic text-danger p-0 m-0">{{ $message }}</small>
                         @enderror
                         <!-- Number input -->
                         <div class="form-outline mb-2 mx-2">
-                            <input type="number" name="phone" value="{{ old('phone') }}" id="form6Example6" class="form-control" />
+                            <input type="number" name="phone" value="{{ old('phone') }}" id="form6Example6"
+                                class="form-control" />
                             <label class="form-label" for="form6Example6">Số điện thoại</label>
                         </div>
                         @error('address')
-                        <small class="font-italic text-danger p-0 m-0">{{ $message }}</small>
+                            <small class="font-italic text-danger p-0 m-0">{{ $message }}</small>
                         @enderror
                         <!-- Text input -->
                         <div class="form-outline mb-2 mx-2">
-                            <input type="text" name="address" value="{{ old('address') }}" id="form6Example4" class="form-control" />
+                            <input type="text" name="address" value="{{ old('address') }}" id="form6Example4"
+                                class="form-control" />
                             <label class="form-label" for="form6Example4">Địa chỉ nhà</label>
                         </div>
                         <!-- Message input -->
@@ -98,8 +115,8 @@
                                 <label class="form-check-label" for="flexRadioDefault2"> Thanh toán trực tuyến </label>
                             </div>
                             @error('payment_method')
-                            <small class="font-italic text-danger p-0 m-0">{{ $message }}</small>
-                        @enderror
+                                <small class="font-italic text-danger p-0 m-0">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-12 ms-auto border border-warning rounded mt-3 p-0">
@@ -109,16 +126,16 @@
                             </div>
                             <hr class="pt-0 mt-0">
                             <div class="p-0 m-0">
-                            <?php
-                                    use Gloudemans\Shoppingcart\Facades\Cart;
-
-                                    $total = str_replace(',','.',Cart::subtotal())
-                                    // dd($content);
+                                <?php
+                                use Gloudemans\Shoppingcart\Facades\Cart;
+                                
+                                $total = str_replace(',', '.', Cart::subtotal());
+                                // dd($content);
                                 ?>
                                 <!-- <input class="form-check-input" type="radio" name="flexRadioDefault"
                                     id="flexRadioDefault2" checked /> -->
                                 <label class="form-check-label mx-2">
-                                    <p class="p-0 m-0 fw-bold text-danger">Thanh toán: {{Cart::subtotal()}} VNĐ</p>
+                                    <p class="p-0 m-0 fw-bold text-danger">Thanh toán: {{ Cart::subtotal() }} VNĐ</p>
                                 </label>
                                 <p class="m-0 p-0 mx-2">
                                     <small class="fw-lighter">
