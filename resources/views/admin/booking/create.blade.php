@@ -29,6 +29,14 @@
     <small id="helpId" class="form-text text-danger">{{ $message }}</small>
     @enderror</small>
   </div>
+  <div class="col-4">
+    <label for="">Ngày sửa</label>
+    <input type="date" class="form-control" name="date" value="{{ old('date') }}" id="" aria-describedby="helpId"
+      placeholder="">
+    @error('date')
+    <small id="helpId" class="form-text text-danger">{{ $message }}</small>
+    @enderror</small>
+  </div>
 
   <div class="col-4">
     <label for="">Nơi sửa chữa</label> <br>

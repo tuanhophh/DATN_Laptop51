@@ -1,6 +1,6 @@
 @extends('admin.layouts.main')
 @section('content')
-<div class="table-responsive">
+<div class="table-responsive " style="background-color: white">
     <table class="table align-items-center table-flush">
         <thead class="thead-light">
             <tr>
@@ -77,7 +77,7 @@
                         {{-- <label for=""></label> --}}
                         <form action="" method="POST" class="d-flex">
                             @csrf
-                            <select id="" @if ($b->active==1||!$b->active||$b->active==0||$b->active==3)
+                            <select id="" @if ($b->active==0||$b->active==3||$b->active==4)
                                 disabled
 
                                 @endif class="form-control" name="staff">
@@ -92,7 +92,7 @@
                                     @endif value="{{ $u->id }}">{{ $u->name }}</option>
                                 @endforeach
                             </select><input type="hidden" name="booking_detail_id" value="{{ $b->id }}">
-                            <button @if ($b->active==1||$b->active==2||!$b->active||$b->active==0)
+                            <button @if ($b->active==0||$b->active==3||$b->active==4)
                                 disabled
 
                                 @endif class="btn btn-primary" type="submit">Chọn</button>

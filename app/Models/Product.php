@@ -26,4 +26,9 @@ class Product extends Model
     {
         return $this->belongsToMany(AttributeValue::class, 'attribute_value','product_id','category_id');
     }
+
+    public function bill()
+    {
+        return $this->hasMany(BillDetail::class, 'product_id');
+    }
 }

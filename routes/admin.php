@@ -3,6 +3,7 @@
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingDetailController;
+use App\Http\Controllers\CategoryComponentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyComputerController;
 use App\Http\Controllers\DetailProductController;
@@ -28,12 +29,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeAdminController::class, 'index'])->name('admin.dashboard')->middleware('can:dash-board');
-Route::prefix('bill')->group(function(){
-Route::get('/',[BillController::class,'index'])->name('bill.index')->middleware('can:list-bill');
-Route::get('detail/{id}',[BillController::class,'detail'])->name('bill.detail')->middleware('can:list-bill');
-Route::get('edit/{id}',[BillController::class,'edit'])->name('bill.edit')->middleware('can:edit-bill');
-Route::post('edit/{id}',[BillController::class,'saveEdit'])->middleware('can:edit-bill');
+Route::get('/', [HomeAdminController::class, 'index'])->name('admin.dashboard');
+Route::prefix('bill')->group(function () {
+    Route::get('/', [BillController::class, 'index'])->name('bill.index');
+    Route::get('detail/{id}', [BillController::class, 'detail'])->name('bill.detail');
+    Route::get('edit/{id}', [BillController::class, 'edit'])->name('bill.edit');
+    Route::post('edit/{id}', [BillController::class, 'saveEdit']);
 });
 Route::prefix('CompanyComputer')->group(function () {
     Route::get('/', [CompanyComputerController::class, 'index'])->name('CompanyComputer.index')->middleware('can:list-category');
@@ -62,7 +63,6 @@ Route::prefix('product')->group(function () {
     Route::post('edit/{id}', [ProductController::class, 'saveEdit'])->middleware('can:edit-product');
     Route::get('detail/{id}', [ProductController::class, 'detail'])->middleware('can:edit-product');
     Route::post('show-hide/{id}', [ProductController::class, 'ShowHide'])->name('product.show-hide')->middleware('can:edit-product');
-
 });
 Route::prefix('detail-product')->group(function () {
     Route::get('/', [DetailProductController::class, 'index'])->name('detail-product.index')->middleware('can:list-product');
@@ -73,12 +73,21 @@ Route::prefix('detail-product')->group(function () {
     Route::post('edit/{id}', [DetailProductController::class, 'saveEdit'])->middleware('can:edit-product');
     Route::get('detail/{id}', [DetailProductController::class, 'detail'])->middleware('can:list-product');
 });
+Route::prefix('component')->group(function () {
+    Route::get('/', [DetailProductController::class, 'index'])->name('component.index');
+    Route::get('/remove/{id}', [DetailProductController::class, 'remove'])->name('component.remove');
+    Route::get('add', [DetailProductController::class, 'addForm'])->name('component.add');
+    Route::post('add', [DetailProductController::class, 'saveAdd'])->middleware('can:add-product');
+    Route::get('edit/{id}', [DetailProductController::class, 'editForm'])->name('component.edit');
+    Route::post('edit/{id}', [DetailProductController::class, 'saveEdit']);
+    Route::get('detail/{id}', [DetailProductController::class, 'detail']);
+});
 // Route::prefix('login')->group(function () {
 //     Route::get('/', [LoginController::class, 'index'])->name('admin.login');
 // });
 Route::prefix('dat-lich')->group(function () {
     Route::get('/', [BookingController::class, 'listBookingDetail'])->name('dat-lich.index');
-    Route::post('/', [BookingController::class, 'selectUserRepair']);
+    Route::post('/', [BookingController::class, 'selectStatusBooking']);
 
     Route::get('/danh-sach-may', [BookingController::class, 'listBookingDetail'])->name('dat-lich.danh-sach-may');
     Route::post('/danh-sach-may', [BookingController::class, 'selectUserRepair']);
@@ -101,12 +110,28 @@ Route::prefix('sua-chua')->group(function () {
     Route::get('/{id}', [BookingController::class, 'repairDetail'])->name('suachua.get');
     Route::post('/{id}', [BookingController::class, 'FinishRepairDetail']);
     Route::get('/detail-product/{id}', [BookingDetailController::class, 'getDetailProduct']);
+    // Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaDuocPhanTho']);
+    // Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaDuocPhanTho']);
+    // Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaDuocPhanTho']);
+
 });
 
+Route::post('chuyen-trang-thai', [BookingController::class, 'selectStatusBooking'])->name('dat-lich.chuyen-trang-thai');
+Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaPhanTho'])->name('sua-chua.danh-sach-chua-phan-tho');
+Route::get('/danh-sach-da-sua-xong', [BookingController::class, 'DanhSachDaSuaXong'])->name('sua-chua.danh-sach-da-sua-xong');
+Route::get('/danh-sach-cho-sua', [BookingController::class, 'DanhSachChoSua'])->name('sua-chua.danh-sach-cho-sua');
+Route::get('/danh-sach-chua-xac-nhan', [BookingController::class, 'DanhSachChuaXacNhan'])->name('sua-chua.danh-sach-chua-xac-nhan');
+
+// Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaPhanTho']);
+
+
 Route::prefix('thongke')->group(function () {
+
     Route::get('sanpham', [ThongkeController::class, 'sanpham'])->name('thongke-sanpham');
     Route::get('chitiet-sanpham', [ThongkeController::class, 'chitietSanpham'])->name('thongke-chitiet-sanpham');
     Route::get('order', [ThongkeController::class, 'order'])->name('thongke-order');
+    Route::get('doanhthu', [ThongkeController::class, 'doanhthu'])->name('thongke-doanhthu');
+
     Route::get('ajax', [ThongkeController::class, 'ajax']);
 });
 Route::prefix('category')->group(function () {
@@ -118,6 +143,15 @@ Route::prefix('category')->group(function () {
     Route::post('edit/{id}', [CategoryController::class, 'saveEdit'])->middleware('can:edit-product');
     // Route::get('detail/{id}', [CategoryController::class, 'detail'])->middleware('can:delete-category');
 });
+Route::prefix('category_component')->group(function () {
+    Route::get('/', [CategoryComponentController::class, 'index'])->name('category_component.index')->middleware('can:list-product');
+    Route::get('/remove/{id}', [CategoryComponentController::class, 'remove'])->name('category_component.remove')->middleware('can:delete-product');
+    Route::get('add', [CategoryComponentController::class, 'addForm'])->name('category_component.add')->middleware('can:add-product');
+    Route::post('add', [CategoryComponentController::class, 'saveAdd'])->middleware('can:add-product');
+    Route::get('edit/{id}', [CategoryComponentController::class, 'editForm'])->name('category_component.edit')->middleware('can:edit-product');
+    Route::post('edit/{id}', [CategoryComponentController::class, 'saveEdit'])->middleware('can:edit-product');
+    // Route::get('detail/{id}', [CategoryController::class, 'detail'])->middleware('can:delete-category_component');
+});
 
 Route::prefix('user')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('user.index')->middleware('can:list-user');
@@ -128,12 +162,10 @@ Route::prefix('user')->group(function () {
     Route::post('edit/{id}', [UserController::class, 'saveEdit'])->middleware('can:edit-user');
 });
 Route::prefix('roles')->group(function () {
-    Route::get('/', [RoleController::class, 'index'])->name('roles.index')->middleware('can:list-role');
-    Route::get('add', [RoleController::class, 'create'])->name('roles.create')->middleware('can:add-role');
-    Route::post('add', [RoleController::class, 'store'])->name(('roles.store'))->middleware('can:add-role');
-    Route::get('remove/{id}', [RoleController::class, 'remove'])->name('roles.remove')->middleware('can:delete-role');
-    Route::get('edit/{id}', [RoleController::class, 'edit'])->name('roles.edit')->middleware('can:edit-role');
-    Route::post('edit/{id}', [RoleController::class, 'update'])->name('roles.update')->middleware('can:edit-role');
+    Route::get('/', [RoleController::class, 'index'])->name('roles.index');
+    Route::get('add', [RoleController::class, 'create'])->name('roles.create');
+    Route::post('add', [RoleController::class, 'store'])->name(('roles.store'));
+    Route::get('remove/{id}', [RoleController::class, 'remove'])->name('roles.remove');
+    Route::get('edit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::post('edit/{id}', [RoleController::class, 'update'])->name('roles.update');
 });
-
-

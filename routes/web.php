@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
+
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/register', function () {
@@ -83,10 +84,14 @@ Route::get('vnpay/return', [PaymentController::class, 'vnpayReturn'])->name('vnp
 // });
 
 //     trang cá nhân
-Route::get('profile',[ProfileController::class, 'index'])->name('profile');
-Route::post('profile/update-avatar',[ProfileController::class, 'changeImage'])->name('changeImage');
-Route::post('profile/update-info',[ProfileController::class, 'changeInfo'])->name('changeInfo');
-Route::post('profile/update-password',  [ProfileController::class,'changePassword'])->name('changePassword');
+Route::get('profile', [ProfileController::class, 'index'])->name('profile');
+Route::post('profile/update-avatar', [ProfileController::class, 'changeImage'])->name('changeImage');
+Route::post('profile/update-info', [ProfileController::class, 'changeInfo'])->name('changeInfo');
+Route::post('profile/update-password',  [ProfileController::class, 'changePassword'])->name('changePassword');
+Route::get('profile/history',  [ProfileController::class, 'history'])->name('profile.history');
+
+Route::get('profile/history/{code}',  [ProfileController::class, 'historyDetail'])->name('profile.history.detail');
+
 // trang cửa hàng
 Route::get('cua-hang', [HomeController::class, 'show'])->name('website.product');
 
@@ -121,6 +126,10 @@ Route::post('dat-lich', [BookingController::class, 'creatBooking']);
 // trang liên hệ
 Route::get('lien-he', function () {
     return view('website.contact');
+});
+// trang tin tức
+Route::get('tin-tuc', function () {
+    return view('website.tin-tuc');
 });
 // trang lỗi 404
 Route::get('404', function () {

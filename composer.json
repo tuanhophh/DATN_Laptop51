@@ -11,6 +11,7 @@
         "php": "^7.3|^8.0",
         "barryvdh/laravel-dompdf": "^1.0",
         "bumbummen99/shoppingcart": "^4.1",
+        "carlos-meneses/laravel-mpdf": "^2.1",
         "ckfinder/ckfinder-laravel-package": "^3.5",
         "doctrine/dbal": "^3.3",
         "fruitcake/laravel-cors": "^2.0",

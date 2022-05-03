@@ -30,7 +30,7 @@ class PaymentController extends Controller
     }
 
 
-    public function savePayment(BillRequest $request)
+    public function savePayment(Request $request)
     {
         // Tạo mã ngẫu nhiên 16 số
         $pool = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';

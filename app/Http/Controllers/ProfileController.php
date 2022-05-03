@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
+use App\Models\Bill;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
@@ -106,6 +108,39 @@ class ProfileController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
         return Redirect::back()->with('message','Thay đổi mật khẩu thành công');
+    }
+
+    public function history(){
+        // dd(auth()->user());
+        // $bill=DB::table('bills')
+        // ->join('bill_details','bills.code','bill_details.bill_code')
+        // ->join('products','bill_details.product_id','products.id')
+        // ->select('bills.total','bill_details.qty','bill_details.bill_code','bill_details.price','bill_details.created_at','products.name')
+        // ->where('bills.user_id','=',auth()->user()->id)
+        // ->where('bill_details.bill_code','=',$a)
+        // ->groupBy('bill_details.bill_code')
+        // ->get();
+        $bill=DB::table('bills')
+        ->join('bill_details','bills.code','bill_details.bill_code')
+        ->join('products','bill_details.product_id','products.id')
+        ->select('bills.total','bill_details.qty','bill_details.price','bill_details.bill_code','bill_details.created_at','products.name')
+        ->where('bills.user_id','=',auth()->user()->id)
+        ->groupBy('bills.total')
+        ->get();
+    return view('website.history',compact('bill'));
+    }
+
+    public function historyDetail(Request $request,$code){
+        
+        $bill=DB::table('bills')
+        ->join('bill_details','bills.code','bill_details.bill_code')
+        ->join('products','bill_details.product_id','products.id')
+        ->select('bills.total','bill_details.qty','bill_details.bill_code','bill_details.price','bill_details.created_at','products.name','products.image')
+        ->where('bills.user_id','=',auth()->user()->id)
+        ->where('bill_details.bill_code','=',$code)
+        // ->groupBy('bill_details.bill_code')
+        ->get();
+        return view('website.history-detail',compact('bill','code'));
     }
 
 }

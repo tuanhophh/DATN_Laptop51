@@ -37,10 +37,10 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($order as $item)
+            @foreach ($doanhthu as $item)
                 <tr>
                     <th>
-                        {{ $item->booking_detail->booking_id}}
+                        {{ $item->id}}
                     </th>
                     {{-- <th>{{ $item->qty }} </th> --}}
                     <th>
