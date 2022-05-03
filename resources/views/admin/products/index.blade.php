@@ -136,9 +136,9 @@
                                 </form>
                                 @endif
                                 @endcan
-                                <!-- <a onclick="return confirm('Bạn có chắc muốn xóa')"
+                                 <a onclick="return confirm('Bạn có chắc muốn xóa')"
                                     href="{{route('product.remove', ['id' => $item->id])}}"
-                                    class="btn btn-sm btn-danger">Xóa</a> -->
+                                    class="btn btn-sm btn-danger">Xóa</a>
                             </td>
                         </tr>
                         @endforeach

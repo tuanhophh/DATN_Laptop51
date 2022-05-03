@@ -103,8 +103,8 @@ class ProductController extends Controller
             ];
         }
         DB::table('attribute_value')->insert($data);
-        if ($request->hasfile('images')) {
-            foreach ($request->file('images') as $key => $file) {
+        if ($request->hasfile('anh')) {
+            foreach ($request->file('anh') as $key => $file) {
                 $path = $file->store('products');
                 $path = str_replace('public/', 'storage/', $path);
                 $name = $file->getClientOriginalName();
@@ -148,14 +148,14 @@ class ProductController extends Controller
         $model->save();
         $images = DB::table('product_images')->where('product_id', $id)->get();
 
-        if ($request->hasfile('images')) {
-            foreach ($request->file('images') as $key => $file) {
-                $path = $file->store('products');
-                $path = str_replace('public/', 'storage/', $path);
-                $name = $file->getClientOriginalName();
-                $insert[$key]['name_image'] = $name;
+        if ($request->hasfile('anh')) {
+            foreach ($request->file('anh') as $key => $file) {
+                $imgPath = $request->file('anh')->store('products');
+                $imgPath = str_replace('public/', 'storage/', $imgPath);
+                $a = $request->merge(['image' => $imgPath]);
+                $insert[$key]['name_image'] = $a;
                 $insert[$key]['product_id'] = $model->id;
-                $insert[$key]['path'] = $path;
+                $insert[$key]['path'] = $imgPath;
             }
             foreach ($images as $image) {
 
