@@ -137,7 +137,7 @@
                 @endforeach
                 <div class="form-group pt-1 pr-2">
                     <label for="">Thời gian bảo hành</label>
-                    <input type="number" name="insurance" value="{{ $pro->price }}" placeholder="Thời gian bảo hành"
+                    <input type="number" name="insurance" value="{{ $pro->insurance }}" placeholder="Thời gian bảo hành"
                         class="form-control">
                 </div>
                 <div class="form-group pr-2">

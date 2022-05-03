@@ -78,6 +78,10 @@ Route::post('cancel-order/{code}',[ProfileController::class,'cancelOrder'])->nam
 Route::post('restore-order/{code}',[ProfileController::class,'restoreOrder'])->name('restore-order');
 Route::get('profile/history/{code}',  [ProfileController::class, 'historyDetail'])->name('profile.history.detail');
 
+Route::post('cancel-repair/{code}',[ProfileController::class,'cancelRepair'])->name('cancel-repair');
+Route::post('restore-repair/{code}',[ProfileController::class,'restoreRepair'])->name('restore-repair');
+Route::get('profile/history-repair/{code}',  [ProfileController::class, 'historyDetailRepair'])->name('profile.history.detail-repair');
+
 // trang cửa hàng
 Route::get('cua-hang', [HomeController::class, 'show'])->name('website.product');
 

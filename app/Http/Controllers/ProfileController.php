@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
 use App\Models\Bill;
+use App\Models\BookingDetail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -71,11 +72,26 @@ class ProfileController extends Controller
             $data['payment_status'] = 1;
             $data->save();
         }
-        // if($data['payment_status']==3){
-        //     $bill['']
-        //     $data->save();
-        // }
+
+        return redirect()->back();
+    }
+
+    public function cancelRepair(Request $request, $code)
+    {
+        $data = BookingDetail::where('code', $code)->first();
+        $data['status_booking'] = 'cancel';
         // dd($data);
+        $data->save();
+        return redirect()->back();
+    }
+
+    public function restoreRepair(Request $request, $code)
+    {
+        $data = BookingDetail::where('code', $code)->first();
+        if ($data['payment_status'] == 0) {
+            $data['payment_status'] = 1;
+            $data->save();
+        }
 
         return redirect()->back();
     }
