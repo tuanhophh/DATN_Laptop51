@@ -79,8 +79,10 @@
                         <th class="px-0 text-center" style="width: 1px;">STT</th>
                         <th>Tên</th>
                         <th>Slug</th>
+                        <th>Ảnh</th>
                         <th>Giá mua</th>
                         <th>Giá bán</th>
+                        <th>Số lượng</th>
                         <th class="px-0 text-center">Bảo hành</th>
                         <th class="px-0 text-center">Trạng thái</th>
                         <th>
@@ -95,20 +97,21 @@
                             <td>{{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->slug }}</td>
-                            <!-- <td>
+                            {{-- <td>
                                 {{ $item->companyComputer->company_name }}
-                            </td>
+                            </td> --}}
                             <td>
                                 <img src="{{ asset($item->image) }}" width="100">
-                            </td> -->
+                            </td> 
                             <td>{{ $item->import_price }}</td>
                             <td>{{ $item->price }}</td>
+                            <td>{{$item->qty}}</td>
                             <td>{{ $item->insurance }}</td>
                             <td>{{ $item->status == 1 ? 'Hiển thị' : 'Không hiển thị' }}</td>
                             <td>
                                 @can('edit-product')
-                                <!-- <a href="{{ route('nhap-sanpham.add', ['id' => $item->id]) }}"
-                                    class="btn btn-sm btn-success">Thêm SL</a> -->
+                                <a href="{{ route('nhap-sanpham.add', ['id' => $item->id]) }}"
+                                    class="btn btn-sm btn-success">Thêm SL</a>
                                 <a href="{{ route('product.edit', ['id' => $item->id]) }}"
                                     class="btn btn-sm btn-warning">Sửa</a>
                                 @endcan
