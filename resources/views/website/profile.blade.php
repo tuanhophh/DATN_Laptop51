@@ -383,6 +383,8 @@
                                 <ul class="nav nav-pills">
                                     <li class="nav-item"><a class="nav-link active" href="#activity"
                                             data-toggle="tab">Lịch sử mua hàng</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#timeline"
+                                            data-toggle="tab">Lịch sử sửa chữa</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#settings"
                                             data-toggle="tab">Cài đặt</a></li>
                                 </ul>
@@ -401,6 +403,7 @@
                                                     <th>Ngày mua hàng</th>
                                                     <th>Trạng thái</th>
                                                     <th>Địa chỉ</th>
+                                                    <th></th>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($bill as $item)
@@ -408,7 +411,7 @@
                                                             <td>{{ $loop->iteration }}</td>
                                                             <td>{{ $item->bill_code }}</td>
                                                             <td>{{ $item->total }}</td>
-                                                            <td>{{ $item->created_at }}</td>
+                                                            <td>{{ date('d-m-yy', strtotime($item->created_at)) }}</td>
                                                             <td>
                                                                 @if ($item->payment_status == 0)
                                                                     Đã hủy
@@ -418,8 +421,8 @@
                                                                     Hoàn thành
                                                                 @endif
                                                             </td>
-                                                            <td>{{$item->address}}</td>
-                                                            <td><a href="{{ route('profile.history.detail', ['code' => $item->bill_code]) }}"
+                                                            <td>{{ $item->address }}</td>
+                                                            <td class="col-6"><a href="{{ route('profile.history.detail', ['code' => $item->bill_code]) }}"
                                                                     class="btn btn-info">Chi tiết</a></td>
                                                             <td>
                                                                 @if ($item->payment_status == 1)
@@ -445,7 +448,7 @@
                                                     @endforeach
                                                 </tbody>
                                             </table>
-                                            
+
                                             <!-- END timeline item -->
                                             <!-- timeline item -->
                                             <div>
@@ -454,6 +457,44 @@
                                         </div>
 
                                         <!-- /.post -->
+                                    </div>
+
+                                    <div class="tab-pane" id="timeline">
+
+                                        <div class="timeline timeline-inverse">
+                                        
+                                            <table class="table ">
+                                                <thead>
+                                                    <th>STT</th>
+                                                    <th>Mã hóa đơn</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Ngày sửa</th>
+                                                    <th>Trạng thái</th>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($repair as $item)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $item->code }}</td>
+                                                            <td>{{ $item->into_money }}</td>
+                                                            <td>{{ date('d-m-yy', strtotime($item->created_at)) }}</td>
+                                                            <td>
+                                                                @if ($item->status_booking == 'cancel')
+                                                                    Đã hủy
+                                                                @elseif($item->status_booking == 'received')
+                                                                    Đang chờ
+                                                                {{-- @else
+                                                                    Xác nhận --}}
+                                                                @endif
+                                                            </td>
+                                                            {{-- <td><a href="{{ route('profile.history.detail-repair', ['code' => $item->bill_code]) }}"
+                                                                    class="btn btn-info">Chi tiết</a></td> --}}
+                                                            
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
 
                                     <div class="tab-pane" id="settings">
