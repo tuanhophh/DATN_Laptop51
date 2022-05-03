@@ -16,6 +16,7 @@ use App\Http\Controllers\UserController;
 use App\Models\ComputerCompany;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,7 +74,8 @@ Route::post('profile/update-avatar', [ProfileController::class, 'changeImage'])-
 Route::post('profile/update-info', [ProfileController::class, 'changeInfo'])->name('changeInfo');
 Route::post('profile/update-password',  [ProfileController::class, 'changePassword'])->name('changePassword');
 Route::get('profile/history',  [ProfileController::class, 'history'])->name('profile.history');
-
+Route::post('cancel-order/{code}',[ProfileController::class,'cancelOrder'])->name('cancel-order');
+Route::post('restore-order/{code}',[ProfileController::class,'restoreOrder'])->name('restore-order');
 Route::get('profile/history/{code}',  [ProfileController::class, 'historyDetail'])->name('profile.history.detail');
 
 // trang cửa hàng

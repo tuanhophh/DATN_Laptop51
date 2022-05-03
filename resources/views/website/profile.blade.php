@@ -393,54 +393,59 @@
                                         <!-- Post -->
                                         <div class="timeline timeline-inverse">
                                             <!-- timeline time label -->
-                                            <div class="time-label">
-                                                <p>
-                                                    Ngày mua: 10 Feb. 2014
-                                                </p>
-                                            </div>
-                                            <!-- /.timeline-label -->
-                                            <!-- timeline item -->
-                                            <div>
-                                                <div class="timeline-item">
-                                                    <div class="row">
-                                                        <div class="col-3">
-                                                            <img src="{{ asset($user->avatar) }}" alt=""
-                                                                style="background-size: 150px 150px;width: 200px;height: 170px;">
-                                                        </div>
-                                                        <div class="col-7">
-                                                            <h3 class="timeline-header"><a href="#">Name product</a>
-                                                            </h3>
-                                                            <div class="timeline-body">
-                                                                Etsy doostang zoodles disqus groupon greplin oooj voxy
-                                                                zoodles,
-                                                                weebly ning heekya handango imeem plugg dopplr jibjab,
-                                                                movity
-                                                                jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo
-                                                                kaboodle
-                                                                quora plaxo ideeli hulu weebly balihoo...
-                                                            </div>
-                                                            <br>
-                                                            <div class="timeline-footer">
-                                                                <div class="row flex">
-                                                                    <div class="col-6"><a
-                                                                            href="{{ asset('') }}lich-su/id"
-                                                                            class="button extra-small">
-                                                                            <span class="text-uppercase">Chi tiết</span>
-                                                                        </a></div>
-                                                                    <div class="col-4 ">
-                                                                        <b class="text-danger"
-                                                                            style="font-size: 20px"><i>123.456.789
-                                                                                VNĐ </i></b>
-                                                                    </div>
-                                                                </div>
+                                            <table class="table ">
+                                                <thead>
+                                                    <th>STT</th>
+                                                    <th>Mã hóa đơn</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Ngày mua hàng</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Địa chỉ</th>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($bill as $item)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $item->bill_code }}</td>
+                                                            <td>{{ $item->total }}</td>
+                                                            <td>{{ $item->created_at }}</td>
+                                                            <td>
+                                                                @if ($item->payment_status == 0)
+                                                                    Đã hủy
+                                                                @elseif($item->payment_status == 1)
+                                                                    Đang chờ
+                                                                @else
+                                                                    Hoàn thành
+                                                                @endif
+                                                            </td>
+                                                            <td>{{$item->address}}</td>
+                                                            <td><a href="{{ route('profile.history.detail', ['code' => $item->bill_code]) }}"
+                                                                    class="btn btn-info">Chi tiết</a></td>
+                                                            <td>
+                                                                @if ($item->payment_status == 1)
+                                                                    <form
+                                                                        action="{{ route('cancel-order', ['code' => $item->bill_code]) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <button type="submit" class="btn btn-danger">Hủy
+                                                                            đơn</button>
+                                                                    </form>
+                                                                @else
+                                                                    <form
+                                                                        action="{{ route('restore-order', ['code' => $item->bill_code]) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Mua lại</button>
+                                                                    </form>
+                                                                @endif
+                                                            </td>
 
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                            
                                             <!-- END timeline item -->
                                             <!-- timeline item -->
                                             <div>
