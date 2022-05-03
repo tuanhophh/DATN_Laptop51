@@ -51,12 +51,12 @@
                                         <!-- categories -->
                                         <div class="dropdown f-left">
                                             <button class="option-btn">
-                                                Categories
+                                                Danh mục
                                                 <i class="zmdi zmdi-chevron-down"></i>
                                             </button>
                                             <div class="dropdown-menu dropdown-width mt-30">
                                                 <aside class="widget widget-categories box-shadow">
-                                                    <h6 class="widget-title border-left mb-20">Categories</h6>
+                                                    <h6 class="widget-title border-left mb-20">Danh mục</h6>
                                                     <div id="cat-treeview-2" class="product-cat">
                                                         <ul>
                                                             <li class="closed"><a href="#">Brand One</a>
@@ -107,77 +107,19 @@
                                                 </aside>
                                             </div>
                                         </div>
-                                        <!-- recent-product -->
-                                        <div class="dropdown f-left">
-                                            <button class="option-btn">
-                                                Recent Post
-                                                <i class="zmdi zmdi-chevron-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-width mt-30">
-                                                <aside class="widget widget-product box-shadow">
-                                                    <h6 class="widget-title border-left mb-20">recent products</h6>
-                                                    <!-- product-item start -->
-                                                    <div class="product-item">
-                                                        <div class="product-img">
-                                                            <a href="single-product.html">
-                                                                <img src="img/cart/4.jpg" alt="" />
-                                                            </a>
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <h6 class="product-title multi-line mt-10">
-                                                                <a href="single-product.html">Dummy Blog Name</a>
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                    <!-- product-item end -->
-                                                    <!-- product-item start -->
-                                                    <div class="product-item">
-                                                        <div class="product-img">
-                                                            <a href="single-product.html">
-                                                                <img src="img/cart/5.jpg" alt="" />
-                                                            </a>
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <h6 class="product-title multi-line mt-10">
-                                                                <a href="single-product.html">Dummy Blog Name</a>
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                    <!-- product-item end -->
-                                                    <!-- product-item start -->
-                                                    <div class="product-item">
-                                                        <div class="product-img">
-                                                            <a href="single-product.html">
-                                                                <img src="img/cart/6.jpg" alt="" />
-                                                            </a>
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <h6 class="product-title multi-line mt-10">
-                                                                <a href="single-product.html">Dummy Blog Name</a>
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                    <!-- product-item end -->
-                                                </aside>
-                                            </div>
-                                        </div>
                                         <!-- Tags -->
                                         <div class="dropdown f-left">
                                             <button class="option-btn">
-                                                Tags
+                                                Người đăng
                                                 <i class="zmdi zmdi-chevron-down"></i>
                                             </button>
                                             <div class="dropdown-menu dropdown-width mt-30">
                                                 <aside class="widget widget-tags box-shadow">
-                                                    <h6 class="widget-title border-left mb-20">Tags</h6>
+                                                    <h6 class="widget-title border-left mb-20">Người đăng</h6>
                                                     <ul class="widget-tags-list">
-                                                        <li><a href="#">Bleckgerry ios</a></li>
-                                                        <li><a href="#">Symban</a></li>
-                                                        <li><a href="#">IOS</a></li>
-                                                        <li><a href="#">Bleckgerry</a></li>
-                                                        <li><a href="#">Windows Phone</a></li>
-                                                        <li><a href="#">Windows Phone</a></li>
-                                                        <li><a href="#">Androids</a></li>
+                                                        <li><a href="#">Admin</a></li>
+                                                        <li><a href="#">Lễ tân</a></li>
+                                                        <li><a href="#">Thợ sửa</a></li>
                                                     </ul>
                                                 </aside>
                                             </div>
@@ -418,13 +360,13 @@
                             <!-- widget-search -->
                             <aside class="widget-search mb-30">
                                 <form action="#">
-                                    <input type="text" placeholder="Search here...">
+                                    <input type="text" placeholder="Tìm kiếm...">
                                     <button type="submit"><i class="zmdi zmdi-search"></i></button>
                                 </form>
                             </aside>
                             <!-- widget-categories -->
                             <aside class="widget widget-categories box-shadow mb-30">
-                                <h6 class="widget-title border-left mb-20">Categories</h6>
+                                <h6 class="widget-title border-left mb-20">Danh mục tin tức</h6>
                                 <div id="cat-treeview" class="product-cat">
                                     <ul>
                                         <li class="closed"><a href="#">Brand One</a>
@@ -473,38 +415,10 @@
                                     </ul>
                                 </div>
                             </aside>
-                            <!-- widget-color -->
-                            <aside class="widget widget-color box-shadow mb-30">
-                                <h6 class="widget-title border-left mb-20">color</h6>
-                                <ul>
-                                    <li class="color-1"><a href="#">LightSalmon</a></li>
-                                    <li class="color-2"><a href="#">Dark Salmon</a></li>
-                                    <li class="color-3"><a href="#">Tomato</a></li>
-                                    <li class="color-4"><a href="#">Deep Sky Blue</a></li>
-                                    <li class="color-5"><a href="#">Electric Purple</a></li>
-                                    <li class="color-6"><a href="#">Atlantis</a></li>
-                                </ul>
-                            </aside>
-                            <!-- operating-system -->
-                            <aside class="widget operating-system box-shadow mb-30">
-                                <h6 class="widget-title border-left mb-20">operating system</h6>
-                                <form action="https://template.hasthemes.com/subas/subas/action_page.php">
-                                    <label><input type="checkbox" name="operating-1" value="phone-1">Windows
-                                        Phone</label><br>
-                                    <label><input type="checkbox" name="operating-1" value="phone-1">Bleckgerry
-                                        ios</label><br>
-                                    <label><input type="checkbox" name="operating-1" value="phone-1">Android</label><br>
-                                    <label><input type="checkbox" name="operating-1" value="phone-1">ios</label><br>
-                                    <label><input type="checkbox" name="operating-1" value="phone-1">Windows
-                                        Phone</label><br>
-                                    <label><input type="checkbox" name="operating-1" value="phone-1">Symban</label><br>
-                                    <label class="mb-0"><input type="checkbox" name="operating-1"
-                                            value="phone-1">Bleckgerry os</label><br>
-                                </form>
-                            </aside>
+
                             <!-- widget-product -->
                             <aside class="widget widget-product box-shadow">
-                                <h6 class="widget-title border-left mb-20">recent products</h6>
+                                <h6 class="widget-title border-left mb-20">Tin tức liên quan</h6>
                                 <!-- product-item start -->
                                 <div class="product-item">
                                     <div class="product-img">

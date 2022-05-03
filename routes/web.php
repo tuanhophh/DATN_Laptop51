@@ -111,6 +111,10 @@ Route::post('dat-lich', [BookingController::class, 'creatBooking']);
 Route::get('lien-he', function () {
     return view('website.contact');
 });
+// trang tin tức
+Route::get('tin-tuc', function () {
+    return view('website.tin-tuc');
+});
 // trang lỗi 404
 Route::get('404', function () {
     return view('website.404');

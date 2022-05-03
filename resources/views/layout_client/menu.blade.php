@@ -12,7 +12,7 @@
                     <div class="top-link clearfix">
                         <ul class="link f-right">
                             <li>
-                                <a href="{{ asset('') }}tai-khoan-cua-toi">
+                                <a href="{{ asset('') }}profile">
                                     <i class="zmdi zmdi-account"></i>
                                     Tài Khoản Của Tôi
                                 </a>
@@ -162,14 +162,14 @@
                                         <li>
                                             <div class="top-cart-inner view-cart">
                                                 <h4 class="text-uppercase">
-                                                    <a href="{{ asset('') }}/gio-hang">Chi Tiết Giỏ hàng</a>
+                                                    <a href="{{ asset('') }}gio-hang">Chi Tiết Giỏ hàng</a>
                                                 </h4>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="top-cart-inner check-out">
                                                 <h4 class="text-uppercase">
-                                                    <a href="{{ asset('') }}/thanh-toan">Thanh Toán</a>
+                                                    <a href="{{ asset('') }}thanh-toan">Thanh Toán</a>
                                                 </h4>
                                             </div>
                                         </li>

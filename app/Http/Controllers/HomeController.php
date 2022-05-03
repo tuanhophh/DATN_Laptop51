@@ -45,7 +45,7 @@ class HomeController extends Controller
         $images = DB::table('product_images')->get();
         }   
         // $searchData = compact('keyword', 'computerCompany_id');
-        return view('website.product', compact('products', 'ComputerCompany','productNew','images'));
+        return view('website.product', compact('products', 'ComputerCompany','productNew'  ));
         // return response()->json($products);
     }
     public function detail($slug)
