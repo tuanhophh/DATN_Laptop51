@@ -114,10 +114,23 @@ class BookingController extends Controller
          'full_name' => 'required',
          'phone' => 'required||numeric||min:10',
          'email' => 'required||email||regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
+         'date' => 'required',
+         'company_computer_id' => 'required',
          'name_computer' => 'required',
-
-         // 'interval' => 'required',
+         'interval' => 'required',
          // 'repair_type' => 'required'
+      ], [
+         'full_name.required' => 'Vui lòng nhập đầy đủ họ tên',
+         'phone.required' => 'Vui lòng nhập số điện thoại',
+         'email.required' => 'vui lòng nhập email',
+         'email.email' => 'Email không hợp lệ',
+         'email.regex' => 'Email không hợp lệ',
+         'date.required' => 'Vui lòng chọn ngày đem máy đến',
+         'name_computer.required' => 'Vui lòng nhập tên máy',
+         'company_computer_id.required' => 'Vui lòng chọn hãng máy',
+         'interval.required' => 'Vui lòng chọn khung giờ đem máy đến',
+         // 'company_computer_id.required' => 'Bạn phải nhập tên',
+
       ]);
 
       // dd($request);
@@ -284,6 +297,9 @@ class BookingController extends Controller
          $repair_parts = RepairPart::where('booking_detail_id', $id)->get();
          $arr_pd = array_column($repair_parts->toArray(), 'detail_product_id');
          // dd($repair_parts->toArray());
+         $user_repair =   UserRepair::where('booking_detail_id', $booking_detail->id)->first();
+         $user_repair->status = '1';
+         $user_repair->save();
          return view('admin.booking.repair_detail', compact('booking', 'booking_detail', 'components', 'categories', 'arr_pd'));
          // return response()->json($product_detail);
       }
@@ -324,22 +340,6 @@ class BookingController extends Controller
                ];
 
                RepairPart::create($dt);
-               // dd($model);
-               // } else {
-               //    $model = RepairPart::where('booking_detail_id', $id)->where('detail_product_id', $r)->first();
-               //    $dt = [
-               //       'booking_detail_id' => $id,
-               //       'component_id' => $r->id,
-               //       'unit_price' => detailComponent($r)->price,
-               //       'quantity' => $arr_quantity[$r] + $model->quantity,
-               //       'into_money' => detailComponent($r)->price * ($arr_quantity[$r] + $model->quantity),
-               //       'name_product' => detailComponent($r)->name
-
-               //    ];
-               //    // dd($dt);
-
-               //    $model->fill($dt)->save();
-               // }
             }
          }
          if ($request->product_repair) {
@@ -359,12 +359,16 @@ class BookingController extends Controller
          }
 
          // if ($request->btn == 'finish') {
+
          $booking_detail->status_repair = 'finish';
          $booking_detail->save();
-         // }
+         // }         
+         $user_repair =   UserRepair::where('booking_detail_id', $booking_detail->id)->first();
+         $user_repair->status = '2';
+         $user_repair->save();
       }
 
-      return redirect(route('dat-lich.danh-sach-may'));
+      return redirect(route('sua-chua.danh-sach-da-sua-xong'));
    }
 
 
@@ -377,7 +381,9 @@ class BookingController extends Controller
    {
       if (Auth::check()) {
          $booking_details = UserRepair::where('user_id', Auth::id())
-            ->join('booking_details', 'user_repairs.booking_detail_id', 'booking_details.id')->get();
+            ->join('booking_details', 'user_repairs.booking_detail_id', 'booking_details.id')
+            ->join('bookings', 'booking_details.booking_id', 'bookings.id')
+            ->get();
          // dd($booking_details);
          return view('admin.booking.my_repair', compact('booking_details'));
       } else {
@@ -439,5 +445,14 @@ class BookingController extends Controller
          return view('admin.booking.nhan-hang', compact('booking_detail'));
       }
       // dd($length);
+   }
+   public function DanhSachDaGiaoKhach()
+   {
+
+      $booking_details = BookingDetail::join('bookings', 'booking_details.booking_id', 'bookings.id')
+         ->where('status_repair', null)->orWhereNull('status_booking')
+         ->join('bill_repairs', 'booking_detais.id', 'bill_repairs.booking_detail_id')
+         ->get();
+      return view('admin.booking.ds_chua_xac_nhan', compact('booking_details'));
    }
 }

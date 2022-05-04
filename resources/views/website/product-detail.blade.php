@@ -278,9 +278,15 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+    @include('layout_client.footer')
+    @include('layout_client.script')
+        
+=======
 </div>
 @include('layout_client.footer')
 @include('layout_client.script')
+>>>>>>> a9e061b191eda7efbf5aa66b0508561bf5c81e26
 </body>
 
 </html>

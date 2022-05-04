@@ -64,14 +64,14 @@
                                     <button class="search-toggle">
                                         <i class="zmdi zmdi-search"></i>
                                     </button>
-                                    <form action="#">
+                             
                                         <div class="top-search-box">
-                                            <input type="text" placeholder="Tìm kiếm laptop...">
-                                            <button type="submit">
+                                            <input type="text" placeholder="Tìm kiếm laptop..." name='timkiem' id="timkiem">
+                                            <button type="button" id='btn-timkiem'>
                                                 <i class="zmdi zmdi-search"></i>
                                             </button>
                                         </div>
-                                    </form>
+                                
                                 </div>
                             </div>
                             <!-- total-cart -->
