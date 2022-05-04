@@ -56,7 +56,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Role::class, 'role_user','user_id','role_id');
     }
-
+    
     public function checkPermissionAccess($permissionsCheck)
     {
        $roles = auth()->user()->roles;
@@ -69,5 +69,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
        return false;
     }
-
+    public function list_bill(){
+        return $this->hasMany(list_bill::class,'user_id','id');
+    }
 }
