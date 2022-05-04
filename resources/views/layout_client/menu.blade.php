@@ -11,6 +11,7 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="top-link clearfix">
                         <ul class="link f-right">
+                            @if(Auth::check())
                             <li>
                                 <a href="{{ asset('') }}profile">
                                     <i class="zmdi zmdi-account"></i>
@@ -18,11 +19,31 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ asset('') }}login">
+                                <a href="{{ asset('') }}profile">
+                                    <i class="zmdi zmdi-assignment"></i>
+                                    Hóa đơn
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ asset('') }}logout">
+                                    <i class="zmdi zmdi-lock"></i>
+                                    Thoát
+                                </a>
+                            </li>
+                            @else
+                            <li>
+                            <a href="{{ asset('') }}login">
                                     <i class="zmdi zmdi-lock"></i>
                                     Đăng Nhập
                                 </a>
+                            </li>      
+                            <li>
+                            <a href="{{ asset('') }}register">
+                                    <i class="zmdi zmdi-lock"></i>
+                                    Đăng ký
+                                </a>
                             </li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -37,7 +58,7 @@
                     <!-- logo -->
                     <div class="col-lg-2 col-md-4">
                         <div class="logo">
-                            <a href="index.html">
+                            <a href="/">
                                 <img src="{{ asset('client') }}/img/logo/logo_sticky.png" alt="main logo" width="90%">
                             </a>
                         </div>

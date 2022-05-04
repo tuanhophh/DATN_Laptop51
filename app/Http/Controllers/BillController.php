@@ -7,6 +7,7 @@ use App\Models\BillDetail;
 use App\Models\BillUser;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Toastr;
 use Illuminate\Support\Facades\Redirect;
 
 class BillController extends Controller

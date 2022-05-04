@@ -25,7 +25,7 @@ class CompanyComputerRequest extends FormRequest
     {
         $requestRule =  [
             'company_name' => [
-                'required','unique:computer_companies'
+                'required','unique:computer_companies,company_name,'.$this->id
             ],
         ];
         return $requestRule;

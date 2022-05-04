@@ -34,9 +34,6 @@ Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('h
 Route::get('/register', function () {
     return view('auth.register');
 });
-Route::get('/verify', function () {
-    return view('auth.verify');
-});
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -44,11 +41,15 @@ Route::get('/welcome', function () {
 
 Route::post('/register', [AuthController::class,'create'])->name('register');
 Route::post('/verify/resend', [AuthController::class, 'resendVerify'])->name('resend.verify');
+Route::get('/verify', [AuthController::class, 'showVerify'])->name('show.verify');
 Route::post('/verify', [AuthController::class, 'verify'])->name('verify');
 
 // //  Đăng nhập
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
+Route::get('login-otp', [LoginController::class, 'showLoginOtp'])->name('show.login');
+Route::post('login-otp', [LoginController::class, 'sendLoginOtp'])->name('send.otp.login');
+Route::post('send-login-otp', [LoginController::class, 'loginOtp'])->name('login.otp');
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 // //  Đăng ký
@@ -58,8 +59,9 @@ Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 // //  Quên mật khẩu
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
-Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::get('reset-password', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+Route::post('insert-password', [ForgotPasswordController::class, 'insertResetPasswordForm'])->name('insert.password.post');
 Auth::routes(['register' => false]);
 
 // //  Xác thực mail

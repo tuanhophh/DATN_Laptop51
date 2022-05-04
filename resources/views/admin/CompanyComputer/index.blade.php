@@ -26,7 +26,8 @@
                 <table class="table table-bordered">
                     <thead>
                         <th>STT</th>
-                        <th>Tên</th>
+                        <th>Tên hãng</th>
+                        <th>Ảnh</th>
                         <th>
                             @can('add-category')
                             <a class="btn btn-info" href="{{route('CompanyComputer.add')}}">Thêm</a>
@@ -38,6 +39,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->company_name }}</td>
+                            <td><img width="100px" src="{{asset($item->logo)}}" alt="{{asset($item->logo)}}"></td>
                             <td>
                                 @can('edit-category')
 

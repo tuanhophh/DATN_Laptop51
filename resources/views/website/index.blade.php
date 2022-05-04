@@ -34,68 +34,17 @@
                             <div class="by-brand-product">
                                 <div class="active-by-brand slick-arrow-2">
                                     <!-- single-brand-product start -->
+                                    @foreach($ComputerCompany as $ComputerCom)
                                     <div class="brand-item">
                                         <div class="single-brand-product">
-                                            <a href="single-product.html"><img
-                                                    src="{{ asset('client') }}/images/logo-brand/logo-dell.jpg"
+                                            <a href="/cua-hang/{{$ComputerCom->id}}"><img
+                                                    src="{{asset($ComputerCom->logo)}}"
                                                     width="100" alt=""></a>
                                         </div>
                                     </div>
-                                    <!-- single-brand-product end -->
-                                    <!-- single-brand-product start -->
-                                    <div class="brand-item">
-                                        <div class="single-brand-product">
-                                            <a href="single-product.html"><img
-                                                    src="{{ asset('client') }}/images/logo-brand/logo-hp.jpg"
-                                                    width="100" alt=""></a>
-                                        </div>
-                                    </div>
-                                    <!-- single-brand-product end -->
-                                    <!-- single-brand-product start -->
-                                    <div class="brand-item">
-                                        <div class="single-brand-product">
-                                            <a href="single-product.html"><img
-                                                    src="{{ asset('client') }}/images/logo-brand/logo-macbook.jpg"
-                                                    width="100" alt=""></a>
-                                        </div>
-                                    </div>
-                                    <!-- single-brand-product end -->
-                                    <!-- single-brand-product start -->
-                                    <div class="brand-item">
-                                        <div class="single-brand-product">
-                                            <a href="single-product.html"><img
-                                                    src="{{ asset('client') }}/images/logo-brand/logo-acer.jpg"
-                                                    width="100" alt=""></a>
-                                        </div>
-                                    </div>
-                                    <!-- single-brand-product end -->
-                                    <!-- single-brand-product start -->
-                                    <div class="brand-item">
-                                        <div class="single-brand-product">
-                                            <a href="single-product.html"><img
-                                                    src="{{ asset('client') }}/images/logo-brand/logo-msi.jpg"
-                                                    width="100" alt=""></a>
-                                        </div>
-                                    </div>
-                                    <!-- single-brand-product end -->
-                                    <div class="brand-item">
-                                        <div class="single-brand-product">
-                                            <a href="single-product.html"><img
-                                                    src="{{ asset('client') }}/images/logo-brand/logo-microsoft.jpg"
-                                                    width="100" alt=""></a>
-                                        </div>
-                                    </div>
-                                    <!-- single-brand-product end -->
-                                    <div class="brand-item">
-                                        <div class="single-brand-product">
-                                            <a href="single-product.html"><img
-                                                    src="{{ asset('client') }}/images/logo-brand/logo-masstel.jpg"
-                                                    width="100" alt=""></a>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                     <!-- single-brand-product end -->
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -113,147 +62,46 @@
                             </div>
                             <div class="featured-product">
                                 <div class="active-featured-product slick-arrow-2">
+                                @foreach ($productNew as $item)
+                                <?php
+                    
+                    if (!function_exists('currency_format')) {
+                        function currency_format($item, $suffix = ' VNĐ')
+                        {
+                            if (!empty($item)) {
+                                return number_format($item, 0, ',', '.') . "{$suffix}";
+                            }
+                        }
+                    }
+                    ?>
                                     <div class="product-item">
                                         <div class="product-img">
-                                            <a href="single-product.html">
-                                                <img src="{{ asset('client') }}/img/product/1.jpg" alt="" />
+                                            @foreach ($images as $image)
+                                            {{dd($image)}}
+                                            @if ($image->product_id == $item->id)
+                                            <a href="/san-pham/{{ $item->slug }}">
+                                                <img src="{{ asset($image->path) }}"
+                                                    alt="{{ asset($image->path) }}" />
                                             </a>
+                                            @break;
+                                            @else
+                                            <a href="/san-pham/{{ $item->slug }}">
+                                            <img src="https://laptop88.vn/media/product/5212_anb_th__ng_12_msi_bravo_15_b5dd_276vn__2_.png"
+                                                    alt="" />
+                                            </a>
+                                            @break;
+                                            @endif
+                                            @endforeach
                                         </div>
                                         <div class="product-info">
                                             <h6 class="product-title">
-                                                <a href="single-product.html">Laptop Acer Nitro Gaming AN515-45-R6EV
+                                                <a href="/san-pham/{{ $item->slug }}">{{ $item->name }}
                                                 </a>
                                             </h6>
-
-                                            <h3 class="pro-price">21.499.000₫</h3>
-                                            <ul class="action-button">
-                                                <li>
-                                                    <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
-                                                        title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#" title="Add to cart"><i
-                                                            class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                </li>
-                                            </ul>
+                                            <h3 class="pro-price mb-0"><a href="/san-pham/{{ $item->slug }}">{{ currency_format($item->price) }}</a> </h3>
                                         </div>
                                     </div>
-                                    <div class="product-item">
-                                        <div class="product-img">
-                                            <a href="single-product.html">
-                                                <img src="{{ asset('client') }}/img/product/2.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="product-info">
-                                            <h6 class="product-title">
-                                                <a href="single-product.html">Laptop Asus TUF Gaming FX506LH-HN188W</a>
-                                            </h6>
-
-                                            <h3 class="pro-price">18.999.000₫</h3>
-                                            <ul class="action-button">
-                                                <li>
-                                                    <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
-                                                        title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#" title="Add to cart"><i
-                                                            class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-item">
-                                        <div class="product-img">
-                                            <a href="single-product.html">
-                                                <img src="{{ asset('client') }}/img/product/3.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="product-info">
-                                            <h6 class="product-title">
-                                                <a href="single-product.html">Product Name</a>
-                                            </h6>
-
-                                            <h3 class="pro-price">$ 869.00</h3>
-                                            <ul class="action-button">
-                                                <li>
-                                                    <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
-                                                        title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#" title="Add to cart"><i
-                                                            class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-item">
-                                        <div class="product-img">
-                                            <a href="single-product.html">
-                                                <img src="{{ asset('client') }}/img/product/4.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="product-info">
-                                            <h6 class="product-title">
-                                                <a href="single-product.html">Product Name</a>
-                                            </h6>
-
-                                            <h3 class="pro-price">$ 869.00</h3>
-                                            <ul class="action-button">
-                                                <li>
-                                                    <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
-                                                        title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#" title="Add to cart"><i
-                                                            class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-item">
-                                        <div class="product-img">
-                                            <a href="single-product.html">
-                                                <img src="{{ asset('client') }}/img/product/4.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="product-info">
-                                            <h6 class="product-title">
-                                                <a href="single-product.html">Product Name</a>
-                                            </h6>
-
-                                            <h3 class="pro-price">$ 869.00</h3>
-                                            <ul class="action-button">
-                                                <li>
-                                                    <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
-                                                        title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#" title="Add to cart"><i
-                                                            class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -263,11 +111,11 @@
             <!-- FEATURED PRODUCT SECTION END -->
 
             <!-- UP COMMING PRODUCT SECTION START -->
-            <div class="up-comming-product-section mb-80">
+            <!-- <div class="up-comming-product-section mb-80">
                 <div class="container">
-                    <div class="row">
-                        <!-- up-comming-pro -->
-                        <div class="col-lg-8">
+                    <div class="row"> -->
+            <!-- up-comming-pro -->
+            <!-- <div class="col-lg-8">
                             <div class="up-comming-pro gray-bg clearfix">
                                 <div class="up-comming-pro-img f-left">
                                     <a href="#">
@@ -319,7 +167,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- UP COMMING PRODUCT SECTION END -->
 
             <!-- PRODUCT TAB SECTION START -->
@@ -328,7 +176,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="section-title text-left mb-40">
-                                <h2 class="uppercase">Danh Sách Sản Phẩm</h2>
+                                <h2 class="uppercase">Sản Phẩm Bán Chạy</h2>
                             </div>
                         </div>
 
@@ -343,142 +191,6 @@
                                             <div class="product-item">
                                                 <div class="product-img">
                                                     <a href="single-product.html">
-                                                        <img src="img/product/7.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/2.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/9.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/4.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
                                                         <img src="img/product/10.jpg" alt="" />
                                                     </a>
                                                 </div>
@@ -612,841 +324,6 @@
                                         <!-- product-item end -->
                                     </div>
                                 </div>
-                                <!-- popular-product end -->
-                                <!-- new-arrival start -->
-                                <div id="new-arrival" class="tab-pane" role="tabpanel">
-                                    <div class="row">
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/1.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/3.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/5.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/6.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/12.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/8.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/11.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/10.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                    </div>
-                                </div>
-                                <!-- new-arrival end -->
-                                <!-- best-seller start -->
-                                <div id="best-seller" class="tab-pane" role="tabpanel">
-                                    <div class="row">
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/12.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/11.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/10.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/8.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/1.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/2.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/3.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/4.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                    </div>
-                                </div>
-                                <!-- best-seller end -->
-                                <!-- special-offer start -->
-                                <div id="special-offer" class="tab-pane" role="tabpanel">
-                                    <div class="row">
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/6.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/12.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/1.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/8.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/9.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/7.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/5.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/1.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                    </div>
-                                </div>
-                                <!-- special-offer end -->
                             </div>
                         </div>
                     </div>
@@ -1585,14 +462,14 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
                             <div class="modal-product clearfix">
                                 <div class="product-images">
                                     <div class="main-image images">
-                                        <img alt="" src="img/product/       .jpg">
+                                        <img alt="" src="img/product/.jpg">
                                     </div>
                                 </div><!-- .product-images -->
 
@@ -1625,14 +502,12 @@
                                             <h3 class="widget-title-modal">Share this product</h3>
                                             <ul class="social-icons clearfix">
                                                 <li>
-                                                    <a class="facebook" href="#" target="_blank"
-                                                        title="Facebook">
+                                                    <a class="facebook" href="#" target="_blank" title="Facebook">
                                                         <i class="zmdi zmdi-facebook"></i>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="google-plus" href="#" target="_blank"
-                                                        title="Google +">
+                                                    <a class="google-plus" href="#" target="_blank" title="Google +">
                                                         <i class="zmdi zmdi-google-plus"></i>
                                                     </a>
                                                 </li>
@@ -1642,8 +517,7 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="pinterest" href="#" target="_blank"
-                                                        title="Pinterest">
+                                                    <a class="pinterest" href="#" target="_blank" title="Pinterest">
                                                         <i class="zmdi zmdi-pinterest"></i>
                                                     </a>
                                                 </li>
@@ -1670,7 +544,7 @@
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
 </script>
 
 </html>

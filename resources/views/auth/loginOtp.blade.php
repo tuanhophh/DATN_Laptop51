@@ -24,10 +24,10 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="breadcrumbs-inner">
-                            <h1 class="breadcrumbs-title">Quên mật khẩu</h1>
+                            <h1 class="breadcrumbs-title">Đăng nhập OTP</h1>
                             <ul class="breadcrumb-list">
                                 <li><a href="/">Trang chủ</a></li>
-                                <li>Quên mật khẩu</li>
+                                <li>Đăng nhập OTP</li>
                             </ul>
                         </div>
                     </div>
@@ -40,68 +40,72 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6  pb-5">
                     <div class="registered-customers">
-                        <h6 class="widget-title border-left mb-50">Quên mật khẩu</h6>
+                        <h6 class="widget-title border-left mb-50">Đăng nhập OTP</h6>
                         @if (Session::has('message'))
                         <div class="alert alert-success" role="alert">
                             {{ Session::get('message') }}
                         </div>
                         @endif
+
                         <div class="login-account p-30 box-shadow">
                             <p>Bạn chưa có tài khoản? <a href="/register"> Nhấp vào đây để đăng ký!</a></p>
-                            <p>Bạn đã có tài khoản? <a href="/login"> Nhấp vào đây để đăng nhập!</a></p>
-                        </div>
-                        <form method="POST" action="{{route('forget.password.post')}}" form>
-                            @csrf
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <input type="text" name="phone" placeholder="Số điện thoại" id="slug"
-                                        onkeyup="ChangeToSlug()"
-                                        class="@error('phone_otp') is-invalid @enderror mb-0 mt-4"
-                                        value=@if(session()->has('phone_number'))
-                                    "{{session()->get('phone_number')}}"
-                                    @else
-                                    "{{ old('phone') }}"
-                                    @endif
-                                    >
-                                </div>
-                                <div class="col-md-3">
-                                    <button class="submit-btn-1 btn-hover-1 mb-0 mt-4" type="submit">Gửi
-                                        mã</button>
-                                </div>
-                            </div>
-                        </form>
-                        <form method="POST" action="{{route('reset.password.post')}}">
-                            @csrf
-                            <input id="convert_slug" type="hidden"
-                                class="@error('phone') is-invalid @enderror mb-0 mt-4"
-                                value=@if(session()->has('phone_number'))
-                            "{{session()->get('phone_number')}}"
-                            @else
-                            "{{ old('phone') }}"
-                            @endif
-                            name="phone" placeholder="Số điện thoại">
-                            <input type="text" name="phone_otp" class="mb-0 mt-4" placeholder="Mã">
-                            <p><small>Nhập số điện thoại rồi nhấn gửi mã</small></p>
-                            @error('phone')
+                            <form method="POST" action="{{route('send.otp.login')}}">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <input type="text" id="slug" onkeyup="ChangeToSlug()"
+                                            class="@error('phone') is-invalid @enderror mb-0 mt-4"
+                                            value=@if(session()->has('login_phone_otp'))
+                                        "{{session()->get('login_phone_otp')}}"
+                                        @else
+                                        "{{ old('phone') }}"
+                                        @endif
+                                        name="phone" placeholder="Số điện thoại">
+                                    </div>
+                                    @error('phone')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
-                            @error('phone_otp')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <button class="submit-btn-1 btn-hover-1" type="submit">Gửi</button>
+                                    @enderror
+                                    <div class="col-md-3">
+                                        <button class="submit-btn-1 btn-hover-1 mb-0 mt-4" type="submit">Gửi
+                                            mã</button>
+                                    </div>
                                 </div>
-                                <!-- <div class="col-md-6">
+                            </form>
+                            <form method="POST" action="{{route('login.otp')}}">
+                                @csrf
+                                <input id="convert_slug" type="hidden"
+                                    class="@error('phone') is-invalid @enderror mb-0 mt-4"
+                                    value=@if(session()->has('login_phone_otp'))
+                                "{{session()->get('login_phone_otp')}}"
+                                @else
+                                "{{ old('phone') }}"
+                                @endif
+                                name="phone" placeholder="Số điện thoại">
+                                <input type="text" name="phone_otp" class="mb-0 mt-4" placeholder="Mã">
+                                @error('phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                @error('phone_otp')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                                <p><small>Nhập số điện thoại rồi nhấn gửi mã</small></p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button class="submit-btn-1 btn-hover-1" type="submit">Đăng nhập</button>
+                                    </div>
+                                    <!-- <div class="col-md-6">
                                         <button class="submit-btn-1 btn-hover-1 f-right" type="reset">Đăng nhâp bằng
                                             OTP</button>
                                     </div> -->
-                            </div>
-                        </form>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -117,7 +121,7 @@
 <script type="text/javascript">
 function ChangeToSlug() {
     var slug;
-    //Lấy text từ thẻ input title
+    //Lấy text từ thẻ input title 
     slug = document.getElementById("slug").value;
     slug = slug.toLowerCase();
     //Đổi ký tự có dấu thành không dấu

@@ -24,7 +24,7 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:products,name'.$this->id,
+            'name' => 'required|unique:products,name,'.$this->id,
             'price' =>'required|numeric|min:50000',
             'import_price' =>'required|numeric|min:1',
             'companyComputer_id' =>'required',
@@ -34,9 +34,8 @@ class ProductRequest extends FormRequest
             'qty' => 'required|min:0',
             'status' => 'required|between:0,1',
             'desc_short'=>'required',
-            'images'=>'required',
             'images.*' => 'mimes:jpg,png,jpeg,gif,svg',
-            'slug'=>'required|unique:products,slug,'.$this->id
+            'slug'=>'required|unique:products,slug,'.$this->id,
         ];
     }
     public function messages()
@@ -46,7 +45,6 @@ class ProductRequest extends FormRequest
             'images.*.mimes'=>'Sai định dạng ảnh',
             'images.mimes'=>'Sai định dạng ảnh',
             'images.*.required'=>'Yêu cầu nhập ảnh',
-            'images.required'=>'Yêu cầu nhập ảnh',
             'price.required' =>'Mời bạn nhập giá',
             'qty.required' =>'Mời bạn số lương',
             'qty.min' =>'Số lượng nhỏ nhất là 1',
