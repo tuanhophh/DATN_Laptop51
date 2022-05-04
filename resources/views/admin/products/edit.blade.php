@@ -17,7 +17,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="">Slug</label>
+                    <label for="">Đường dẫn</label>
                     <input type="text" name="slug" id="convert_slug" class="form-control" value="{{$pro->slug}}"
                         placeholder="">
                     @error('slug')
@@ -38,23 +38,6 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <div class="mt-1 text-center">
-                        <div class="preview-image">
-                            @foreach($images as $image)
-                            <img src="{{ asset($image->path) }}" class="imgpre" alt="{{ asset($image->path) }}">
-                            @endforeach
-                        </div>
-                    </div>
-                    <label for="">Ảnh</label>
-                    <input type="file" id="images" name="images[]" class="form-control" multiple placeholder="Chọn ảnh">
-                    @error('images')
-                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                    @enderror
-                    @error('images.*')
-                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="form-group">
                     <label for="">Giá nhập</label>
                     <input type="text" name="import_price" value="{{ $pro->import_price }}" class="form-control"
                         placeholder="Giá nhập">
@@ -68,6 +51,15 @@
                         placeholder="Giá bán">
 
                     @error('price')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="">Số lượng</label>
+                    <input type="text" name="qty" value="{{ $pro->qty }}" class="form-control"
+                        placeholder="Số lượng">
+
+                    @error('qty')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
@@ -144,9 +136,26 @@
                     <label for="">Trạng thái</label>
                     <select name="status" id="" class="form-control">
                         <option value="">Chọn trạng thái</option>
-                        <option @if($pro->status == 1) selected @endif value="1">Còn hàng</option>
-                        <option @if($pro->status == 0) selected @endif value="0">Hết hàng</option>
+                        <option @if($pro->status == 1) selected @endif value="1">Hiển thị</option>
+                        <option @if($pro->status == 0) selected @endif value="0">Ẩn</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <div class="mt-1 text-center">
+                        <div class="preview-image">
+                            @foreach($images as $image)
+                            <img src="{{ asset($image->path) }}" class="imgpre" alt="{{ asset($image->path) }}">
+                            @endforeach
+                        </div>
+                    </div>
+                    <label for="">Ảnh</label>
+                    <input type="file" id="images" name="images[]" class="form-control" multiple placeholder="Chọn ảnh">
+                    @error('images')
+                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                    @enderror
+                    @error('images.*')
+                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
         </div>

@@ -7,6 +7,7 @@ use App\Models\BillDetail;
 use App\Models\BillUser;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Toastr;
 use Illuminate\Support\Facades\Redirect;
 
 class BillController extends Controller
@@ -55,7 +56,8 @@ class BillController extends Controller
         $bills = Bill::orderBy('id', 'desc')->paginate(8);
         $bill_user = BillUser::all();
         $model = bill::find($id);
-        $model->fill($request->all());
+        $model['payment_method'] = $request->payment_method;
+        $model['payment_status'] = $request->payment_status;
         $model->save();
         return redirect()->route('bill.index')->with('success','Sửa thành công');
     }

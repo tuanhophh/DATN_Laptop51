@@ -1,5 +1,5 @@
 @extends('admin.layouts.main')
-@section('title', 'Thêm người dùng')
+@section('title', 'Thêm nhân viên')
 @section('content')
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"

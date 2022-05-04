@@ -45,13 +45,18 @@
                         <th scope="row"> {{$role->id}}</th>
                         <td> {{$role->name}} </td>
                         <td> {{$role->display_name}} </td>
-                        <td> <button type="button" class="btn btn-warning"><a
+                        <td>
+                                    <!-- foreach(Auth::user()->roles as $user_role)
+                                    if($user_role->pivot->role_id != $role->id && $user_role->name == 'admin') -->
+                                    <button type="button" class="btn btn-warning"><a
                                     style="color:white;  text-decoration: none;"
                                     href="{{route('roles.edit',['id' => $role->id])}}"> Sửa</a></button>
-                            <button type="button" class="btn btn-danger"><a
+                                    <button type="button" class="btn btn-danger"><a
                                     href="{{ route('roles.remove', ['id' => $role->id]) }}"
                                     style="color:white;  text-decoration: none;"
                                     onclick="return confirm('Bạn có chắc muốn User')" href=""> Xóa</a></button>
+                                    <!-- endif
+                                    endforeach -->
                         </td>
                     </tr>
                     @endforeach
