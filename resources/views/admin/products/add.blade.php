@@ -16,7 +16,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="">Slug</label>
+                    <label for="">Đường dẫn</label>
                     <input type="text" name="slug" id="convert_slug" class="form-control" placeholder="">
                     @error('slug')
                     <p class="text-danger">{{ $message }}</p>
@@ -35,20 +35,6 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <div class="mt-1 text-center">
-                        <div class="preview-image"> </div>
-                    </div>
-                    <label for="">Ảnh</label>
-                    <input type="file" id="images" name="images[]" accept="image/png, image/jpeg" class="form-control"
-                        multiple placeholder="Chọn ảnh">
-                    @error('images')
-                    <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                    @error('images.*')
-                    <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="form-group">
                     <label for="">Giá nhập</label>
                     <input type="number" name="import_price" value="{{ old('import_price') }}" class="form-control"
                         placeholder="Giá nhập">
@@ -62,6 +48,15 @@
                         placeholder="Giá bán">
 
                     @error('price')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="">Số lượng</label>
+                    <input type="number" name="qty" value="{{ old('qty') }}" class="form-control"
+                        placeholder="Số lượng">
+
+                    @error('qty')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
@@ -132,10 +127,24 @@
                     <label for="">Trạng thái</label>
                     <select name="status" id="" class="form-control">
                         <option value="">Chọn trạng thái</option>
-                        <option value="1">Còn hàng</option>
-                        <option value="0">Hết hàng</option>
+                        <option value="1">Hiển thị</option>
+                        <option value="0">Ẩn</option>
                     </select>
                     @error('status')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <div class="mt-1 text-center">
+                        <div class="preview-image"> </div>
+                    </div>
+                    <label for="">Ảnh</label>
+                    <input type="file" id="images" name="images[]" class="form-control"
+                        multiple placeholder="Chọn ảnh">
+                    @error('images')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                    @error('images.*')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>

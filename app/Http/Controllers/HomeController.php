@@ -8,6 +8,8 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
 class HomeController extends Controller
 {
@@ -23,12 +25,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('website.index');
+        $ComputerCompany = ComputerCompany::all();
+        $productNew = Product::where('status',1)->orderBy('id', 'DESC')->get()->take(8);
+        // dd($productNew);
+        $products = Product::where('status',1)->get();
+        $images = DB::table('product_images')->get();
+        // $searchData = compact('keyword', 'computerCompany_id');
+        return view('website.index', compact('products', 'ComputerCompany','productNew','images'));
     }
     public function logout(Request $request)
     {
         Auth::logout();
-        return redirect('/');
+        return back();
     }
     public function show(Request $request)
     {
@@ -37,23 +45,20 @@ class HomeController extends Controller
         // dd($keyword, $cate_id, $rq_column_names, $rq_order_by);
 
         $ComputerCompany = ComputerCompany::all();
-        $productNew = Product::where('status', 1)->orderBy('id', 'DESC')->get()->take(4);
+        $productNew = Product::where('status',1)->orderBy('id', 'DESC')->get()->take(8);
         // dd($productNew);
-        $products = Product::where('status', 1)->get();
+        $products = Product::where('status',1)->paginate(10);
+        $images = DB::table('product_images')->get();
         // $searchData = compact('keyword', 'computerCompany_id');
-        return view('website.product', compact('products', 'ComputerCompany', 'productNew'));
-        $products = Product::where('status', 1)->get();
-        foreach ($products as $product) {
-            $images = DB::table('product_images')->get();
-        }
-        // $searchData = compact('keyword', 'computerCompany_id');
-        return view('website.product', compact('products', 'ComputerCompany', 'productNew', 'images'));
+        return view('website.product', compact('products', 'ComputerCompany','productNew','images'));
+
         // return response()->json($products);
     }
     public function detail($slug)
     {
         $ComputerCompany = ComputerCompany::all();
-        $pro = Product::where('slug', $slug)->first();
+        $pro = Product::where('slug',$slug)->first();
+        session()->put('url_path', $pro->slug);
         // dd($ComputerCompany);
         if (!$pro || !$ComputerCompany) {
             $productNew = Product::where('status', 1)->orderBy('id', 'DESC')->get()->take(4);
@@ -75,10 +80,11 @@ class HomeController extends Controller
         );
     }
     public function company($id)
-    {
-        $products = Product::where('companyComputer_id', $id)->get();;
 
-        $ComputerCompany = ComputerCompany::find($id);
+    {   
+        $products = Product::where('companyComputer_id',$id)->get();;
+        
+        $ComputerCompany = ComputerCompany::all();
         $images = DB::table('product_images')->get();
         // dd($ComputerCompany = ComputerCompany::find($id)->first());
         // $comPany = ComputerCompany::where('companyComputer_id',$companyComputer_id)->get();

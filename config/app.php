@@ -174,6 +174,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
+        Brian2694\Toastr\ToastrServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -243,10 +244,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-
+        'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
         // 'PDF' => Barryvdh\DomPDF\Facade::class,
         'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class
-
+        
         // 'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
 
     ],

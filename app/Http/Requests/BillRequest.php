@@ -24,11 +24,11 @@ class BillRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:3|',
-            'email' => 'required|email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
-            'phone' => 'required|integer|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
-            'address' => 'required|min:6',
-            'payment_method' => 'required'
+            'name' => ['required','string','min:3'],
+            'email' => ['required','email','regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix'],
+            'phone' => ['required','numeric','regex:/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/'],
+            'address' => ['required','min:6'],
+            'payment_method' => ['required']
         ];
     }
 
@@ -41,9 +41,9 @@ class BillRequest extends FormRequest
             'email.required' => 'Vui lòng nhập email',
             'email.email' => 'Vui lòng nhập thêm @',
             'email.regex' => 'Vui lòng nhập đúng địa chỉ email',
+            'phone.regex' => 'Vui lòng nhập đúng số điện thoại',
             'phone.required' => 'Mời nhập số điện thoại',
-            'phone.min' => 'Nhập đúng số điện thoại',
-            'phone.integer' => 'Vui lòng nhập số điện thoại',
+            'phone.numeric' => 'Vui lòng nhập số điện thoại',
             'address.required' => 'Vui lòng nhập địa chỉ',
             'address.min' => 'Vui lòng nhập đúng địa chỉ',
             'payment_method.required' => 'Vui lòng chọn phương thức thanh toán'

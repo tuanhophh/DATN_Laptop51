@@ -411,7 +411,8 @@
                                                             <td>{{ $loop->iteration }}</td>
                                                             <td>{{ $item->bill_code }}</td>
                                                             <td>{{ $item->total }}</td>
-                                                            <td>{{ date('d-m-yy', strtotime($item->created_at)) }}</td>
+                                                            <td>{{ date('d-m-yy', strtotime($item->created_at)) }}
+                                                            </td>
                                                             <td>
                                                                 @if ($item->payment_status == 0)
                                                                     Đã hủy
@@ -422,7 +423,8 @@
                                                                 @endif
                                                             </td>
                                                             <td>{{ $item->address }}</td>
-                                                            <td class="col-6"><a href="{{ route('profile.history.detail', ['code' => $item->bill_code]) }}"
+                                                            <td class="col-6"><a
+                                                                    href="{{ route('profile.history.detail', ['code' => $item->bill_code]) }}"
                                                                     class="btn btn-info">Chi tiết</a></td>
                                                             <td>
                                                                 @if ($item->payment_status == 1)
@@ -462,7 +464,7 @@
                                     <div class="tab-pane" id="timeline">
 
                                         <div class="timeline timeline-inverse">
-                                        
+
                                             <table class="table ">
                                                 <thead>
                                                     <th>STT</th>
@@ -477,19 +479,38 @@
                                                             <td>{{ $loop->iteration }}</td>
                                                             <td>{{ $item->code }}</td>
                                                             <td>{{ $item->into_money }}</td>
-                                                            <td>{{ date('d-m-yy', strtotime($item->created_at)) }}</td>
+                                                            <td>{{ date('d-m-yy', strtotime($item->created_at)) }}
+                                                            </td>
                                                             <td>
                                                                 @if ($item->status_booking == 'cancel')
                                                                     Đã hủy
                                                                 @elseif($item->status_booking == 'received')
                                                                     Đang chờ
-                                                                {{-- @else
+                                                                    {{-- @else
                                                                     Xác nhận --}}
                                                                 @endif
                                                             </td>
-                                                            {{-- <td><a href="{{ route('profile.history.detail-repair', ['code' => $item->bill_code]) }}"
+                                                            {{-- <td><a href="{{ route('profile.history.detail-repair', ['code' => $item->code]) }}"
                                                                     class="btn btn-info">Chi tiết</a></td> --}}
-                                                            
+                                                            <td>
+                                                                @if ($item->status_booking == 'received')
+                                                                    <form
+                                                                        action="{{ route('cancel-repair', ['code' => $item->code]) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <button type="submit" class="btn btn-danger">Hủy
+                                                                            đơn</button>
+                                                                    </form>
+                                                                @elseif($item->status_booking == 'cancel')
+                                                                    <form
+                                                                        action="{{ route('restore-repair', ['code' => $item->code]) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Mua lại</button>
+                                                                    </form>
+                                                                @endif
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
