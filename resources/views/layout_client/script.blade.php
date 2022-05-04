@@ -9,3 +9,12 @@
 <script src="{{ asset('client') }}/js/plugins.js"></script>
 <!-- Main js file that contents all jQuery plugins activation. -->
 <script src="{{ asset('client') }}/js/main.js"></script>
+<script>
+    $('#btn-timkiem').on('click',function(){
+        
+    window.location.replace('http://127.0.0.1:8000/cua-hang/product/'+$('#timkiem').val())
+
+
+
+    })
+</script>

@@ -40,12 +40,9 @@ class HomeController extends Controller
         $ComputerCompany = ComputerCompany::all();
         $productNew = Product::where('status',1)->orderBy('id', 'DESC')->get()->take(4);
         // dd($productNew);
-        $products = Product::where('status',1)->get();
-        foreach($products as $product){
-        $images = DB::table('product_images')->get();
-        }   
+        $products = Product::where('status',1)->get();  
         // $searchData = compact('keyword', 'computerCompany_id');
-        return view('website.product', compact('products', 'ComputerCompany','productNew','images'));
+        return view('website.product', compact('products', 'ComputerCompany','productNew'));
         // return response()->json($products);
     }
     public function detail($slug)
@@ -90,5 +87,13 @@ class HomeController extends Controller
             'website.product-category',
             compact('products','ComputerCompany','images')
         );
+    }
+    public function seachproduct($name){
+        
+        $ComputerCompany = ComputerCompany::all();
+        $productNew = Product::where('status',1)->where('name','like','%'.$name.'%')->get();
+        // dd($productNew);
+        $products = Product::where('status',1)->get();  
+        return view('website.product', compact('products', 'ComputerCompany','productNew'));
     }
 }

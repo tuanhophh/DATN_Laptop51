@@ -269,6 +269,7 @@
     </div>
     @include('layout_client.footer')
     @include('layout_client.script')
+        
 </body>
 
 </html>
