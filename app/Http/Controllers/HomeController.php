@@ -51,6 +51,7 @@ class HomeController extends Controller
         $images = DB::table('product_images')->get();
         // $searchData = compact('keyword', 'computerCompany_id');
         return view('website.product', compact('products', 'ComputerCompany','productNew','images'));
+
         // return response()->json($products);
     }
     public function detail($slug)
@@ -79,6 +80,7 @@ class HomeController extends Controller
         );
     }
     public function company($id)
+
     {   
         $products = Product::where('companyComputer_id',$id)->get();;
         
