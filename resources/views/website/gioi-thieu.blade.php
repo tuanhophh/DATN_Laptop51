@@ -110,14 +110,146 @@
                                 <div class="team-member-item">
                                     <div class="team-member box-shadow bg-shape">
                                         <div class="team-member-photo">
-                                            <img src="{{ asset('client') }}/img/team/1.png" alt="">
+                                            <img src="{{ asset('client') }}/img/team/nhung.png" alt="">
+                                        </div>
+                                        <div class="team-member-info pt-20">
+                                            <h5 class="member-name"><a href="#">Nguyễn Thị Nhung</a></h5>
+                                            <p class="member-position">Trưởng Nhóm</p>
+                                            <p class="mb-20">Thiết kế quản lý tài khoản, làm báo cáo, teseter
+                                            </p>
+                                            <ul class="footer-social">
+                                                <li>
+                                                    <a class="facebook" href="#" title="Facebook"><i
+                                                            class="zmdi zmdi-facebook"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a class="google-plus" href="#" title="Google Plus"><i
+                                                            class="zmdi zmdi-google-plus"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a class="twitter" href="#" title="Twitter"><i
+                                                            class="zmdi zmdi-twitter"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a class="rss" href="#" title="RSS"><i
+                                                            class="zmdi zmdi-rss"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- team-member end -->
+                                <!-- team-member start -->
+                                <div class="team-member-item">
+                                    <div class="team-member box-shadow bg-shape">
+                                        <div class="team-member-photo">
+                                            <img src="{{ asset('client') }}/img/team/mhung.png" alt="">
+                                        </div>
+                                        <div class="team-member-info pt-20">
+                                            <h5 class="member-name"><a href="#">Hà Mạnh Hùng</a></h5>
+                                            <p class="member-position">Luồng Chính (Đặt lịch)</p>
+                                            <p class="mb-20">Thiết kế quản lý lịch đặt người dùng và phân chia
+                                                công việc nhân viên</p>
+                                            <ul class="footer-social">
+                                                <li>
+                                                    <a class="facebook" href="#" title="Facebook"><i
+                                                            class="zmdi zmdi-facebook"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a class="google-plus" href="#" title="Google Plus"><i
+                                                            class="zmdi zmdi-google-plus"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a class="twitter" href="#" title="Twitter"><i
+                                                            class="zmdi zmdi-twitter"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a class="rss" href="#" title="RSS"><i
+                                                            class="zmdi zmdi-rss"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- team-member end -->
+
+                                <!-- team-member start -->
+                                <div class="team-member-item">
+                                    <div class="team-member box-shadow bg-shape">
+                                        <div class="team-member-photo">
+                                            <img src="{{ asset('client') }}/img/team/dung.png" alt="">
+                                        </div>
+                                        <div class="team-member-info pt-20">
+                                            <h5 class="member-name"><a href="#">Nông Tiến Dũng</a></h5>
+                                            <p class="member-position">Nhánh phụ (Cửa hàng)</p>
+                                            <p class="mb-20">Thiết kế quản lý sản phẩm của cửa hàng</p>
+                                            <ul class="footer-social">
+                                                <li>
+                                                    <a class="facebook" href="#" title="Facebook"><i
+                                                            class="zmdi zmdi-facebook"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a class="google-plus" href="#" title="Google Plus"><i
+                                                            class="zmdi zmdi-google-plus"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a class="twitter" href="#" title="Twitter"><i
+                                                            class="zmdi zmdi-twitter"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a class="rss" href="#" title="RSS"><i
+                                                            class="zmdi zmdi-rss"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- team-member end -->
+
+                                <!-- team-member start -->
+                                <div class="team-member-item">
+                                    <div class="team-member box-shadow bg-shape">
+                                        <div class="team-member-photo">
+                                            <img src="{{ asset('client') }}/img/team/thung.png" alt="">
+                                        </div>
+                                        <div class="team-member-info pt-20">
+                                            <h5 class="member-name"><a href="#">Lê Thế Hùng</a></h5>
+                                            <p class="member-position">UI UX</p>
+                                            <p class="mb-20">Thiết kế quản trị tin tức, ghép giao diện Client,
+                                                làm slide thuyết trình</p>
+                                            <ul class="footer-social">
+                                                <li>
+                                                    <a class="facebook" href="#" title="Facebook"><i
+                                                            class="zmdi zmdi-facebook"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a class="google-plus" href="#" title="Google Plus"><i
+                                                            class="zmdi zmdi-google-plus"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a class="twitter" href="#" title="Twitter"><i
+                                                            class="zmdi zmdi-twitter"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a class="rss" href="#" title="RSS"><i
+                                                            class="zmdi zmdi-rss"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- team-member end -->
+                                <!-- team-member start -->
+                                <div class="team-member-item">
+                                    <div class="team-member box-shadow bg-shape">
+                                        <div class="team-member-photo">
+                                            <img src="{{ asset('client') }}/img/team/hop.png" alt="">
                                         </div>
                                         <div class="team-member-info pt-20">
                                             <h5 class="member-name"><a href="#">Trần Tuấn Hợp</a></h5>
-                                            <p class="member-position">Chairman</p>
-                                            <p class="mb-20">There are many variations of passage of Lorem
-                                                Ipsum
-                                                available, but the in majority have suffered.</p>
+                                            <p class="member-position">Thống kê</p>
+                                            <p class="mb-20">Thiết kế quản lý thống kê sản phẩm,
+                                                lịch đặt và doanh thu của cửa hàng</p>
                                             <ul class="footer-social">
                                                 <li>
                                                     <a class="facebook" href="#" title="Facebook"><i
@@ -140,142 +272,6 @@
                                     </div>
                                 </div>
 
-                                <!-- team-member end -->
-                                <!-- team-member start -->
-                                <div class="team-member-item">
-                                    <div class="team-member box-shadow bg-shape">
-                                        <div class="team-member-photo">
-                                            <img src="{{ asset('client') }}/img/team/2.png" alt="">
-                                        </div>
-                                        <div class="team-member-info pt-20">
-                                            <h5 class="member-name"><a href="#">Nông Tiến Dũng</a></h5>
-                                            <p class="member-position">Chairman</p>
-                                            <p class="mb-20">There are many variations of passage of Lorem
-                                                Ipsum
-                                                available, but the in majority have suffered.</p>
-                                            <ul class="footer-social">
-                                                <li>
-                                                    <a class="facebook" href="#" title="Facebook"><i
-                                                            class="zmdi zmdi-facebook"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a class="google-plus" href="#" title="Google Plus"><i
-                                                            class="zmdi zmdi-google-plus"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a class="twitter" href="#" title="Twitter"><i
-                                                            class="zmdi zmdi-twitter"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a class="rss" href="#" title="RSS"><i
-                                                            class="zmdi zmdi-rss"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- team-member end -->
-                                <!-- team-member start -->
-                                <div class="team-member-item">
-                                    <div class="team-member box-shadow bg-shape">
-                                        <div class="team-member-photo">
-                                            <img src="{{ asset('client') }}/img/team/3.png" alt="">
-                                        </div>
-                                        <div class="team-member-info pt-20">
-                                            <h5 class="member-name"><a href="#">Hà Mạnh Hùng</a></h5>
-                                            <p class="member-position">Chairman</p>
-                                            <p class="mb-20">There are many variations of passage of Lorem
-                                                Ipsum
-                                                available, but the in majority have suffered.</p>
-                                            <ul class="footer-social">
-                                                <li>
-                                                    <a class="facebook" href="#" title="Facebook"><i
-                                                            class="zmdi zmdi-facebook"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a class="google-plus" href="#" title="Google Plus"><i
-                                                            class="zmdi zmdi-google-plus"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a class="twitter" href="#" title="Twitter"><i
-                                                            class="zmdi zmdi-twitter"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a class="rss" href="#" title="RSS"><i
-                                                            class="zmdi zmdi-rss"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- team-member end -->
-                                <!-- team-member start -->
-                                <div class="team-member-item">
-                                    <div class="team-member box-shadow bg-shape">
-                                        <div class="team-member-photo">
-                                            <img src="{{ asset('client') }}/img/team/1.png" alt="">
-                                        </div>
-                                        <div class="team-member-info pt-20">
-                                            <h5 class="member-name"><a href="#">Nguyễn Thị Nhung</a></h5>
-                                            <p class="member-position">Chairman</p>
-                                            <p class="mb-20">There are many variations of passage of Lorem
-                                                Ipsum
-                                                available, but the in majority have suffered.</p>
-                                            <ul class="footer-social">
-                                                <li>
-                                                    <a class="facebook" href="#" title="Facebook"><i
-                                                            class="zmdi zmdi-facebook"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a class="google-plus" href="#" title="Google Plus"><i
-                                                            class="zmdi zmdi-google-plus"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a class="twitter" href="#" title="Twitter"><i
-                                                            class="zmdi zmdi-twitter"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a class="rss" href="#" title="RSS"><i
-                                                            class="zmdi zmdi-rss"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- team-member end -->
-                                <!-- team-member start -->
-                                <div class="team-member-item">
-                                    <div class="team-member box-shadow bg-shape">
-                                        <div class="team-member-photo">
-                                            <img src="{{ asset('client') }}/img/team/2.png" alt="">
-                                        </div>
-                                        <div class="team-member-info pt-20">
-                                            <h5 class="member-name"><a href="#">Lê Thế Hùng</a></h5>
-                                            <p class="member-position">Chairman</p>
-                                            <p class="mb-20">There are many variations of passage of Lorem
-                                                Ipsum
-                                                available, but the in majority have suffered.</p>
-                                            <ul class="footer-social">
-                                                <li>
-                                                    <a class="facebook" href="#" title="Facebook"><i
-                                                            class="zmdi zmdi-facebook"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a class="google-plus" href="#" title="Google Plus"><i
-                                                            class="zmdi zmdi-google-plus"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a class="twitter" href="#" title="Twitter"><i
-                                                            class="zmdi zmdi-twitter"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a class="rss" href="#" title="RSS"><i
-                                                            class="zmdi zmdi-rss"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
                                 <!-- team-member end -->
                             </div>
                         </div>

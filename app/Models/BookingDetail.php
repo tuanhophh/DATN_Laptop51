@@ -9,7 +9,7 @@ class BookingDetail extends Model
 {
     use HasFactory;
     protected $table = "booking_details";
-    public $fillable = ["booking_id", 'company_computer_id', 'expected_cost', 'repair', 'repair_type', 'description', 'start_time', 'finish_time', 'active', 'name_computer'];
+    public $fillable = ["booking_id", 'company_computer_id', 'expected_cost', 'repair', 'repair_type', 'description', 'start_time', 'finish_time', 'active', 'name_computer', 'comment', 'status_repair', 'status_booking'];
     public function computerCompany()
     {
         return $this->belongsToMany(ComputerCompany::class, 'computer_company_id', 'id');
