@@ -24,22 +24,22 @@
     <div class="container-fluid bg-light pt-3">
         <div class="container bg-white">
             <p class=""><a class="text-dark" href="/cua-hang">CỬA HÀNG</a> \
-                <a class="text-dark"
-                    href="/cua-hang/{{ $pro->companyComputer_id }}">{{ $pro->companyComputer->company_name }}</a> \
+                <a class="text-dark" href="/cua-hang/{{ $pro->companyComputer_id }}">{{
+                    $pro->companyComputer->company_name }}</a> \
                 <a class="text-dark" href="{{ $pro->id }}">{{ $pro->name }}</a>
             </p>
             @if (session()->has('error'))
-                <div class="alert alert-danger">
-                    {{ session()->get('error') }}
-                </div>
+            <div class="alert alert-danger">
+                {{ session()->get('error') }}
+            </div>
             @endif
             @if (Session::has('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Thông báo: </strong>{{ Session::get('success') }}.
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Thông báo: </strong>{{ Session::get('success') }}.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             @endif
         </div>
         <div class="container bg-white mb-4 pb-3">
@@ -51,10 +51,9 @@
                             data-ride="carousel">
                             <div class="carousel-inner" role="listbox">
                                 @foreach ($images as $image)
-                                    <div class="carousel-item active">
-                                        <img id="images" src="{{ asset($image->path) }}"
-                                            alt="{{ asset($image->path) }}">
-                                    </div>
+                                <div class="carousel-item active">
+                                    <img id="images" src="{{ asset($image->path) }}" alt="{{ asset($image->path) }}">
+                                </div>
                                 @endforeach
                             </div>
                         </div>
@@ -75,103 +74,103 @@
                     <p class="small">{{ $pro->desc_short }}
                     </p>
                     @foreach ($detailPro as $detail)
-                        <div class="row" style="height: auto;">
-                            @if ($detail->category_id == 1)
-                                <div class="col-3 pr-0">
-                                    <p class="pr-0  py-0 font-weight-bold">
-                                        CPU:
-                                    </p>
-                                </div>
-                                <div class="col-9">
-                                    <ul class="nav">
-                                        <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
-                                            <a class="nav-link active p-0 text-dark" href="#">
-                                                {{ $detail->value }}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            @endif
+                    <div class="row" style="height: auto;">
+                        @if ($detail->category_id == 1)
+                        <div class="col-3 pr-0">
+                            <p class="pr-0  py-0 font-weight-bold">
+                                CPU:
+                            </p>
                         </div>
-                        <div class="row" style="height: auto;">
-                            @if ($detail->category_id == 2)
-                                <div class="col-3 pr-0">
-                                    <p class="pr-0  py-0 font-weight-bold">
-                                        RAM:
-                                    </p>
-                                </div>
-                                <div class="col-9">
-                                    <ul class="nav">
-                                        <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
-                                            <a class="nav-link active p-0 text-dark" href="#">
-                                                {{ $detail->value }}
-                                            </a>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            @endif
+                        <div class="col-9">
+                            <ul class="nav">
+                                <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
+                                    <a class="nav-link active p-0 text-dark" href="#">
+                                        {{ $detail->value }}
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="row" style="height: auto;">
-                            @if ($detail->category_id == 3)
-                                <div class="col-3 pr-0">
-                                    <p class="pr-0  py-0 font-weight-bold">
-                                        Ổ cứng:
-                                    </p>
-                                </div>
-                                <div class="col-9">
-                                    <ul class="nav">
-
-                                        <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
-                                            <a class="nav-link active p-0 text-dark" href="#">
-                                                {{ $detail->value }}
-                                            </a>
-                                        </li>
-
-
-                                    </ul>
-                                </div>
-                            @endif
+                        @endif
+                    </div>
+                    <div class="row" style="height: auto;">
+                        @if ($detail->category_id == 2)
+                        <div class="col-3 pr-0">
+                            <p class="pr-0  py-0 font-weight-bold">
+                                RAM:
+                            </p>
                         </div>
-                        <div class="row" style="height: auto;">
-                            @if ($detail->category_id == 4)
-                                <div class="col-3 pr-0">
-                                    <p class="pr-0  py-0 font-weight-bold">
-                                        Màn hình:
-                                    </p>
-                                </div>
-                                <div class="col-9">
-                                    <ul class="nav">
+                        <div class="col-9">
+                            <ul class="nav">
+                                <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
+                                    <a class="nav-link active p-0 text-dark" href="#">
+                                        {{ $detail->value }}
+                                    </a>
+                                </li>
 
-                                        <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
-                                            <a class="nav-link active p-0 text-dark" href="#">
-                                                {{ $detail->value }}
-                                            </a>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            @endif
+                            </ul>
                         </div>
-                        <div class="row" style="height: auto;">
-                            @if ($detail->category_id == 5)
-                                <div class="col-3 pr-0">
-                                    <p class="pr-0  py-0 font-weight-bold">
-                                        Card đồ họa:
-                                    </p>
-                                </div>
-                                <div class="col-9">
-                                    <ul class="nav">
-
-                                        <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
-                                            <a class="nav-link active p-0 text-dark" href="#">
-                                                {{ $detail->value }}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            @endif
+                        @endif
+                    </div>
+                    <div class="row" style="height: auto;">
+                        @if ($detail->category_id == 3)
+                        <div class="col-3 pr-0">
+                            <p class="pr-0  py-0 font-weight-bold">
+                                Ổ cứng:
+                            </p>
                         </div>
+                        <div class="col-9">
+                            <ul class="nav">
+
+                                <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
+                                    <a class="nav-link active p-0 text-dark" href="#">
+                                        {{ $detail->value }}
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </div>
+                        @endif
+                    </div>
+                    <div class="row" style="height: auto;">
+                        @if ($detail->category_id == 4)
+                        <div class="col-3 pr-0">
+                            <p class="pr-0  py-0 font-weight-bold">
+                                Màn hình:
+                            </p>
+                        </div>
+                        <div class="col-9">
+                            <ul class="nav">
+
+                                <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
+                                    <a class="nav-link active p-0 text-dark" href="#">
+                                        {{ $detail->value }}
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        @endif
+                    </div>
+                    <div class="row" style="height: auto;">
+                        @if ($detail->category_id == 5)
+                        <div class="col-3 pr-0">
+                            <p class="pr-0  py-0 font-weight-bold">
+                                Card đồ họa:
+                            </p>
+                        </div>
+                        <div class="col-9">
+                            <ul class="nav">
+
+                                <li class="nav-item border border-warning my-0 mr-2 mb-2 px-2">
+                                    <a class="nav-link active p-0 text-dark" href="#">
+                                        {{ $detail->value }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        @endif
+                    </div>
                     @endforeach
 
                     <p class="m-0 p-0">✅Bảo hành 12 tháng, 1 đổi 1 trong vòng 15 ngày
@@ -228,7 +227,7 @@
                             Sản phẩm cùng hãng
                         </p>
                         @foreach ($products as $product)
-                            <?php
+                        <?php
                             
                             if (!function_exists('currency_format')) {
                                 function currency_format($product, $suffix = ' VNĐ')
@@ -239,21 +238,21 @@
                                 }
                             }
                             ?>
-                            <ul class="list-group">
-                                <li class="list-group-item border-left-0 border-right-0 border-top-0 d-inline">
-                                    <div class="row">
+                        <ul class="list-group">
+                            <li class="list-group-item border-left-0 border-right-0 border-top-0 d-inline">
+                                <div class="row">
 
-                                        <div class="col-4 p-0">
-                                            @foreach ($images as $image)
-                                                @if ($image->product_id == $product->id)
-                                                    <a href="/san-pham/{{ $product->slug }}">
-                                                        <img class="center-block" style="width: 150px;"
-                                                            src="{{ asset($image->path) }}" alt="">
-                                                    </a>
-                                                @break
+                                    <div class="col-4 p-0">
+                                        @foreach ($images as $image)
+                                        @if ($image->product_id == $product->id)
+                                        <a href="/san-pham/{{ $product->slug }}">
+                                            <img class="center-block" style="width: 150px;"
+                                                src="{{ asset($image->path) }}" alt="">
+                                        </a>
+                                        @break
 
-                                                ;
-                                            @endif
+                                        ;
+                                        @endif
                                         @endforeach
                                     </div>
                                     <div class="col-8">
@@ -273,20 +272,14 @@
                                 </div>
                             </li>
                         </ul>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-<<<<<<< HEAD
     @include('layout_client.footer')
     @include('layout_client.script')
-        
-=======
-</div>
-@include('layout_client.footer')
-@include('layout_client.script')
->>>>>>> a9e061b191eda7efbf5aa66b0508561bf5c81e26
 </body>
 
 </html>

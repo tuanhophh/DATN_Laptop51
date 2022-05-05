@@ -57,7 +57,7 @@ class DataController extends Controller
                 continue;
             }
         }
-        
+
         return response()->json([
             'total_category' => $total_category,
             'total_product' => $total_product,
@@ -65,8 +65,8 @@ class DataController extends Controller
             'total_bill' => $total_bill,
             'total_huy' => $total_huy,
             'datasanphamban' => $datasanphamban,
-            'datanhanvien'=>$datanhanvien,
-         
+            'datanhanvien' => $datanhanvien,
+
         ]);
     }
     public function bieudo(Request $request)
