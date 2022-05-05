@@ -1,5 +1,5 @@
 @extends('admin.layouts.main')
-@section('title', 'Danh sách người dùng')
+@section('title', 'Danh sách nhân viên')
 @section('content')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -53,9 +53,11 @@
                             <td> {{$item->email}} </td>
                             <td><img src="{{asset($item->avatar)}}" alt="" width="100"></td>
                             <td> {{$item->phone}} </td>
-                            @foreach($item->roles as $role)
-                            <td> {{$role->name}}</td>
-                            @endforeach
+                            <td>
+                                @foreach($item->roles as $role)
+                                 {{$role->name}}
+                                 @endforeach
+                            </td>
                             <td>
                                 @can('edit-user')
                                 <button type="button" class="btn btn-warning"><a

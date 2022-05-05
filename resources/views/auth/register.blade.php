@@ -1,263 +1,110 @@
-<!-- <div class="limiter">
-    <div class="container-login100">
-        <div class="wrap-login100">
-            <form method="POST" action="{{ route('register') }}" class="login100-form validate-form">
-                @csrf
-					<span class="login100-form-title p-b-26">
-						Chào mừng đến với Laptop 51
-					</span>
-                <span class="login100-form-title p-b-48">
-						<i class="zmdi zmdi-font"></i>
-					</span>
-                <div class="wrap-input100 validate-input">
-
-                    <input id="name" type="text" class="input100 @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                    <span class="focus-input100" data-placeholder="Tên đăng nhập"></span>
-                    @error('name')
-                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                    @enderror
-                </div>
-                <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
-                    <input id="email" type="email" class="input100 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-                    <span class="focus-input100" data-placeholder="Email"></span>
-                    @error('email')
-                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                    @enderror
-                </div>
-
-                <div class="wrap-input100 validate-input" data-validate="Mật khẩu">
-						<span class="btn-show-pass">
-							<i class="zmdi zmdi-eye"></i>
-						</span>
-                    <input id="password" type="password" class="input100 @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                    <span class="focus-input100" data-placeholder="Mật khẩu"></span>
-                    @error('password')
-                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                    @enderror
-                </div>
-                <div class="wrap-input100 validate-input" data-validate="Enter password">
-						<span class="btn-show-pass">
-							<i class="zmdi zmdi-eye"></i>
-						</span>
-                    <input id="password-confirm" type="password" class="input100" name="password_confirmation" required autocomplete="new-password">
-                    <span class="focus-input100" data-placeholder="Nhập lại mật khẩu"></span>
-                </div>
-                <div class="container-login100-form-btn">
-                    <div class="wrap-login100-form-btn">
-                        <div class="login100-form-bgbtn"></div>
-                        <button type="submit" class="login100-form-btn">
-                            Đăng Ký
-                        </button>
-                    </div>
-                </div>
-
-                <div class="text-center p-t-115">
-						<span class="txt1">
-							Bạn đã có tài khoản?
-						</span>
-
-                    <a class="txt2" href="/login">
-                        Đăng nhập
-                    </a>
-                </div>
-            </form>
-
-        </div>
-    </div>
-</div> -->
-
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 
 <head>
+
     <title>Bệnh Viện Laptop 51</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
-    <!--===============================================================================================-->
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    @include('layout_client.style')
+
+
 </head>
-
-<body>
-
-    <!-- <div class="limiter">
-        <div class="container-login100">
-            <div class="wrap-login100">
-                <form method="POST" action="{{ route('login') }}" class="login100-form validate-form">
-                    @csrf
-                    <span class="login100-form-title p-b-26">
-                        Chào mừng đến với Laptop 51
-                    </span>
-                    <span class="login100-form-title p-b-48">
-                        <i class="zmdi zmdi-font"></i>
-                    </span>
-
-                    @if (Session::has('message'))
-                    <div class="alert alert-success" role="alert">
-                        {{ Session::get('message') }}
-                    </div>
-                    @endif
-
-
-                    <div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
-                        <input id="email" type="email" class="input100 @error('email') is-invalid @enderror"
-                            name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                        <span class="focus-input100" data-placeholder="Email"></span>
-                        @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-
-                    </div>
-
-                    <div class="wrap-input100 validate-input" data-validate="Enter password">
-                        <span class="btn-show-pass">
-                            <i class="zmdi zmdi-eye"></i>
-                        </span>
-                        <input id="password" type="password" class="input100 @error('password') is-invalid @enderror"
-                            name="password" required autocomplete="current-password">
-                        <span class="focus-input100" data-placeholder="Mật khẩu"></span>
-                        @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="pb-0 d-flex justify-content-end">
-                            <a style="color: #1a73e8;" class="" href="/forget-password">Quên mật khẩu</a>
-                    </div>
-                    <div class="container-login100-form-btn">
-                        <div class="wrap-login100-form-btn">
-                            <div class="login100-form-bgbtn"></div>
-                            <button type="submit" class="login100-form-btn">
-                                Đăng Nhập
-                            </button>
+    @include('layout_client.menu')
+    <div class="breadcrumbs-section plr-200 mb-80 section">
+        <div class="breadcrumbs overlay-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumbs-inner">
+                            <h1 class="breadcrumbs-title">Đăng ký</h1>
+                            <ul class="breadcrumb-list">
+                                <li><a href="/">Trang chủ</a></li>
+                                <li>Đăng ký</li>
+                            </ul>
                         </div>
                     </div>
-
-                    <div class="text-center p-t-115">
-                        <span class="txt1">
-                            Bạn không có tài khoản?
-                        </span>
-
-                        <a class="txt2" href="/register">
-                            Đăng ký
-                        </a>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div> -->
-    <div class="container">
-        <div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <div class="panel-title">Đăng ký</div>
-                    <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink"
-                            href="/login">Đăng nhập</a></div>
-                </div>
-                @if (Session::has('message'))
-                <div class="alert alert-success" role="alert">
-                    {{ Session::get('message') }}
-                </div>
-                @endif
-                <div class="panel-body">
-                    <form id="signupform" method="POST" action="{{route('register')}}" class="form-horizontal"
-                        role="form">
-                        @csrf
-                        <div id="signupalert" style="display:none" class="alert alert-danger">
-                            <p>Error:</p>
-                            <span></span>
-                        </div>
-
-                        <div class="form-group">
-                            <!-- <label for="firstname" class="col-md-3 control-label">Họ và tên</label> -->
-                            <div class="col-md-12">
-
-                                <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> -->
-                                @error('name')
-                                <span class="invalid-feedback text-danger small" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                                <input type="text" class="form-control" value="{{ old('name') }}" name="name"
-                                    placeholder="Họ và Tên">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <!-- <label for="email" class="col-md-3 control-label">Email</label> -->
-                            <div class="col-md-12">
-                                <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> -->
-
-                                @error('email')
-                                <span class="invalid-feedback text-danger small" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                                <input type="email" class="form-control" value="{{ old('email') }}"
-                                    name="email" placeholder="Email">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <!-- <label for="password" class="col-md-3 control-label">Mật khẩu</label> -->
-                            <div class="col-md-12">
-                                <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span> -->
-                                @error('password')
-                                <span class="invalid-feedback text-danger small" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                                <input type="password" class="form-control" name="password" placeholder="Mật khẩu">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <!-- <label for="password" class="col-md-3 control-label">Nhập lại mật khấu</label> -->
-                            <div class="col-md-12">
-                                <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span> -->
-                                <input type="password" class="form-control" name="password_confirmation"
-                                    placeholder="Nhập lại mật khẩu">
-                            </div>
-                        </div>
-                        <!-- <div class="form-group">
-                                    <label for="icode" class="col-md-3 control-label">Invitation Code</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" name="icode" placeholder="">
-                                    </div>
-                                </div> -->
-
-                        <div class="form-group">
-                            <!-- Button -->
-                            <div class="col-md-12">
-                                <button id="btn-login" class="justify-content-end btn btn-success">Đăng ký</button>
-                                <!-- <span style="margin-left:8px;">or</span>   -->
-                            </div>
-                        </div>
-
-                        <!-- <div style="border-top: 1px solid #999; padding-top:20px"  class="form-group">
-                                    
-                                    <div class="col-md-offset-3 col-md-9">
-                                        <button id="btn-fbsignup" type="button" class="btn btn-primary"><i class="icon-facebook"></i>   Sign Up with Facebook</button>
-                                    </div>                                           
-                                        
-                                </div> -->
-
-                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <div class="login-section mb-80">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6  pb-5">
+                    <div class="new-customers">
+                        @if (Session::has('message'))
+                        <div class="alert alert-success" role="alert">
+                            {{ Session::get('message') }}
+                        </div>
+                        @endif
+                        <form method="POST" action="{{route('register')}}">
+                            @csrf
+                            <h6 class="widget-title border-left mb-50">Đăng ký</h6>
+                            <div class="login-account p-30 box-shadow">
+                            <p>Bạn đã có tài khoản? <a href="/login"> Nhấp vào đây để đăng nhập!</a></p>
+                                <input type="text" class="@error('name') is-invalid @enderror mb-0 mt-4"
+                                    value="{{ old('name') }}" name="name" placeholder="Họ và tên">
+                                @error('name')
+                                <span class="invalid-feedback pb-2" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                                <input type="text" class="@error('phone') is-invalid @enderror mb-0 mt-4"
+                                    value="{{ old('phone') }}" name="phone" placeholder="Số điện thoại">
+                                @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                                <input type="password" name="password" placeholder="Mật khẩu" class="mb-0 mt-4">
+                                @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                                <input type="password" name="password_confirmation" placeholder="Nhập lại mật khẩu" class="mb-0 mt-4">
 
-</body>
+                                <!-- <div class="checkbox">
+                                    <label class="mr-10">
+                                        <small>
+                                            <input type="checkbox" name="signup">Sign up for our newsletter!
+                                        </small>
+                                    </label>
+                                    <label>
+                                        <small>
+                                            <input type="checkbox" name="signup">Receive special offers from our
+                                            partners!
+                                        </small>
+                                    </label>
+                                </div> -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
+                                            value="register">Đăng ký</button>
+                                    </div>
+                                    <!-- <div class="col-md-6">
+                                        <button class="submit-btn-1 mt-20 btn-hover-1 f-right"
+                                            type="reset">Clear</button>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @include('layout_client.footer')
+
+    @include('layout_client.script')
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.js"></script>
+    </body>
+
 </html>
