@@ -95,9 +95,9 @@
                         <tr>
                             <td>{{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}</td>
                             <td>{{ $item->name }}</td>
-                            <!-- <td>
+                            <td>
                                 {{ $item->companyComputer->company_name }}
-                            </td> --}}
+                            </td> 
                             <td>
                                 <img src="{{ asset($item->image) }}" width="100">
                             </td> 
@@ -139,7 +139,7 @@
 
                                 <!-- <a onclick="return confirm('Bạn có chắc muốn xóa')"
                                     href="{{route('product.remove', ['id' => $item->id])}}"
-                                    class="btn btn-sm btn-danger">Xóa</a>
+                                    class="btn btn-sm btn-danger">Xóa</a>  -->
                             </td>
                         </tr>
                         @endforeach
