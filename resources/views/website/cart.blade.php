@@ -1,217 +1,327 @@
 <!DOCTYPE html>
 
 <html>
-
-
-<!-- Mirrored from quanticalabs.com/Autospa/Template/?page=book-your-wash by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 11 Feb 2022 11:22:27 GMT -->
-<!-- Added by HTTrack -->
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 
 <head>
 
-    <title>Auto Spa - Car Wash Auto Detail Template</title>
+    <title>Bệnh Viện Laptop 51</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     @include('layout_client.style')
+    <style>
+    .quantity {
+        position: relative;
+    }
 
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    .quantity input {
+        height: 42px;
+        line-height: 1.65;
+        float: left;
+        display: block;
+        padding: 0;
+        margin: 0;
+        padding-left: 20px;
+        border: 1px solid #eee;
+    }
+
+    .quantity input:focus {
+        outline: 0;
+    }
+
+    .quantity-nav {
+        float: right;
+        position: relative;
+        height: 42px;
+    }
+
+    .quantity-button {
+        position: relative;
+        cursor: pointer;
+        border-left: 1px solid #eee;
+        width: 20px;
+        text-align: center;
+        color: #333;
+        font-size: 13px;
+        font-family: "Trebuchet MS", Helvetica, sans-serif !important;
+        line-height: 1.7;
+        -webkit-transform: translateX(-100%);
+        transform: translateX(-100%);
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
+
+    .quantity-button.quantity-up {
+        position: absolute;
+        height: 50%;
+        top: 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .quantity-button.quantity-down {
+        position: absolute;
+        bottom: -1px;
+        height: 50%;
+    }
+    </style>
 </head>
 
-<body class="template-page-book-your-wash">
-
-    <!-- Header -->
-    @include('layout_client.menu')
-    <!-- Content -->
-    <div class="breadcrumbs-section plr-200 mb-80 section">
-        <div class="breadcrumbs overlay-bg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="breadcrumbs-inner">
-                            <h1 class="breadcrumbs-title">Giỏ Hàng</h1>
+<body>
+    <div class="wrapper">
+        @include('layout_client.menu')
+        <!-- Content -->
+        <div class="breadcrumbs-section plr-200 mb-80 section">
+            <div class="breadcrumbs overlay-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="breadcrumbs-inner">
+                                <h1 class="breadcrumbs-title">Chi tiết sản phẩm</h1>
+                                <ul class="breadcrumb-list">
+                                    <li><a href="/">Trang chủ</a></li>
+                                    <li>Chi tiết sản phẩm</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container-fluid bg-light p-5">
-        <div class="container bg-white p-2">
-            <div class="container-fluid">
-                <div class="row">
-                    <aside class="col-lg-12">
-                        <div class="card">
-                            <div class="table-responsive">
-                                <?php
-                                use Gloudemans\Shoppingcart\Facades\Cart;
-                                
-                                $content = Cart::content();
-                                // dd($content);
-                                ?>
-                                <!-- @if ($content == null)
-<p class="text-center text-dark">Bạn không có sản phẩm trong giỏ hàng
-@endif -->
-                                <table class="table table-bordered table-shopping-cart">
-                                    <thead class="text-muted p-0">
-                                        <tr class="small text-uppercase">
-                                            <th scope="col">STT</th>
-                                            <th scope="col">Thông tin</th>
-                                            <th scope="col">Giá</th>
-                                            <th scope="col" style="width: 130px;">Số lượng</th>
-                                            <th scope="col">Tổng giá</th>
-                                        </tr>
-                                    </thead>
+        <section id="page-content" class="page-wrapper section">
 
-                                    @if (count(Cart::content()) != 0)
-                                        <tbody>
-                                            @foreach ($content as $cont)
-                                                <tr>
-                                                    <td style="width:30px;">
-                                                        <p style="width: 20px;">1</p>
-                                                    </td>
-                                                    <td style="width: 520px;">
-                                                        <div class="row" style="width: 500px;">
-                                                            <div class="col-auto px-1">
-                                                                <img width="80px"
-                                                                    src="https://laptop88.vn/media/product/6792_anb_dell_latitude_3400.png"
-                                                                    class="img-sm d-inline">
-                                                            </div>
-                                                            <div class="col px-0 pr-2">
-                                                                <figcaption class="info d-inline"> <a href="#"
-                                                                        class="title text-dark"
-                                                                        data-abc="true">{{ $cont->name }}</a>
-                                                                    <p class="text-muted small">Bảo hành 12 tháng, 1 đổi
-                                                                        1 trong
-                                                                        vòng 15
-                                                                        ngày <br> MIỄN PHÍ GIAO HÀNG TẬN NHÀ <br> - Với
-                                                                        đơn hàng
-                                                                        < 4.000.000 đồng: Miễn phí giao hàng cho đơn
-                                                                            hàng < 5km tính từ cửa hàng Laptop88 gần
-                                                                            nhất <br> - Với đơn
-                                                                            hàng >
-                                                                            4.000.000 đồng: Miễn phí giao hàng (khách
-                                                                            hàng chịu
-                                                                            phí
-                                                                            bảo
-                                                                            hiểm hàng hóa nếu có)
-                                                                    </p>
-                                                                </figcaption>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
+            <!-- SHOP SECTION START -->
+            <div class="shop-section mb-80">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <ul class="nav cart-tab">
+                                <li>
+                                    <a class="active">
+                                        <span>01</span>
+                                        Giỏ hàng
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span>02</span>
+                                        Checkout
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span>03</span>
+                                        Hoàn thành
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-10">
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <!-- shopping-cart start -->
+                                <div class="tab-pane active" id="shopping-cart">
+                                    <div class="shopping-cart-content">
+                                        <div class="table-content table-responsive mb-50">
+                                            <table class="text-center">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="product-thumbnail">Sản phẩm</th>
+                                                        <th class="product-price">Giá</th>
+                                                        <th class="product-quantity">Số lượng</th>
+                                                        <th class="product-total">Tổng giá</th>
+                                                        <th class="product-remove">Xóa</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                        use Gloudemans\Shoppingcart\Facades\Cart;
 
-                                                        <div class="price-wrap"> <var
-                                                                class="price font-weight-bold h6 small">{{ number_format($cont->price) . ' ' . 'vnđ' }}</var>
-                                                            <!-- <br><small class="text-muted">13.990.000 VND </small> </div> -->
-                                                    </td>
-                                                    <td style="width: 150px;">
-                                                        <form action="{{ URL::to('/update-cart-quantity') }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            <div class="form-row">
-                                                                <div class="col-4">
-                                                                    <input class="form-control p-1 m-0" type="text"
-                                                                        name="cart_quantity"
-                                                                        value="{{ $cont->qty }}">
+                                                        $content = Cart::content();
+                                                        // dd($content);
+                                                    ?>
+                                                    <!-- tr -->
+                                                    @if (count(Cart::content()) != 0)
+                                                    @foreach ($content as $cont)
+                                                    <?php
+                                                        if (!function_exists('currency_format')) {
+                                                            function currency_format($cont, $suffix = ' VNĐ')
+                                                            {
+                                                                if (!empty($cont)) {
+                                                                    return number_format($cont, 0, ',', '.') . "{$suffix}";
+                                                                }
+                                                            }
+                                                        }
+                                                        $total = $cont->qty * $cont->price;
+                                                    ?>
+                                                    <tr>
+                                                        <td class="product-thumbnail">
+                                                            <div class="pro-thumbnail-img">
+                                                                <img src="{{ asset($cont->options->image) }}" alt="">
+                                                            </div>
+                                                            <div class="pro-thumbnail-info text-left">
+                                                                <h6 class="product-title-2">
+                                                                    <a href="#">{{$cont->name}}</a>
+                                                                </h6>
+                                                            </div>
+                                                        </td>
+                                                        <td class="product-price">
+                                                            {{ currency_format($cont->price) }}</td>
+                                                        <td class="product-quantity">
+                                                            <form action="{{ URL::to('/update-cart-quantity') }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                <div class="quantity">
+                                                                    <input type="number" name="cart_quantity"
+                                                                        value="{{ $cont->qty }}" min="0">
                                                                 </div>
-                                                                <div class="col-7">
-                                                                    <input type="submit" value="Câp nhật"
-                                                                        name="update_qty"
-                                                                        class="btn btn-warning form-control m-0">
-                                                                </div>
+                                                                <input type="submit" value="Câp nhật" name="update_qty"
+                                                                    class="button extra-small button-black form-control m-0">
                                                                 <input type="hidden" value="{{ $cont->rowId }}"
                                                                     name="rowId_cart">
                                                                 <!-- <input class="cart_quantity_input form-control" type="text"
                                                                 name="cart_quantity" value="{{ $cont->qty }}">
-                                                            
+
                                                             <input type="submit" value="Câp nhật" name="update_qty"
                                                                 class="btn btn-warning form-control"> -->
-                                                        </form>
-                                                    </td>
-                                                    <td>
-                                                        <div class="price-wrap"> <var
-                                                                class="price font-weight-bold h6 small">
-                                                                <?php
-                                                                $subtotal = $cont->price * $cont->qty;
-                                                                echo number_format($subtotal) . ' ' . 'vnđ';
-                                                                ?>
-                                                            </var>
-                                                            <!-- <br><small class="text-muted">13.990.000 VND </small> </div> -->
-                                                    </td>
-                                                    <td style="width: 50px;" class="text-center"> <a
-                                                            class="text-danger"
-                                                            href="{{ URL::to('/delete-to-cart/' . $cont->rowId) }}"><i
-                                                                class="bi bi-trash"></i></a> </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    @else
-                                        <p class="text-center">Bạn không có đồ trong giỏ hàng. Vui lòng chọn đồ!</p>
-                                    @endif
-                                </table>
-                            </div>
-                        </div>
-                    </aside>
-                </div>
-                <div class="row">
-                    <aside class="col-lg-9"></aside>
-                    <aside class="col-lg-3">
-                        <!-- <div class="card mb-3">
-                            <div class="card-body">
-                                <form>
-                                    <div class="form-group"> <label>Mã giảm giá?</label>
-                                        <div class="input-group"> <input type="text" class="form-control coupon" name=""
-                                                placeholder="Mã giảm giá"> <span class="input-group-append"> <button
-                                                    class="btn btn-primary btn-apply coupon">Áp dụng</button> </span>
+                                                            </form>
+
+                                                        </td>
+                                                        <td class="product-price">
+                                                            {{ currency_format($total) }}
+                                                        </td>
+                                                        <td class="product-remove">
+                                                            <a class="text-danger"
+                                                                href="{{ URL::to('/delete-to-cart/' . $cont->rowId) }}"><i
+                                                                    class="zmdi zmdi-close"></i>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                    @else
+                                                    <tr>
+                                                        <p class="text-center"> Không có sản phẩm trong giỏ hàng</p>
+                                                    </tr>
+                                                    @endif
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <!-- <div class="coupon-discount box-shadow p-30 mb-50">
+                                                        <h6 class="widget-title border-left mb-20">coupon discount</h6>
+                                                        <p>Enter your coupon code if you have one!</p>
+                                                        <input type="text" name="name"
+                                                            placeholder="Enter your code here.">
+                                                        <button class="submit-btn-1 black-bg btn-hover-2"
+                                                            type="submit">apply coupon</button>
+                                                    </div> -->
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="payment-details box-shadow p-30 mb-50">
+                                                    <h6 class="widget-title border-left mb-20">Thanh toán</h6>
+                                                    <table>
+                                                        <tr>
+                                                            <td class="td-title-1">Tổng tiền:</td>
+                                                            <td class="td-title-2">
+                                                                <h5 class="product-price"> {{ $totalBill }} VNĐ</h5>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>
+                                                                <div class="f-right">
+
+
+                                                                    <a href="/cua-hang"
+                                                                        class="button extra-small button-black"
+                                                                        tabindex="-1">
+                                                                        <span class="text-uppercase">Trở lại</span>
+                                                                    </a>
+
+                                                                    <a href="/thanh-toan"
+                                                                        class="button extra-small button-black"
+                                                                        tabindex="-1">
+                                                                        <span class="text-uppercase">Thanh toán</span>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                        </div> -->
-                        <div class="card mt-3">
-                            <div class="card-body">
-                                <dl class="dlist-align">
-                                    <dt class="text-danger">Tổng tiền: {{ $totalBill }} VNĐ</dt>
-                                    <dd class="text-right ml-3"></dd>
-                                </dl>
-                                <!-- <dl class="dlist-align">
-                                    <dt>Giảm giá:</dt>
-                                    <dd class="text-right text-danger ml-3"></dd>
-                                </dl>
-                                <dl class="dlist-align">
-                                    <dt>Tổng tiền:</dt>
-                                    <dd class="text-right text-dark b ml-3">
-                                        <strong>{{ $totalBill }}</strong>
-                                    </dd>
-                                </dl> -->
-                                <hr>
-                                <a href="/cua-hang" class="btn btn-out bg-info btn- btn-square btn-main text-white"
-                                    data-abc="true"> Trở lại </a>
-                                @if (count(Cart::content()) != 0)
-                                    <a href="{{ URL::to('/thanh-toan') }}"
-                                        class="btn btn-out btn-warning btn-square btn-main" data-abc="true"> Thanh
-                                        toán</a>
-                                @endif
+                                </div>
                             </div>
                         </div>
-                    </aside>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+            <!-- SHOP SECTION END -->
 
-    <script type="text/javascript">
+        </section>
+        <script type="text/javascript">
         jQuery(document).ready(function($) {
             $('#template-booking').booking();
         });
-    </script>
+        </script>
 
-    <!-- JS files -->
-    @include('layout_client.footer')
-    @include('layout_client.script')
+        <!-- JS files -->
+        @include('layout_client.footer')
+        @include('layout_client.script')
+        <script>
+        jQuery(
+                '<div class="quantity-nav"><div class="quantity-button quantity-up">+</div><div class="quantity-button quantity-down">-</div></div>'
+            )
+            .insertAfter('.quantity input');
+        jQuery('.quantity').each(function() {
+            var spinner = jQuery(this),
+                input = spinner.find('input[type="number"]'),
+                btnUp = spinner.find('.quantity-up'),
+                btnDown = spinner.find('.quantity-down'),
+                min = input.attr('min'),
+                max = input.attr('max');
+
+            btnUp.click(function() {
+                var oldValue = parseFloat(input.val());
+                if (oldValue >= max) {
+                    var newVal = oldValue;
+                } else {
+                    var newVal = oldValue + 1;
+                }
+                spinner.find("input").val(newVal);
+                spinner.find("input").trigger("change");
+            });
+
+            btnDown.click(function() {
+                var oldValue = parseFloat(input.val());
+                if (oldValue <= min) {
+                    var newVal = oldValue;
+                } else {
+                    var newVal = oldValue - 1;
+                }
+                spinner.find("input").val(newVal);
+                spinner.find("input").trigger("change");
+            });
+
+        });
+        </script>
 </body>
 
 

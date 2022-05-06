@@ -22,80 +22,6 @@
         @include('layout_client.header')
         <div id="page-content" class="page-wrapper section">
 
-<<<<<<< HEAD
-            <div class="template-main">
-
-                <div class="template-header-bottom-page-title">
-                    <h1>Danh Sách Sản Phẩm</h1>
-                </div>
-
-                <div class="template-header-bottom-page-breadcrumb">
-                    <a href="index9ba3.html?page=home">Trang chủ</a><span
-                        class="template-icon-meta-arrow-right-12"></span><a href="#">Danh sách sản Phẩm</a>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-    <div class="container-fluid bg-light">
-        <div class="container bg-light">
-            <div class="pt-5 mx-0 my-0">
-                @if (session()->has('error'))
-                <div class="alert alert-danger">
-                    {{ session()->get('error') }}
-                </div>
-                @elseif(session()->has('success'))
-                <div class="alert alert-success">
-                    {{ session()->get('success') }}
-                    {{ session()->get('length') }}
-                </div>
-                @endif
-                <div class="row bg-white shadow mx-0">
-                    <div class="col-auto justify-content-start bg-warning pt-2">
-                        <h4 class="text-dark font-weight-bold">
-                            LAPTOP MỚI NHẤT
-                        </h4>
-                    </div>
-                    <div class="col mx-0">
-                        <ul class="nav justify-content-end">
-                            <!-- <li class="nav-item">
-                                <a class="nav-link active" href="#">Active</a>
-                            </li> -->
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" href="">Xem tất cả</a>
-                            </li>
-                            <!-- <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link disabled">Disabled</a>
-                            </li> -->
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="row p-2">
-                @foreach ($productNew as $item)
-                <?php
-                    
-                    if (!function_exists('currency_format')) {
-                        function currency_format($item, $suffix = ' VNĐ')
-                        {
-                            if (!empty($item)) {
-                                return number_format($item, 0, ',', '.') . "{$suffix}";
-                            }
-                        }
-                    }
-                    ?>
-                <div class="col-lg-3 d-flex col-sm-6 p-2">
-                    <div class="card flex-fill">
-                        {{-- @foreach ($images as $image)
-                        @if ($image->product_id == $item->id)
-                        <a href="/san-pham/{{ $item->slug }}"><img src="{{ asset($image->path) }}" class="card-img-top"
-                                alt="{{ asset($image->path) }}"></a>
-                        @break
-=======
             <!-- SHOP SECTION START -->
             <div class="shop-section mb-80">
                 <div class="container">
@@ -126,7 +52,7 @@
                                     <div id="grid-view" class="tab-pane active show" role="tabpanel">
                                         <div class="row">
                                             <!-- product-item start -->
-                                            @foreach($products as $product)
+                                            @foreach($productNew as $product)
                                             <?php
 
 if (!function_exists('currency_format')) {
@@ -211,7 +137,6 @@ if (!function_exists('currency_format')) {
                             <aside class="widget widget-product box-shadow">
                                 <h6 class="widget-title border-left mb-20">Sản phẩm bán chạy</h6>
                                 <!-- product-item start -->
->>>>>>> 14b053ba63da60727551523e32275154add4fd57
 
                                 <div class="product-item">
                                     <div class="product-img">
@@ -233,92 +158,10 @@ if (!function_exists('currency_format')) {
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
-            @foreach ($ComputerCompany as $comP)
-            <div class="pt-2 mx-0 my-0">
-                <div class="row bg-white shadow mx-0">
-                    <div class="col-auto justify-content-start bg-warning pt-2">
-                        <h4 class="text-dark font-weight-bold">
-                            LAPTOP {{ $comP->company_name }}
-                        </h4>
-                    </div>
-                    <div class="col mx-0">
-                        <ul class="nav justify-content-end">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" href="cua-hang/{{ $comP->id }}">Xem tất cả</a>
-                            </li>
-                            <!-- <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link disabled">Disabled</a>
-    </li> -->
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row p-2">
-                <?php
-                    $i = 0;
-                    $y = 1;
-                    ?>
-
-                @foreach ($products as $product)
-                @if ($product->companyComputer_id == $comP->id)
-                <?php
-                            $i = $i + 1;
-                            $y += $y;
-                            if (!function_exists('currency_format')) {
-                                function currency_format($product, $suffix = ' VNĐ')
-                                {
-                                    if (!empty($product)) {
-                                        return number_format($product, 0, ',', '.') . "{$suffix}";
-                                    }
-                                }
-                            }
-                            
-                            ?>
-                <div class="col-lg-3 d-flex col-sm-6 p-2">
-                    <div class="card flex-fill">
-                        @foreach ($images as $image)
-                        @if ($image->product_id == $product->id)
-                        <a href="/san-pham/{{ $product->slug }}"><img src="{{ asset($image->path) }}"
-                                class="card-img-top" alt="{{ asset($image->path) }}"></a>
-                        @break
-
-                        ;
-                        @endif
-                        @endforeach
-                        <div class="card-body">
-                            <p class="card-title h6 fw-bold p-0">{{ $product->name }}</p>
-                            <p class="card-text h6 small p-0">{{ $product->desc_short }}
-                            </p>
-                            <h6 class="bg-warning font-weight-bold mt-3 mb-0 mx-auto p-1 rounded-pill text-center text-danger"
-                                style="width: 180px;">{{ currency_format($product->price) }}</h6>
-                        </div>
-                    </div>
-                </div>
-                @if ($i === 4)
-                @break
-                @endif
-                @endif
-                @endforeach
-            </div>
-            @endforeach
-        </div>
-    </div>
-    @include('layout_client.footer')
-    @include('layout_client.script')
-=======
             <!-- SHOP SECTION END -->
         </div>
         @include('layout_client.footer')
         @include('layout_client.script')
->>>>>>> 14b053ba63da60727551523e32275154add4fd57
 
 
 

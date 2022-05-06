@@ -40,7 +40,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6  pb-5">
                     <div class="registered-customers">
-                        <h6 class="widget-title border-left mb-50">Quên mật khẩu</h6>
+                       
                         @if (Session::has('message'))
                         <div class="alert alert-success" role="alert">
                             {{ Session::get('message') }}
@@ -49,7 +49,7 @@
                         <div class="login-account p-30 box-shadow">
                             <p>Bạn chưa có tài khoản? <a href="/register"> Nhấp vào đây để đăng ký!</a></p>
                             <p>Bạn đã có tài khoản? <a href="/login"> Nhấp vào đây để đăng nhập!</a></p>
-                        </div>
+                        
                         <form method="POST" action="{{route('forget.password.post')}}" form>
                             @csrf
                             <div class="row">
@@ -80,7 +80,7 @@
                             "{{ old('phone') }}"
                             @endif
                             name="phone" placeholder="Số điện thoại">
-                            <input type="text" name="phone_otp" class="mb-0 mt-4" placeholder="Mã">
+                            <input type="text" name="code_verify" class="mb-0 mt-4" placeholder="Mã">
                             <p><small>Nhập số điện thoại rồi nhấn gửi mã</small></p>
                             @error('phone')
                                     <span class="invalid-feedback" role="alert">
@@ -102,6 +102,7 @@
                                     </div> -->
                             </div>
                         </form>
+                        </div>
                     </div>
                 </div>
             </div>

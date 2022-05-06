@@ -83,12 +83,6 @@
                                                     alt="{{ asset($image->path) }}" />
                                             </a>
                                             @break;
-                                            @else
-                                            <a href="/san-pham/{{ $item->slug }}">
-                                            <img src="https://laptop88.vn/media/product/5212_anb_th__ng_12_msi_bravo_15_b5dd_276vn__2_.png"
-                                                    alt="" />
-                                            </a>
-                                            @break;
                                             @endif
                                             @endforeach
                                         </div>
@@ -186,141 +180,45 @@
                                 <div id="popular-product" class="tab-pane active show">
                                     <div class="row">
                                         <!-- product-item start -->
+                                        @foreach($product_hot_sell as $product_hot)
+                                        <?php
+                    
+                    if (!function_exists('currency_format')) {
+                        function currency_format($product_hot, $suffix = ' VNĐ')
+                        {
+                            if (!empty($product_hot)) {
+                                return number_format($product_hot, 0, ',', '.') . "{$suffix}";
+                            }
+                        }
+                    }
+                    ?>
                                         <div class="col-lg-3 col-md-4">
                                             <div class="product-item">
                                                 <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/10.jpg" alt="" />
-                                                    </a>
+                                                @foreach ($images as $image)
+                                                        @if ($image->product_id == $product_hot->id)
+                                                        <a href="/san-pham/{{$product_hot->slug}}">
+                                                            <img src="{{ asset($image->path) }}"
+                                                                alt="{{ asset($image->path) }}" />
+                                                        </a>
+                                                        @break;
+                                                        @endif
+                                                        @endforeach
                                                 </div>
                                                 <div class="product-info">
                                                     <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
+                                                        <a href="/san-pham/{{$product_hot->slug}}">{{$product_hot->name}}</a>
                                                     </h6>
 
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
+                                                    <h3 class="pro-price">{{ currency_format($item->price) }}</h3>
 
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
+                                        
+                                        @endforeach
                                         <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/11.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
 
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/8.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
-                                        <!-- product-item start -->
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img src="img/product/12.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="single-product.html">Product Name</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">$ 869.00</h3>
-                                                    <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quickview"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- product-item end -->
                                     </div>
                                 </div>
                             </div>

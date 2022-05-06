@@ -56,81 +56,73 @@
                 </div>
                 <div class="form-group">
                     <label for="">Số lượng</label>
-                    <input type="text" name="qty" value="{{ $pro->qty }}" class="form-control"
+                    <input type="number" name="qty" value="{{ $pro->qty }}" class="form-control"
                         placeholder="Số lượng">
-
                     @error('qty')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
-
             </div>
-            <input type="hidden" name="qty" value="0">
             <div class="col-6 mt-2">
 
                 <div class="form-group text-center mb-0">
                     <label for="">Chi tiết sản phẩm</label>
                 </div>
-                @error('value')
-                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                @enderror
-                @error('value.*')
-                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                @enderror
-                @foreach($attribute_value as $attribute)
-                @if($attribute->category_id == 1)
                 <div class="form-group row mb-1 pr-2">
                     <label for="" class="font-italic col-sm-2 col-form-label">CPU:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="value[]" value="{{$attribute->value}}"
-                            placeholder="CPU">
+                        <input type="text" class="form-control" value="{{ $pro->cpu }}" name="cpu" id="" placeholder="CPU">
                     </div>
-
-                    @endif
-                    @if($attribute->category_id == 2)
+                    @error('cpu')
+                        <p class="text-danger">{{ $message }}</p>
+                        @enderror
                 </div>
                 <div class="form-group row mb-1 pr-2">
-                    <label class="font-italic col-sm-2 col-form-label">RAM:</label>
+                    <label for="" class="font-italic col-sm-2 col-form-label">RAM:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="value[]" value="{{$attribute->value}}"
-                            placeholder="RAM">
-
-                        <!-- <input type="text" class="form-control" name="value[]" value="{{$attribute->value}}" placeholder="RAM"> -->
+                        <input type="text" class="form-control" value="{{ $pro->ram }}" name="ram" id="" placeholder="RAM">
                     </div>
+                    @error('ram')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
                 </div>
-                @endif
-                @if($attribute->category_id == 3)
                 <div class="form-group row mb-1 pr-2">
-                    <label class="font-italic col-sm-2 col-form-label">Ổ cứng:</label>
+                    <label for="" class="font-italic col-sm-2 col-form-label">Ổ cứng:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" value="{{$attribute->value}}" placeholder="Ổ cứng">
-                        <!-- <input type="text" class="form-control" name="value[]" value="{{$attribute->value}}" placeholder="Ổ cứng"> -->
+                        <input type="text" class="form-control" value="{{ $pro->harddrive }}" name="harddrive" id="" placeholder="Ổ cứng">
                     </div>
+                    @error('harddrive')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
                 </div>
-                @endif
-                @if($attribute->category_id == 4)
                 <div class="form-group row mb-1 pr-2">
-                    <label class="font-italic col-sm-2 col-form-label">Card đồ họa:</label>
+                    <label for="" class="font-italic col-sm-2 col-form-label">Card đồ họa:</label>
                     <div class="col-sm-10">
-                        <input class="form-control" value="{{$attribute->value}}" placeholder="Card đồ họa">
-                        <!-- <input type="text" class="form-control" name="value[]" value="{{$attribute->value}}" placeholder="Card đồ họa"> -->
+                        <input type="text" class="form-control" value="{{ $pro->cardgraphic }}" name="cardgraphic" id="" placeholder="Card đồ họa">
                     </div>
+                    @error('cardgraphic')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
                 </div>
-                @endif
-                @if($attribute->category_id == 5)
                 <div class="form-group row pr-2">
-                    <label class="font-italic col-sm-2 col-form-label">Màn hình:</label>
+                    <label for="" class="font-italic col-sm-2 col-form-label">Màn hình:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" value="{{$attribute->value}}" placeholder="Màn hình">
-                        <!-- <input type="text" class="form-control" name="value[]" value="{{$attribute->value}}" placeholder="Màn hình"> -->
+                        <input type="text" class="form-control" value="{{ $pro->screen }}" name="screen" id="" placeholder="Màn hình">
                     </div>
+                    @error('screen')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
                 </div>
-                @endif
-                @endforeach
                 <div class="form-group pt-1 pr-2">
                     <label for="">Thời gian bảo hành</label>
-                    <input type="number" name="insurance" value="{{ $pro->insurance }}" placeholder="Thời gian bảo hành"
-                        class="form-control">
+                    <select name="insurance" id="" class="form-control">
+                        <option @if($pro->insurance == 6) selected @endif value="6">6 tháng</option>
+                        <option @if($pro->insurance == 12) selected @endif value="12">12 tháng</option>
+                        <option @if($pro->insurance == 24) selected @endif value="24">24 tháng</option>
+                    </select>
+                    @error('insurance')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="form-group pr-2">
                     <label for="">Trạng thái</label>

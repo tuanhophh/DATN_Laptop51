@@ -55,7 +55,7 @@
                     <div class="col-6">
                         
                     <label for="">Phương thức thanh toán</label>
-                            <select  @if($bill->payment_status == 9) disabled @endif name="payment_method" class="form-control">
+                            <select  @if($bill->payment_status == 2 || $bill->payment_status == 1) disabled @endif name="payment_method" class="form-control">
                                 @if($bill->payment_method == 1)
                                 <option value="{{$bill->payment_method}}">Tiền mặt</option>
                                 <option value="2">Chuyển khoản</option>
@@ -68,11 +68,11 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="">Trạng thái thanh toán</label>
-                            <select @if($bill->payment_status == 9) disabled @endif  name="payment_status" class="form-control">
+                            <select @if($bill->payment_status == 2 || $bill->payment_status == 1) disabled @endif  name="payment_status" class="form-control">
                            
                                 <option @if($bill->payment_status == 0) selected @endif value="0">Chưa thanh toán</option>
                                 <option @if($bill->payment_status == 1) selected @endif value="1">Hủy</option>
-                                <option @if($bill->payment_status == 9) selected @endif value="9">Thanh toán thành công</option>
+                                <option @if($bill->payment_status == 2) selected @endif value="2">Thanh toán thành công</option>
                              
                             </select>
                         </div>

@@ -40,7 +40,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6  pb-5">
                     <div class="registered-customers">
-                        <h6 class="widget-title border-left mb-50">Đăng nhập OTP</h6>
+                       
                         @if (Session::has('message'))
                         <div class="alert alert-success" role="alert">
                             {{ Session::get('message') }}

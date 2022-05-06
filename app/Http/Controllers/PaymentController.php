@@ -7,6 +7,7 @@ use App\Models\Bill;
 use App\Models\BillDetail;
 use App\Models\BillUser;
 use App\Models\Payment;
+use Brian2694\Toastr\Facades\Toastr;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,15 +24,35 @@ class PaymentController extends Controller
     {   
         $content = Cart::content();
         if ($countCart = count($content) == 0) {
+            Toastr::error('Vui lòng chọn đồ rồi thanh toán', 'Thất bại');
             return Redirect::to('/cua-hang')->with('error', 'Bạn không có đồ trong giỏ hàng, vui lòng thêm đồ vào giỏ rồi thanh toán!');
         } else {
-            return view('website.payment');
+            $totalBill = str_replace(',', ',', Cart::subtotal(0));
+            return view('website.payment',compact('totalBill'));
         }
     }
 
 
     public function savePayment(Request $request)
-    {
+    {   
+        $request->validate([
+            'name' => ['required'],
+            'phone' => ['required', 'numeric', 'regex:/^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/'],
+            'address' => ['required'],
+            'email' => ['required'],
+            'payment_method' => ['required', 'numeric'],
+        ],
+            [
+                'name.required' => 'Vui lòng nhập họ và tên',
+                'phone.required' => 'Vui lòng nhập số điện thoại',
+                'email.required' => 'Vui lòng nhập email',
+                'phone.numeric' => 'Số điện thoại phải là số',
+                'phone.regex' => 'Số điện thoại phải thuộc đầu số Việt Nam',
+                'address.required' => 'Vui lòng nhập địa chỉ',
+                'payment_method.required' => 'Vui lòng chọn phương thức thanh toán',
+                'payment_method.numeric' => 'Phương thức thanh toán sai',
+                
+            ]);
         // Tạo mã ngẫu nhiên 16 số
         $pool = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $length = substr(str_shuffle(str_repeat($pool, 5)), 0, 16);
@@ -41,6 +62,7 @@ class PaymentController extends Controller
         if ($countCart = count($content) == 0) {
             return Redirect::to('/thanh-toan')->with('error', 'Bạn không có đồ trong giỏ hàng, vui lòng thêm đồ vào giỏ');
         }
+
         if ($request->payment_method == 2) {
             $totalBill = str_replace(',', '', Cart::subtotal(0));
             // Lưu vào bảng bills
@@ -75,11 +97,12 @@ class PaymentController extends Controller
             if (Auth::id()) {
                 $bill_user->user_id = Auth::id();
             }
+    
             $bill_user->save();
-            $email = $request->email;
             // dd($request->all());
             //Xóa giỏ hàng
             // Cart::destroy();
+            $email = $request->email;
             $code_length = $length;
             return view('vnpay.index', compact('totalBill', 'code_length', 'email'));
         } else {
@@ -135,10 +158,10 @@ class PaymentController extends Controller
                 //     )
                 //     );
             Cart::destroy();
-
-            return Redirect::to('/cua-hang')
-                ->with('success', 'Đặt hàng thành công, bạn hãy kiểm tra mail để xem chi tiết đơn hàng. Mã đơn hàng: ')
-                ->with('length', $length);
+            
+            Toastr::success('Đặt hàng thành công', 'Thành công');
+            return Redirect::to('/don-hang/'.$length);
+           
         };
     }
 
@@ -155,7 +178,6 @@ class PaymentController extends Controller
         $vnp_Locale = $request->language;
         $vnp_BankCode = $request->bank_code;
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-        $email = $request->email;
         //Add Params of 2.0.1 Version
 
         $inputData = array(
@@ -216,7 +238,7 @@ class PaymentController extends Controller
         );
         $bill_code = DB::table('bill_users')->where('bill_code',$request->vnp_TxnRef)->first();
         $phone = $bill_code->phone;
-        // dd($phone);
+        
         // Update trạng thái đơn hàng
         if ($data['vnp_response_code'] == 00) {
             $payment_status = Bill::where('code', $data['bill_code'])->first();
@@ -224,11 +246,7 @@ class PaymentController extends Controller
             // dd($request->all());
             $payment_status->update();
             Payment::insert($data);
-            Cart::destroy();
-            // Mail::send('email.successBill',['bill_code' => $data['bill_code']], function($message) use($request){
-            //     $message->to($request->email);
-            //     $message->subject('THANH TOÁN HÓA ĐƠN | LAPTOP51');
-            //       });
+            Cart::destroy();       
             // $phoneSend = '+84'. $phone;
             // $token = getenv("TWILIO_AUTH_TOKEN");
             // $twilio_sid = getenv("TWILIO_SID");
@@ -241,15 +259,25 @@ class PaymentController extends Controller
             //         'body' => 'Cam on ban da dat hang tai laptop51, ma hoa don cua ban la: ' . $request->vnp_TxnRef,
             //     )
             //     );
-            return Redirect::to('/cua-hang')
-            ->with('success', 'Thanh toán thành công cho đơn hàng: '.$request->vnp_TxnRef)
-            ->with('bill_code',$request->vnp_TxnRef);
+            Toastr::success('Đặt hàng thành công', 'Thành công');
+            return Redirect::to('/don-hang/'.$data['bill_code']);
+           
             // dd($payment_status);
-        } else {
+        }
+        else{
+            Toastr::error('Đặt hàng thất bại', 'Thất bại');
             return Redirect::to('/cua-hang')
                 ->with('error', 'Thanh toán thất bại');
         }
         // $bill_code = $data['bill_code'];
-
+    }
+    public function paymentSuccess($code){
+        $bill = Bill::where('code', $code)->first();
+        if(!$bill){
+            return abort(404);
+        }
+        $bill_detail = BillDetail::where('bill_code',$code)->get();
+        $bill_user = BillUser::where('bill_code',$code)->first();
+        return view('website.payment-success',compact('bill','bill_detail','bill_user'));
     }
 }
