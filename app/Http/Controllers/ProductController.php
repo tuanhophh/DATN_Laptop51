@@ -79,7 +79,6 @@ class ProductController extends Controller
     public function saveAdd(ProductRequest $request)
     {
         $model = new Product();
-
         $model->name = $request->name;
         $model->slug = $request->slug;
         $model->desc_short = $request->desc_short;
@@ -90,19 +89,12 @@ class ProductController extends Controller
         $model->status = $request->status;
         $model->companyComputer_id = $request->companyComputer_id;
         $model->insurance = $request->insurance;
+        $model->cpu = $request->cpu;
+        $model->ram = $request->ram;
+        $model->cardgraphic = $request->cardgraphic;
+        $model->screen = $request->screen;
+        $model->harddrive = $request->harddrive;
         $model->save();
-        $values = $request->value;
-        $data = [];
-        $i = 0;
-        foreach ($values as $value) {
-            $i += 1;
-            $data[] = [
-                'product_id' => $model->id,
-                'category_id' => $i,
-                'value' => $value,
-            ];
-        }
-        DB::table('attribute_value')->insert($data);
         if ($request->hasfile('images')) {
             foreach ($request->file('images') as $key => $file) {
                 $path = $file->store('products');
@@ -145,6 +137,11 @@ class ProductController extends Controller
         $model->status = $request->status;
         $model->companyComputer_id = $request->companyComputer_id;
         $model->insurance = $request->insurance;
+        $model->cpu = $request->cpu;
+        $model->ram = $request->ram;
+        $model->cardgraphic = $request->cardgraphic;
+        $model->screen = $request->screen;
+        $model->harddrive = $request->harddrive;
         $model->save();
         $images = DB::table('product_images')->where('product_id', $id)->get();
 
