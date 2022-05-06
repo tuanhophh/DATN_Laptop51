@@ -383,6 +383,8 @@
                                 <ul class="nav nav-pills">
                                     <li class="nav-item"><a class="nav-link active" href="#activity"
                                             data-toggle="tab">Lịch sử mua hàng</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#timeline"
+                                            data-toggle="tab">Lịch sử sửa chữa</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#settings"
                                             data-toggle="tab">Cài đặt</a></li>
                                 </ul>
@@ -393,54 +395,62 @@
                                         <!-- Post -->
                                         <div class="timeline timeline-inverse">
                                             <!-- timeline time label -->
-                                            <div class="time-label">
-                                                <p>
-                                                    Ngày mua: 10 Feb. 2014
-                                                </p>
-                                            </div>
-                                            <!-- /.timeline-label -->
-                                            <!-- timeline item -->
-                                            <div>
-                                                <div class="timeline-item">
-                                                    <div class="row">
-                                                        <div class="col-3">
-                                                            <img src="{{ asset($user->avatar) }}" alt=""
-                                                                style="background-size: 150px 150px;width: 200px;height: 170px;">
-                                                        </div>
-                                                        <div class="col-7">
-                                                            <h3 class="timeline-header"><a href="#">Name product</a>
-                                                            </h3>
-                                                            <div class="timeline-body">
-                                                                Etsy doostang zoodles disqus groupon greplin oooj voxy
-                                                                zoodles,
-                                                                weebly ning heekya handango imeem plugg dopplr jibjab,
-                                                                movity
-                                                                jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo
-                                                                kaboodle
-                                                                quora plaxo ideeli hulu weebly balihoo...
-                                                            </div>
-                                                            <br>
-                                                            <div class="timeline-footer">
-                                                                <div class="row flex">
-                                                                    <div class="col-6"><a
-                                                                            href="{{ asset('') }}lich-su/id"
-                                                                            class="button extra-small">
-                                                                            <span class="text-uppercase">Chi tiết</span>
-                                                                        </a></div>
-                                                                    <div class="col-4 ">
-                                                                        <b class="text-danger"
-                                                                            style="font-size: 20px"><i>123.456.789
-                                                                                VNĐ </i></b>
-                                                                    </div>
-                                                                </div>
+                                            <table class="table ">
+                                                <thead>
+                                                    <th>STT</th>
+                                                    <th>Mã hóa đơn</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Ngày mua hàng</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Địa chỉ</th>
+                                                    <th></th>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($bill as $item)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $item->bill_code }}</td>
+                                                            <td>{{ $item->total }}</td>
+                                                            <td>{{ date('d-m-yy', strtotime($item->created_at)) }}
+                                                            </td>
+                                                            <td>
+                                                                @if ($item->payment_status == 0)
+                                                                    Đã hủy
+                                                                @elseif($item->payment_status == 1)
+                                                                    Đang chờ
+                                                                @else
+                                                                    Hoàn thành
+                                                                @endif
+                                                            </td>
+                                                            <td>{{ $item->address }}</td>
+                                                            <td class="col-6"><a
+                                                                    href="{{ route('profile.history.detail', ['code' => $item->bill_code]) }}"
+                                                                    class="btn btn-info">Chi tiết</a></td>
+                                                            <td>
+                                                                @if ($item->payment_status == 1)
+                                                                    <form
+                                                                        action="{{ route('cancel-order', ['code' => $item->bill_code]) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <button type="submit" class="btn btn-danger">Hủy
+                                                                            đơn</button>
+                                                                    </form>
+                                                                @else
+                                                                    <form
+                                                                        action="{{ route('restore-order', ['code' => $item->bill_code]) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Mua lại</button>
+                                                                    </form>
+                                                                @endif
+                                                            </td>
 
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
 
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr>
                                             <!-- END timeline item -->
                                             <!-- timeline item -->
                                             <div>
@@ -449,6 +459,63 @@
                                         </div>
 
                                         <!-- /.post -->
+                                    </div>
+
+                                    <div class="tab-pane" id="timeline">
+
+                                        <div class="timeline timeline-inverse">
+
+                                            <table class="table ">
+                                                <thead>
+                                                    <th>STT</th>
+                                                    <th>Mã hóa đơn</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Ngày sửa</th>
+                                                    <th>Trạng thái</th>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($repair as $item)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $item->code }}</td>
+                                                            <td>{{ $item->into_money }}</td>
+                                                            <td>{{ date('d-m-yy', strtotime($item->created_at)) }}
+                                                            </td>
+                                                            <td>
+                                                                @if ($item->status_booking == 'cancel')
+                                                                    Đã hủy
+                                                                @elseif($item->status_booking == 'received')
+                                                                    Đang chờ
+                                                                    {{-- @else
+                                                                    Xác nhận --}}
+                                                                @endif
+                                                            </td>
+                                                            {{-- <td><a href="{{ route('profile.history.detail-repair', ['code' => $item->code]) }}"
+                                                                    class="btn btn-info">Chi tiết</a></td> --}}
+                                                            <td>
+                                                                @if ($item->status_booking == 'received')
+                                                                    <form
+                                                                        action="{{ route('cancel-repair', ['code' => $item->code]) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <button type="submit" class="btn btn-danger">Hủy
+                                                                            đơn</button>
+                                                                    </form>
+                                                                @elseif($item->status_booking == 'cancel')
+                                                                    <form
+                                                                        action="{{ route('restore-repair', ['code' => $item->code]) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Mua lại</button>
+                                                                    </form>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
 
                                     <div class="tab-pane" id="settings">

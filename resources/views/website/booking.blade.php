@@ -11,7 +11,7 @@
 
 <body>
     @if (Session::has('msg'))
-        {!! Session::get('msg') !!}.
+    {!! Session::get('msg') !!}.
     @endif
     <div class="wrapper">
 
@@ -48,46 +48,67 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="message-box box-shadow white-bg">
-                                <form id="contact-form" action="https://whizthemes.com/mail-php/other/mail.php">
+                                <form id="contact-form" action="" method="POST">
+                                    @csrf
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <h4 class="blog-section-title border-left mb-30">Vui lòng nhập đầy đủ và
                                                 chính sác thông tin của bạn</h4>
                                         </div>
                                         <div class="col-lg-6">
-                                            <input type="text" name="con_name" placeholder="Họ và Tên">
+                                            <input type="text" name="full_name" value="{{ old('full_name') }}"
+                                                placeholder="Họ và Tên">@error('full_name')
+                                            <small id="helpId" class="form-text text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
                                         <div class="col-lg-6">
-                                            <input type="text" name="con_email" placeholder="Email">
+                                            <input type="text" name="email" value="{{ old('email') }}"
+                                                placeholder="Email">
+                                            @error('email')
+                                            <small id="helpId" class="form-text text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
                                         <div class="col-lg-6">
-                                            <input type="text" name="con_address" placeholder="Địa chỉ">
+                                            <input type="text" value="{{ old('name_computer') }}" name="name_computer"
+                                                placeholder="Tên máy">
+                                            @error('name_computer')
+                                            <small id="helpId" class="form-text text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
 
                                         <div class="col-lg-6">
-                                            <input type="text" name="con_phone" placeholder="Số điện thoại">
+                                            <input type="text" value="{{ old('phone') }}" name="phone"
+                                                placeholder="Số điện thoại">
+                                            @error('phone')
+                                            <small id="helpId" class="form-text text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
-                                        <div class="col-lg-6">
+                                        {{-- <div class="col-lg-6">
                                             <select name="con_ht">
                                                 <option value="">Hình thức sửa</option>
                                                 <option value="CH">Tại cửa hàng</option>
                                                 <option value="TN">Tại nhà</option>
                                             </select>
-                                        </div>
+                                        </div> --}}
                                         <div class="col-lg-6">
-                                            <select name="con_ht">
-                                                <option value="">Thương hiệu máy</option>
-                                                <option value="dell">Dell</option>
-                                                <option value="hp">HP</option>
+                                            <select name="company_computer_id">
+                                                <option value="company_computer_id" hidden>Thương hiệu máy</option>
+                                                @foreach ($company_computer as $item)
+                                                <option value="{{ $item->id }}">{{ $item->company_name }}</option>
+                                                @endforeach
+                                                {{-- <option value="hp">HP</option>
                                                 <option value="acer">Acer</option>
                                                 <option value="macbook">Macbook</option>
                                                 <option value="msi">Msi</option>
-                                                <option value="khac">khác...</option>
+                                                <option value="khac">khác...</option> --}}
                                             </select>
+                                            @error('company_computer_id')
+                                            <small id="helpId" class="form-text text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
                                         <div class="col-lg-6">
-                                            <select name="con_ht">
-                                                <option value="">Khung giờ sửa chữa</option>
+                                            <select name="interval">
+                                                <option hidden value="">Khung giờ sửa chữa</option>
                                                 <option value="1">8h-10h</option>
                                                 <option value="2">10h-12h</option>
                                                 <option value="3">12h-14h</option>
@@ -95,12 +116,20 @@
                                                 <option value="5">16h-18h</option>
                                                 <option value="6">18h-20h</option>
                                             </select>
+                                            @error('interval')
+                                            <small id="helpId" class="form-text text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
                                         <div class="col-lg-6">
-                                            <input type="date" name="con_date" placeholder="Địa chỉ">
+                                            <input type="date" min="{{ now()->format('Y-m-d') }}" name="date"
+                                                value="{{ old('date') }}" placeholder="Ngày">
+                                            @error('date')
+                                            <small id="helpId" class="form-text text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
                                         <div class="col-lg-12">
-                                            <textarea class="custom-textarea" name="con_message" placeholder="Nội dung..."></textarea>
+                                            <textarea class="custom-textarea" name="description" id="ckeditor"
+                                                placeholder="Nội dung...">{{ old('description') }}</textarea>
                                             <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Đặt
                                                 Lịch</button>
                                         </div>
@@ -127,8 +156,8 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
                             <div class="modal-product clearfix">
@@ -181,8 +210,7 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="pinterest" href="#" target="_blank"
-                                                        title="Pinterest">
+                                                    <a class="pinterest" href="#" target="_blank" title="Pinterest">
                                                         <i class="zmdi zmdi-pinterest"></i>
                                                     </a>
                                                 </li>
@@ -212,14 +240,19 @@
     </script>
     {{-- <strong>Thông báo: </strong>{{ Session::get('msg') }}. --}}
     @if (Session::has('msg'))
-        {{ Session::get('msg') }}.
+    {{ Session::get('msg') }}.
     @endif
     {{-- <script>
-		alert('Đặt lịch thành công');
+        alert('Đặt lịch thành công');
 
 		
 
-	</script> --}}
+    </script> --}}
+
+    <script src="//cdn.ckeditor.com/4.18.0/basic/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('ckeditor')
+    </script>
 </body>
 
 </html>

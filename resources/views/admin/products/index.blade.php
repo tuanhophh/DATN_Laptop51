@@ -97,10 +97,10 @@
                             <td>{{ $item->name }}</td>
                             <!-- <td>
                                 {{ $item->companyComputer->company_name }}
-                            </td>
+                            </td> --}}
                             <td>
                                 <img src="{{ asset($item->image) }}" width="100">
-                            </td> -->
+                            </td> 
                             <td>{{ $item->import_price }}</td>
                             <td>{{ $item->price }}</td>
                             <td>{{ $item->qty }}</td>
@@ -139,7 +139,7 @@
 
                                 <!-- <a onclick="return confirm('Bạn có chắc muốn xóa')"
                                     href="{{route('product.remove', ['id' => $item->id])}}"
-                                    class="btn btn-sm btn-danger">Xóa</a> -->
+                                    class="btn btn-sm btn-danger">Xóa</a>
                             </td>
                         </tr>
                         @endforeach

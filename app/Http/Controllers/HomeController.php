@@ -51,11 +51,10 @@ class HomeController extends Controller
             ->groupBy('products.id')
             ->get();
         $ComputerCompany = ComputerCompany::all();
-        $productNew = Product::where('status', 1)->orderBy('id', 'DESC')->get()->take(8);
-        $products = Product::where('status', 1)->paginate(10);
+        $productNew = Product::where('status', 1)->orderBy('id', 'DESC')->paginate(10);
         $images = DB::table('product_images')->get();
         // $product_hot_sell =
-        return view('website.product', compact('products', 'ComputerCompany', 'productNew', 'images', 'product_hot_sell'));
+        return view('website.product', compact( 'ComputerCompany', 'productNew', 'images', 'product_hot_sell'));
     }
     public function detail($slug)
     {   
@@ -85,6 +84,7 @@ class HomeController extends Controller
         );
     }
     public function company($id)
+
     {   
         session()->put('url_path',FacadesRequest::path());
         $products = Product::where('companyComputer_id', $id)->get();
@@ -102,5 +102,14 @@ class HomeController extends Controller
             'website.product-category',
             compact('products', 'ComputerCompany', 'images','id')
         );
+    }
+    public function seachproduct($name)
+    {
+        $ComputerCompany = ComputerCompany::all();
+        $productNew = Product::where('status', 1)->where('name', 'like', '%' . $name . '%')->get();
+        $images = DB::table('product_images')->get();
+        // dd($productNew);
+        $products = Product::where('status', 1)->get();
+        return view('website.product', compact('products', 'ComputerCompany', 'productNew','images'));
     }
 }

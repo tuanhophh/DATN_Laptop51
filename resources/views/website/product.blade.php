@@ -30,7 +30,13 @@
                             <div class="shop-content">
                                 <!-- shop-option start -->
                                 <div class="shop-option box-shadow mb-30 clearfix">
-                                    <!-- Nav tabs -->   
+                                    <!-- Nav tabs -->
+                                    <ul class="nav shop-tab f-left" role="tablist">
+                                        <li>
+                                            <a class="active" href="#grid-view" data-bs-toggle="tab"><i
+                                                    class="zmdi zmdi-view-module"></i></a>
+                                        </li>
+                                    </ul>
                                     <!-- short-by -->
                                     <div class="short-by f-right text-center">
                                         <span>Sắp xếp :</span>
@@ -46,7 +52,7 @@
                                     <div id="grid-view" class="tab-pane active show" role="tabpanel">
                                         <div class="row">
                                             <!-- product-item start -->
-                                            @foreach($products as $product)
+                                            @foreach($productNew as $product)
                                             <?php
 
 if (!function_exists('currency_format')) {
@@ -127,6 +133,26 @@ if (!function_exists('currency_format')) {
                                         </li>
                                     </ul>
                                 </div>
+                            </aside>
+                            <aside class="widget widget-product box-shadow">
+                                <h6 class="widget-title border-left mb-20">Sản phẩm bán chạy</h6>
+                                <!-- product-item start -->
+
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <a href="single-product.html">
+                                            <img src="img/product/4.jpg" alt="" />
+                                        </a>
+                                    </div>
+                                    <div class="product-info">
+                                        <h6 class="product-title">
+                                            <a href="single-product.html">Product Name</a>
+                                        </h6>
+                                        <h3 class="pro-price">$ 869.00</h3>
+                                    </div>
+                                </div>
+                                <!-- product-item end -->
+
                             </aside>
                         </div>
                     </div>

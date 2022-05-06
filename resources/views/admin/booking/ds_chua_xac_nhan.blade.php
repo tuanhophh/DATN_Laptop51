@@ -46,9 +46,12 @@
                         <form action="{{ route('dat-lich.chuyen-trang-thai') }}" method="POST" class="d-flex">
                             @csrf
                             <select class="form-control" name="status_booking" id="">
-                                <option value="received">Chưa xác nhận</option>
-                                <option value="latch">Xác nhận</option>
-                                <option value="cancel">Hủy bỏ</option>
+                                <option @if ($b->status_booking=='received')selected
+                                    @endif value="received">Chưa xác nhận</option>
+                                <option @if ($b->status_booking=='latch')selected
+                                    @endif value="latch">Xác nhận</option>
+                                <option @if ($b->status_booking=='cancel')selected
+                                    @endif value="cancel">Hủy bỏ</option>
 
                             </select>
                             <input type="hidden" name="booking_detail_id" value="{{ $b->id }}">
@@ -91,10 +94,11 @@
 
                     <a name="" id="" class="btn btn-primary" href="{{ route('dat-lich.edit', ['id'=>$b->id]) }}"
                         role="button">Sửa thông tin</a>
-                    {{-- <a name="" id="" class="btn btn-info" href="{{ route('dat-lich.hoa-don', ['id'=>$b->id]) }}"
-                        role="button">Chi tiết
-                        sửa
-                        chữa</a> --}}
+                    <a name="" id="" class="btn btn-info" @if ($b->status_booking!='latch')
+                        style="display: none"
+                        @endif
+                        href="{{ route('dat-lich.tiep-nhan-may', ['booking_detail_id'=>$b->id]) }}" role="button">Tiếp
+                        nhận máy</a>
                     {{-- <a name="" id="" class="btn btn-danger"
                         href="{{ route('dat-lich.deleteBookingDetail', ['id'=>$b->id]) }}" role="button">Xóa</a> --}}
                 </td>

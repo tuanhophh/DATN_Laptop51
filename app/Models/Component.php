@@ -9,7 +9,7 @@ class Component extends Model
 {
     use HasFactory;
     protected $table = 'components';
-    public $fillable = ['name_component', 'image', 'price', 'desc', 'qty', 'status'];
+    public $fillable = ['name_component', 'image', 'price', 'desc', 'qty', 'status', 'import_price', 'insurance', 'category_component_id'];
     /**
      * The computer_companies that belong to the Component
      *

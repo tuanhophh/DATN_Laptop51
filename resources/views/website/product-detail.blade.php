@@ -310,7 +310,7 @@ if (!function_exists('currency_format')) {
             <!-- SHOP SECTION END -->
         </section>
     </div>
-    </div>
+    
     @include('layout_client.footer')
     @include('layout_client.script')
 </body>

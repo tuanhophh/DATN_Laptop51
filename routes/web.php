@@ -17,6 +17,7 @@ use App\Http\Controllers\UserController;
 use App\Models\ComputerCompany;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,14 +91,20 @@ Route::post('profile/update-avatar', [ProfileController::class, 'changeImage'])-
 Route::post('profile/update-info', [ProfileController::class, 'changeInfo'])->name('changeInfo');
 Route::post('profile/update-password',  [ProfileController::class, 'changePassword'])->name('changePassword');
 Route::get('profile/history',  [ProfileController::class, 'history'])->name('profile.history');
-
+Route::post('cancel-order/{code}', [ProfileController::class, 'cancelOrder'])->name('cancel-order');
+Route::post('restore-order/{code}', [ProfileController::class, 'restoreOrder'])->name('restore-order');
 Route::get('profile/history/{code}',  [ProfileController::class, 'historyDetail'])->name('profile.history.detail');
+
+Route::post('cancel-repair/{code}',[ProfileController::class,'cancelRepair'])->name('cancel-repair');
+Route::post('restore-repair/{code}',[ProfileController::class,'restoreRepair'])->name('restore-repair');
+Route::get('profile/history-repair/{code}',  [ProfileController::class, 'historyDetailRepair'])->name('profile.history.detail-repair');
 
 // trang cửa hàng
 Route::get('cua-hang', [HomeController::class, 'show'])->name('website.product');
 
 Route::get('san-pham/{slug}', [HomeController::class, 'detail'])->name('website.product-detail');
-Route::get('cua-hang/{id}', [HomeController::class, 'company'])->name('website.product-category.');
+Route::get('cua-hang/{id}', [HomeController::class, 'company'])->name('website.product-category');
+Route::get('cua-hang/product/{name}', [HomeController::class, 'seachproduct']);
 // trang giới thiệu
 Route::get('gioi-thieu', function () {
     return view('website.gioi-thieu');

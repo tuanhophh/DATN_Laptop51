@@ -107,10 +107,10 @@
                                         <select class="itemName form-control" name="repairs[]"
                                             onchange="validateSelectBox(this)" multiple='multiple'>
 
-                                            @foreach ($product_detail as $pd)
+                                            @foreach ($components as $pd)
                                             <option @if (in_array($pd->id,$arr_pd)==true)
                                                 selected
-                                                @endif value="{{ $pd->id }}">{{ $pd->name }}</option>
+                                                @endif value="{{ $pd->id }}">{{ $pd->name_component }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -135,8 +135,23 @@
                                         </thead>
                                         <tbody id="ds_linh_kien_sua">
                                             <tr id="form_linh_kien_sua">
-                                                <td class="col-9"><input type="text" name="product_repair[]" value=""
-                                                        placeholder="Nhập linh kiện" class="form-control"></td>
+                                                <td class="col-9">
+                                                    <input type="text" name="product_repair[]" value=""
+                                                        placeholder="Nhập linh kiện" class="form-control">
+                                                    {{-- <select name="category_component_id" id="" class="form-control"
+                                                        onchange="selectComponents(this)" style="width: 200px;">
+                                                        @foreach ($categories as $c)
+                                                        <option value="{{ $c->id }}">{{ $c->name_category }}</option>
+
+                                                        @endforeach
+                                                    </select>
+                                                    <select class="itemName form-control" name="repairs[]" onchange=""
+                                                        multiple='multiple'>
+
+
+                                                    </select> --}}
+
+                                                </td>
                                                 <td> <input type="text" name="price_product_repair[]"
                                                         placeholder="Nhập giá tiền" class="form-control"></td>
                                                 <td></td>
@@ -166,7 +181,8 @@
                                             <th>STT</th>
                                             <th>Tên linh kiện</th>
                                             <th>Số lượng</th>
-                                            <th>Giá tiền</th>
+                                            <th>Đơn giá</th>
+                                            <th>Thành tiền</th>
                                         </tr>
                                     </thead>
                                     <tbody id="abc">
@@ -214,31 +230,32 @@ var options = obj.children;
 console.log(obj.valuea);
 var html = '';
 
-var j=0;
+var j=1;
 for (var i = 0; i < options.length; i++){
      if (options[i].selected){
          var id=options[i].value;
          $.ajax({
-        url: `/admin/sua-chua/detail-product/`+id,
+        url: `/admin/component/get-detail/`+id,
         method: 'get',
         dataType: 'json',
         success : function (data){
                         console.log(data);
                         
-                 html +=`<tr>   
+        html +=`<tr>   
             
-                <td class="na">${data.id}</td>
-                 <td class="na">${data.name}</td>
-                  <td><input type="number" name="soluong[${data.id}]" value="1"> </td>
+                        <td class="">  ${j}</td>
+                        <td class="">${data.name_component}</td>
+                        <td><input type="number" id="sl${j}" onchange="sumPrice(this,${j})" name="soluong[${data.id}]" value="1"> </td>
+                        <td id="dg${j}" >${data.price}</td>
+                        <td id="tt${j}" >${data.price}</td>
 
-                 <td>${data.price}</td>
                  </tr>`; 
                  document.getElementById('abc').innerHTML=html
-
+  j++
                     }
               })
             
-              j++
+            
             }   
 
     }
@@ -246,7 +263,14 @@ for (var i = 0; i < options.length; i++){
             document.getElementById('abc').innerHTML=''             }
         }
         
-    function sumMoney(quantity){
+    function sumPrice(quantity,j){
+
+        soluong=document.getElementById('sl'+j)
+        thanhtien=document.getElementById('tt'+j)
+        dongia=document.getElementById('dg'+j)
+
+        thanhtien.innerHTML=soluong.value* dongia   .innerHTML
+        // console.log(soluong.value,thanhtien.innerHTML)
         
     }
 
@@ -259,6 +283,12 @@ for (var i = 0; i < options.length; i++){
     node.innerHTML=form_linh_kien_sua.innerHTML
     ds_linh_kien_sua.appendChild(node);
     }
+    
+
+
+
+
+
 </script>
 
 </html>

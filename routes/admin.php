@@ -6,6 +6,7 @@ use App\Http\Controllers\BookingDetailController;
 use App\Http\Controllers\CategoryComponentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyComputerController;
+use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\DetailProductController;
 use App\Http\Controllers\HomeAdminController;
 use App\Http\Controllers\ProductController;
@@ -15,6 +16,8 @@ use App\Http\Controllers\NhapsanphamController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Models\Category;
+use App\Models\CategoryComponent;
+use App\Models\Component;
 use App\Models\DetailProduct;
 use Illuminate\Support\Facades\Route;
 
@@ -74,13 +77,25 @@ Route::prefix('detail-product')->group(function () {
     Route::get('detail/{id}', [DetailProductController::class, 'detail'])->middleware('can:list-product');
 });
 Route::prefix('component')->group(function () {
-    Route::get('/', [DetailProductController::class, 'index'])->name('component.index');
-    Route::get('/remove/{id}', [DetailProductController::class, 'remove'])->name('component.remove');
-    Route::get('add', [DetailProductController::class, 'addForm'])->name('component.add');
-    Route::post('add', [DetailProductController::class, 'saveAdd'])->middleware('can:add-product');
-    Route::get('edit/{id}', [DetailProductController::class, 'editForm'])->name('component.edit');
-    Route::post('edit/{id}', [DetailProductController::class, 'saveEdit']);
-    Route::get('detail/{id}', [DetailProductController::class, 'detail']);
+    Route::get('/', [ComponentController::class, 'index'])->name('component.index');
+    Route::get('/remove/{id}', [ComponentController::class, 'remove'])->name('component.remove');
+    Route::get('add', [ComponentController::class, 'addForm'])->name('component.add');
+    Route::post('add', [ComponentController::class, 'saveAdd']);
+    Route::get('edit/{id}', [ComponentController::class, 'editForm'])->name('component.edit');
+    Route::post('edit/{id}', [ComponentController::class, 'saveEdit']);
+    Route::get('detail/{id}', [ComponentController::class, 'detail']);
+    Route::get('query/{category_component_id}', function ($category_component_id) {
+        $components = Component::where('category_component_id', $category_component_id)->get();
+        return $components;
+    });
+    Route::get('get-detail/{id}', function ($id) {
+        $component = Component::find($id);
+
+        if ($component) {
+            // dd($component);
+            return response()->json($component);
+        }
+    });
 });
 // Route::prefix('login')->group(function () {
 //     Route::get('/', [LoginController::class, 'index'])->name('admin.login');
@@ -101,10 +116,13 @@ Route::prefix('dat-lich')->group(function () {
     Route::get('xoa/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.delete');
     Route::get('demo', [BookingController::class, 'demo']);
     Route::get('hoa-don/{id}', [BookingDetailController::class, 'hoaDon'])->name('dat-lich.hoa-don');
+    Route::post('hoa-don/{id}', [BookingDetailController::class, 'luuThongTinSuaChua']);
     Route::get('xuat-hoa-don/{booking_detail_id}', [BookingDetailController::class, 'xuatHoaDon'])->name('dat-lich.xuat-hoa-don');
 
     Route::get('danh-sach-may-phan-cong', [BookingController::class, 'userRepair'])->name('dat-lich.user_epair');
     Route::get('xoa-may/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.deleteBookingDetail');
+    Route::get('tiep-nhan-may/{booking_detail_id}', [BookingController::class, 'tiepNhanMay'])->name('dat-lich.tiep-nhan-may');
+    Route::post('phieu-nhan-may/{booking_detail_id}', [BookingDetailController::class, 'phieuNhanMay'])->name('phieu-nhan-may');
 });
 Route::prefix('sua-chua')->group(function () {
     Route::get('/{id}', [BookingController::class, 'repairDetail'])->name('suachua.get');
@@ -151,6 +169,10 @@ Route::prefix('category_component')->group(function () {
     Route::get('edit/{id}', [CategoryComponentController::class, 'editForm'])->name('category_component.edit')->middleware('can:edit-product');
     Route::post('edit/{id}', [CategoryComponentController::class, 'saveEdit'])->middleware('can:edit-product');
     // Route::get('detail/{id}', [CategoryController::class, 'detail'])->middleware('can:delete-category_component');
+    Route::get('select-all', function () {
+        $c = CategoryComponent::all();
+        return  $c;
+    });
 });
 
 Route::prefix('user')->group(function () {
