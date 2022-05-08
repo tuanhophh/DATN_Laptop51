@@ -131,7 +131,8 @@
                                             <textarea class="custom-textarea" name="description" id="ckeditor"
                                                 placeholder="Nội dung...">{{ old('description') }}</textarea>
 
-                                        </div> <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Đặt
+                                        </div> <button class="submit-btn-1 mt-30 btn-hover-1" name="btn" value="client"
+                                            type="submit">Đặt
                                             Lịch</button>
                                     </div>
                                     <p class="form-message"></p>

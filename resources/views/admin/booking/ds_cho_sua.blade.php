@@ -9,6 +9,7 @@
                 <th scope="col" class="sort" data-sort="status">Số điện thoại</th>
                 {{-- <th scope="col">Hình thức sửa</th> --}}
                 <th scope="col">Chọn thợ</th>
+                <th>Trạng thái</th>
                 <th scope="col" class="sort" data-sort="completion">Sửa chữa</th>
                 {{-- <th scope="col"><a href="{{ route('dat-lich.add') }}">Tạo mới</a></th> --}}
             </tr>
@@ -63,6 +64,19 @@
                             <button class="btn btn-primary" type="submit">Chọn</button>
                         </form>
                     </div>
+                </td>
+                <td>
+
+                    @if ($b->status_repair=='fixing')
+                    {{ 'đang sửa' }}
+                    @else
+                    @if ($b->status_repair=='waiting')
+                    {{ 'chờ sửa' }}
+                    @else
+                    {{ 'chưa sửa' }}
+                    @endif
+
+                    @endif
                 </td>
                 <td class="mx-auto">
                     @if ($b->status_repair='waiting')

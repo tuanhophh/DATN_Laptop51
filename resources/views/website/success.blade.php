@@ -11,7 +11,7 @@
 
 <body>
     @if (Session::has('msg'))
-        {!! Session::get('msg') !!}.
+    {!! Session::get('msg') !!}.
     @endif
     <div class="wrapper">
 
@@ -29,13 +29,13 @@
                                 <h1 class="breadcrumbs-title text-success">Đặt Lịch Thành Công !</h1>
                                 <div class="row " style="word-wrap: break-word">
                                     <div class="col-lg-6">
-                                        <h3><b>Họ và Tên:</b> Lê Thế Hùng</h3>
-                                        <h3><b>Email:</b> demo@gmail.com
+                                        <h3><b>Họ và Tên:</b> {{ $request->full_name }}</h3>
+                                        <h3><b>Email:</b> {{ $request->email }}
                                         </h3>
-                                        <h3><b>Địa Chỉ:</b> Thôn 9 Cát Quế - Hoài Đức - Hà Nội
+                                        {{-- <h3><b>Địa Chỉ:</b> Thôn 9 Cát Quế - Hoài Đức - Hà Nội --}}
                                         </h3>
                                         <h3><b>Số điện thoại:</b>
-                                            0967758023</h3>
+                                            {{ $request->phone }}</h3>
 
                                     </div>
                                     <div class="col-lg-6">
@@ -44,19 +44,18 @@
                                         <h3><b>Khung giờ sửa:</b>
                                             8h-10h</h3>
                                         <h3><b>Ngày sửa:</b>
-                                            31 - 02 - 2022</h3>
+                                            {{ $request->date }}</h3>
 
                                     </div>
                                     <div class="col">
                                         <h3><b>Mô tả:</b>
                                             <br>
-                                            Đây là đài tiếng nói việt nam
+                                            {!! $request->description !!}
                                         </h3>
                                     </div>
                                 </div>
                                 <hr>
-                                <h1 class="text-center"><a href="{{ asset('') }}dat-lich"
-                                        class="button extra-small ">
+                                <h1 class="text-center"><a href="{{ asset('') }}dat-lich" class="button extra-small ">
                                         <span class="text-uppercase">Xong</span>
                                     </a></h1>
                             </div>
@@ -81,14 +80,14 @@
     </script>
     {{-- <strong>Thông báo: </strong>{{ Session::get('msg') }}. --}}
     @if (Session::has('msg'))
-        {{ Session::get('msg') }}.
+    {{ Session::get('msg') }}.
     @endif
     {{-- <script>
-		alert('Đặt lịch thành công');
+        alert('Đặt lịch thành công');
 
 		
 
-	</script> --}}
+    </script> --}}
 </body>
 
 </html>
