@@ -195,6 +195,8 @@ class BookingDetailController extends Controller
                 'email' => $request->email,
                 'interval' => $request->interval
             ])->save();
+            $booking_detail->comment = $request->comment;
+            $booking_detail->save();
             $booking_detail->fill($request->all())->save();
             $booking_detail->status_repair = 'waiting';
             $booking_detail->save();

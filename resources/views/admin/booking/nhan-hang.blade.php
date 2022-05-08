@@ -40,7 +40,7 @@
                     @foreach ($computers as $item)
                     <option @if ($item->id==$booking_detail->company_computer_id)
                         selected
-                        @endif value="{{ $item->id }}">{{ $item->company_name }}</option>
+                        @endif value="{{ $item->id }}">comment</option>
                     @endforeach
 
 
@@ -58,7 +58,8 @@
 
         <div class="form-group">
             <label for="">Tình trạng máy hiện tại</label>
-            <textarea class="form-control" name="" id="ckeditor1" rows="3"></textarea>
+            <textarea class="form-control" name="comment" id="ckeditor1"
+                rows="3">{{ $booking_detail->comment }}</textarea>
         </div>
         {{--
         <b>SDT:</b> <input class="form-control" type="text" name="phone" value="{{$booking_detail->booking->phone}}">

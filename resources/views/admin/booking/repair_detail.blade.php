@@ -176,8 +176,7 @@
                             <div class="form-group ">
                                 <label for=""></label>
                                 <h5>Mô tả sửa chữa, lưu ý cho khách hàng</h5>
-                                <textarea class="form-control" name="description_repair" id="ckeditor1"
-                                    rows="3"></textarea>
+                                <textarea class="form-control" name="repair" id="ckeditor1" rows="3"></textarea>
 
 
                             </div>
