@@ -46,7 +46,7 @@ class ProfileController extends Controller
             $repair = DB::table('bookings')
                 ->join('booking_details', 'bookings.id', 'booking_details.booking_id')
                 ->join('repair_parts', 'booking_details.id', 'repair_parts.booking_detail_id')
-                ->select('repair_parts.into_money','bookings.created_at','booking_details.status_booking','booking_details.code')
+                ->select('repair_parts.into_money', 'bookings.created_at', 'booking_details.status_booking', 'booking_details.code')
                 ->where('bookings.phone', '=', auth()->user()->phone)
                 ->get();
 

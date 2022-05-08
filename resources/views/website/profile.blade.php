@@ -100,18 +100,18 @@
                                         </div>
                                     </div>
                                     @if (Session::has('message'))
-                                        <div class="alert alert-success" role="alert">
-                                            {{ Session::get('message') }}.
-                                        </div>
+                                    <div class="alert alert-success" role="alert">
+                                        {{ Session::get('message') }}.
+                                    </div>
                                     @endif
                                     @if (Session::has('current_password'))
-                                        <div class="alert alert-danger" role="alert">
-                                            {{ Session::get('current_password') }}.
-                                        </div>
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ Session::get('current_password') }}.
+                                    </div>
                                     @endif
 
                                     @error('avatar')
-                                        <p class="text-danger p-0 m-0">{{ $message }}</p>
+                                    <p class="text-danger p-0 m-0">{{ $message }}</p>
                                     @enderror
                                     <ul class="nav nav-tabs">
                                         <li class="nav-item"><a href="" class="text-dark active nav-link">Thông
@@ -133,18 +133,18 @@
                                                                 <div class="form-group">
                                                                     <label class="p-0 m-0">Họ và tên</label>
                                                                     @error('name')
-                                                                        <p class="text-danger p-0 m-0">{{ $message }}
-                                                                        </p>
+                                                                    <p class="text-danger p-0 m-0">{{ $message }}
+                                                                    </p>
                                                                     @enderror
-                                                                    <input class="form-control" type="text"
-                                                                        name="name" value="{{ $user->name }}">
+                                                                    <input class="form-control" type="text" name="name"
+                                                                        value="{{ $user->name }}">
                                                                 </div>
                                                             </div>
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label class="p-0 m-0">Số điện thoại</label>
-                                                                    <input class="form-control" type="text"
-                                                                        name="phone" placeholder="Số điện thoại"
+                                                                    <input class="form-control" type="text" name="phone"
+                                                                        placeholder="Số điện thoại"
                                                                         value="{{ $user->phone }}">
                                                                 </div>
                                                             </div>
@@ -154,11 +154,11 @@
                                                                 <div class="form-group">
                                                                     <label class="p-0 m-0">Email</label>
                                                                     @error('email')
-                                                                        <p class="text-danger p-0 m-0">{{ $message }}
-                                                                        </p>
+                                                                    <p class="text-danger p-0 m-0">{{ $message }}
+                                                                    </p>
                                                                     @enderror
-                                                                    <input class="form-control" type="text"
-                                                                        name="email" value="{{ $user->email }}">
+                                                                    <input class="form-control" type="text" name="email"
+                                                                        value="{{ $user->email }}">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -175,7 +175,9 @@
                                                             <div class="col mb-3">
                                                                 <div class="form-group">
                                                                     <label class="p-0 m-0">Ghi chú</label>
-                                                                    <textarea class="form-control text-dark" name="description" rows="5">{{ $user->description }}</textarea>
+                                                                    <textarea class="form-control text-dark"
+                                                                        name="description"
+                                                                        rows="5">{{ $user->description }}</textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -199,12 +201,11 @@
                                                                 <div class="form-group">
                                                                     <label class="p-0 m-0">Mật khẩu cũ</label>
                                                                     @error('current_password')
-                                                                        <p class="text-danger p-0 m-0">{{ $message }}
-                                                                        </p>
+                                                                    <p class="text-danger p-0 m-0">{{ $message }}
+                                                                    </p>
                                                                     @enderror
-                                                                    <input class="form-control"
-                                                                        name="current_password" type="password"
-                                                                        placeholder="Nhập mật khẩu cũ">
+                                                                    <input class="form-control" name="current_password"
+                                                                        type="password" placeholder="Nhập mật khẩu cũ">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -213,8 +214,8 @@
                                                                 <div class="form-group">
                                                                     <label class="p-0 m-0">Mật khẩu mới</label>
                                                                     @error('password')
-                                                                        <p class="text-danger p-0 m-0">{{ $message }}
-                                                                        </p>
+                                                                    <p class="text-danger p-0 m-0">{{ $message }}
+                                                                    </p>
                                                                     @enderror
                                                                     <input class="form-control" type="password"
                                                                         name="password" placeholder="Nhập mật khẩu mới">
@@ -227,11 +228,11 @@
                                                                     <label class="p-0 m-0">Xác nhận mật khẩu
                                                                         mới</label>
                                                                     @error('confirm_password')
-                                                                        <p class="text-danger p-0 m-0">{{ $message }}
-                                                                        </p>
+                                                                    <p class="text-danger p-0 m-0">{{ $message }}
+                                                                    </p>
                                                                     @enderror
-                                                                    <input class="form-control"
-                                                                        name="confirm_password" type="password"
+                                                                    <input class="form-control" name="confirm_password"
+                                                                        type="password"
                                                                         placeholder="Nhập lại mậu khẩu mới">
                                                                 </div>
                                                             </div>
@@ -319,12 +320,12 @@
                         <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
                                 <div class="text-center">
-                                    <img class="profile-user-img img-fluid img-circle"
-                                        src="{{ asset($user->avatar) }}" alt="User profile picture">
+                                    <img class="profile-user-img img-fluid img-circle" src="{{ asset($user->avatar) }}"
+                                        alt="User profile picture">
                                     <div class="mt-2">
                                         <form enctype="multipart/form-data"
-                                            action="{{ URL::to('/profile/update-avatar') }}"
-                                            id="user_save_profile_form" method="POST">
+                                            action="{{ URL::to('/profile/update-avatar') }}" id="user_save_profile_form"
+                                            method="POST">
                                             @csrf
 
                                             <label for="firstimg" class="btn btn-info m-0">
@@ -341,7 +342,20 @@
                                 <br>
                                 <h3 class="profile-username text-center">{{ $user->name }}</h3>
 
-                                <p class="text-muted text-center">{{ $user->id_role }}</p>
+                                <p class="text-muted text-center">(
+                                    @if ($user->id_role == 1)
+                                    Khách hàng
+                                    @elseif($user->id_role == 2)
+                                    Thợ sửa
+                                    @elseif($user->id_role == 3)
+                                    Lễ tân
+                                    @elseif($user->id_role == 4)
+                                    Kế toán
+                                    @else
+                                    Admin
+                                    @endif
+                                    )
+                                </p>
 
 
                             </div>
@@ -383,141 +397,234 @@
                                 <ul class="nav nav-pills">
                                     <li class="nav-item"><a class="nav-link active" href="#activity"
                                             data-toggle="tab">Lịch sử mua hàng</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#timeline"
-                                            data-toggle="tab">Lịch sử sửa chữa</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#settings"
-                                            data-toggle="tab">Cài đặt</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Lịch sử
+                                            đặt lịch</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Cài
+                                            đặt</a></li>
                                 </ul>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 <div class="tab-content">
                                     <div class="active tab-pane" id="activity">
                                         <!-- Post -->
+
                                         <div class="timeline timeline-inverse">
                                             <!-- timeline time label -->
-                                            <table class="table ">
-                                                <thead>
-                                                    <th>STT</th>
-                                                    <th>Mã hóa đơn</th>
-                                                    <th>Tổng tiền</th>
-                                                    <th>Ngày mua hàng</th>
-                                                    <th>Trạng thái</th>
-                                                    <th>Địa chỉ</th>
-                                                    <th></th>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($bill as $item)
-                                                        <tr>
-                                                            <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $item->bill_code }}</td>
-                                                            <td>{{ $item->total }}</td>
-                                                            <td>{{ date('d-m-yy', strtotime($item->created_at)) }}
-                                                            </td>
-                                                            <td>
-                                                                @if ($item->payment_status == 0)
-                                                                    Đã hủy
-                                                                @elseif($item->payment_status == 1)
-                                                                    Đang chờ
-                                                                @else
-                                                                    Hoàn thành
-                                                                @endif
-                                                            </td>
-                                                            <td>{{ $item->address }}</td>
-                                                            <td class="col-6"><a
-                                                                    href="{{ route('profile.history.detail', ['code' => $item->bill_code]) }}"
-                                                                    class="btn btn-info">Chi tiết</a></td>
-                                                            <td>
-                                                                @if ($item->payment_status == 1)
-                                                                    <form
-                                                                        action="{{ route('cancel-order', ['code' => $item->bill_code]) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        <button type="submit" class="btn btn-danger">Hủy
-                                                                            đơn</button>
-                                                                    </form>
-                                                                @else
-                                                                    <form
-                                                                        action="{{ route('restore-order', ['code' => $item->bill_code]) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        <button type="submit"
-                                                                            class="btn btn-primary">Mua lại</button>
-                                                                    </form>
-                                                                @endif
-                                                            </td>
 
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
 
+                                            @if ($bill->toArray() == [])
+                                            <div class="text-center">
+                                                <h3>hiện tại bạn chưa có đơn hàng nào.</h3>
+                                                <a href="{{ asset('') }}cua-hang">
+                                                    <b>Đặt hàng ngay</b>
+                                                </a>
+                                            </div>
+                                            @else
+                                            @foreach ($bill as $item)
+                                            <div class="time-label">
+                                                <p>
+                                                    Ngày mua: {{ $item->created_at }}
+                                                </p>
+                                            </div>
+                                            <!-- /.timeline-label -->
+                                            <!-- timeline item -->
+                                            <div>
+                                                <div class="timeline-item">
+
+                                                    <div class="row">
+                                                        <div class="col-3">
+                                                            <a href=""><img src="{{ asset($item->image) }}" alt=""
+                                                                    style="background-size: 150px 150px;width: 200px;height: 170px;"></a>
+                                                        </div>
+                                                        <div class="col-7">
+                                                            <h3 class="timeline-header"><a href="#">{{ $item->name
+                                                                    }}</a>
+                                                            </h3>
+                                                            <div class="timeline-body">
+                                                                Etsy doostang zoodles disqus groupon greplin
+                                                                oooj
+                                                                voxy
+                                                                zoodles,
+                                                                weebly ning heekya handango imeem plugg dopplr
+                                                                jibjab,
+                                                                movity
+                                                                jajah plickers sifteo edmodo ifttt zimbra.
+                                                                Babblely
+                                                                odeo
+                                                                kaboodle
+                                                                quora plaxo ideeli hulu weebly balihoo...
+                                                            </div>
+                                                            <br>
+                                                            <div class="timeline-footer">
+                                                                <div class="row flex">
+                                                                    <div class="col-6">Sản phẩm:
+                                                                        {{ $item->qty }}</div>
+                                                                    <div class="col-4 ">
+                                                                        <b class="text-danger"
+                                                                            style="font-size: 20px"><i>{{ $item->price *
+                                                                                $item->qty }}
+                                                                                VNĐ </i></b>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="timeline-footer">
+                                                                <a href="{{ route('profile.history.detail', ['code' => $item->bill_code]) }}"
+                                                                    class="button extra-small">
+                                                                    <span class="text-uppercase">Chi tiết</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <!-- END timeline item -->
+                                            <!-- timeline item -->
+                                            <div>
+                                                <i class="far fa-clock bg-gray"></i>
+                                            </div>
+                                            @endforeach
+                                            @endif
+
+                                        </div>
+
+                                        <!-- /.post -->
+                                    </div>
+                                    <div class="tab-pane" id="timeline">
+                                        <!-- The timeline -->
+                                        <div class="timeline timeline-inverse">
+
+                                            {{-- @if ($bill->toArray() == [])
+                                            <div class="text-center">
+                                                <h3>hiện tại bạn chưa có đơn hàng nào.</h3>
+                                                <a href="">
+                                                    <b>Đặt hàng ngay</b>
+                                                </a>
+                                            </div>
+                                            @else
+                                            @foreach ($bill_sc as $item)
+                                            <div class="time-label">
+                                                <p>
+                                                    Ngày đặt lịch: 10-4-2022
+                                                </p>
+                                            </div>
+                                            <!-- /.timeline-label -->
+                                            <!-- timeline item -->
+                                            <div>
+                                                <div class="timeline-item">
+
+                                                    <div class="row">
+                                                        <div class="col-3 flex text-center">
+                                                            <a href=""><img
+                                                                    src="{{ asset('client') }}/img/icon/icon.png" alt=""
+                                                                    style="background-size: 110px 110px;width: 170px;height: 140px;"></a>
+                                                        </div>
+                                                        <div class="col-7">
+                                                            <h3 class="timeline-header"><a href="#">Sửa chữa
+                                                                    Laptop</a>
+                                                            </h3>
+                                                            <div class="timeline-body">
+                                                                {{ $item->desc }}
+                                                            </div>
+                                                            <br>
+                                                            <div class="timeline-footer">
+                                                                <div class="row flex">
+                                                                    <div class="col-6">Sản phẩm:
+                                                                        {{ $item->qty }}</div>
+                                                                    <div class="col-4 ">
+                                                                        <b class="text-danger"
+                                                                            style="font-size: 20px"><i>{{ $item->price *
+                                                                                $item->qty }}
+                                                                                VNĐ </i></b>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="timeline-footer">
+                                                                <a href="{{ route('profile.history.detail', ['code' => $item->bill_code]) }}"
+                                                                    class="button extra-small">
+                                                                    <span class="text-uppercase">Chi tiết</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <!-- END timeline item -->
+                                            <!-- timeline item -->
+                                            <div>
+                                                <i class="far fa-clock bg-gray"></i>
+                                            </div>
+                                            @endforeach
+                                            @endif --}}
+
+
+                                            <!-- timeline time label -->
+                                            <div class="time-label">
+                                                <p>
+                                                    Ngày đặt lịch: 10-4-2022
+                                                </p>
+                                            </div>
+                                            <!-- /.timeline-label -->
+                                            <!-- timeline item -->
+                                            <div>
+                                                <div class="timeline-item">
+
+                                                    <div class="row">
+                                                        <div class="col-3 flex text-center">
+                                                            <a href=""><img
+                                                                    src="{{ asset('client') }}/img/icon/icon.png" alt=""
+                                                                    style="background-size: 110px 110px;width: 170px;height: 140px;"></a>
+                                                        </div>
+                                                        <div class="col-7">
+                                                            <h3 class="timeline-header"><a href="#">Sửa chữa Laptop</a>
+                                                            </h3>
+                                                            <div class="timeline-body">
+                                                                Etsy doostang zoodles disqus groupon greplin
+                                                                oooj
+                                                                voxy
+                                                                zoodles,
+                                                                weebly ning heekya handango imeem plugg dopplr
+                                                                jibjab,
+                                                                movity
+                                                                jajah plickers sifteo edmodo ifttt zimbra.
+                                                                Babblely
+                                                                odeo
+                                                                kaboodle
+                                                                quora plaxo ideeli hulu weebly balihoo...
+                                                            </div>
+                                                            <br>
+                                                            <div class="timeline-footer">
+                                                                <div class="row flex">
+                                                                    <div class="col-6">Sản phẩm:
+                                                                        1</div>
+                                                                    <div class="col-4 ">
+                                                                        <b class="text-danger"
+                                                                            style="font-size: 20px"><i>99999
+                                                                                VNĐ </i></b>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="timeline-footer">
+                                                                <a href="" class="button extra-small">
+                                                                    <span class="text-uppercase">Chi tiết</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <hr>
                                             <!-- END timeline item -->
                                             <!-- timeline item -->
                                             <div>
                                                 <i class="far fa-clock bg-gray"></i>
                                             </div>
                                         </div>
-
-                                        <!-- /.post -->
                                     </div>
-
-                                    <div class="tab-pane" id="timeline">
-
-                                        <div class="timeline timeline-inverse">
-
-                                            <table class="table ">
-                                                <thead>
-                                                    <th>STT</th>
-                                                    <th>Mã hóa đơn</th>
-                                                    <th>Tổng tiền</th>
-                                                    <th>Ngày sửa</th>
-                                                    <th>Trạng thái</th>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($repair as $item)
-                                                        <tr>
-                                                            <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $item->code }}</td>
-                                                            <td>{{ $item->into_money }}</td>
-                                                            <td>{{ date('d-m-yy', strtotime($item->created_at)) }}
-                                                            </td>
-                                                            <td>
-                                                                @if ($item->status_booking == 'cancel')
-                                                                    Đã hủy
-                                                                @elseif($item->status_booking == 'received')
-                                                                    Đang chờ
-                                                                    {{-- @else
-                                                                    Xác nhận --}}
-                                                                @endif
-                                                            </td>
-                                                            {{-- <td><a href="{{ route('profile.history.detail-repair', ['code' => $item->code]) }}"
-                                                                    class="btn btn-info">Chi tiết</a></td> --}}
-                                                            <td>
-                                                                @if ($item->status_booking == 'received')
-                                                                    <form
-                                                                        action="{{ route('cancel-repair', ['code' => $item->code]) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        <button type="submit" class="btn btn-danger">Hủy
-                                                                            đơn</button>
-                                                                    </form>
-                                                                @elseif($item->status_booking == 'cancel')
-                                                                    <form
-                                                                        action="{{ route('restore-repair', ['code' => $item->code]) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        <button type="submit"
-                                                                            class="btn btn-primary">Mua lại</button>
-                                                                    </form>
-                                                                @endif
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
                                     <div class="tab-pane" id="settings">
                                         <form class="form-horizontal">
                                             <div class="form-group row">
@@ -553,7 +660,8 @@
                                                 <label for="inputExperience" class="col-sm-2 col-form-label">Mô
                                                     tả</label>
                                                 <div class="col-sm-10">
-                                                    <textarea class="form-control" id="inputExperience" placeholder="Experience">{{ $user->description }}</textarea>
+                                                    <textarea class="form-control" id="inputExperience"
+                                                        placeholder="Experience">{{ $user->description }}</textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -577,8 +685,8 @@
                                                             <div class="form-group">
                                                                 <label class="p-0 m-0">Mật khẩu cũ</label>
                                                                 @error('current_password')
-                                                                    <p class="text-danger p-0 m-0">{{ $message }}
-                                                                    </p>
+                                                                <p class="text-danger p-0 m-0">{{ $message }}
+                                                                </p>
                                                                 @enderror
                                                                 <input class="form-control" name="current_password"
                                                                     type="password" placeholder="Nhập mật khẩu cũ">
@@ -590,8 +698,8 @@
                                                             <div class="form-group">
                                                                 <label class="p-0 m-0">Mật khẩu mới</label>
                                                                 @error('password')
-                                                                    <p class="text-danger p-0 m-0">{{ $message }}
-                                                                    </p>
+                                                                <p class="text-danger p-0 m-0">{{ $message }}
+                                                                </p>
                                                                 @enderror
                                                                 <input class="form-control" type="password"
                                                                     name="password" placeholder="Nhập mật khẩu mới">
@@ -604,8 +712,8 @@
                                                                 <label class="p-0 m-0">Xác nhận mật khẩu
                                                                     mới</label>
                                                                 @error('confirm_password')
-                                                                    <p class="text-danger p-0 m-0">{{ $message }}
-                                                                    </p>
+                                                                <p class="text-danger p-0 m-0">{{ $message }}
+                                                                </p>
                                                                 @enderror
                                                                 <input class="form-control" name="confirm_password"
                                                                     type="password" placeholder="Nhập lại mậu khẩu mới">
@@ -678,7 +786,7 @@
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
 </script>
 <script>
     function doAfterSelectImage(input) {
