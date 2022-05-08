@@ -6,10 +6,10 @@
             <tr>
                 <th scope="col" class="sort" data-sort="name">Tên máy</th>
                 <th scope="col" class="sort" data-sort="budget">Tên khách hàng</th>
-                <th scope="col" class="sort" data-sort="status">SDT</th>
-                <th scope="col">Hình thức sửa</th>
+                <th scope="col" class="sort" data-sort="status">Số điện thoại</th>
+                {{-- <th scope="col">Hình thức sửa</th> --}}
                 <th scope="col">Trạng thái</th>
-                <th scope="col" class="sort" data-sort="completion">Nhân viên</th>
+                <th scope="col" class="sort" data-sort="completion">Sửa thông tin</th>
                 @can('add-booking')
                 <th scope="col"><a href="{{ route('dat-lich.add') }}">Tạo mới</a></th>
                 @endcan
@@ -25,11 +25,11 @@
 
                     @endif</td>
                 <td>{{ $b->booking->phone }}</td>
-                <td>@if ($b->repair_type=='TN')
+                {{-- <td>@if ($b->repair_type=='TN')
                     {{ 'Tại nhà' }}
                     @else
                     {{ 'Đem đến cửa hàng' }}
-                    @endif</td>
+                    @endif</td> --}}
                 <td>
                     {{-- @if ($b->active==0)
                     {{ 'Chưa sửa' }}

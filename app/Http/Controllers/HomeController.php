@@ -61,6 +61,7 @@ class HomeController extends Controller
         session()->put('url_path',FacadesRequest::path());
         $ComputerCompany = ComputerCompany::all();
         $pro = Product::where('slug', $slug)->first();
+        session()->put('url_path', $pro->slug);
         // dd($ComputerCompany);
         if (!$pro || !$ComputerCompany) {
             // $productNew = Product::where('status', 1)->orderBy('id', 'DESC')->get()->take(4);

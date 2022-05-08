@@ -25,7 +25,7 @@
             <div class="card-body">
                 <table class="table table-bordered">
                     <thead>
-                        <th style="width: 50px;" class="text-center">STT</th>
+                        <th>STT</th>
                         <th>Tên hãng</th>
                         <th>Ảnh</th>
                         <th>

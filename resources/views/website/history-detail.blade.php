@@ -28,287 +28,6 @@
             </div>
         </div>
     </div>
-    {{-- <div class="container pt-6">
-        <div class="row flex-lg-nowrap">
-            <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
-                <div class="card p-3">
-                    <div class="e-navlist e-navlist--active-bg">
-                        <!-- <ul class="nav">
-                            <li class="nav-item"><a class="nav-link px-2 active" href="#"><i
-                                        class="fa fa-fw fa-bar-chart mr-1"></i><span>Overview</span></a></li>
-                            <li class="nav-item"><a class="nav-link px-2"
-                                    href="https://www.bootdey.com/snippets/view/bs4-crud-users" target="__blank"><i
-                                        class="fa fa-fw fa-th mr-1"></i><span>CRUD</span></a></li>
-                            <li class="nav-item"><a class="nav-link px-2"
-                                    href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page"
-                                    target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Settings</span></a>
-                            </li>
-                        </ul> -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="row">
-                    <div class="col mb-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="e-profile">
-                                    <div class="row">
-                                        <div class="col-12 col-sm-auto mb-3">
-                                            <div class="mx-auto">
-
-                                                <div class="align-items-center rounded-circle">
-
-                                                    <span style="font: bold 8pt Arial;">
-                                                        <div class="photo-img rounded-circle" id="image_user"
-                                                            style="background-size: 150px 150px;width: 150px;height: 150px;background-image:url('{{ asset($user->avatar) }}');">
-                                                        </div>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
-                                            <div class="text-center text-sm-left mb-2 mb-sm-0">
-                                                <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{ $user->name }}</h4>
-                                                <p class="mb-0">{{ $user->email }}</p>
-                                                <!-- <div class="text-muted"><small>Last seen 2 hours ago</small></div> -->
-                                                <div class="mt-2">
-                                                    <form enctype="multipart/form-data"
-                                                        action="{{ URL::to('/profile/update-avatar') }}"
-                                                        id="user_save_profile_form" method="POST">
-                                                        @csrf
-
-                                                        <label for="firstimg" class="btn btn-info m-0">
-                                                            Thay ảnh
-                                                        </label>
-                                                        <!-- <span class="change_photo" id="files" style="visibility:none;"
-                                                            for="profile_pic">Thay ảnh</span> -->
-                                                        <input style="display: none;visibility: none;" type="file"
-                                                            onchange="doAfterSelectImage(this)" id="firstimg"
-                                                            name="avatar">
-                                                        <button type="submit" class="btn btn-success m-0">Lưu</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <div class="text-center text-sm-right">
-                                                <span class="badge badge-secondary">{{ $user->role }}</span>
-                                                <div class="text-muted"><small>Ngày gia nhập:
-                                                        {{ $user->created_at->format('d-m-Y') }}</small></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @if (Session::has('message'))
-                                        <div class="alert alert-success" role="alert">
-                                            {{ Session::get('message') }}.
-                                        </div>
-                                    @endif
-                                    @if (Session::has('current_password'))
-                                        <div class="alert alert-danger" role="alert">
-                                            {{ Session::get('current_password') }}.
-                                        </div>
-                                    @endif
-
-                                    @error('avatar')
-                                        <p class="text-danger p-0 m-0">{{ $message }}</p>
-                                    @enderror
-                                    <ul class="nav nav-tabs">
-                                        <li class="nav-item"><a href="" class="text-dark active nav-link">Thông
-                                                tin</a>
-                                        </li>
-                                        <li class="nav-item"><a href="" class="text-dark nav-link">Hóa đơn</a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content pt-3">
-                                        <div class="tab-pane active">
-                                            <form class="form" enctype="multipart/form-data"
-                                                action="{{ URL::to('/profile/update-info') }}" method="POST"
-                                                novalidate="">
-                                                @csrf
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label class="p-0 m-0">Họ và tên</label>
-                                                                    @error('name')
-                                                                        <p class="text-danger p-0 m-0">{{ $message }}
-                                                                        </p>
-                                                                    @enderror
-                                                                    <input class="form-control" type="text"
-                                                                        name="name" value="{{ $user->name }}">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label class="p-0 m-0">Số điện thoại</label>
-                                                                    <input class="form-control" type="text"
-                                                                        name="phone" placeholder="Số điện thoại"
-                                                                        value="{{ $user->phone }}">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label class="p-0 m-0">Email</label>
-                                                                    @error('email')
-                                                                        <p class="text-danger p-0 m-0">{{ $message }}
-                                                                        </p>
-                                                                    @enderror
-                                                                    <input class="form-control" type="text"
-                                                                        name="email" value="{{ $user->email }}">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label class="p-0 m-0">Địa chỉ</label>
-                                                                    <input class="form-control" type="text"
-                                                                        name="address" value="{{ $user->address }}">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col mb-3">
-                                                                <div class="form-group">
-                                                                    <label class="p-0 m-0">Ghi chú</label>
-                                                                    <textarea class="form-control text-dark" name="description" rows="5">{{ $user->description }}</textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col d-flex justify-content-end">
-                                                    <button class="btn btn-success" type="submit">Lưu thay đổi</button>
-                                                </div>
-                                            </form>
-                                            <form class="form" enctype="multipart/form-data"
-                                                action="{{ URL::to('/profile/update-password') }}" method="POST">
-                                                @csrf
-                                                <div class="row">
-                                                    <div class="col-12 col-sm-6 mb-3">
-                                                        <div class="mb-2"><b>Đổi mật khẩu</b></div>
-                                                        <div class="row">
-
-
-
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label class="p-0 m-0">Mật khẩu cũ</label>
-                                                                    @error('current_password')
-                                                                        <p class="text-danger p-0 m-0">{{ $message }}
-                                                                        </p>
-                                                                    @enderror
-                                                                    <input class="form-control"
-                                                                        name="current_password" type="password"
-                                                                        placeholder="Nhập mật khẩu cũ">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label class="p-0 m-0">Mật khẩu mới</label>
-                                                                    @error('password')
-                                                                        <p class="text-danger p-0 m-0">{{ $message }}
-                                                                        </p>
-                                                                    @enderror
-                                                                    <input class="form-control" type="password"
-                                                                        name="password" placeholder="Nhập mật khẩu mới">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label class="p-0 m-0">Xác nhận mật khẩu
-                                                                        mới</label>
-                                                                    @error('confirm_password')
-                                                                        <p class="text-danger p-0 m-0">{{ $message }}
-                                                                        </p>
-                                                                    @enderror
-                                                                    <input class="form-control"
-                                                                        name="confirm_password" type="password"
-                                                                        placeholder="Nhập lại mậu khẩu mới">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col d-flex justify-content-end">
-                                                                <button class="btn btn-success" type="submit">Đổi mật
-                                                                    khẩu</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                                                        <!-- <div class="mb-2"><b>Keeping in Touch</b></div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <label>Email Notifications</label>
-                                                                <div class="custom-controls-stacked px-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input"
-                                                                            id="notifications-blog" checked="">
-                                                                        <label class="custom-control-label"
-                                                                            for="notifications-blog">Blog
-                                                                            posts</label>
-                                                                    </div>
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input"
-                                                                            id="notifications-news" checked="">
-                                                                        <label class="custom-control-label"
-                                                                            for="notifications-news">Newsletter</label>
-                                                                    </div>
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input"
-                                                                            id="notifications-offers" checked="">
-                                                                        <label class="custom-control-label"
-                                                                            for="notifications-offers">Personal
-                                                                            Offers</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div> -->
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-md-3 mb-3">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="px-xl-3">
-                                    <i class="fa fa-sign-out"></i>
-                                    <button class="btn btn-block btn-secondary">
-                                        <a class="text-white" href="/logout"> <span>Đăng xuất</span></a>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <!-- <div class="card-body">
-                                <h6 class="card-title font-weight-bold">Support</h6>
-                                <p class="card-text">Get fast, free help from our friendly assistants.</p>
-                                <button type="button" class="btn btn-primary">Contact Us</button>
-                            </div> -->
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div> --}}
     <div class="container pt-6">
         <section class="content">
             <div class="container-fluid">
@@ -319,12 +38,12 @@
                         <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
                                 <div class="text-center">
-                                    <img class="profile-user-img img-fluid img-circle"
-                                        src="{{ asset($user->avatar) }}" alt="User profile picture">
+                                    <img class="profile-user-img img-fluid img-circle" src="{{ asset($user->avatar) }}"
+                                        alt="User profile picture">
                                     <div class="mt-2">
                                         <form enctype="multipart/form-data"
-                                            action="{{ URL::to('/profile/update-avatar') }}"
-                                            id="user_save_profile_form" method="POST">
+                                            action="{{ URL::to('/profile/update-avatar') }}" id="user_save_profile_form"
+                                            method="POST">
                                             @csrf
 
                                             <label for="firstimg" class="btn btn-info m-0">
@@ -381,198 +100,118 @@
                         <div class="card">
                             <div class="card-header p-2">
                                 <ul class="nav nav-pills">
-                                    <li class="nav-item"><a class="nav-link active" href="{{route('profile')}}"
-                                        > Quay lại</a></li>
-                                    
+                                    <li class="nav-item">
+                                        <h3>Quay lại </h3>
+                                    </li>
+                                    <li class="nav-item">
+                                        <h3> / Thông tin đơn hàng</h3>
+                                    </li>
                                 </ul>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 <div class="tab-content">
-                                    <div class="active tab-pane" id="activity">
-                                        <!-- Post -->
-                                        <div class="timeline timeline-inverse">
-                                            <!-- timeline time label -->
-                                            <div class="row text-center">
-                                                <div class="ml-2 mb-2">Mã đơn hàng: {{$code}}</div>
-                                                <div class="col-12">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <table class="table">
-                                                                <thead>
-                                                                    <th>STT</th>
-                                                                    <th>Tên sản phẩm</th>
-                                                                    <th>Ảnh</th>
-                                                                    <th>Giá tiền</th>
-                                                                    <th>Số lượng</th>
-                                                                    <th>Tổng tiền</th>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach ($bill as $item)
-                                                                        <tr>
-                                                                            <td>{{ $loop->iteration }}</td>
-                                                                            <td>{{ $item->name }}</td>
-                                                                            <td><img src="{{asset($item->image)}}" width="100"></td>
-                                                                            <td>{{$item->price}}</td>
-                                                                            <td>{{$item->qty}}</td>
-                                                                            <td>{{$item->price*$item->qty}}</td>
-                                                                            {{-- <td><a href="{{route('profile.history.detail',['code'=>$item->bill_code])}}" class="btn btn-info">Chi tiết</a></td>
-                                                                            <td></td> --}}
-                                        
-                                                                        </tr>
-                                                                    @endforeach
-                                                                </tbody>
-                                                            </table>
-                                                            {{-- <div class="d-flex justify-content-center">
-                                                                {{$bill->links()}}
-                                                            </div> --}}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- END timeline item -->
-                                            <!-- timeline item -->
-                                            <div>
-                                                <i class="far fa-clock bg-gray"></i>
-                                            </div>
-                                        </div>
-
-                                        <!-- /.post -->
-                                    </div>
-
-                                    <div class="tab-pane" id="settings">
+                                    <div class="active tab-pane" id="settings">
                                         <form class="form-horizontal">
                                             <div class="form-group row">
-                                                <label for="inputName" class="col-sm-2 col-form-label">Tên</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputName"
-                                                        placeholder="Tên..." value="{{ $user->name }}">
+                                                <label for="inputName" class="col-sm-4 col-form-label">
+                                                    <label for="">Thời gian: {{ $user->created_at }}
+                                                    </label>
+                                                    <a href=""><img src="{{ asset($user->avatar) }}" alt="" style=""
+                                                            width="200" height="200"></a>
+                                                </label>
+                                                <div class="col-sm-6">
+                                                    <label for="">
+                                                        <b class="text-dark">Mã hóa đơn: </b> {{ $user->name }}
+                                                    </label>
+                                                    <br>
+                                                    <label for="">
+                                                        <h2><b class="text-dark">Tên sản phẩm:</b>
+                                                            <a href=""> {{ $user->name }}</a>
+                                                        </h2>
+                                                    </label>
+                                                    <br>
+                                                    <label for=""> <b class="text-dark">Địa chỉ nhận
+                                                            hàng: </b>
+                                                        <br>
+                                                        {{ $user->name }} <br>
+                                                        {{ $user->phone }} <br>
+                                                        {{ $user->address }}
+                                                    </label>
+                                                    <br>
+                                                    <label for="">
+                                                        <b class="text-dark">Số lượng sản phẩm:</b>
+                                                        x{{ $user->name }}
+                                                    </label>
+                                                    <label for="">
+                                                        <b class="text-dark">Giá sản phẩm:</b>
+                                                        {{ $user->name }} vnđ
+                                                    </label>
+                                                    <br>
+                                                    <label for="">
+                                                        <b class="text-dark">Phương thức thanh toán: </b>
+                                                        <br> Thanh toán khi nhận hàng
+                                                    </label><br>
                                                 </div>
+                                                <div class="   col-sm-2">
+                                                    <label for=""> <a href="" class="text-success">Hoàn
+                                                            thành</a>
+                                                    </label>
+                                                </div>
+
                                             </div>
+                                            <hr>
                                             <div class="form-group row">
-                                                <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputEmail"
-                                                        placeholder="Email..." value="{{ $user->email }}">
+                                                <label for="inputName" class="col-sm-4 col-form-label">
+                                                    <label for="">Thời gian: {{ $user->created_at }}
+                                                    </label>
+                                                    <a href=""><img src="{{ asset($user->avatar) }}" alt="" style=""
+                                                            width="200" height="200"></a>
+                                                </label>
+                                                <div class="col-sm-6">
+                                                    <label for="">
+                                                        <b class="text-dark">Mã hóa đơn: </b> {{ $user->name }}
+                                                    </label>
+                                                    <br>
+                                                    <label for="">
+                                                        <h2><b class="text-dark">Tên sản phẩm:</b>
+                                                            <a href="">{{ $user->name }}</a>
+                                                        </h2>
+                                                    </label>
+                                                    <br>
+                                                    <label for=""> <b class="text-dark">Địa chỉ nhận
+                                                            hàng: </b>
+                                                        <br>
+                                                        {{ $user->name }} <br>
+                                                        {{ $user->phone }} <br>
+                                                        {{ $user->address }}
+                                                    </label>
+                                                    <br>
+                                                    <label for="">
+                                                        <b class="text-dark">Số lượng sản phẩm:</b>
+                                                        x{{ $user->name }}
+                                                    </label>
+                                                    <label for="">
+                                                        <b class="text-dark">Giá sản phẩm:</b>
+                                                        {{ $user->name }} vnđ
+                                                    </label>
+                                                    <br>
+                                                    <label for="">
+                                                        <b class="text-dark">Phương thức thanh toán: </b>
+                                                        <br> Thanh toán khi nhận hàng
+                                                    </label><br>
                                                 </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="inputName2" class="col-sm-2 col-form-label">Số điện
-                                                    thoại</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputName2"
-                                                        placeholder="Số điện thoại..." value="{{ $user->phone }}">
+                                                <div class="   col-sm-2">
+                                                    <label for=""> <a href="" class="text-success">Hoàn
+                                                            thành</a>
+                                                    </label>
                                                 </div>
+
                                             </div>
-                                            <div class="form-group row">
-                                                <label for="inputName2" class="col-sm-2 col-form-label">Địa chỉ</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputName2"
-                                                        placeholder="Địa chỉ..." value="{{ $user->address }}">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="inputExperience" class="col-sm-2 col-form-label">Mô
-                                                    tả</label>
-                                                <div class="col-sm-10">
-                                                    <textarea class="form-control" id="inputExperience" placeholder="Experience">{{ $user->description }}</textarea>
-                                                </div>
-                                            </div>
+                                            <hr>
                                             <div class="form-group row">
                                                 <div class="offset-sm-2 col-sm-10">
-                                                    <button type="submit"
-                                                        class="submit-btn-1 mt-30 btn-hover-1">Lưu</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <form class="form" enctype="multipart/form-data"
-                                            action="{{ URL::to('/profile/update-password') }}" method="POST">
-                                            @csrf
-                                            <div class="row">
-                                                <div class=" mb-3">
-                                                    <div class="mb-2"><b>Đổi mật khẩu</b></div>
-                                                    <div class="row">
-
-
-
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <label class="p-0 m-0">Mật khẩu cũ</label>
-                                                                @error('current_password')
-                                                                    <p class="text-danger p-0 m-0">{{ $message }}
-                                                                    </p>
-                                                                @enderror
-                                                                <input class="form-control" name="current_password"
-                                                                    type="password" placeholder="Nhập mật khẩu cũ">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <label class="p-0 m-0">Mật khẩu mới</label>
-                                                                @error('password')
-                                                                    <p class="text-danger p-0 m-0">{{ $message }}
-                                                                    </p>
-                                                                @enderror
-                                                                <input class="form-control" type="password"
-                                                                    name="password" placeholder="Nhập mật khẩu mới">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <label class="p-0 m-0">Xác nhận mật khẩu
-                                                                    mới</label>
-                                                                @error('confirm_password')
-                                                                    <p class="text-danger p-0 m-0">{{ $message }}
-                                                                    </p>
-                                                                @enderror
-                                                                <input class="form-control" name="confirm_password"
-                                                                    type="password" placeholder="Nhập lại mậu khẩu mới">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col d-flex justify-content-end">
-                                                            <button class="submit-btn-1 mt-30 btn-hover-1"
-                                                                type="submit">Đổi mật
-                                                                khẩu</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                                                    <!-- <div class="mb-2"><b>Keeping in Touch</b></div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <label>Email Notifications</label>
-                                                                <div class="custom-controls-stacked px-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input"
-                                                                            id="notifications-blog" checked="">
-                                                                        <label class="custom-control-label"
-                                                                            for="notifications-blog">Blog
-                                                                            posts</label>
-                                                                    </div>
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input"
-                                                                            id="notifications-news" checked="">
-                                                                        <label class="custom-control-label"
-                                                                            for="notifications-news">Newsletter</label>
-                                                                    </div>
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input"
-                                                                            id="notifications-offers" checked="">
-                                                                        <label class="custom-control-label"
-                                                                            for="notifications-offers">Personal
-                                                                            Offers</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div> -->
+                                                    <button type="submit" class="submit-btn-1 mt-30 btn-hover-1">Mua
+                                                        Lại</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -599,7 +238,7 @@
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
 </script>
 <script>
     function doAfterSelectImage(input) {
@@ -618,4 +257,4 @@ integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amn
 </script>
 
 </html>
-
+<<<<<<< HEAD=======>>>>>>> 51f57a4c57d04ca008b0f5ceb896ea00de03fb2e

@@ -23,7 +23,7 @@ use Twilio\Rest\Client;
 class PaymentController extends Controller
 {
     public function showPayment()
-    {
+    {   
         $content = Cart::content();
         if ($countCart = count($content) == 0) {
             Toastr::error('Vui lòng chọn đồ rồi thanh toán', 'Thất bại');

@@ -17,7 +17,7 @@ class RepairPart extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function components()
+    public function component()
     {
         return $this->hasOne(Component::class, 'id', 'component_id');
     }

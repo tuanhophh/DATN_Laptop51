@@ -130,9 +130,9 @@
                                         <div class="col-lg-12">
                                             <textarea class="custom-textarea" name="description" id="ckeditor"
                                                 placeholder="Nội dung...">{{ old('description') }}</textarea>
-                                            <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Đặt
-                                                Lịch</button>
-                                        </div>
+
+                                        </div> <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Đặt
+                                            Lịch</button>
                                     </div>
                                     <p class="form-message"></p>
                                 </form>
@@ -150,7 +150,7 @@
         <!-- END FOOTER AREA -->
 
         <!-- START QUICKVIEW PRODUCT -->
-        <div id="quickview-wrapper">
+        {{-- <div id="quickview-wrapper">
             <!-- Modal -->
             <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
@@ -229,7 +229,7 @@
                 </div><!-- .modal-dialog -->
             </div>
             <!-- END Modal -->
-        </div>
+        </div> --}}
         <!-- END QUICKVIEW PRODUCT -->
     </div>
 

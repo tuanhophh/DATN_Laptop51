@@ -168,8 +168,9 @@
                             </div>
                             <div class="form-group ">
                                 <label for=""></label>
-                                <h5>Mô tả sửa chữa (Sửa linh kiện gì, giá tiền sửa là bn)</h5>
-                                <textarea class="form-control" name="description" id="ckeditor1" rows="3"></textarea>
+                                <h5>Mô tả sửa chữa, lưu ý cho khách hàng</h5>
+                                <textarea class="form-control" name="description_repair" id="ckeditor1"
+                                    rows="3"></textarea>
 
 
                             </div>

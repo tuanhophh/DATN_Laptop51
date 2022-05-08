@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBillRepairsTable extends Migration
+class UpdateListBill extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,12 @@ class CreateBillRepairsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bill_repairs', function (Blueprint $table) {
-            $table->id();
-            $table->string('code_bill')->nullable();
+        Schema::table('list_bill', function (Blueprint $table) {
             $table->integer('booking_detail_id')->nullable();
-            $table->bigInteger('sum_price')->nullable();
-            $table->dateTime('date')->nullable();
-
             $table->bigInteger('customers_pay')->comment(' khách hàng trả tiền')->nullable();
+            $table->dateTime('date')->nullable();
             $table->bigInteger('excess_cash')->comment(' tiền thừa')->nullable();
-
             $table->bigInteger('debt')->comment('nợ')->nullable();
-            $table->integer('status')->nullable();
-
-            $table->timestamps();
         });
     }
 
@@ -37,6 +29,8 @@ class CreateBillRepairsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bill_repairs');
+        Schema::table('list_bill', function (Blueprint $table) {
+            //
+        });
     }
 }

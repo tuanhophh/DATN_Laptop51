@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\bill_detail;
 use App\Models\BillRepair;
 use App\Models\Booking;
 use App\Models\BookingDetail;
 use App\Models\DetailBillRepair;
 use App\Models\DetailProduct;
+use App\Models\list_bill;
 use App\Models\RepairPart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,16 +35,59 @@ class BookingDetailController extends Controller
     public function hoaDon($booking_detail_id)
     {
         $booking_detail = BookingDetail::find($booking_detail_id);
+        $repair_parts = RepairPart::where('booking_detail_id', $booking_detail_id)->get();
+        $repair_parts->load('component');
+        // dd($repair_parts);
+        if ($booking_detail) {
+            $list_bill = list_bill::where('booking_detail_id', $booking_detail_id)->first();
+            $data = [
+                'codebill' => $booking_detail->code,
+                'booking_detail_id' => $booking_detail_id,
+                'date' => now(),
+                'total_price' => array_sum(array_column($repair_parts->toArray(), 'into_money')),
+                // 'customers_pay' => null,
+                // 'excess_cash' => $request->excess_cash,
+
+            ];
+            if (!$list_bill) {
+                $data = [
+                    'codebill' => $booking_detail->code,
+                    'booking_detail_id' => $booking_detail_id,
+                    'date' => now(),
+                    'total_price' => array_sum(array_column($repair_parts->toArray(), 'into_money')),
+                    // 'customers_pay' => $request->customers_pay,
+                    // 'excess_cash' => $request->excess_cash,
+
+                ];
+                $bill_repair =    list_bill::create($data);
+                foreach ($repair_parts as $r) {
+                    $data1 = [
+                        'quaty' => $r->quantity,
+                        'code_bill' => $bill_repair->codebill,
+                        'bill_id' => $bill_repair->id,
+                        'nhap' => 0,
+                        'ban' => $r->unit_price,
+                        'component_id' => $r->component_id,
+                        'description' => $r->name_product,
+                    ];
+                    bill_detail::create($data1);
+                }
+            } else {
+                $list_bill->fill($data)->save();
+            }
+        }
+
+        $booking_detail = BookingDetail::find($booking_detail_id);
         if ($booking_detail) {
             $booking_detail->booking->full_name;
             $repair_parts = RepairPart::where("booking_detail_id", $booking_detail_id)->get();
             if ($repair_parts) {
-                $repair_parts->load('components');
+                $repair_parts->load('component');
                 $repair_parts->load('booking_detail');
                 // Auth
                 // dd($booking_detail->booking->full_name);
             }
-            return   view('admin.booking.hoa_don', compact('booking_detail', 'repair_parts'));
+            return   view('admin.booking.hoa_don', compact('booking_detail', 'repair_parts', 'list_bill'));
         }
     }
 
@@ -51,46 +96,89 @@ class BookingDetailController extends Controller
         // dd($request);
         $booking_detail = BookingDetail::find($booking_detail_id);
         $repair_parts = RepairPart::where('booking_detail_id', $booking_detail_id)->get();
-
+        $repair_parts->load('component');
+        // dd($repair_parts);
         if ($booking_detail) {
+            $list_bill = list_bill::where('booking_detail_id', $booking_detail_id)->first();
             $data = [
-                'code_bill' => $booking_detail->code,
+                'codebill' => $booking_detail->code,
                 'booking_detail_id' => $booking_detail_id,
                 'date' => now(),
-                'sum_price' => array_sum(array_column($repair_parts->toArray(), 'into_money')),
+                'total_price' => array_sum(array_column($repair_parts->toArray(), 'into_money')),
                 'customers_pay' => $request->customers_pay,
-                'excess_cash' => $request->excess_cash,
-
+                'excess_cash' => $request->customers_pay - array_sum(array_column($repair_parts->toArray(), 'into_money')),
+                'type' => 2,
             ];
-            $bill_repair =    BillRepair::create($data);
-            foreach ($repair_parts as $r) {
-                $data1 = ['bill_repair_id' => $bill_repair->id, 'code_bill' => $bill_repair->code_bill, 'repair_part_id' => $r->id];
-                DetailBillRepair::create($data1);
+            if (!$list_bill) {
+                $data = [
+                    'codebill' => $booking_detail->code,
+                    'booking_detail_id' => $booking_detail_id,
+                    'date' => now(),
+                    'total_price' => array_sum(array_column($repair_parts->toArray(), 'into_money')),
+                    'customers_pay' => $request->customers_pay,
+                    'excess_cash' => $request->excess_cash,
+                    'type' => 2,
+
+                ];
+                $bill_repair =    list_bill::create($data);
+                foreach ($repair_parts as $r) {
+                    if (!empty($r->component->import_price)) {
+                        $nhap = $r->component->import_price;
+                    } else {
+                        $nhap = 0;
+                    }
+                    $data1 = [
+                        'quaty' => $r->quantity,
+                        'code_bill' => $bill_repair->codebill,
+                        'bill_id' => $bill_repair->id,
+                        'nhap' =>  $nhap,
+                        'ban' => $r->unit_price,
+                        'component_id' => $r->component_id,
+                        'description' => $r->name_product,
+                    ];
+                    bill_detail::create($data1);
+                }
+            } else {
+                $list_bill->fill($data)->save();
             }
         }
+        return back();
     }
-    public function luuThongTinSuaChua($id, Request $request)
-    {
-        dd($request);
-        $booking_detail = BookingDetail::find($id);
-    }
+    // public function luuThongTinThanhToan($id, Request $request)
+    // {
+    //     // dd($request);
+    //     $booking_detail = BookingDetail::find($id);
+    //     if ($booking_detail) {
+    //         $booking_detail_bill = list_bill::where('booking_detail_id', $booking_detail->id)->first();
+    //         // dd($booking_detail_bill);
+    //         $booking_detail_bill->customers_pay = $request->customers_pay;
+    //         $booking_detail_bill->save();
+    //         return back();
+    //     }
+    // }
     public function xuatHoaDon($booking_detail_id)
     {
         $booking_detail = BookingDetail::find($booking_detail_id);
-        if ($booking_detail) {
-            $repair_parts = RepairPart::where("booking_detail_id", $booking_detail_id)
-                ->get();
-            if ($repair_parts) {
-                $repair_parts->load('components');
-                $repair_parts->load('booking_detail');
-            }
-            $data = ['repair_parts' => $repair_parts, 'booking_detail' =>  $booking_detail];
+        $booking_detail_bill = list_bill::where('booking_detail_id', $booking_detail_id)->first();
+
+        if ($booking_detail_bill) {
+            // $repair_parts = RepairPart::where("booking_detail_id", $booking_detail_id)
+            //     ->get();
+            // if ($repair_parts) {
+            //     $repair_parts->load('components');   
+            //     $repair_parts->load('booking_detail');
+            // }
+
+            $bill_detail = bill_detail::where('bill_id', $booking_detail_bill->id)->get();
+            // dd($bill_detail);
+            $data = ['bill_detail' => $bill_detail, 'booking_detail_bill' =>  $booking_detail_bill, 'booking_detail' => $booking_detail];
             $pdf = PDF::loadHTML('admin.booking.xuat_hoa_don');
 
             $pdf = PDF::loadView('admin.booking.xuat_hoa_don', $data);
             // dd(config('mail.mailers.smtp.username'));
             return  $pdf->stream();
         }
+        return back();
     }
 
 
@@ -101,15 +189,24 @@ class BookingDetailController extends Controller
         $booking_detail = BookingDetail::find($booking_detail_id);
         // $booking_detail
         if ($booking_detail) {
-            $booking = Booking::find($booking_detail->booking_id)->fill($request->all())->save();
+            $booking = Booking::find($booking_detail->booking_id)->fill([
+                'full_name' => $request->full_name,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'interval' => $request->interval
+            ])->save();
             $booking_detail->fill($request->all())->save();
-            $booking_detail->status_repair = "waiting";
-            $data = ['booking_detail' =>  $booking_detail];
-            $pdf = PDF::loadHTML('admin.booking.pdf_phieu_nhan_may');
+            $booking_detail->status_repair = 'waiting';
+            $booking_detail->save();
+            if ($request->btn == 'luu_xuat') {
+                $data = ['booking_detail' =>  $booking_detail];
+                $pdf = PDF::loadHTML('admin.booking.pdf_phieu_nhan_may');
 
-            $pdf = PDF::loadView('admin.booking.pdf_phieu_nhan_may', $data);
-            // dd(config('mail.mailers.smtp.username'));
-            return  $pdf->stream('nhan-may.pdf');
+                $pdf = PDF::loadView('admin.booking.pdf_phieu_nhan_may', $data);
+                // dd(config('mail.mailers.smtp.username'));
+                return  $pdf->stream('nhan-may.pdf');
+            }
+            return redirect(route('dat-lich.tiep-nhan-may', ['booking_detail_id' => $booking_detail_id]));
         }
     }
 }
