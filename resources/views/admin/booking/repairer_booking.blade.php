@@ -10,7 +10,9 @@
                 {{-- <th scope="col">Hình thức sửa</th>
                 <th scope="col">Trạng thái</th> --}}
                 <th scope="col" class="sort" data-sort="completion">Nhân viên</th>
+                @can('add-booking')
                 <th scope="col"><a href="{{ route('dat-lich.add') }}">Tạo mới</a></th>
+                @endcan
             </tr>
         </thead>
         <tbody class="list">
@@ -71,8 +73,10 @@
                 </td> --}}
                 <td class="mx-auto">
                     @if ($b->active==1||$b->active==2)
+                    @can('edit-repair')
                     <a name="" id="" class="btn btn-success" href="{{ route('suachua.get', ['id'=>$b->id]) }}"
                         role="button">Sửa chữa</a>
+                    @endcan
                     @endif
 
                     {{-- <a name="" id="" class="btn btn-primary" href="{{ route('dat-lich.edit', ['id'=>$b->id]) }}"

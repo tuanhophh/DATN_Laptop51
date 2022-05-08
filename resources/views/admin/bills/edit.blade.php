@@ -40,12 +40,12 @@
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            
-                        <div class="form-group">
-                            <label for="">Tổng tiền</label>
-                            <input type="text" name="" disabled value="{{ old('total', $bill->total) }} VNĐ"
-                                class="form-control" placeholder="">
-                        </div>
+
+                            <div class="form-group">
+                                <label for="">Tổng tiền</label>
+                                <input type="text" name="" disabled value="{{ old('total', $bill->total) }} VNĐ"
+                                    class="form-control" placeholder="">
+                            </div>
 
                         </div>
                     </div>
@@ -53,27 +53,31 @@
 
                 <div class="row">
                     <div class="col-6">
-                        
-                    <label for="">Phương thức thanh toán</label>
-                            <select  @if($bill->payment_status == 9) disabled @endif name="payment_method" class="form-control">
-                                @if($bill->payment_method == 1)
-                                <option value="{{$bill->payment_method}}">Tiền mặt</option>
-                                <option value="2">Chuyển khoản</option>
-                                @elseif($bill->payment_method == 2)
-                                <option value="{{$bill->payment_method}}">Chuyển khoản</option>
-                                <option value="1">Tiền mặt</option>
-                                @endif
-                            </select>
+
+                        <label for="">Phương thức thanh toán</label>
+                        <select @if($bill->payment_status == 2 || $bill->payment_status == 1) disabled @endif
+                            name="payment_method" class="form-control">
+                            @if($bill->payment_method == 1)
+                            <option value="{{$bill->payment_method}}">Tiền mặt</option>
+                            <option value="2">Chuyển khoản</option>
+                            @elseif($bill->payment_method == 2)
+                            <option value="{{$bill->payment_method}}">Chuyển khoản</option>
+                            <option value="1">Tiền mặt</option>
+                            @endif
+                        </select>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="">Trạng thái thanh toán</label>
-                            <select @if($bill->payment_status == 9) disabled @endif  name="payment_status" class="form-control">
-                           
-                                <option @if($bill->payment_status == 0) selected @endif value="0">Chưa thanh toán</option>
+                            <select @if($bill->payment_status == 2 || $bill->payment_status == 1) disabled @endif
+                                name="payment_status" class="form-control">
+
+                                <option @if($bill->payment_status == 0) selected @endif value="0">Chưa thanh toán
+                                </option>
                                 <option @if($bill->payment_status == 1) selected @endif value="1">Hủy</option>
-                                <option @if($bill->payment_status == 9) selected @endif value="9">Thanh toán thành công</option>
-                             
+                                <option @if($bill->payment_status == 2) selected @endif value="2">Thanh toán thành công
+                                </option>
+
                             </select>
                         </div>
 
@@ -155,12 +159,12 @@
                 <!-- <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Thêm sản
                         phẩm</button></td> -->
             </tr>
+            @endforeach
         </table>
-        @endforeach
         <div class="d-flex justify-content-end mb-2 mr-2">
             <br>
-            <a href="{{ route('bill.index') }}" class="btn btn-info mr-2">Quay lại </a>
-            <button class="btn btn-success" type="submit">Lưu</button>
+            <a href="{{ route('bill.index') }}" class="btn btn-sm btn-info mr-2">Quay lại </a>
+            <button class="btn btn-sm btn-success" type="submit">Lưu</button>
             &nbsp;
         </div>
     </div>

@@ -73,6 +73,11 @@
                                 <li><a href="{{ asset('') }}dat-lich">Đặt Lịch</a></li>
                                 <li><a href="{{ asset('') }}tin-tuc">Tin Tức</a></li>
                                 <li><a href="{{ asset('') }}lien-he">Liên Hệ</a></li>
+                                @if(Auth::check())
+                                    @if(Auth::user()->isVerified == false)
+                                    <li><a href="{{ asset('') }}verify">Xác minh tài khoản</a></li>
+                                    @endif
+                                @endif
                             </ul>
                         </nav>
                     </div>
@@ -99,23 +104,24 @@
                             <div class="total-cart f-left">
                                 <div class="total-cart-in">
                                     <div class="cart-toggler">
-                                        <a href="#">
-                                            <span class="cart-quantity">02</span><br>
+                                        <a href="/gio-hang">
+                                            <span class="cart-quantity">{{Cart::count()}}
+</span><br>
                                             <span class="cart-icon">
                                                 <i class="zmdi zmdi-shopping-cart-plus"></i>
                                             </span>
                                         </a>
                                     </div>
-                                    <ul>
+                                    <!-- <ul>
                                         <li>
                                             <div class="top-cart-inner your-cart">
                                                 <h5 class="text-capitalize">Giỏ Hàng</h5>
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="total-cart-pro">
+                                            <div class="total-cart-pro"> -->
                                                 <!-- single-cart -->
-                                                <div class="single-cart clearfix">
+                                                <!-- <div class="single-cart clearfix">
                                                     <div class="cart-img f-left">
                                                         <a href="#">
                                                             <img src="{{ asset('client') }}/img/cart/1.jpg"
@@ -141,9 +147,9 @@
                                                             <span>Color <strong>:</strong></span>Black, White
                                                         </p>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <!-- single-cart -->
-                                                <div class="single-cart clearfix">
+                                                <!-- <div class="single-cart clearfix">
                                                     <div class="cart-img f-left">
                                                         <a href="#">
                                                             <img src="{{ asset('client') }}/img/cart/1.jpg"
@@ -194,7 +200,7 @@
                                                 </h4>
                                             </div>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </div>
                             </div>
                         </div>

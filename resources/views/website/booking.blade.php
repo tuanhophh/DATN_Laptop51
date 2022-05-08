@@ -11,7 +11,7 @@
 
 <body>
     @if (Session::has('msg'))
-    {!! Session::get('msg') !!}.
+    {!! Session::get('msg') !!}
     @endif
     <div class="wrapper">
 
@@ -241,7 +241,7 @@
     </script>
     {{-- <strong>Thông báo: </strong>{{ Session::get('msg') }}. --}}
     @if (Session::has('msg'))
-    {{ Session::get('msg') }}.
+    {{ Session::get('msg') }}
     @endif
     {{-- <script>
         alert('Đặt lịch thành công');

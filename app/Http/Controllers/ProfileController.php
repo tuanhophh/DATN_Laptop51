@@ -6,6 +6,7 @@ use App\Http\Requests\ProfileRequest;
 use App\Models\Bill;
 use App\Models\BookingDetail;
 use App\Models\User;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -46,7 +47,7 @@ class ProfileController extends Controller
             $repair = DB::table('bookings')
                 ->join('booking_details', 'bookings.id', 'booking_details.booking_id')
                 ->join('repair_parts', 'booking_details.id', 'repair_parts.booking_detail_id')
-                ->select('repair_parts.into_money', 'bookings.created_at', 'booking_details.status_booking', 'booking_details.code')
+                ->select('repair_parts.into_money','bookings.created_at','booking_details.status_booking','booking_details.code')
                 ->where('bookings.phone', '=', auth()->user()->phone)
                 ->get();
 
@@ -124,7 +125,7 @@ class ProfileController extends Controller
         return Redirect::back()->with('message', 'Thay đổi ảnh thành công');
     }
 
-    public function changeInfo(ProfileRequest $reque)
+    public function changeInfo(ProfileRequest $request)
     {
         // $reque->validate([
         //     'name' => 'required',
@@ -137,7 +138,11 @@ class ProfileController extends Controller
         if (!$user) {
             return back();
         }
-        $user->fill($reque->all());
+        if($user->email == 'admin@gmail.com' && $request->email != 'admin@gmail.com'){
+            Toastr::error('Tài khoản admin không được thay đổi', 'Thất bại');
+            return back();
+        }
+        $user->fill($request->all());
         $user->save();
         return Redirect::back()->with('message', 'Thay đổi thông tin thành công');
     }

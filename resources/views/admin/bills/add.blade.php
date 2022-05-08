@@ -70,9 +70,9 @@
                 </div>
                 <div class="d-flex justify-content-end mb-2 ml-2">
                     <br>
-                    <a href="{{ route('product.index') }}" class="btn btn-danger">Hủy</a>
+                    <a href="{{ route('product.index') }}" class="btn btn-sm btn-danger">Hủy</a>
                     &nbsp;
-                    <button type="submit" class="btn btn-success">Lưu</button>
+                    <button type="submit" class="btn btn-sm btn-success">Lưu</button>
                 </div>
             </div>
         </div>

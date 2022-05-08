@@ -30,7 +30,7 @@
                         <th>Ảnh</th>
                         <th>
                             @can('add-category')
-                            <a class="btn btn-info" href="{{route('CompanyComputer.add')}}">Thêm</a>
+                            <a class="btn btn-sm btn-info" href="{{route('CompanyComputer.add')}}">Thêm</a>
                             @endcan
                         </th>
                     </thead>

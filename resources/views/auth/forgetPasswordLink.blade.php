@@ -39,7 +39,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-6 pb-5">
-                    <h6 class="widget-title border-left mb-50">Quên mật khẩu</h6>
+                   
                     <div class="registered-customers">
                         @if (Session::has('message'))
                         <div class="alert alert-success" role="alert">

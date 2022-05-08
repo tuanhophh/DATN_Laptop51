@@ -47,25 +47,37 @@
                         </div>
                         <div class="form-group">
                             <label for="">Vai trò</label>
+                            @if($user->id_role == 0)
+                            <select disabled name="id_role" class="form-control select2_init">
+                            <option value="0">Người dùng</option>
+                            </select>
+                            @else
                             <select name="role_id" class="form-control select2_init">
+                                
                                 @foreach($roles as $roleItem)
+                                @if($user_role == NULL)
+                                <option value="{{$roleItem->id}}">{{$roleItem->name}}</option>
+                                @endif
                                 @foreach($user->roles as $role)
-
-                                <option @if ($roleItem->id == $role->role_id) selected
+                                @if($roleItem->id != 1)
+                                <option @if ($roleItem->id == $role->id) selected
+                                @endif
                                 @endif
                                     value="{{$roleItem->id}}">{{$roleItem->name}}</option>
                                 @endforeach
                                 @endforeach
 
                             </select>
+                            @endif
+
                         </div>
                     </div>
                     </div>
                         <div class="col-12 d-flex justify-content-end">
                             <br>
-                            <a href="{{route('user.index')}}" class="btn btn-danger">Hủy</a>
+                            <a href="{{route('user.index')}}" class="btn btn-sm btn-danger">Hủy</a>
                                 &nbsp;
-                                <button type="submit" class="btn btn-success">Lưu</button>
+                                <button type="submit" class="btn btn-sm btn-success">Lưu</button>
                         </div>
                     </div>
             </form>

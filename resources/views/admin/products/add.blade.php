@@ -55,70 +55,69 @@
                     <label for="">Số lượng</label>
                     <input type="number" name="qty" value="{{ old('qty') }}" class="form-control"
                         placeholder="Số lượng">
-
                     @error('qty')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
             </div>
-            <input type="hidden" name="qty" value="0">
             <div class="col-6 mt-2">
 
                 <div class="form-group text-center mb-0">
                     <label for="">Chi tiết sản phẩm</label>
                 </div>
-                @error('value.*')
-                <p class="text-danger">{{ $message }}</p>
-                @enderror
-                @error('value')
-                <p class="text-danger">{{ $message }}</p>
-                @enderror
 
                 <div class="form-group row mb-1 pr-2">
                     <label for="" class="font-italic col-sm-2 col-form-label">CPU:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" value="" name="value[]" id="" placeholder="CPU">
+                        <input type="text" class="form-control" value="{{ old('cpu') }}" name="cpu" id="" placeholder="CPU">
                     </div>
+                    @error('cpu')
+                        <p class="text-danger">{{ $message }}</p>
+                        @enderror
                 </div>
                 <div class="form-group row mb-1 pr-2">
                     <label for="" class="font-italic col-sm-2 col-form-label">RAM:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" value="" name="value[]" id="" placeholder="RAM">
+                        <input type="text" class="form-control" value="{{ old('ram') }}" name="ram" id="" placeholder="RAM">
                     </div>
-                    @error('value')
+                    @error('ram')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-group row mb-1 pr-2">
                     <label for="" class="font-italic col-sm-2 col-form-label">Ổ cứng:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" value="" name="value[]" id="" placeholder="Ổ cứng">
+                        <input type="text" class="form-control" value="{{ old('harddrive') }}" name="harddrive" id="" placeholder="Ổ cứng">
                     </div>
-                    @error('value')
+                    @error('harddrive')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-group row mb-1 pr-2">
                     <label for="" class="font-italic col-sm-2 col-form-label">Card đồ họa:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" value="" name="value[]" id="" placeholder="Card đồ họa">
+                        <input type="text" class="form-control" value="{{ old('cardgraphic') }}" name="cardgraphic" id="" placeholder="Card đồ họa">
                     </div>
-                    @error('value')
+                    @error('cardgraphic')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-group row pr-2">
                     <label for="" class="font-italic col-sm-2 col-form-label">Màn hình:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" value="" name="value[]" id="" placeholder="Màn hình">
+                        <input type="text" class="form-control" value="{{ old('screen') }}" name="screen" id="" placeholder="Màn hình">
                     </div>
-                    @error('value')
+                    @error('screen')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-group pt-1 pr-2">
                     <label for="">Thời gian bảo hành</label>
-                    <input type="number" name="insurance" value="{{ old('insurance') }}" placeholder="Thời gian bảo hành" class="form-control">
+                    <select name="insurance" id="" class="form-control">
+                        <option value="6">6 tháng</option>
+                        <option value="12">12 tháng</option>
+                        <option value="24">24 tháng</option>
+                    </select>
                     @error('insurance')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror

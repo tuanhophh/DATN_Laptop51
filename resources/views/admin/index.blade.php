@@ -100,8 +100,8 @@
                             <ul class="list-group" id='listtopdata'>
                                 @foreach ($datasanphamban as $key => $sanpham)
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        {{ $sanpham[$key]['name'] }}
-                                        <span class="badge badge-primary badge-pill">{{ $sanpham[$key]['quaty'] }}</span>
+                                        {{ $sanpham[0]['name'] }}
+                                        <span class="badge badge-primary badge-pill">{{ $sanpham[0]['quaty'] }}</span>
                                     </li>
                                 @endforeach
 

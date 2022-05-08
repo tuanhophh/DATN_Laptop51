@@ -67,16 +67,23 @@ if (!function_exists('currency_format')) {
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="product-item">
                                                     <div class="product-img">
+                                                        @foreach ($images as $image)
+                                                        @if ($image->product_id == $product->id)
                                                         <a href="/san-pham/{{$product->slug}}">
-                                                            <img src="{{$product->image}}" alt="" />
+                                                            <img src="{{ asset($image->path) }}"
+                                                                alt="{{ asset($image->path) }}" />
                                                         </a>
+                                                        @break;
+                                                        @endif
+                                                        @endforeach
                                                     </div>
                                                     <div class="product-info">
                                                         <h6 class="product-title mx-2">
                                                             <a href="/san-pham/{{$product->slug}}">{{$product->name}}
                                                             </a>
                                                         </h6>
-                                                        <h3 class="pro-price mb-0">{{ currency_format($product->price) }}</h3>
+                                                        <h3 class="pro-price mb-0">
+                                                            {{ currency_format($product->price) }}</h3>
                                                     </div>
                                                 </div>
                                             </div>
@@ -118,7 +125,10 @@ if (!function_exists('currency_format')) {
                                         <li class="open"><a href="#">Laptop</a>
                                             <ul>
                                                 @foreach($ComputerCompany as $ComputerCom)
-                                                <li><a
+                                                <li>
+                                                    <a class="" @if($ComputerCom->id == $id)
+                                                        style="color:#ff7f00"
+                                                        @endif
                                                         href="/cua-hang/{{$ComputerCom->id}}">{{$ComputerCom->company_name}}</a>
                                                 </li>
                                                 @endforeach
@@ -127,10 +137,10 @@ if (!function_exists('currency_format')) {
                                     </ul>
                                 </div>
                             </aside>
-                            <aside class="widget widget-product box-shadow">
-                                <h6 class="widget-title border-left mb-20">Sản phẩm bán chạy</h6>
-                                <!-- product-item start -->
-                                <div class="product-item">
+                            <!-- <aside class="widget widget-product box-shadow">
+                                <h6 class="widget-title border-left mb-20">Sản phẩm bán chạy</h6> -->
+                            <!-- product-item start -->
+                            <!-- <div class="product-item">
                                     <div class="product-img">
                                         <a href="single-product.html">
                                             <img src="img/product/4.jpg" alt="" />
@@ -142,10 +152,10 @@ if (!function_exists('currency_format')) {
                                         </h6>
                                         <h3 class="pro-price">$ 869.00</h3>
                                     </div>
-                                </div>
-                                <!-- product-item end -->
+                                </div> -->
+                            <!-- product-item end -->
 
-                            </aside>
+                            <!-- </aside> -->
                         </div>
                     </div>
                 </div>

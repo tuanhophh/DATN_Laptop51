@@ -32,15 +32,13 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/register', function () {
-    return view('auth.register');
-});
 
 Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::post('/register', [AuthController::class, 'create'])->name('register');
+Route::get('/register', [AuthController::class,'register']);
+Route::post('/register', [AuthController::class,'create'])->name('register');
 Route::post('/verify/resend', [AuthController::class, 'resendVerify'])->name('resend.verify');
 Route::get('/verify', [AuthController::class, 'showVerify'])->name('show.verify');
 Route::post('/verify', [AuthController::class, 'verify'])->name('verify');
@@ -53,10 +51,6 @@ Route::post('login-otp', [LoginController::class, 'sendLoginOtp'])->name('send.o
 Route::post('send-login-otp', [LoginController::class, 'loginOtp'])->name('login.otp');
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
-// //  Đăng ký
-// Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-// Route::post('register', [RegisterController::class, 'register']);
-
 // //  Quên mật khẩu
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
@@ -65,26 +59,19 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 Route::post('insert-password', [ForgotPasswordController::class, 'insertResetPasswordForm'])->name('insert.password.post');
 Auth::routes(['register' => false]);
 
-// //  Xác thực mail
-// Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
-// Route::get('email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify');
-// Route::get('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
-
 //  Giỏ hàng
-Route::post('save-cart', [CartController::class, 'saveCart'])->middleware('phoneverify');
-Route::post('add-cart', [CartController::class, 'add'])->middleware('phoneverify');
-Route::get('gio-hang', [CartController::class, 'showCart'])->middleware('phoneverify');
-Route::get('delete-to-cart/{rowId}', [CartController::class, 'deleteToCart'])->middleware('phoneverify');
-Route::post('update-cart-quantity', [CartController::class, 'updateCartQuantity'])->middleware('phoneverify');
+Route::post('save-cart', [CartController::class, 'saveCart'])->middleware(['auth','phoneverify']);
+Route::post('add-cart', [CartController::class, 'add'])->middleware(['auth','phoneverify']);
+Route::get('gio-hang', [CartController::class, 'showCart'])->middleware(['auth','phoneverify']);
+Route::get('delete-to-cart/{rowId}', [CartController::class, 'deleteToCart'])->middleware(['auth','phoneverify']);
+Route::post('update-cart-quantity', [CartController::class, 'updateCartQuantity'])->middleware(['auth','phoneverify']);
 
 //  Thanh toán
-Route::get('thanh-toan', [PaymentController::class, 'showPayment'])->name('payment')->middleware('phoneverify');
-Route::post('save-payment', [PaymentController::class, 'savePayment'])->middleware('phoneverify');
-Route::post('payment/online', [PaymentController::class, 'createPayment'])->name('payment.online')->middleware('phoneverify');
-Route::get('vnpay/return', [PaymentController::class, 'vnpayReturn'])->name('vnpay.return')->middleware('phoneverify');
-// Route::get('vnpay/return', function(){
-//     return view('vnpay.vnpay_return');
-// });
+Route::get('thanh-toan', [PaymentController::class, 'showPayment'])->name('payment')->middleware(['auth','phoneverify']);
+Route::post('save-payment', [PaymentController::class, 'savePayment'])->middleware(['auth','phoneverify']);
+Route::post('payment/online', [PaymentController::class, 'createPayment'])->name('payment.online')->middleware(['auth','phoneverify']);
+Route::get('vnpay/return', [PaymentController::class, 'vnpayReturn'])->name('vnpay.return')->middleware(['auth','phoneverify']);
+Route::get('don-hang/{code}', [PaymentController::class, 'paymentSuccess'])->name('payment.success')->middleware(['auth','phoneverify']);
 
 //     trang cá nhân
 Route::get('profile', [ProfileController::class, 'index'])->name('profile');
@@ -92,11 +79,12 @@ Route::post('profile/update-avatar', [ProfileController::class, 'changeImage'])-
 Route::post('profile/update-info', [ProfileController::class, 'changeInfo'])->name('changeInfo');
 Route::post('profile/update-password',  [ProfileController::class, 'changePassword'])->name('changePassword');
 Route::get('profile/history',  [ProfileController::class, 'history'])->name('profile.history');
+Route::post('cancel-order/{code}', [ProfileController::class, 'cancelOrder'])->name('cancel-order');
+Route::post('restore-order/{code}', [ProfileController::class, 'restoreOrder'])->name('restore-order');
+Route::get('profile/history/{code}',  [ProfileController::class, 'historyDetail'])->name('profile.history.detail');
 
-Route::get('profile/lich-su-mua-hang/{code}',  [ProfileController::class, 'historyDetail'])->name('profile.history.detail');
-
-Route::post('cancel-repair/{code}', [ProfileController::class, 'cancelRepair'])->name('cancel-repair');
-Route::post('restore-repair/{code}', [ProfileController::class, 'restoreRepair'])->name('restore-repair');
+Route::post('cancel-repair/{code}',[ProfileController::class,'cancelRepair'])->name('cancel-repair');
+Route::post('restore-repair/{code}',[ProfileController::class,'restoreRepair'])->name('restore-repair');
 Route::get('profile/history-repair/{code}',  [ProfileController::class, 'historyDetailRepair'])->name('profile.history.detail-repair');
 
 // trang cửa hàng

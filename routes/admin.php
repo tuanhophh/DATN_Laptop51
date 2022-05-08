@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::middleware(['auth','account.admin'])->group(function () {
 
 Route::get('/', [HomeAdminController::class, 'index'])->name('admin.dashboard');
 Route::prefix('bill')->group(function () {
@@ -109,25 +110,25 @@ Route::prefix('dat-lich')->group(function () {
     // Route::get('/danh-sach-may-phan-cong', [BookingController::class, 'listBookingDetail'])->name('dat-lich.danh-sach-may');
 
 
-    Route::get('tao-moi', [BookingController::class, 'formCreateBooking'])->name('dat-lich.add');
-    Route::post('tao-moi', [BookingController::class, 'creatBooking']);
-    Route::get('sua/{id}', [BookingController::class, 'formEditBooking'])->name('dat-lich.edit');
-    Route::post('sua/{id}', [BookingController::class, 'editBooking']);
-    Route::get('xoa/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.delete');
+    Route::get('tao-moi', [BookingController::class, 'formCreateBooking'])->name('dat-lich.add')->middleware('can:add-booking');
+    Route::post('tao-moi', [BookingController::class, 'creatBooking'])->middleware('can:add-booking');
+    Route::get('sua/{id}', [BookingController::class, 'formEditBooking'])->name('dat-lich.edit')->middleware('can:edit-booking');
+    Route::post('sua/{id}', [BookingController::class, 'editBooking'])->middleware('can:edit-booking');
+    Route::get('xoa/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.delete')->middleware('can:delete-booking');
     Route::get('demo', [BookingController::class, 'demo']);
     Route::get('hoa-don/{id}', [BookingDetailController::class, 'hoaDon'])->name('dat-lich.hoa-don');
     Route::post('hoa-don/{id}', [BookingDetailController::class, 'luuHoaDon']);
     Route::get('xuat-hoa-don/{booking_detail_id}', [BookingDetailController::class, 'xuatHoaDon'])->name('dat-lich.xuat-hoa-don');
 
-    Route::get('danh-sach-may-phan-cong', [BookingController::class, 'userRepair'])->name('dat-lich.user_epair');
-    Route::get('xoa-may/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.deleteBookingDetail');
-    Route::get('tiep-nhan-may/{booking_detail_id}', [BookingController::class, 'tiepNhanMay'])->name('dat-lich.tiep-nhan-may');
-    Route::post('phieu-nhan-may/{booking_detail_id}', [BookingDetailController::class, 'phieuNhanMay'])->name('phieu-nhan-may');
+    Route::get('danh-sach-may-phan-cong', [BookingController::class, 'userRepair'])->name('dat-lich.user_epair')->middleware('can:list-repair');
+    Route::get('xoa-may/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.deleteBookingDetail')->middleware('can:delete-booking');
+    Route::get('tiep-nhan-may/{booking_detail_id}', [BookingController::class, 'tiepNhanMay'])->name('dat-lich.tiep-nhan-may')->middleware('can:edit-booking');
+    Route::post('phieu-nhan-may/{booking_detail_id}', [BookingDetailController::class, 'phieuNhanMay'])->name('phieu-nhan-may')->middleware('can:edit-booking');
 });
 Route::prefix('sua-chua')->group(function () {
-    Route::get('/{id}', [BookingController::class, 'repairDetail'])->name('suachua.get');
-    Route::post('/{id}', [BookingController::class, 'FinishRepairDetail']);
-    Route::get('/detail-product/{id}', [BookingDetailController::class, 'getDetailProduct']);
+    Route::get('/{id}', [BookingController::class, 'repairDetail'])->name('suachua.get')->middleware('can:edit-repair');
+    Route::post('/{id}', [BookingController::class, 'FinishRepairDetail'])->middleware('can:edit-repair');
+    Route::get('/detail-product/{id}', [BookingDetailController::class, 'getDetailProduct'])->middleware('can:edit-repair');;
     // Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaDuocPhanTho']);
     // Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaDuocPhanTho']);
     // Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaDuocPhanTho']);
@@ -153,15 +154,15 @@ Route::prefix('thongke')->group(function () {
 
     Route::get('ajax', [ThongkeController::class, 'ajax']);
 });
-Route::prefix('category')->group(function () {
-    Route::get('/', [CategoryController::class, 'index'])->name('category.index')->middleware('can:list-product');
-    Route::get('/remove/{id}', [CategoryController::class, 'remove'])->name('category.remove')->middleware('can:delete-product');
-    Route::get('add', [CategoryController::class, 'addForm'])->name('category.add')->middleware('can:add-product');
-    Route::post('add', [CategoryController::class, 'saveAdd'])->middleware('can:add-product');
-    Route::get('edit/{id}', [CategoryController::class, 'editForm'])->name('category.edit')->middleware('can:edit-product');
-    Route::post('edit/{id}', [CategoryController::class, 'saveEdit'])->middleware('can:edit-product');
-    // Route::get('detail/{id}', [CategoryController::class, 'detail'])->middleware('can:delete-category');
-});
+// Route::prefix('category')->group(function () {
+//     Route::get('/', [CategoryController::class, 'index'])->name('category.index')->middleware('can:list-product');
+//     Route::get('/remove/{id}', [CategoryController::class, 'remove'])->name('category.remove')->middleware('can:delete-product');
+//     Route::get('add', [CategoryController::class, 'addForm'])->name('category.add')->middleware('can:add-product');
+//     Route::post('add', [CategoryController::class, 'saveAdd'])->middleware('can:add-product');
+//     Route::get('edit/{id}', [CategoryController::class, 'editForm'])->name('category.edit')->middleware('can:edit-product');
+//     Route::post('edit/{id}', [CategoryController::class, 'saveEdit'])->middleware('can:edit-product');
+//     // Route::get('detail/{id}', [CategoryController::class, 'detail'])->middleware('can:delete-category');
+// });
 Route::prefix('category_component')->group(function () {
     Route::get('/', [CategoryComponentController::class, 'index'])->name('category_component.index');
     Route::get('/remove/{id}', [CategoryComponentController::class, 'remove'])->name('category_component.remove');
@@ -191,4 +192,5 @@ Route::prefix('roles')->group(function () {
     Route::get('remove/{id}', [RoleController::class, 'remove'])->name('roles.remove');
     Route::get('edit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
     Route::post('edit/{id}', [RoleController::class, 'update'])->name('roles.update');
+});
 });

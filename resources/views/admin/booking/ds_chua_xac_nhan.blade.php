@@ -10,12 +10,12 @@
                 {{-- <th scope="col">Hình thức sửa</th> --}}
                 <th scope="col">Trạng thái</th>
                 <th scope="col" class="sort" data-sort="completion">Sửa thông tin</th>
+                @can('add-booking')
                 <th scope="col"><a href="{{ route('dat-lich.add') }}">Tạo mới</a></th>
+                @endcan
             </tr>
         </thead>
         <tbody class="list">
-
-
 
             @foreach ($booking_details as $b)
             <tr>
@@ -55,7 +55,9 @@
 
                             </select>
                             <input type="hidden" name="booking_detail_id" value="{{ $b->id }}">
+                           
                             <button class="btn btn-primary" type="submit">Chọn</button>
+                            
                         </form>
                     </div>
 
@@ -91,7 +93,7 @@
                     <a name="" id="" class="btn btn-success" href="{{ route('suachua.get', ['id'=>$b->id]) }}"
                         role="button">Sửa chữa</a>
                     @endif --}}
-
+                    @can('edit-booking')
                     <a name="" id="" class="btn btn-primary" href="{{ route('dat-lich.edit', ['id'=>$b->id]) }}"
                         role="button">Sửa thông tin</a>
                     <a name="" id="" class="btn btn-info" @if ($b->status_booking!='latch')
@@ -99,6 +101,7 @@
                         @endif
                         href="{{ route('dat-lich.tiep-nhan-may', ['booking_detail_id'=>$b->id]) }}" role="button">Tiếp
                         nhận máy</a>
+                    @endcan
                     {{-- <a name="" id="" class="btn btn-danger"
                         href="{{ route('dat-lich.deleteBookingDetail', ['id'=>$b->id]) }}" role="button">Xóa</a> --}}
                 </td>

@@ -78,7 +78,8 @@
                 <table class="table table-bordered">
                     <thead>
                         <th class="px-0 text-center" style="width: 1px;">STT</th>
-                        <th>Tên</th>
+                        <th style="max-width: 480px;">Tên</th>
+                        <th>Hãng</th>
                         <th>Giá mua</th>
                         <th>Giá bán</th>
                         <th>Số lượng</th>
@@ -86,7 +87,7 @@
                         <th class="px-0 text-center">Trạng thái</th>
                         <th>
                             @can('add-product')
-                            <a class="btn btn-info" href="{{ route('product.add') }}">Thêm</a>
+                            <a class="btn btn-sm btn-info" href="{{ route('product.add') }}">Thêm</a>
                             @endcan
                         </th>
                     </thead>
@@ -94,12 +95,9 @@
                         @foreach ($products as $item)
                         <tr>
                             <td>{{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}</td>
-                            <td>{{ $item->name }}</td>
-                            <!-- <td>
-                                {{ $item->companyComputer->company_name }}
-                            </td> --}}
+                            <td style="max-width: 480px;">{{ $item->name }}</td>
                             <td>
-                                <img src="{{ asset($item->image) }}" width="100">
+                                {{ $item->companyComputer->company_name }}
                             </td> 
                             <td>{{ $item->import_price }}</td>
                             <td>{{ $item->price }}</td>
@@ -110,7 +108,6 @@
                                 @can('edit-product')
                                 <!-- <a href="{{ route('nhap-sanpham.add', ['id' => $item->id]) }}"
                                     class="btn btn-sm btn-success">Thêm SL</a> -->
-                                <div class="btn-group btn-group-sm" role="group" aria-label="...">
 
                                     <a href="{{ route('product.edit', ['id' => $item->id]) }}"
                                         class="btn btn-sm btn-warning">Sửa</a>
@@ -120,7 +117,7 @@
                                     <form class="d-inline" action="product/show-hide/{{$item->id}}" method="POST">
                                         @csrf
                                         <input name="id" hidden value="{{$item->id}}">
-                                        <button style="font:14px" class="btn btn-danger" type="submit">
+                                        <button style="font:14px" class="btn btn-sm btn-danger" type="submit">
                                             Hiện
                                         </button>
                                     </form>
@@ -129,17 +126,17 @@
                                     <form class="d-inline" action="product/show-hide/{{$item->id}}" method="POST">
                                         @csrf
                                         <input name="id" hidden value="{{$item->id}}">
-                                        <button class="btn btn-secondary" type="submit">
+                                        <button class="btn btn-sm btn-secondary" type="submit">
                                             Ẩn
                                         </button>
                                     </form>
                                     @endif
                                     @endcan
-                                </div>
+                                
 
                                 <!-- <a onclick="return confirm('Bạn có chắc muốn xóa')"
                                     href="{{route('product.remove', ['id' => $item->id])}}"
-                                    class="btn btn-sm btn-danger">Xóa</a>
+                                    class="btn btn-sm btn-danger">Xóa</a>  -->
                             </td>
                         </tr>
                         @endforeach

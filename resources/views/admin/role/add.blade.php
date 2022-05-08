@@ -40,6 +40,9 @@ $(function() {
                 Checkall
                 </label>
                 @foreach($permissionsParent as $permissionsParentItem)
+                @if(Auth::user()->email == 'admin@gmail.com' || 
+                (Auth::user()->email != 'admin@gmail.com' && ($permissionsParentItem->key_code != 'role'))   
+                )
                 <div class="card border-primary mb-3 p-0 col-md-12">
                     <div class="card-header py-0">
                         <label>
@@ -54,14 +57,15 @@ $(function() {
                                 <label class="text-center">
                                     <input type="checkbox" name="permission_id[]" class="checkbox_childrent"
                                         value="{{ $permissionChildrentItem->id }}">
-
                                     {{$permissionChildrentItem->name}}
                                 </label>
+                               
                             </h5>
                         </div>
                         @endforeach
                     </div>
                 </div>
+                @endif
                 @endforeach
             </div>
         </div>

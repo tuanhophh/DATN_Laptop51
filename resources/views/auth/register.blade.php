@@ -45,7 +45,6 @@
                         @endif
                         <form method="POST" action="{{route('register')}}">
                             @csrf
-                            <h6 class="widget-title border-left mb-50">Đăng ký</h6>
                             <div class="login-account p-30 box-shadow">
                             <p>Bạn đã có tài khoản? <a href="/login"> Nhấp vào đây để đăng nhập!</a></p>
                                 <input type="text" class="@error('name') is-invalid @enderror mb-0 mt-4"
