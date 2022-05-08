@@ -55,28 +55,25 @@
                                                 chính sác thông tin của bạn</h4>
                                         </div>
                                         <div class="col-lg-6">
-                                            <input type="text" name="con_name" placeholder="Họ và Tên">
+                                            <label for="name">Họ và Tên: </label>
+                                            <input type="text" name="con_name" id="name">
                                         </div>
                                         <div class="col-lg-6">
-                                            <input type="text" name="con_email" placeholder="Email">
+                                            <label for="email">Email:</label>
+                                            <input type="text" name="con_email" id="email">
                                         </div>
                                         <div class="col-lg-6">
-                                            <input type="text" name="con_address" placeholder="Địa chỉ">
+                                            <label for="address">Địa chỉ:</label>
+                                            <input type="text" name="con_address" id="address">
                                         </div>
 
                                         <div class="col-lg-6">
-                                            <input type="text" name="con_phone" placeholder="Số điện thoại">
+                                            <label for="phone">Số điện thoại:</label>
+                                            <input type="text" name="con_phone" id="phone">
                                         </div>
                                         <div class="col-lg-6">
-                                            <select name="con_ht">
-                                                <option value="">Hình thức sửa</option>
-                                                <option value="CH">Tại cửa hàng</option>
-                                                <option value="TN">Tại nhà</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <select name="con_ht">
-                                                <option value="">Thương hiệu máy</option>
+                                            <label for="th">Thương hiệu của máy:</label>
+                                            <select name="con_ht" id="th">
                                                 <option value="dell">Dell</option>
                                                 <option value="hp">HP</option>
                                                 <option value="acer">Acer</option>
@@ -86,8 +83,8 @@
                                             </select>
                                         </div>
                                         <div class="col-lg-6">
-                                            <select name="con_ht">
-                                                <option value="">Khung giờ sửa chữa</option>
+                                            <label for="time">Khung giờ sửa:</label>
+                                            <select name="con_ht" id="time">
                                                 <option value="1">8h-10h</option>
                                                 <option value="2">10h-12h</option>
                                                 <option value="3">12h-14h</option>
@@ -96,11 +93,13 @@
                                                 <option value="6">18h-20h</option>
                                             </select>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <input type="date" name="con_date" placeholder="Địa chỉ">
+                                        <div class="col-lg-12">
+                                            <label for="date">Ngày sửa:</label>
+                                            <input type="date" name="con_date" id="date">
                                         </div>
                                         <div class="col-lg-12">
-                                            <textarea class="custom-textarea" name="con_message" placeholder="Nội dung..."></textarea>
+                                            <label for="desc">Nội dung:</label>
+                                            <textarea class="custom-textarea" name="con_message" id="desc"></textarea>
                                             <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Đặt
                                                 Lịch</button>
                                         </div>

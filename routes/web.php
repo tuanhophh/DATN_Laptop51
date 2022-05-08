@@ -74,7 +74,7 @@ Route::post('profile/update-info', [ProfileController::class, 'changeInfo'])->na
 Route::post('profile/update-password',  [ProfileController::class, 'changePassword'])->name('changePassword');
 Route::get('profile/history',  [ProfileController::class, 'history'])->name('profile.history');
 
-Route::get('profile/history/{code}',  [ProfileController::class, 'historyDetail'])->name('profile.history.detail');
+Route::get('profile/lich-su-mua-hang/{code}',  [ProfileController::class, 'historyDetail'])->name('profile.history.detail');
 
 // trang cửa hàng
 Route::get('cua-hang', [HomeController::class, 'show'])->name('website.product');
@@ -105,6 +105,9 @@ Route::get('dich-vu-cho-macbook', function () {
 Route::get('dat-lich', function () {
     $company_computer = ComputerCompany::all();
     return view('website.booking', compact('company_computer'));
+})->name('dat-lich.add_client');
+Route::get('dat-lich-thanh-cong', function () {
+    return view('website.success');
 })->name('dat-lich.add_client');
 Route::post('dat-lich', [BookingController::class, 'creatBooking']);
 // trang liên hệ

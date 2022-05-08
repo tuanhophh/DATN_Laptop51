@@ -66,15 +66,17 @@
                                 <h4 class="footer-title border-left">Tài Khoản</h4>
                                 <ul class="footer-menu">
                                     <li>
-                                        <a href="my-account.html"><i class="zmdi zmdi-circle"></i><span>Quản Lý Tài
+                                        <a href="{{ asset('') }}profile"><i class="zmdi zmdi-circle"></i><span>Quản
+                                                Lý Tài
                                                 Khoản</span>
                                     </li>
                                     <li>
-                                        <a href="checkout.html"><i class="zmdi zmdi-circle"></i><span>Đăng
+                                        <a href="{{ asset('') }}login"><i class="zmdi zmdi-circle"></i><span>Đăng
                                                 Nhập</span></a>
                                     </li>
                                     <li>
-                                        <a href="order.html"><i class="zmdi zmdi-circle"></i><span>Đăng Ký</span></a>
+                                        <a href="{{ asset('') }}register"><i class="zmdi zmdi-circle"></i><span>Đăng
+                                                Ký</span></a>
                                     </li>
                                 </ul>
                             </div>

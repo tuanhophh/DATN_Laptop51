@@ -9,3 +9,5 @@
 <script src="{{ asset('client') }}/js/plugins.js"></script>
 <!-- Main js file that contents all jQuery plugins activation. -->
 <script src="{{ asset('client') }}/js/main.js"></script>
+<!-- ajax-mail js -->
+<script src="{{ asset('client') }}/js/ajax-mail.js"></script>

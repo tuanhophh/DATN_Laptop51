@@ -341,7 +341,20 @@
                                 <br>
                                 <h3 class="profile-username text-center">{{ $user->name }}</h3>
 
-                                <p class="text-muted text-center">{{ $user->id_role }}</p>
+                                <p class="text-muted text-center">(
+                                    @if ($user->id_role == 1)
+                                        Khách hàng
+                                    @elseif($user->id_role == 2)
+                                        Thợ sửa
+                                    @elseif($user->id_role == 3)
+                                        Lễ tân
+                                    @elseif($user->id_role == 4)
+                                        Kế toán
+                                    @else
+                                        Admin
+                                    @endif
+                                    )
+                                </p>
 
 
                             </div>
@@ -383,6 +396,8 @@
                                 <ul class="nav nav-pills">
                                     <li class="nav-item"><a class="nav-link active" href="#activity"
                                             data-toggle="tab">Lịch sử mua hàng</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#timeline"
+                                            data-toggle="tab">Lịch sử đặt lịch</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#settings"
                                             data-toggle="tab">Cài đặt</a></li>
                                 </ul>
@@ -391,53 +406,215 @@
                                 <div class="tab-content">
                                     <div class="active tab-pane" id="activity">
                                         <!-- Post -->
+
                                         <div class="timeline timeline-inverse">
+                                            <!-- timeline time label -->
+
+
+                                            @if ($bill->toArray() == [])
+                                                <div class="text-center">
+                                                    <h3>hiện tại bạn chưa có đơn hàng nào.</h3>
+                                                    <a href="{{ asset('') }}cua-hang">
+                                                        <b>Đặt hàng ngay</b>
+                                                    </a>
+                                                </div>
+                                            @else
+                                                @foreach ($bill as $item)
+                                                    <div class="time-label">
+                                                        <p>
+                                                            Ngày mua: {{ $item->created_at }}
+                                                        </p>
+                                                    </div>
+                                                    <!-- /.timeline-label -->
+                                                    <!-- timeline item -->
+                                                    <div>
+                                                        <div class="timeline-item">
+
+                                                            <div class="row">
+                                                                <div class="col-3">
+                                                                    <a href=""><img src="{{ asset($item->image) }}"
+                                                                            alt=""
+                                                                            style="background-size: 150px 150px;width: 200px;height: 170px;"></a>
+                                                                </div>
+                                                                <div class="col-7">
+                                                                    <h3 class="timeline-header"><a
+                                                                            href="#">{{ $item->name }}</a>
+                                                                    </h3>
+                                                                    <div class="timeline-body">
+                                                                        Etsy doostang zoodles disqus groupon greplin
+                                                                        oooj
+                                                                        voxy
+                                                                        zoodles,
+                                                                        weebly ning heekya handango imeem plugg dopplr
+                                                                        jibjab,
+                                                                        movity
+                                                                        jajah plickers sifteo edmodo ifttt zimbra.
+                                                                        Babblely
+                                                                        odeo
+                                                                        kaboodle
+                                                                        quora plaxo ideeli hulu weebly balihoo...
+                                                                    </div>
+                                                                    <br>
+                                                                    <div class="timeline-footer">
+                                                                        <div class="row flex">
+                                                                            <div class="col-6">Sản phẩm:
+                                                                                {{ $item->qty }}</div>
+                                                                            <div class="col-4 ">
+                                                                                <b class="text-danger"
+                                                                                    style="font-size: 20px"><i>{{ $item->price * $item->qty }}
+                                                                                        VNĐ </i></b>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="timeline-footer">
+                                                                        <a href="{{ route('profile.history.detail', ['code' => $item->bill_code]) }}"
+                                                                            class="button extra-small">
+                                                                            <span class="text-uppercase">Chi tiết</span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <!-- END timeline item -->
+                                                    <!-- timeline item -->
+                                                    <div>
+                                                        <i class="far fa-clock bg-gray"></i>
+                                                    </div>
+                                                @endforeach
+                                            @endif
+
+                                        </div>
+
+                                        <!-- /.post -->
+                                    </div>
+                                    <div class="tab-pane" id="timeline">
+                                        <!-- The timeline -->
+                                        <div class="timeline timeline-inverse">
+
+                                            {{-- @if ($bill->toArray() == [])
+                                                <div class="text-center">
+                                                    <h3>hiện tại bạn chưa có đơn hàng nào.</h3>
+                                                    <a href="">
+                                                        <b>Đặt hàng ngay</b>
+                                                    </a>
+                                                </div>
+                                            @else
+                                                @foreach ($bill_sc as $item)
+                                                    <div class="time-label">
+                                                        <p>
+                                                            Ngày đặt lịch: 10-4-2022
+                                                        </p>
+                                                    </div>
+                                                    <!-- /.timeline-label -->
+                                                    <!-- timeline item -->
+                                                    <div>
+                                                        <div class="timeline-item">
+
+                                                            <div class="row">
+                                                                <div class="col-3 flex text-center">
+                                                                    <a href=""><img
+                                                                            src="{{ asset('client') }}/img/icon/icon.png"
+                                                                            alt=""
+                                                                            style="background-size: 110px 110px;width: 170px;height: 140px;"></a>
+                                                                </div>
+                                                                <div class="col-7">
+                                                                    <h3 class="timeline-header"><a href="#">Sửa chữa
+                                                                            Laptop</a>
+                                                                    </h3>
+                                                                    <div class="timeline-body">
+                                                                        {{ $item->desc }}
+                                                                    </div>
+                                                                    <br>
+                                                                    <div class="timeline-footer">
+                                                                        <div class="row flex">
+                                                                            <div class="col-6">Sản phẩm:
+                                                                                {{ $item->qty }}</div>
+                                                                            <div class="col-4 ">
+                                                                                <b class="text-danger"
+                                                                                    style="font-size: 20px"><i>{{ $item->price * $item->qty }}
+                                                                                        VNĐ </i></b>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="timeline-footer">
+                                                                        <a href="{{ route('profile.history.detail', ['code' => $item->bill_code]) }}"
+                                                                            class="button extra-small">
+                                                                            <span class="text-uppercase">Chi tiết</span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <!-- END timeline item -->
+                                                    <!-- timeline item -->
+                                                    <div>
+                                                        <i class="far fa-clock bg-gray"></i>
+                                                    </div>
+                                                @endforeach
+                                            @endif --}}
+
+
                                             <!-- timeline time label -->
                                             <div class="time-label">
                                                 <p>
-                                                    Ngày mua: 10 Feb. 2014
+                                                    Ngày đặt lịch: 10-4-2022
                                                 </p>
                                             </div>
                                             <!-- /.timeline-label -->
                                             <!-- timeline item -->
                                             <div>
                                                 <div class="timeline-item">
+
                                                     <div class="row">
-                                                        <div class="col-3">
-                                                            <img src="{{ asset($user->avatar) }}" alt=""
-                                                                style="background-size: 150px 150px;width: 200px;height: 170px;">
+                                                        <div class="col-3 flex text-center">
+                                                            <a href=""><img
+                                                                    src="{{ asset('client') }}/img/icon/icon.png"
+                                                                    alt=""
+                                                                    style="background-size: 110px 110px;width: 170px;height: 140px;"></a>
                                                         </div>
                                                         <div class="col-7">
-                                                            <h3 class="timeline-header"><a href="#">Name product</a>
+                                                            <h3 class="timeline-header"><a href="#">Sửa chữa Laptop</a>
                                                             </h3>
                                                             <div class="timeline-body">
-                                                                Etsy doostang zoodles disqus groupon greplin oooj voxy
+                                                                Etsy doostang zoodles disqus groupon greplin
+                                                                oooj
+                                                                voxy
                                                                 zoodles,
-                                                                weebly ning heekya handango imeem plugg dopplr jibjab,
+                                                                weebly ning heekya handango imeem plugg dopplr
+                                                                jibjab,
                                                                 movity
-                                                                jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo
+                                                                jajah plickers sifteo edmodo ifttt zimbra.
+                                                                Babblely
+                                                                odeo
                                                                 kaboodle
                                                                 quora plaxo ideeli hulu weebly balihoo...
                                                             </div>
                                                             <br>
                                                             <div class="timeline-footer">
                                                                 <div class="row flex">
-                                                                    <div class="col-6"><a
-                                                                            href="{{ asset('') }}lich-su/id"
-                                                                            class="button extra-small">
-                                                                            <span class="text-uppercase">Chi tiết</span>
-                                                                        </a></div>
+                                                                    <div class="col-6">Sản phẩm:
+                                                                        1</div>
                                                                     <div class="col-4 ">
                                                                         <b class="text-danger"
-                                                                            style="font-size: 20px"><i>123.456.789
+                                                                            style="font-size: 20px"><i>99999
                                                                                 VNĐ </i></b>
                                                                     </div>
                                                                 </div>
-
-
+                                                            </div>
+                                                            <div class="timeline-footer">
+                                                                <a href="" class="button extra-small">
+                                                                    <span class="text-uppercase">Chi tiết</span>
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                             </div>
                                             <hr>
@@ -447,10 +624,7 @@
                                                 <i class="far fa-clock bg-gray"></i>
                                             </div>
                                         </div>
-
-                                        <!-- /.post -->
                                     </div>
-
                                     <div class="tab-pane" id="settings">
                                         <form class="form-horizontal">
                                             <div class="form-group row">

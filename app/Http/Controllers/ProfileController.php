@@ -32,7 +32,14 @@ class ProfileController extends Controller
     $id = Auth::id();
     $user = User::find($id);
     // dd($user);
-    return view('website.profile',compact('user'))->with('message','Đăng nhập thành công');
+    $bill=DB::table('bills')
+    ->join('bill_details','bills.code','bill_details.bill_code')
+    ->join('products','bill_details.product_id','products.id')
+    ->select('bills.total','bill_details.qty','bill_details.price','bill_details.bill_code','bill_details.created_at','products.name')
+    ->where('bills.user_id','=',auth()->user()->id)
+    ->groupBy('bills.total')
+    ->get();
+    return view('website.profile',compact('user', 'bill'))->with('message','Đăng nhập thành công');
     }
 
     public function changeImage(Request $request)
@@ -127,7 +134,7 @@ class ProfileController extends Controller
         ->where('bills.user_id','=',auth()->user()->id)
         ->groupBy('bills.total')
         ->get();
-    return view('website.history',compact('bill'));
+    return view('website.profile',compact('bill'));
     }
 
     public function historyDetail(Request $request,$code){
@@ -140,7 +147,13 @@ class ProfileController extends Controller
         ->where('bill_details.bill_code','=',$code)
         // ->groupBy('bill_details.bill_code')
         ->get();
-        return view('website.history-detail',compact('bill','code'));
+        if(Auth::check()){
+                    $user=Auth::user();
+
+        }else{
+            return redirect(\route('login'));
+        }
+        return view('website.history-detail',compact('bill','code','user'));
     }
 
 }

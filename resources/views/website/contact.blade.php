@@ -73,60 +73,65 @@
             <div class="google-map-section">
                 <div class="container-fluid">
                     <div class="google-map plr-185">
-                        <div id="googleMap"></div>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.8638558814177!2d105.74459841467802!3d21.038132792834787!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454b991d80fd5%3A0x53cefc99d6b0bf6f!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEZQVCBQb2x5dGVjaG5pYw!5e0!3m2!1svi!2s!4v1651974559282!5m2!1svi!2s"
+                            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
-            <!-- GOOGLE MAP SECTION END -->
+    </div>
+    <!-- GOOGLE MAP SECTION END -->
 
-            <!-- MESSAGE BOX SECTION START -->
-            <div class="message-box-section mt--50 mb-80">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="message-box box-shadow white-bg">
-                                <form id="contact-form" action="https://whizthemes.com/mail-php/other/mail.php">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <h4 class="blog-section-title border-left mb-30">Liên Hệ</h4>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="con_name" placeholder="Họ và tên">
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="con_email" placeholder="Email">
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="con_subject" placeholder="Địa chỉ">
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="con_phone" placeholder="Số điện thoại">
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <textarea class="custom-textarea" name="con_message" placeholder="Nội dung"></textarea>
-                                            <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Gửi Liên
-                                                Hệ</button>
-                                        </div>
-                                    </div>
-                                    <p class="form-message"></p>
-                                </form>
+    <!-- MESSAGE BOX SECTION START -->
+    <div class="message-box-section mt--50 mb-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="message-box box-shadow white-bg">
+                        <form id="contact-form" action="">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h4 class="blog-section-title border-left mb-30">Liên Hệ</h4>
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="text" name="con_name" placeholder="Họ và tên">
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="text" name="con_email" placeholder="Email">
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="text" name="con_subject" placeholder="Địa chỉ">
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="text" name="con_phone" placeholder="Số điện thoại">
+                                </div>
+                                <div class="col-lg-12">
+                                    <textarea class="custom-textarea" name="con_message" placeholder="Nội dung"></textarea>
+                                    <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Gửi Liên
+                                        Hệ</button>
+                                </div>
                             </div>
-                        </div>
+                            <p class="form-message"></p>
+                        </form>
                     </div>
                 </div>
             </div>
-            <!-- MESSAGE BOX SECTION END -->
-        </section>
-        <!-- End page content -->
+        </div>
+    </div>
+    <!-- MESSAGE BOX SECTION END -->
+    </section>
+    <!-- End page content -->
 
-        <!-- START FOOTER AREA -->
-        @include('layout_client.footer')
-        <!-- END FOOTER AREA -->
+    <!-- START FOOTER AREA -->
+    @include('layout_client.footer')
+    <!-- END FOOTER AREA -->
 
     </div>
 
-    @include('layout_client.script')
+
 </body>
 
+@include('layout_client.script')
 
 </html>
