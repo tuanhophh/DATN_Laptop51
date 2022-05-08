@@ -23,6 +23,14 @@ return[
         'edit-role' => 'edit-role',
         'delete-role' => 'delete-role',
         'dash-board' => 'dash-board',
+        'list-booking' => 'list-booking',
+        'add-booking' => 'add-booking',
+        'edit-booking' => 'edit-booking',
+        'delete-booking' => 'delete-booking',
+        'list-repair' => 'list-repair',
+        'add-repair' => 'add-repair',
+        'edit-repair' => 'edit-repair',
+        'delete-repair' => 'delete-repair',
     ]
 ]
 ?>

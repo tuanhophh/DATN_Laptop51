@@ -39,6 +39,9 @@ $(function() {
                 Checkall
                 </label>
                 @foreach($permissionsParent as $permissionsParentItem)
+                @if(Auth::user()->email == 'admin@gmail.com' || 
+                (Auth::user()->email != 'admin@gmail.com' && ($permissionsParentItem->key_code != 'role'))   
+                )
                 <div class="card border-primary mb-3 p-0 col-md-12">
                     <div class="card-header py-0">
                         <label>
@@ -62,6 +65,7 @@ $(function() {
                         @endforeach
                     </div>
                 </div>
+                @endif
                 @endforeach
             </div>
         </div>

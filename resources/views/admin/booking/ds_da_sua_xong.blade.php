@@ -10,7 +10,9 @@
                 <th scope="col">Hình thức sửa</th>
                 <th scope="col">Trạng thái</th>
                 <th scope="col" class="sort" data-sort="completion">Nhân viên</th>
+                @can('add-booking')
                 <th scope="col"><a href="{{ route('dat-lich.add') }}">Tạo mới</a></th>
+                @endcan
             </tr>
         </thead>
         <tbody class="list">
@@ -35,11 +37,12 @@
                 <td class="mx-auto">
 
 
-
+                @can('list-repair')
                     <a name="" id="" class="btn btn-info" href="{{ route('dat-lich.hoa-don', ['id'=>$b->id]) }}"
                         role="button">Chi tiết
                         sửa
                         chữa</a>
+                @endcan
                     {{-- <a name="" id="" class="btn btn-danger"
                         href="{{ route('dat-lich.deleteBookingDetail', ['id'=>$b->id]) }}" role="button">Xóa</a> --}}
                 </td>

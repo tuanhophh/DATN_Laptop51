@@ -51,10 +51,6 @@ Route::post('login-otp', [LoginController::class, 'sendLoginOtp'])->name('send.o
 Route::post('send-login-otp', [LoginController::class, 'loginOtp'])->name('login.otp');
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
-// //  Đăng ký
-// Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-// Route::post('register', [RegisterController::class, 'register']);
-
 // //  Quên mật khẩu
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
@@ -63,27 +59,19 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 Route::post('insert-password', [ForgotPasswordController::class, 'insertResetPasswordForm'])->name('insert.password.post');
 Auth::routes(['register' => false]);
 
-// //  Xác thực mail
-// Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
-// Route::get('email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify');
-// Route::get('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
-
 //  Giỏ hàng
-Route::post('save-cart', [CartController::class, 'saveCart']);
-Route::post('add-cart', [CartController::class, 'add']);
-Route::get('gio-hang', [CartController::class, 'showCart']);
-Route::get('delete-to-cart/{rowId}', [CartController::class, 'deleteToCart']);
-Route::post('update-cart-quantity', [CartController::class, 'updateCartQuantity']);
+Route::post('save-cart', [CartController::class, 'saveCart'])->middleware(['auth','phoneverify']);
+Route::post('add-cart', [CartController::class, 'add'])->middleware(['auth','phoneverify']);
+Route::get('gio-hang', [CartController::class, 'showCart'])->middleware(['auth','phoneverify']);
+Route::get('delete-to-cart/{rowId}', [CartController::class, 'deleteToCart'])->middleware(['auth','phoneverify']);
+Route::post('update-cart-quantity', [CartController::class, 'updateCartQuantity'])->middleware(['auth','phoneverify']);
 
 //  Thanh toán
-Route::get('thanh-toan', [PaymentController::class, 'showPayment'])->name('payment')->middleware('phoneverify');
-Route::post('save-payment', [PaymentController::class, 'savePayment'])->middleware('phoneverify');
-Route::post('payment/online', [PaymentController::class, 'createPayment'])->name('payment.online')->middleware('phoneverify');
-Route::get('vnpay/return', [PaymentController::class, 'vnpayReturn'])->name('vnpay.return')->middleware('phoneverify');
-Route::get('don-hang/{code}', [PaymentController::class, 'paymentSuccess'])->name('payment.success')->middleware('phoneverify');
-// Route::get('vnpay/return', function(){
-//     return view('vnpay.vnpay_return');
-// });
+Route::get('thanh-toan', [PaymentController::class, 'showPayment'])->name('payment')->middleware(['auth','phoneverify']);
+Route::post('save-payment', [PaymentController::class, 'savePayment'])->middleware(['auth','phoneverify']);
+Route::post('payment/online', [PaymentController::class, 'createPayment'])->name('payment.online')->middleware(['auth','phoneverify']);
+Route::get('vnpay/return', [PaymentController::class, 'vnpayReturn'])->name('vnpay.return')->middleware(['auth','phoneverify']);
+Route::get('don-hang/{code}', [PaymentController::class, 'paymentSuccess'])->name('payment.success')->middleware(['auth','phoneverify']);
 
 //     trang cá nhân
 Route::get('profile', [ProfileController::class, 'index'])->name('profile');

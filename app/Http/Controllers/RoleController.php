@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
@@ -41,6 +42,9 @@ class RoleController extends Controller
 
     public function edit($id)
     {
+    // if($id == 1){
+    //     return redirect()->route('admin.dashboard');
+    // }
     $permissionsParent = $this->permission->where('parent_id',0)->get();
     $role = $this->role->find($id);
     // dd($role);

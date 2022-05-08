@@ -152,7 +152,8 @@
                                                     <?php
                                                         use Gloudemans\Shoppingcart\Facades\Cart;
 
-                                                        $content = Cart::content();
+                                                    
+                                                    
                                                         // dd($content);
                                                     ?>
                                                     <!-- tr -->
@@ -186,12 +187,17 @@
                                                             <form action="{{ URL::to('/update-cart-quantity') }}"
                                                                 method="POST">
                                                                 @csrf
+                                                                @foreach($products as $maxP)
+                                                                @if($maxP->id == $cont->id)
                                                                 <div class="quantity">
                                                                     <input type="number" name="cart_quantity"
-                                                                        value="{{ $cont->qty }}" min="0">
+                                                                        value="{{ $cont->qty }}" min="0" max="{{$maxP->qty}}">
                                                                 </div>
+                                                                @endif
+                                                                @endforeach
                                                                 <input type="submit" value="Câp nhật" name="update_qty"
                                                                     class="button extra-small button-black form-control m-0">
+                                                          
                                                                 <input type="hidden" value="{{ $cont->rowId }}"
                                                                     name="rowId_cart">
                                                                 <!-- <input class="cart_quantity_input form-control" type="text"

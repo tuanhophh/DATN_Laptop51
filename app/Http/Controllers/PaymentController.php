@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BillRequest;
 use App\Models\Bill;
+use App\Models\bill_detail;
 use App\Models\BillDetail;
 use App\Models\BillUser;
+use App\Models\list_bill;
 use App\Models\Payment;
 use Brian2694\Toastr\Facades\Toastr;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -21,7 +23,7 @@ use Twilio\Rest\Client;
 class PaymentController extends Controller
 {
     public function showPayment()
-    {   
+    {
         $content = Cart::content();
         if ($countCart = count($content) == 0) {
             Toastr::error('Vui lòng chọn đồ rồi thanh toán', 'Thất bại');
@@ -31,8 +33,7 @@ class PaymentController extends Controller
             return view('website.payment',compact('totalBill'));
         }
     }
-
-
+    
     public function savePayment(Request $request)
     {   
         $request->validate([
@@ -62,26 +63,28 @@ class PaymentController extends Controller
         if ($countCart = count($content) == 0) {
             return Redirect::to('/thanh-toan')->with('error', 'Bạn không có đồ trong giỏ hàng, vui lòng thêm đồ vào giỏ');
         }
-
         if ($request->payment_method == 2) {
             $totalBill = str_replace(',', '', Cart::subtotal(0));
+          
             // Lưu vào bảng bills
-            $bill = new Bill();
-            $bill->payment_method = $request->payment_method;
-            $bill->total = Cart::subtotal();
+            $bill = new list_bill();
+            $bill->method = $request->payment_method;
+            $bill->total_price = $totalBill;
             $bill->code = $length;
-            if (Auth::id()) {
+            if (Auth::check()) {
                 $bill->user_id = Auth::id();
             }
-            $bill->payment_status == 1;
+            $bill->status = 1;
+            $bill->type = 1;
             $bill->save();
-
+            
             // Lưu vào bảng bill_details
             foreach ($content as $item) {
-                $bill_detail = new BillDetail();
+                $bill_detail = new bill_detail();
                 $bill_detail->product_id = $item->id;
-                $bill_detail->qty = $item->qty;
-                $bill_detail->price = $item->price;
+                $bill_detail->quaty = $item->qty;
+                $bill_detail->bill_id = $bill->id;
+                $bill_detail->ban = $item->price;
                 $bill_detail->bill_code = $length;
                 $bill_detail->save();
             }
@@ -94,7 +97,7 @@ class PaymentController extends Controller
             $bill_user->address = $request->address;
             $bill_user->note = $request->note;
             $bill_user->bill_code = $length;
-            if (Auth::id()) {
+            if (Auth::check()) {
                 $bill_user->user_id = Auth::id();
             }
     
@@ -105,25 +108,28 @@ class PaymentController extends Controller
             $email = $request->email;
             $code_length = $length;
             return view('vnpay.index', compact('totalBill', 'code_length', 'email'));
-        } else {
+        } 
+        else {
 
             // Lưu vào bảng bills
-            $bill = new Bill();
-            $bill->payment_method = $request->payment_method;
-            $bill->total = Cart::subtotal();
+            $bill = new list_bill();
+            $totalBill = str_replace(',', '', Cart::subtotal(0));
+            $bill->method = $request->payment_method;
+            $bill->total_price = $totalBill;
             $bill->code = $length;
-            if (Auth::id()) {
+            if (Auth::check()) {
                 $bill->user_id = Auth::id();
             }
-            $bill->payment_status == 0;
+            $bill->status = 0;
+            $bill->type = 1;
             $bill->save();
-
             // Lưu vào bảng bill_details
             foreach ($content as $item) {
-                $bill_detail = new BillDetail();
+                $bill_detail = new bill_detail();
                 $bill_detail->product_id = $item->id;
-                $bill_detail->qty = $item->qty;
-                $bill_detail->price = $item->price;
+                $bill_detail->quaty = $item->qty;
+                $bill_detail->bill_id = $bill->id;
+                $bill_detail->ban = $item->price;
                 $bill_detail->bill_code = $length;
                 $bill_detail->save();
             }
@@ -136,7 +142,7 @@ class PaymentController extends Controller
             $bill_user->address = $request->address;
             $bill_user->note = $request->note;
             $bill_user->bill_code = $length;
-            if (Auth::id()) {
+            if (Auth::check()) {
                 $bill_user->user_id = Auth::id();
             }
             $bill_user->save();
@@ -158,7 +164,6 @@ class PaymentController extends Controller
                 //     )
                 //     );
             Cart::destroy();
-            
             Toastr::success('Đặt hàng thành công', 'Thành công');
             return Redirect::to('/don-hang/'.$length);
            
@@ -238,11 +243,10 @@ class PaymentController extends Controller
         );
         $bill_code = DB::table('bill_users')->where('bill_code',$request->vnp_TxnRef)->first();
         $phone = $bill_code->phone;
-        
         // Update trạng thái đơn hàng
         if ($data['vnp_response_code'] == 00) {
-            $payment_status = Bill::where('code', $data['bill_code'])->first();
-            $payment_status->payment_status = 2;
+            $payment_status = list_bill::where('code', $data['bill_code'])->first();
+            $payment_status->status = 2;
             // dd($request->all());
             $payment_status->update();
             Payment::insert($data);
@@ -261,22 +265,17 @@ class PaymentController extends Controller
             //     );
             Toastr::success('Đặt hàng thành công', 'Thành công');
             return Redirect::to('/don-hang/'.$data['bill_code']);
-           
-            // dd($payment_status);
         }
-        else{
             Toastr::error('Đặt hàng thất bại', 'Thất bại');
             return Redirect::to('/cua-hang')
                 ->with('error', 'Thanh toán thất bại');
-        }
-        // $bill_code = $data['bill_code'];
     }
     public function paymentSuccess($code){
-        $bill = Bill::where('code', $code)->first();
+        $bill = list_bill::where('code', $code)->first();
         if(!$bill){
             return abort(404);
         }
-        $bill_detail = BillDetail::where('bill_code',$code)->get();
+        $bill_detail = bill_detail::where('bill_code',$code)->get();
         $bill_user = BillUser::where('bill_code',$code)->first();
         return view('website.payment-success',compact('bill','bill_detail','bill_user'));
     }

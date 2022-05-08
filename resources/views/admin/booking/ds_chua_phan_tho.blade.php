@@ -10,7 +10,9 @@
                 {{-- <th scope="col">Hình thức sửa</th> --}}
                 {{-- <th scope="col">Trạng thái</th> --}}
                 <th scope="col" class="sort" data-sort="completion">Nhân viên</th>
+                @can('add-booking')
                 <th scope="col"><a href="{{ route('dat-lich.add') }}">Tạo mới</a></th>
+                @endcan
             </tr>
         </thead>
         <tbody class="list">
@@ -29,6 +31,7 @@
                 <td>
                     <div class="form-group d-flex" width="50px">
                         {{-- <label for=""></label> --}}
+                        
                         <form action="{{ route('dat-lich.chuyen-trang-thai') }}" method="POST" class="d-flex">
                             @csrf
                             <select id="" class="form-control" name="staff">
@@ -45,6 +48,7 @@
                             </select><input type="hidden" name="booking_detail_id" value="{{ $b->id }}">
                             <button class="btn btn-primary" type="submit">Chọn</button>
                         </form>
+                       
                     </div>
                 </td>
                 {{-- <td class="mx-auto">

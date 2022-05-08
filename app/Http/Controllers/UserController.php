@@ -13,7 +13,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 class UserController extends Controller
 {
     public function index(){
-        $users = User::all();
+        $users = User::orderBy('id_role','desc')->get();
         // $users->load('roles');
         return view('admin.users.index', [
             'users' => $users,
@@ -67,10 +67,18 @@ class UserController extends Controller
         return redirect(route('user.index'));
     }
     public function editForm($id)
-    {
+    {       
         $user = User::find($id);
+        // foreach($user->roles as $role){
+        //     dd($role);
+        // }
+        if($user->id == 1){
+            return redirect()->route('user.index');
+        }
+        $user_role = DB::table('role_user')->where('user_id',$user->id)->orderBy('user_id','DESC')->first();
         // $user_role = DB::table('role_user')->where('user_id', $id)->first();
         $roles = Role::all();
+     
         // $users = User::all();
         if (!$user) {
             return back();
@@ -78,7 +86,7 @@ class UserController extends Controller
         // dd($roles);
         return view(
             'admin.users.edit',
-            compact('user','roles')
+            compact('user','roles','user_role')
         );
     }
     public function saveEdit(Request $request,$id)
@@ -98,10 +106,12 @@ class UserController extends Controller
         }
         $model->fill($request->all());
         $model->save();
-        DB::table('role_user')->where('user_id',$model->id)->update([
-            'role_id' => $request->role_id,
-            'user_id' => $model->id,
-        ]);
+
+        $update_role_user = DB::table('role_user')
+        ->where('user_id',$model->id)
+        ->limit(1)
+        ->update([
+            'role_id' => $request->role_id]);
         return redirect(route('user.index'));
     }
 }

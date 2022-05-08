@@ -47,6 +47,18 @@ class PermissionGateAndPolicyAccess{
         Gate::define('add-role', 'App\Policies\RolePolicy@create');
         Gate::define('edit-role', 'App\Policies\RolePolicy@update');
         Gate::define('delete-role', 'App\Policies\RolePolicy@delete');
+    
+        //  Phân quyền
+        Gate::define('list-booking', 'App\Policies\BookingPolicy@view');
+        Gate::define('add-booking', 'App\Policies\BookingPolicy@create');
+        Gate::define('edit-booking', 'App\Policies\BookingPolicy@update');
+        Gate::define('delete-booking', 'App\Policies\BookingPolicy@delete');
+
+        //  Phân quyền
+        Gate::define('list-repair', 'App\Policies\RepairPolicy@view');
+        Gate::define('add-repair', 'App\Policies\RepairPolicy@create');
+        Gate::define('edit-repair', 'App\Policies\RepairPolicy@update');
+        Gate::define('delete-repair', 'App\Policies\RepairPolicy@delete');
     }
     
 }
