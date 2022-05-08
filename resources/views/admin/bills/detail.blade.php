@@ -27,10 +27,7 @@
                     <input type="text" name="address" disabled value="{{ $bill_user->address }}" class="form-control"
                         placeholder="">
                 </div>
-                <div class="form-group">
-                    <label for="">Ghi chú</label>
-                    <textarea disabled class="form-control" name="note" id="">{{$bill_user->note}}</textarea>
-                </div>
+
             </div>
             <div class="col-6 mt-2">
                 <div class="row">
@@ -91,52 +88,55 @@
                     <input type="text" name="created_at" disabled value="{{ old('created_at', $bill->created_at) }}"
                         class="form-control" placeholder="">
                 </div>
-                <div class="form-group mb-0 pb-0 text-center">
-                    <label class="mb-0 pb-0 text-center" for="">Sản phẩm đã mua</label>
+                <div class="form-group">
+                    <label for="">Ghi chú</label>
+                    <textarea disabled class="form-control" name="note" id="">{{$bill_user->note}}</textarea>
                 </div>
-                <hr class="m-0 p-0">
-                <div class="row" style="height: 30px;">
-                    <div class="col-7 mb-0 pb-0">
-                        <label class="mb-0 pb-0" for="">Tên sản phẩm</label>
-                    </div>
-                    <div class="col-3 mb-0 pb-0">
-                        <div class="form-group">
-                            <label class="mb-0 pb-0" for="">Giá</label>
-                        </div>
-                    </div>
-                    <div class="col-2 mb-0 pb-0">
-                        <div class="form-group">
-                            <label class="mb-0 pb-0" for="">Số lượng</label>
-                        </div>
-                    </div>
-                </div>
-                @foreach($bill_detail as $bill_d)
-                <div class="row">
-                    <div class="col-7">
-                        <input type="text" name="" disabled value="{{$bill_d->product->name}}"
-                            class="form-control" placeholder="">
-                    </div>
-                    <div class="col-3">
-                        <div class="form-group">
-                            <input type="text" name="" disabled value="{{$bill_d->price}} VNĐ"
-                                class="form-control" placeholder="">
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="form-group">
-                            <input type="text" name="" disabled value="{{$bill_d->qty}}"
-                                class="form-control" placeholder="">
-                        </div>
-
-                    </div>
-                </div>
-                @endforeach
-
             </div>
         </div>
+        <div class="form-group mb-0 pb-0 text-center">
+            <label class="mb-0 pb-0 text-center" for="">Sản phẩm đã mua</label>
+        </div>
+        <hr>
+        <table class="table table-bordered" id="dynamicAddRemove">
+            <tr>
+                <th class="p-0">
+                    <p class="text-center ms-auto mb-0 p-2">Tên sản phẩm</p>
+                </th>
+                <th class="p-0">
+                    <p class="text-center ms-auto mb-0 p-2">Giá</p>
+                </th>
+                <th class="p-0">
+                    <p class="text-center ms-auto mb-0 p-2">Số lượng</p>
+                </th>
+                <th class="p-0">
+                    <!-- <button type="button ms-auto" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add Subject</button> -->
+                </th>
+            </tr>
+            @foreach($bill_detail as $bill_d)
+            <tr>
+                <td><select disabled name="product_id" class="form-control">
+                        @foreach ($prod as $pro)
+                        <option @if ($pro->id == $bill_d->product_id) selected @endif value="{{ $pro->id }}">
+                            {{ $pro->name }}</option>
+                        @endforeach
+                        <!-- <option value="{{$bill_d->product->id}}">{{$bill_d->product->name}}</option> -->
+                    </select></td>
+                <!-- <td><input disabled type="text" value="{{$bill_d->product->name}}" name="addMoreInputFields[0][subject]"
+                        placeholder="Tên sản phẩm" class="form-control" />
+                </td> -->
+                <td><input disabled type="text" value="{{$bill_d->price}}" name="addMoreInputFields[0][subject]"
+                        placeholder="Nhập giá" class="form-control" /></td>
+                <td><input disabled type="text" value="{{$bill_d->qty}}" name="addMoreInputFields[0][subject]"
+                        placeholder="Số lượng" class="form-control" /></td>
+                <!-- <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Thêm sản
+                        phẩm</button></td> -->
+            </tr>
+            @endforeach
+        </table>
         <div class="d-flex justify-content-end mb-2 mr-2">
             <br>
-            <a href="{{ route('bill.index') }}" class="btn btn-danger">Quay lai</a>
+            <a href="{{ route('bill.index') }}" class="btn btn-sm btn-danger">Quay lai</a>
             &nbsp;
 
         </div>

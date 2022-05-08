@@ -20,7 +20,6 @@
     <div class="wrapper">
         @include('layout_client.menu')
         @include('layout_client.header')
-
         <section id="page-content" class="page-wrapper section">
 
             <!-- BY BRAND SECTION START-->
@@ -65,15 +64,15 @@
                                 @foreach ($productNew as $item)
                                 <?php
                     
-                    if (!function_exists('currency_format')) {
-                        function currency_format($item, $suffix = ' VNĐ')
-                        {
-                            if (!empty($item)) {
-                                return number_format($item, 0, ',', '.') . "{$suffix}";
-                            }
-                        }
-                    }
-                    ?>
+                                    if (!function_exists('currency_format')) {
+                                        function currency_format($item, $suffix = ' VNĐ')
+                                        {
+                                            if (!empty($item)) {
+                                                return number_format($item, 0, ',', '.') . "{$suffix}";
+                                            }
+                                        }
+                                    }
+                                    ?>
                                     <div class="product-item">
                                         <div class="product-img">
                                             @foreach ($images as $image)
@@ -101,68 +100,7 @@
                     </div>
                 </div>
             </div>
-            <!-- FEATURED PRODUCT SECTION END -->
-
-            <!-- UP COMMING PRODUCT SECTION START -->
-            <!-- <div class="up-comming-product-section mb-80">
-                <div class="container">
-                    <div class="row"> -->
-            <!-- up-comming-pro -->
-            <!-- <div class="col-lg-8">
-                            <div class="up-comming-pro gray-bg clearfix">
-                                <div class="up-comming-pro-img f-left">
-                                    <a href="#">
-                                        <img src="{{ asset('client') }}/img/up-comming/1.png" alt="">
-                                    </a>
-                                </div>
-                                <div class="up-comming-pro-info f-left">
-                                    <h3><a href="#">Sản Phẩm Giảm Giá</a></h3>
-                                    <p>Không cần phải bỏ ra quá nhiều tiền, bạn vẫn có thể là người dẫn đầu cuộc chơi
-                                        với Acer Nitro Gaming 5 AN515 45 R6EV phiên bản chạy AMD Ryzen 5000 series. Sức
-                                        mạnh của tiến trình 7nm hiện đại kết hợp cùng card đồ họa kiến trúc Turing mang
-                                        tới một chiếc máy tính chơi game xuất sắc.</p>
-                                    <div class="up-comming-time">
-                                        <div data-countdown="2022/02/02"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 d-block d-md-none d-lg-block">
-                            <div class="banner-item banner-1">
-                                <div class="ribbon-price">
-                                    <span>Giảm 15%</span>
-                                </div>
-                                <div class="banner-img">
-                                    <a href="#"><img src="{{ asset('client') }}/img/up-comming/2.png" alt=""></a>
-                                </div>
-                                <div class="banner-info">
-                                    <h3><a href="#">Dell Inspiron 15 5510</a></h3>
-                                    <ul class="banner-featured-list">
-                                        <li>
-                                            <i class="zmdi zmdi-check"></i><span>Màn Hình: 15.6 inch</span>
-                                        </li>
-                                        <li>
-                                            <i class="zmdi zmdi-check"></i><span>CPU: AMD, Ryzen 5, 5600H</span>
-                                        </li>
-                                        <li>
-                                            <i class="zmdi zmdi-check"></i><span>RAM: 8 GB, DDR4, 3200 MHz</span>
-                                        </li>
-                                        <li>
-                                            <i class="zmdi zmdi-check"></i><span>Ổ Cứng: SSD 512 GB</span>
-                                        </li>
-                                        <li>
-                                            <i class="zmdi zmdi-check"></i><span>Card Đồ Họa: NVIDIA GeForce GTX 1650
-                                                4GB</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <!-- UP COMMING PRODUCT SECTION END -->
-
+        
             <!-- PRODUCT TAB SECTION START -->
             <div class="product-tab-section mb-50">
                 <div class="container">
@@ -175,46 +113,42 @@
 
                         <div class="col-lg-12">
                             <!-- Tab panes -->
-                            <div class="tab-content">
-                                <!-- popular-product start -->
-                                <div id="popular-product" class="tab-pane active show">
-                                    <div class="row">
+                            <div class="featured-product">
+                                <div class="active-featured-product slick-arrow-2">
                                         <!-- product-item start -->
                                         @foreach($product_hot_sell as $product_hot)
                                         <?php
                     
-                    if (!function_exists('currency_format')) {
-                        function currency_format($product_hot, $suffix = ' VNĐ')
-                        {
-                            if (!empty($product_hot)) {
-                                return number_format($product_hot, 0, ',', '.') . "{$suffix}";
-                            }
-                        }
-                    }
-                    ?>
-                                        <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                @foreach ($images as $image)
-                                                        @if ($image->product_id == $product_hot->id)
-                                                        <a href="/san-pham/{{$product_hot->slug}}">
-                                                            <img src="{{ asset($image->path) }}"
-                                                                alt="{{ asset($image->path) }}" />
-                                                        </a>
-                                                        @break;
-                                                        @endif
-                                                        @endforeach
-                                                </div>
-                                                <div class="product-info">
-                                                    <h6 class="product-title">
-                                                        <a href="/san-pham/{{$product_hot->slug}}">{{$product_hot->name}}</a>
-                                                    </h6>
-
-                                                    <h3 class="pro-price">{{ currency_format($item->price) }}</h3>
-
-                                                </div>
-                                            </div>
+                                            if (!function_exists('currency_format')) {
+                                                function currency_format($product_hot, $suffix = ' VNĐ')
+                                                {
+                                                    if (!empty($product_hot)) {
+                                                        return number_format($product_hot, 0, ',', '.') . "{$suffix}";
+                                                    }
+                                                }
+                                            }
+                                            ?>
+                             
+                                        <div class="product-item">
+                                        <div class="product-img">
+                                            @foreach ($images as $image)
+                                            @if ($image->product_id == $product_hot->id)
+                                            <a href="/san-pham/{{ $product_hot->slug }}">
+                                                <img src="{{ asset($image->path) }}"
+                                                    alt="{{ asset($image->path) }}" />
+                                            </a>
+                                            @break;
+                                            @endif
+                                            @endforeach
                                         </div>
+                                        <div class="product-info">
+                                            <h6 class="product-title">
+                                                <a href="/san-pham/{{ $product_hot->slug }}">{{ $product_hot->name }}
+                                                </a>
+                                            </h6>
+                                            <h3 class="pro-price mb-0"><a href="/san-pham/{{ $item->slug }}">{{ currency_format($product_hot->price) }}</a> </h3>
+                                        </div>
+                                    </div>
                                         
                                         @endforeach
                                         <!-- product-item end -->
@@ -351,7 +285,6 @@
         <!-- START FOOTER AREA -->
         @include('layout_client.footer')
         <!-- END FOOTER AREA -->
-
 
     </div>
     @include('layout_client.script')

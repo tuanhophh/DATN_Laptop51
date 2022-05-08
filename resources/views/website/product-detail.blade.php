@@ -78,29 +78,21 @@
                                         <div class="single-product-info">
                                             <h3 class="text-black-1 pro-price">{{$pro->name}}</h3>
                                             <h6 class="brand-name-2">{{$pro->companyComputer->company_name}}</h6>
-                                            <!--  hr -->
+                                            
+                                            <hr>
                                             <!-- single-pro-color-rating -->
-                                            <!-- <div class="single-pro-color-rating clearfix">
-                                                <div class="sin-pro-color f-left">
-                                                    <p class="color-title f-left">Color</p>
-                                                    <p class="color-title f-left">Color</p>
-                                                    <p class="color-title f-left">Color</p>
-                                                    <p class="color-title f-left">Color</p>
-                                                    <p class="color-title f-left">Color</p>
-                                                    <p class="color-title f-left">Color</p>
-                                                    <p class="color-title f-left">Color</p>
+                                            <div class="single-pro-color-rating">
+                                                <h5 class="widget-title border-left">Thông số máy</h5>
+                                                <div class="sin-pro-color">
+                                                    <p class="text-black-1 title">RAM: {{$pro->ram}}</p>
+                                                    <p class="text-black-1 title">CPU: {{$pro->cpu}}</p>
+                                                    <p class="text-black-1 title">Ổ cứng: {{$pro->harddrive}}</p>
+                                                    <p class="text-black-1 title">Màn hình: {{$pro->screen}}</p>
+                                                    <p class="text-black-1 title">Card đồ họa: {{$pro->cardgraphic}}</p>
                                                 </div>
-                                                
-                                                <div class="pro-rating sin-pro-rating f-right">
-                                                    <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
-                                                    <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
-                                                    <span class="text-black-5">( 27 Rating )</span>
-                                                </div>
-                                            </div> -->
-                                            <!-- hr -->
+                            
+                                            </div>
+                                           
                                             <hr>
                                             <?php
                                             if (!function_exists('currency_format')) {

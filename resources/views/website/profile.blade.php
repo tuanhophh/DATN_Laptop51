@@ -519,19 +519,22 @@
                                     </div>
 
                                     <div class="tab-pane" id="settings">
-                                        <form class="form-horizontal">
+                                    <form class="form" enctype="multipart/form-data"
+                                                action="{{ URL::to('/profile/update-info') }}" method="POST"
+                                                novalidate="">
+                                                @csrf
                                             <div class="form-group row">
                                                 <label for="inputName" class="col-sm-2 col-form-label">Tên</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" id="inputName"
-                                                        placeholder="Tên..." value="{{ $user->name }}">
+                                                        placeholder="Tên..." name="name" value="{{ $user->name }}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" id="inputEmail"
-                                                        placeholder="Email..." value="{{ $user->email }}">
+                                                        placeholder="Email..." name="email" value="{{ $user->email }}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -539,21 +542,21 @@
                                                     thoại</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" id="inputName2"
-                                                        placeholder="Số điện thoại..." value="{{ $user->phone }}">
+                                                        placeholder="Số điện thoại..." name="phone" value="{{ $user->phone }}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputName2" class="col-sm-2 col-form-label">Địa chỉ</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" id="inputName2"
-                                                        placeholder="Địa chỉ..." value="{{ $user->address }}">
+                                                        placeholder="Địa chỉ..." name="address" value="{{ $user->address }}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputExperience" class="col-sm-2 col-form-label">Mô
                                                     tả</label>
                                                 <div class="col-sm-10">
-                                                    <textarea class="form-control" id="inputExperience" placeholder="Experience">{{ $user->description }}</textarea>
+                                                    <textarea class="form-control" name="description" id="inputExperience" placeholder="Experience">{{ $user->description }}</textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group row">

@@ -15,7 +15,9 @@
         <b>Ngày đem máy đến:</b> <input type="datetime-local" value=""> {{ now() }} <br>
         <b>Tình trạng máy hiện tại:</b> <textarea name="comment" id="" cols="50" rows="5"> </textarea>
         {{-- <input type="submit" placeholder="Xuất Phiếu"> --}}
+        @can('list-repair')
         <button type="submit">Lưu và xuất phiếu</button>
+        @endcan
     </form>
 
 

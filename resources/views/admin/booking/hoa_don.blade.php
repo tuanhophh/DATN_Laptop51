@@ -2,9 +2,11 @@
 @section('content')
 {{-- <button>Xuất hóa đơn</button>
 --}}
+@can('list-repair')
 <a name="" id="" class="btn btn-primary" target="_blank"
     href="{{ route('dat-lich.xuat-hoa-don', ['booking_detail_id'=>$booking_detail->id]) }}" role="button"> Xuất hóa
     đơn</a>
+@endcan
 <h4 class="mx-auto">Hóa đơn sửa chữa</h4>
 <h5 class="mx-auto">Số hóa đơn: <b>{{ $booking_detail->code }}</b></h5>
 <p>Họ và tên: {{ $booking_detail->booking->full_name }}</p>

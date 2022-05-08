@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 // use Gloudemans\Shoppingcart\Cart;
 
+use App\Models\Product;
 use Brian2694\Toastr\Facades\Toastr;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -60,12 +61,15 @@ class CartController extends Controller
     }
     public function showCart()
     {   
+        $content = Cart::content();
         session()->put('url_path',FacadesRequest::path());
         $cate_product = DB::table('product');
         $user_id = Auth::id();
         $totalBill = str_replace(',', ',', Cart::subtotal(0));
+        
+        $products = Product::all();
         //    $totalBill = str_replace(',', '', Cart::subtotal(0)) * 100;
-        return view('website.cart', compact('totalBill'));
+        return view('website.cart', compact('totalBill','content','products'));
     }
     public function deleteToCart($rowId)
     {

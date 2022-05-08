@@ -55,16 +55,18 @@ $(function() {
                                 <label for="">Vai trò</label>
                                 <select name="role_id" class="form-control select2_init">
                                     @foreach($roles as $roleItem)
+                                    @if(Auth::user()->email == 'admin@gmail.com' || (Auth::user()->email !='admin@gmail.com' && $roleItem->id != 1))
                                     <option value="{{$roleItem->id}}">{{$roleItem->name}}</option>
+                                    @endif
                                     @endforeach
                                 </select>
                             </div>
                           </div>
                           <div class="col-12 d-flex justify-content-end">
                             <br>
-                            <a href="{{route('user.index')}}" class="btn btn-danger">Hủy</a>
+                            <a href="{{route('user.index')}}" class="btn btn-sm btn-danger">Hủy</a>
                             &nbsp;
-                            <button type="submit" class="btn btn-success">Lưu</button>
+                            <button type="submit" class="btn btn-sm btn-success">Lưu</button>
                         </div>
                     </div>
                 </form>
