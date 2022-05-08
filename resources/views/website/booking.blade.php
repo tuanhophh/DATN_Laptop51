@@ -121,7 +121,8 @@
                                             @enderror
                                         </div>
                                         <div class="col-lg-6">
-                                            <input type="date" name="date" value="{{ old('date') }}" placeholder="Ngày">
+                                            <input type="date" min="{{ now()->format('Y-m-d') }}" name="date"
+                                                value="{{ old('date') }}" placeholder="Ngày">
                                             @error('date')
                                             <small id="helpId" class="form-text text-danger">{{ $message }}</small>
                                             @enderror

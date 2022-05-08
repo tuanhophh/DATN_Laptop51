@@ -116,7 +116,7 @@ Route::prefix('dat-lich')->group(function () {
     Route::get('xoa/{id}', [BookingController::class, 'deleteBooking'])->name('dat-lich.delete');
     Route::get('demo', [BookingController::class, 'demo']);
     Route::get('hoa-don/{id}', [BookingDetailController::class, 'hoaDon'])->name('dat-lich.hoa-don');
-    Route::post('hoa-don/{id}', [BookingDetailController::class, 'luuThongTinSuaChua']);
+    Route::post('hoa-don/{id}', [BookingDetailController::class, 'luuHoaDon']);
     Route::get('xuat-hoa-don/{booking_detail_id}', [BookingDetailController::class, 'xuatHoaDon'])->name('dat-lich.xuat-hoa-don');
 
     Route::get('danh-sach-may-phan-cong', [BookingController::class, 'userRepair'])->name('dat-lich.user_epair');
@@ -139,6 +139,7 @@ Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaP
 Route::get('/danh-sach-da-sua-xong', [BookingController::class, 'DanhSachDaSuaXong'])->name('sua-chua.danh-sach-da-sua-xong');
 Route::get('/danh-sach-cho-sua', [BookingController::class, 'DanhSachChoSua'])->name('sua-chua.danh-sach-cho-sua');
 Route::get('/danh-sach-chua-xac-nhan', [BookingController::class, 'DanhSachChuaXacNhan'])->name('sua-chua.danh-sach-chua-xac-nhan');
+Route::get('/danh-sach-da-giao-khach', [BookingController::class, 'DanhSachDaGiaoKhach'])->name('sua-chua.danh-sach-da-giao-khach');
 
 // Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaPhanTho']);
 
@@ -162,12 +163,12 @@ Route::prefix('category')->group(function () {
     // Route::get('detail/{id}', [CategoryController::class, 'detail'])->middleware('can:delete-category');
 });
 Route::prefix('category_component')->group(function () {
-    Route::get('/', [CategoryComponentController::class, 'index'])->name('category_component.index')->middleware('can:list-product');
-    Route::get('/remove/{id}', [CategoryComponentController::class, 'remove'])->name('category_component.remove')->middleware('can:delete-product');
-    Route::get('add', [CategoryComponentController::class, 'addForm'])->name('category_component.add')->middleware('can:add-product');
-    Route::post('add', [CategoryComponentController::class, 'saveAdd'])->middleware('can:add-product');
-    Route::get('edit/{id}', [CategoryComponentController::class, 'editForm'])->name('category_component.edit')->middleware('can:edit-product');
-    Route::post('edit/{id}', [CategoryComponentController::class, 'saveEdit'])->middleware('can:edit-product');
+    Route::get('/', [CategoryComponentController::class, 'index'])->name('category_component.index');
+    Route::get('/remove/{id}', [CategoryComponentController::class, 'remove'])->name('category_component.remove');
+    Route::get('add', [CategoryComponentController::class, 'addForm'])->name('category_component.add');
+    Route::post('add', [CategoryComponentController::class, 'saveAdd']);
+    Route::get('edit/{id}', [CategoryComponentController::class, 'editForm'])->name('category_component.edit');
+    Route::post('edit/{id}', [CategoryComponentController::class, 'saveEdit']);
     // Route::get('detail/{id}', [CategoryController::class, 'detail'])->middleware('can:delete-category_component');
     Route::get('select-all', function () {
         $c = CategoryComponent::all();

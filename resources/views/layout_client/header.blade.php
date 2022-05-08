@@ -27,7 +27,7 @@
                 </div>
                 <!-- layer-1 end -->
                 <!-- layer-1 Start -->
-                <div class="col-lg-12">
+                <!-- <div class="col-lg-12">
                     <div class="layer-1">
                         <div class="slider-img">
                             <img src="{{ asset('client') }}/img/slider/slider-1/2.jpg" alt="">
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- layer-1 end -->
                 <!-- layer-1 Start -->
                 <div class="col-lg-12">

@@ -13,12 +13,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
 {
     use HasApiTokens, HasFactory, Notifiable;
+    // protected $table = "users";
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -26,7 +22,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'address',
         'description',
         'password',
-        'id_role'
+        'id_role',
+        'isVerified',
     ];
 
     /**
@@ -54,22 +51,23 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'role_user','user_id','role_id');
+        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
     }
-    
+
     public function checkPermissionAccess($permissionsCheck)
     {
-       $roles = auth()->user()->roles;
-       foreach( $roles as $role){
-           $permissions = $role->permissions;
-           if($permissions->contains('key_code',$permissionsCheck)){
-               return true;
-           }
-       }
+        $roles = auth()->user()->roles;
+        foreach ($roles as $role) {
+            $permissions = $role->permissions;
+            if ($permissions->contains('key_code', $permissionsCheck)) {
+                return true;
+            }
+        }
 
-       return false;
+        return false;
     }
-    public function list_bill(){
-        return $this->hasMany(list_bill::class,'user_id','id');
+    public function list_bill()
+    {
+        return $this->hasMany(list_bill::class, 'user_id', 'id');
     }
 }

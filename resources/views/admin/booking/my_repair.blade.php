@@ -1,6 +1,6 @@
 @extends('admin.layouts.main')
 @section('content')
-<div class="table-responsive">
+<div class="table-responsive container">
     <table class="table align-items-center table-flush">
         <thead class="thead-light">
             <tr>
@@ -20,16 +20,9 @@
             @foreach ($booking_details as $b)
             <tr>
                 <td>{{ $b->name_computer }}</td>
-                <td>@if (!empty($b->booking->full_name))
-                    {{ $b->booking->full_name }}
-
-                    @endif</td>
+                <td>{{ $b->full_name }}</td>
                 {{-- <td>{{ $b->booking->phone }}</td> --}}
-                <td>@if ($b->repair_type=='TN')
-                    {{ 'Tại nhà' }}
-                    @else
-                    {{ 'Đem đến cửa hàng' }}
-                    @endif</td>
+                <td>{{ $b->phone }}</td>
                 {{-- <td>
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,7 +24,7 @@ class Product extends Model
     }
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'attribute_value','product_id','category_id');
+        return $this->belongsToMany(AttributeValue::class, 'attribute_value','product_id','category_id');
     }
 
     public function bill()

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
@@ -63,8 +64,11 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
         $role = Role::where('id', '=', $id)->first();
-            if ($role){
-                Role::where('id', $id)->delete();
+        // dd($role_user);
+        if ($role){
+            Role::where('id', $id)->delete();
+            $permission_role = DB::table('permission_role')->where('role_id',$role->id)->delete();
+            $role_user = DB::table('role_user')->where('role_id',$role->id)->delete();
                 return redirect(route('roles.index'))->with('success', 'Xóa thành công');
             }
             else {

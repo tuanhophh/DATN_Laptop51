@@ -126,7 +126,7 @@
       @enderror</small>
     </div>
     <label for="">Email</label>
-    <input type="text" class="form-control " value="{{ $booking_detail->email }}" name="email" id=""
+    <input type="text" class="form-control " value="{{ $booking_detail->booking->email }}" name="email" id=""
       aria-describedby="helpId" placeholder="">
     @error('email')
     <small id="helpId" class="form-text text-danger">{{ $message }}</small>
@@ -134,26 +134,7 @@
   </div>
 
 
-  <div class="col-4">
-    <label for="">Nơi sửa</label> <br>
 
-    <div class="form-check form-check-inline">
-      <label class="form-check-label">
-        <input class="form-check-input" type="radio" name="repair_type" @if ($booking_detail->repair_type=='CH')
-        checked
-        @endif checked id="" value="CH"> Cửa hàng
-      </label>
-      <label class="form-check-label">
-        <input class="form-check-input" type="radio" name="repair_type" @if ($booking_detail->repair_type=='TN')
-        checked
-        @endif value="TN"> Tại nhà
-      </label>
-
-    </div>
-    @error('repair_type')
-    <small id="helpId" class="form-text text-danger">{{ $message }}</small>
-    @enderror</small>
-  </div>
   <div class="col-4">
     <div class="form-group">
       <label for="">Thời gian</label>
@@ -190,11 +171,11 @@
         <label for="">Tên máy tính</label>
         <input type="text" class="form-control" name="name_computer" value="{{ $booking_detail->name_computer }}" id=""
           aria-describedby="" placeholder="">
-        <small id="" class="form-text text-muted">Help text</small>
+        {{-- <small id="" class="form-text text-muted">Help text</small> --}}
       </div>
       <div class="col-4">
         <div class="form-group">
-          <label for="">Loại máy tính</label>
+          <label for="">Hãng máy tính</label>
 
           <select class="form-control" name="company_computer_id" id="">
             @foreach ($computers as $item)
@@ -214,7 +195,7 @@
         rows="3">{{ $booking_detail->description }}</textarea>
     </div>
   </div>
-  <button onclick="AddForm()" type="button" id="btn_themmay">Thêm máy</button>
+  {{-- <button onclick="AddForm()" type="button" id="btn_themmay">Thêm máy</button> --}}
   <input name="" id="" class="btn btn-primary" type="submit" value="Lưu  ">
 
 </form>

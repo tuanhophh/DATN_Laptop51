@@ -21,5 +21,9 @@ class Bill extends Model
     {
         return $this->belongsTo(BillDetail::class, 'user_id');
     }
+    /**
+     * Get the booking associated with the Bill
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
 }
-

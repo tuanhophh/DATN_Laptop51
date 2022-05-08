@@ -17,8 +17,9 @@ class CreateBillRepairsTable extends Migration
             $table->id();
             $table->string('code_bill')->nullable();
             $table->integer('booking_detail_id')->nullable();
-            $table->dateTime('date')->nullable();
             $table->bigInteger('sum_price')->nullable();
+            $table->dateTime('date')->nullable();
+
             $table->bigInteger('customers_pay')->comment(' khách hàng trả tiền')->nullable();
             $table->bigInteger('excess_cash')->comment(' tiền thừa')->nullable();
 
