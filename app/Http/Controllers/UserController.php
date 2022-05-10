@@ -34,7 +34,7 @@ class UserController extends Controller
             'address' => ['required','string','min:3','max:50'],
             'email' => ['required','email','unique:users'],
             'id_role' => ['required'],
-            'password' => ['required', 'string','min:8','max:50']
+            // 'password' => ['required', 'string','min:8','max:50']
         ],
             [
                 'name.required' => 'Vui lòng nhập họ và tên',
@@ -53,10 +53,10 @@ class UserController extends Controller
                 'address.string' => 'Địa chỉ phải là chuỗi ký tự',
                 'address.min' => 'Địa chỉ có độ dài lớn hơn 3 kí tự',
                 'address.max' => 'Địa chỉ có độ dài nhỏ hơn 50 kí tự',
-                'password.required' => 'Vui lòng nhập mật khẩu',
-                'password.string' => 'Mật khẩu phải là chuỗi',
-                'password.min' => 'Mật khẩu phải lớn hơn 8 kí tự',
-                'password.max' => 'Mật khẩu phải nhỏ hơn 50 kí tự',
+                // 'password.required' => 'Vui lòng nhập mật khẩu',
+                // 'password.string' => 'Mật khẩu phải là chuỗi',
+                // 'password.min' => 'Mật khẩu phải lớn hơn 8 kí tự',
+                // 'password.max' => 'Mật khẩu phải nhỏ hơn 50 kí tự',
                 
             ]);
         try{
@@ -114,13 +114,14 @@ class UserController extends Controller
     }
     public function saveEdit(Request $request,$id)
     {   
+        // dd($request->all());
         $request->validate([
             'name' => ['required','string','min:3','max:25'],
-            'phone' => ['required', 'numeric','unique:users,phone'.$this->$id, 'regex:/^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/'],
+            'phone' => ['required', 'numeric','unique:users,phone,'.$id, 'regex:/^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/'],
             'address' => ['required','string','min:3','max:50'],
-            'email' => ['required','email','unique:users,email,'.$this->$id],
+            'email' => ['required','email','unique:users,email,'.$id],
             'id_role' => ['required'],
-            'password' => ['required', 'string','min:8','max:50']
+            // 'password' => ['required', 'string','min:8','max:50']
         ],
             [
                 'name.required' => 'Vui lòng nhập họ và tên',
@@ -139,10 +140,10 @@ class UserController extends Controller
                 'address.string' => 'Địa chỉ phải là chuỗi ký tự',
                 'address.min' => 'Địa chỉ có độ dài lớn hơn 3 kí tự',
                 'address.max' => 'Địa chỉ có độ dài nhỏ hơn 50 kí tự',
-                'password.required' => 'Vui lòng nhập mật khẩu',
-                'password.string' => 'Mật khẩu phải là chuỗi',
-                'password.min' => 'Mật khẩu phải lớn hơn 8 kí tự',
-                'password.max' => 'Mật khẩu phải nhỏ hơn 50 kí tự',
+                // 'password.required' => 'Vui lòng nhập mật khẩu',
+                // 'password.string' => 'Mật khẩu phải là chuỗi',
+                // 'password.min' => 'Mật khẩu phải lớn hơn 8 kí tự',
+                // 'password.max' => 'Mật khẩu phải nhỏ hơn 50 kí tự',
                 
             ]);
         try{
@@ -158,7 +159,7 @@ class UserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
-                'password' => Hash::make($request->password),
+                // 'password' => Hash::make(12345678),
                 'address' => $request->address,
                 'id_role' => $user_id_role,
                 'description' => $request->description,
