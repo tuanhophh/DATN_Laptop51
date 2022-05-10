@@ -28,10 +28,16 @@ $(function() {
                 <div class="form-group">
                     <label for="">Tên vai trò</label>
                     <input type="text" name="name" class="form-control" value="{{old('name')}}" placeholder="">
+                    @error('name')
+                            <p class="text-danger">{{ $message }}</p>
+                            @enderror
                 </div>
                 <div class="form-group">
                 <label for="">Mô tả vai trò</label>
                     <textarea class="form-control" name="display_name" rows="4">{{ old('display_name') }}</textarea>
+                    @error('display_name')
+                            <p class="text-danger">{{ $message }}</p>
+                            @enderror
                 </div>
             </div>
             <div class="col-12">

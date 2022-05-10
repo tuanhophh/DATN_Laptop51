@@ -5,7 +5,7 @@
 
 <head>
 
-    <title>Bệnh Viện Laptop 51</title>
+    <title>Trang chủ</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
 
@@ -13,9 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     @include('layout_client.style')
 
-
 </head>
-
 <body>
     <div class="wrapper">
         @include('layout_client.menu')
@@ -288,7 +286,6 @@
 
     </div>
     @include('layout_client.script')
-
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">

@@ -26,22 +26,15 @@ class AuthController extends Controller
         }
         return view('auth.register');
     }
+    
+    // Tạo user
     protected function create(RegisterRequest $request)
-    {
+    {   
+        // Tạo mã xác minh
         $pool = '0123456789';
         $code_verify = substr(str_shuffle(str_repeat($pool, 2)), 0, 6);
-        $data['name'] = $request->name;
-        $data['phone'] = $request->phone;
-        $data['password'] = $request->password;
         $phoneSend['phone'] = '+84' . $request->phone;
         /* Get credentials from .env */
-        // $token = getenv("TWILIO_AUTH_TOKEN");
-        // $twilio_sid = getenv("TWILIO_SID");
-        // $twilio_number = getenv("TWILIO_NUMBER");
-        // $twilio = new Client($twilio_sid, $token);
-        // $twilio->verify->v2->services($twilio_verify_sid)
-        //     ->verifications
-        //     ->create($phoneSend['phone'], "sms");
         $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
         $token = getenv("TWILIO_AUTH_TOKEN");
         $twilio_sid = getenv("TWILIO_SID");
@@ -54,7 +47,7 @@ class AuthController extends Controller
                 'body' => 'Ma xac minh cua ban la: '. $code_verify,
             )
             );
-            // Tạo mã xác minh
+            // Insert mã xác minh
         DB::table('code_verify')->insert([
                 'code_verify' => $code_verify,
                 'phone_number' => $request->phone,
@@ -62,12 +55,12 @@ class AuthController extends Controller
                 'time_request' => 0,
                 'created_at' => Carbon::now(),
             ]);
-
             // Tạo tài khoản người dùng
         $user = User::create([
-            'name' => $data['name'],
-            'phone' => $data['phone'],
-            'password' => Hash::make($data['password']),
+            'name' =>  $request->name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
             'id_role' => 0,
         ]);
         auth()->login($user);
@@ -76,6 +69,7 @@ class AuthController extends Controller
         return redirect()->route('verify');
     }
 
+    //  Gửi lại mã 
     protected function resendVerify(ResendVerifyRequest $request)
     {   
         session()->put('phone_verify', $request->phone);
@@ -149,7 +143,7 @@ class AuthController extends Controller
             $actual_end_at = Carbon::parse(Carbon::now());
             $actual_start_at   = Carbon::parse($code_verify->created_at);
             $mins = $actual_end_at->diffInMinutes($actual_start_at, true);
-            if($code_verify->time_request >= 10 || $mins >= 10 || $code_verify->status == 1){
+            if($code_verify->time_request >= 5 || $mins >= 5 || $code_verify->status != 0){
                 $update_code_verify = DB::table('code_verify')
                 ->where('phone_number', $request->phone)
                 ->orderBy('created_at','DESC')

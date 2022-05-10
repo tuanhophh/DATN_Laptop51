@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use App\Rules\Throttle;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -157,15 +158,18 @@ class LoginController extends Controller
     }
     protected function sendLoginOtp(Request $request)
     {
-        // dd($request->phone);
         $request->validate([
-            'phone' => ['required', 'numeric', 'regex:/^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/'],
+            'phone' => ['required', 
+                        'numeric',
+                        'regex:/^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/',
+                        new Throttle('resend', $maxAttempts = 1, $minutes = 5),
+                    ],
         ],
-            [
-                'phone.required' => 'Yêu cầu nhập số điện thoại',
-                'phone.numeric' => 'Số điện thoại phải là số',
-                'phone.regex' => 'Số điện thoại phải thuộc đầu số Việt Nam',
-            ]);        
+        [
+            'phone.required' => 'Yêu cầu nhập số điện thoại',
+            'phone.numeric' => 'Số điện thoại phải là số',
+            'phone.regex' => 'Số điện thoại phải thuộc đầu số Việt Nam',
+        ]);        
         $phone_check = User::where('phone', $request->phone)->get()->first();
         if ($phone_check != null) {
             $data['phone'] = $request->phone;
@@ -185,7 +189,7 @@ class LoginController extends Controller
                     'body' => 'Ma dang nhap cua ban la: '. $code_verify,
                 )
                 );
-                // Tạo mã xác minh
+                // Insert mã vào db
             DB::table('code_verify')->insert([
                     'code_verify' => $code_verify,
                     'phone_number' => $request->phone,
@@ -206,10 +210,10 @@ class LoginController extends Controller
                     'id_role' => 0,
                 ]);
             }
-            /* Get credentials from .env */
             $pool = '0123456789';
             $code_verify = substr(str_shuffle(str_repeat($pool, 2)), 0, 6);
             /* Get credentials from .env */
+            // Gửi mã xác minh
             $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
             $token = getenv("TWILIO_AUTH_TOKEN");
             $twilio_sid = getenv("TWILIO_SID");
@@ -222,7 +226,7 @@ class LoginController extends Controller
                     'body' => 'Ma dang nhap cua ban la: '. $code_verify,
                 )
                 );
-                // Tạo mã xác minh
+            // Insert mã vào db
             DB::table('code_verify')->insert([
                     'code_verify' => $code_verify,
                     'phone_number' => $request->phone,
@@ -230,13 +234,6 @@ class LoginController extends Controller
                     'time_request' => 0,
                     'created_at' => Carbon::now(),
                 ]);
-            // $token = getenv("TWILIO_AUTH_TOKEN");
-            // $twilio_sid = getenv("TWILIO_SID");
-            // $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
-            // $twilio = new Client($twilio_sid, $token);
-            // $twilio->verify->v2->services($twilio_verify_sid)
-            //     ->verifications
-            //     ->create($phoneSend['phone'], "sms");
             session()->put('login_phone_otp', $request->phone);
             Toastr::success('Đã gửi mã đăng nhập về số điện thoại', 'Thành công');
             return back();
@@ -288,7 +285,7 @@ class LoginController extends Controller
             $actual_end_at = Carbon::parse(Carbon::now());
             $actual_start_at   = Carbon::parse($code_verify->created_at);
             $mins = $actual_end_at->diffInMinutes($actual_start_at, true);
-            if($code_verify->time_request >= 10 || $mins >= 10 || $code_verify->status == 1){
+            if($code_verify->time_request >= 5 || $mins >= 5 || $code_verify->status == 1){
                 $update_code_verify = DB::table('code_verify')
                 ->where('phone_number', $request->phone)
                 ->orderBy('created_at','DESC')
@@ -308,8 +305,6 @@ class LoginController extends Controller
         Toastr::error('Mã xác minh không đúng', 'Thất bại');
         return redirect()->route('login.otp');
 
-    }
-
-    
+    }    
 
 }

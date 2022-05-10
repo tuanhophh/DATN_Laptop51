@@ -5,7 +5,7 @@
 
 <head>
 
-    <title>Bệnh Viện Laptop 51</title>
+    <title>Chi tiết sản phẩm</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
 
@@ -233,13 +233,6 @@ if (!function_exists('currency_format')) {
                             </div>
                         </div>
                         <div class="col-lg-3">
-                            <!-- widget-search -->
-                            <aside class="widget-search mb-30">
-                                <form action="#">
-                                    <input type="text" placeholder="Tìm kiếm...">
-                                    <button type="submit"><i class="zmdi zmdi-search"></i></button>
-                                </form>
-                            </aside>
                             <!-- widget-categories -->
                             <aside class="widget widget-categories box-shadow mb-30">
                                 <h6 class="widget-title border-left mb-20">Danh mục</h6>
@@ -263,15 +256,15 @@ if (!function_exists('currency_format')) {
                                 @foreach($product_hot_sell as $products_hot)
                                 <?php
 
-if (!function_exists('currency_format')) {
-    function currency_format($products_hot, $suffix = ' VNĐ')
-    {
-        if (!empty($products_hot)) {
-            return number_format($products_hot, 0, ',', '.') . "{$suffix}";
-        }
-    }
-}
-?>
+                                    if (!function_exists('currency_format')) {
+                                        function currency_format($products_hot, $suffix = ' VNĐ')
+                                        {
+                                            if (!empty($products_hot)) {
+                                                return number_format($products_hot, 0, ',', '.') . "{$suffix}";
+                                            }
+                                        }
+                                    }
+                                    ?>
 
                                 <div class="product-item">
                                     <div class="product-img">

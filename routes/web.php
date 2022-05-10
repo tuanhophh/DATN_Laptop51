@@ -57,7 +57,6 @@ Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPa
 Route::get('reset-password', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 Route::post('insert-password', [ForgotPasswordController::class, 'insertResetPasswordForm'])->name('insert.password.post');
-Auth::routes(['register' => false]);
 
 //  Giỏ hàng
 Route::post('save-cart', [CartController::class, 'saveCart'])->middleware(['auth','phoneverify']);
@@ -96,22 +95,6 @@ Route::get('cua-hang/product/{name}', [HomeController::class, 'seachproduct']);
 // trang giới thiệu
 Route::get('gioi-thieu', function () {
     return view('website.gioi-thieu');
-});
-//Dịch vụ
-Route::get('sua-laptop-lay-ngay-1h', function () {
-    return view('website.dv-sua-1h');
-});
-Route::get('sua-laptop-tai-nha-hoac-van-phong', function () {
-    return view('website.dv-sua-tai-nha');
-});
-Route::get('thay-the-va-nang-cap-phan-cung', function () {
-    return view('website.dv-thay-or-nang-cap');
-});
-Route::get('cai-dat-phan-mem-ban-quyen', function () {
-    return view('website.dv-cai-dat-phan-mem');
-});
-Route::get('dich-vu-cho-macbook', function () {
-    return view('website.dv-macbook');
 });
 // trang đặt lịch
 Route::get('dat-lich', function () {

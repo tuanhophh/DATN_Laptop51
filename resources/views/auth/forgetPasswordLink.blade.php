@@ -18,63 +18,62 @@
 <body>
 
     @include('layout_client.menu')
-    <div class="breadcrumbs-section plr-200 mb-80 section">
-        <div class="breadcrumbs overlay-bg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="breadcrumbs-inner">
-                            <h1 class="breadcrumbs-title">Quên mật khẩu</h1>
-                            <ul class="breadcrumb-list">
-                                <li><a href="/">Trang chủ</a></li>
-                                <li>Quên mật khẩu</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="login-section mb-80">
+    <h1 style="padding: 55px 0 55px;" class="breadcrumbs-title">Quên mật khẩu</h1>
+    <div class="login-section">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-6 pb-5">
-                   
                     <div class="registered-customers">
                         @if (Session::has('message'))
                         <div class="alert alert-success" role="alert">
                             {{ Session::get('message') }}
                         </div>
                         @endif
+                        @if($code_verify->status == 1)
                         <form method="POST" action="{{route('insert.password.post')}}">
                             @csrf
                             <div class="login-account p-30 box-shadow">
-                                <input type="password" name="password" placeholder="Mật khẩu" class="mb-0 mt-4">
+                                <input type="password" name="password" placeholder="Mật khẩu"
+                                    class="mb-0 mt-4 upassword">
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
-                                <input type="password" name="password_confirmation" placeholder="Nhập lại mật khẩu" class="mb-0 mt-4">
+                                <input type="password" name="password_confirmation" placeholder="Nhập lại mật khẩu"
+                                    class="mb-0 mt-4 upassword">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-inline">
+                                        <input type="checkbox" id="show-password">
+                                        <small for="show-password">Hiện mật khẩu</small>
+                                        <button class="submit-btn-1 mt-20 btn-hover-1 f-right button" type="submit"
                                             value="Đổi mật khẩu">Đổi mật khẩu</button>
                                     </div>
-                                    <!-- <div class="col-md-6">
-                                        <button class="submit-btn-1 mt-20 btn-hover-1 f-right"
-                                            type="reset">Clear</button>
-                                    </div> -->
                                 </div>
                             </div>
                         </form>
+
+                        
+                        @else
+                        <h5 class="text-center">Bạn đã đổi mật khẩu, <a href="/home">vui lòng nhấn vào đây </a>để quay lại trang chủ</h5>
+                        @endif
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @include('layout_client.footer')
     @include('layout_client.script')
+    <script>
+    if (window.performance.navigation.type === 2) {
+        location.reload();
+    }
+    </script>
 </body>
-</html>
 
+</html>
