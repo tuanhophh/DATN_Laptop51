@@ -50,11 +50,13 @@ class HomeController extends Controller
             ->join('bill_details', 'bill_details.product_id', '=', 'products.id')
             ->groupBy('products.id')
             ->get();
+            $images_product_list = DB::table('product_images')->get();
         $ComputerCompany = ComputerCompany::all();
         $productNew = Product::where('status', 1)->orderBy('id', 'DESC')->paginate(10);
         $images = DB::table('product_images')->get();
+        
         // $product_hot_sell =
-        return view('website.product', compact( 'ComputerCompany', 'productNew', 'images', 'product_hot_sell'));
+        return view('website.product', compact( 'ComputerCompany', 'productNew', 'images', 'product_hot_sell','images_product_list'));
     }
     public function detail($slug)
     {   
@@ -91,6 +93,12 @@ class HomeController extends Controller
         $products = Product::where('companyComputer_id', $id)->get();
         $ComputerCompany = ComputerCompany::all();
         $images = DB::table('product_images')->get();
+        $product_hot_sell = Product::select('bill_details.*', 'products.*', DB::raw('SUM(bill_details.qty) As total'))
+        ->join('bill_details', 'bill_details.product_id', '=', 'products.id')
+        ->groupBy('products.id')
+        ->get()
+        ->take(6);
+        $images_product_list = DB::table('product_images')->get();
         // dd($ComputerCompany = ComputerCompany::find($id)->first());
         // $comPany = ComputerCompany::where('companyComputer_id',$companyComputer_id)->get();
         // $ComputerCompany = ComputerCompany::where('id',$id)->get();
@@ -101,7 +109,7 @@ class HomeController extends Controller
         }
         return view(
             'website.product-category',
-            compact('products', 'ComputerCompany', 'images','id')
+            compact('products', 'ComputerCompany', 'images','id','product_hot_sell','images_product_list')
         );
     }
     public function seachproduct($name)

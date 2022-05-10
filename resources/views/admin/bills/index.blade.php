@@ -62,7 +62,7 @@
                                     tiết</a>
                                 @endcan
                                 @can('edit-bill')
-                                @if($item->payment_status != 2)
+                                @if($item->status != 0)
                                 <a href="{{ route('bill.edit', ['id' => $item->id]) }}"
                                     class="btn btn-sm btn-warning">Sửa</a>
                                 @endif

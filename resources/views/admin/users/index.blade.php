@@ -54,7 +54,7 @@
                                     Người dùng
                                 @else
                                 @foreach($item->roles as $role)
-                                 {{$role->name}}
+                                 {{$role->name}},
                                  @endforeach
                                 @endif
                             </td>

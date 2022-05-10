@@ -8,7 +8,6 @@
     <title>Bệnh Viện Laptop 51</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
-
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     @include('layout_client.style')
@@ -18,69 +17,51 @@
 <body>
 
     @include('layout_client.menu')
-    <h1 style="padding: 55px 0 55px;" class="breadcrumbs-title">Xác thực tài khoản</h1>
+    <h1 style="padding: 55px 0 55px;" class="breadcrumbs-title">Đăng nhập OTP</h1>
     <div class="login-section">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6  pb-5">
                     <div class="registered-customers">
+
                         @if (Session::has('message'))
                         <div class="alert alert-success" role="alert">
                             {{ Session::get('message') }}
                         </div>
                         @endif
-                        @if (session('error'))
-                        <div class="alert alert-danger" role="alert">
-                            {{session('error')}}
-                        </div>
-                        @endif
                         <div class="login-account p-30 box-shadow">
-                            @if(!Auth::check())
-                            <p>Bạn đã có tài khoản? <a href="/login"> Nhấp vào đây để đăng nhập!</a></p>
-                            @endif
-                            <form method="POST" action="{{route('resend.verify')}}">
+                            <p>Bạn chưa có tài khoản? <a href="/register"> Nhấp vào đây để đăng ký!</a></p>
+                            <!-- <p>Bạn đã có tài khoản? <a href="/login"> Nhấp vào đây để đăng nhập!</a></p> -->
+
+                            <form method="POST" action="{{route('login.otp')}}">
                                 @csrf
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <input type="text" id="slug" @if(Auth::check()) @endif onkeyup="ChangeToSlug()"
-                                            class="@error('phone') is-invalid @enderror mb-0 mt-4"
-                                            value=@if(Auth::check()) {{Auth::user()->phone}}
-                                            @elseif(session()->has('phone_verify'))
-                                        "{{session()->get('phone_verify')}}"
-                                        "{{ old('phone') }}"
-                                        @endif
-                                        name="phone" placeholder="Số điện thoại">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button class="submit-btn-1 btn-hover-1 mb-0 mt-4" type="submit">Gửi lại
-                                            mã</button>
-                                    </div>
-                                </div>
-                            </form>
-                            @error('phone')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                            <form method="POST" action="{{route('verify')}}">
-                                @csrf
-                                <input id="convert_slug" type="hidden"
-                                    class="@error('phone') is-invalid @enderror mb-0 mt-4" value=@if(Auth::check())
-                                    {{Auth::user()->phone}} @elseif(session()->has('phone_verify'))
-                                "{{session()->get('phone_verify')}}"
+                                <input type="hidden" class="@error('phone') is-invalid @enderror mb-0 mt-4"
+                                    value=@if(session()->has('phone'))
+                                "{{session()->get('phone')}}"
+                                @else
                                 "{{ old('phone') }}"
                                 @endif
                                 name="phone" placeholder="Số điện thoại">
-                                <input type="text" name="verification_code" class="mb-0 mt-4" placeholder="Mã">
-                                @error('verification_code')
+                                <input type="text" name="phone_otp" class="mb-0 mt-4" placeholder="Mã">
+                                <p><small>Nhập mã rồi nhấn gửi</small></p>
+                                @error('phone')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
-                                <p><small>Nhập số điện thoại rồi nhấn gửi mã</small></p>
+                                @error('phone_otp')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                                 <div class="row">
+
                                     <div class="col-md-6">
-                                        <button class="submit-btn-1 btn-hover-1" type="submit">Xác minh</button>
+                                       
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button class="submit-btn-1 btn-hover-1 f-right" type="submit">Đăng nhập</button>
+                                    <p class="btn btn-hover-1 submit-btn-1 windown-back" onclick="windownBack()" type="reset">Quay lại</p>
                                     </div>
                                 </div>
                             </form>
@@ -97,7 +78,7 @@
     <script type="text/javascript">
     function ChangeToSlug() {
         var slug;
-        //Lấy text từ thẻ input title 
+        //Lấy text từ thẻ input title
         slug = document.getElementById("slug").value;
         slug = slug.toLowerCase();
         //Đổi ký tự có dấu thành không dấu
@@ -129,7 +110,13 @@
     if (window.performance.navigation.type === 2) {
         location.reload();
     }
+
     </script>
+    <script>
+function windownBack() {
+  window.history.back();
+}
+</script>
 </body>
 
 </html>

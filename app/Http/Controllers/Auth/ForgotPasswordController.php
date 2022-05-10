@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 // use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use App\Models\User;
+use App\Rules\Throttle;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Twilio\Rest\Client;
@@ -34,9 +35,6 @@ class ForgotPasswordController extends Controller
      */
     public function showForgetPasswordForm()
     {   
-        if(Auth::check()){
-            return redirect()->route('home');
-        }
         return view('auth.forgetPassword');
     }
 
@@ -48,12 +46,20 @@ class ForgotPasswordController extends Controller
     public function submitForgetPasswordForm(Request $request)
     {      
         $request->validate([
-            'phone' => ['required', 'numeric', 'regex:/^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/'],
+            'phone' => ['required',
+             'numeric', 
+             'regex:/^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/',
+             new Throttle('resend', $maxAttempts = 1, $minutes = 1),
+             
+            ],
+            'g-recaptcha-response' => ['required', new \App\Rules\ValidRecaptcha]
         ],
         [
                 'phone.required' => 'Yêu cầu nhập số điện thoại',
                 'phone.numeric' => 'Số điện thoại phải là số',
                 'phone.regex' => 'Số điện thoại phải thuộc đầu số Việt Nam',
+                'g-recaptcha-response.required' => 'Yêu cầu xác thực captcha',
+
         ]);
             $user_phone = User::where('phone',$request->phone)->get()->first;
             if($user_phone == NULL){
@@ -87,70 +93,28 @@ class ForgotPasswordController extends Controller
                     'time_request' => 0,
                     'created_at' => Carbon::now(),
                 ]);
-    
-            // dd($request->all());
-        // if ($verification->valid) {
-        //     $user = tap(User::where('phone', $data['phone']))->update(['isVerified' => true]);
-
-        //   DB::table('password_resets')->insert([
-        //       'phone' => $request->email,
-        //       'token' => $token,
-        //       'created_at' => Carbon::now()
-        //     ]);
-        session()->put('phone_number',$request->phone);
+            if(Auth::check()){
+                if(session()->has('phone')){
+                    if(session()->get('phone') != $request->phone)
+                    Auth::logout();
+                }
+            }
+        session()->put('code_verify',$code_verify);
+        session()->put('phone',$request->phone);
         Toastr::success('Gửi mã về số điện thoại', 'Thành công');
-        return back()->with('message', 'Gửi mã thành công');
-    }
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
-    public function showResetPasswordForm(Request $request)
-    {   
-        if(session()->has('phone')){
-            return view('auth.forgetPasswordLink');
-        }elseif(Auth::check()){
-            return redirect()->route('home');
-        }
-        return redirect()->route('login');
+        return redirect()->route('forget.password.code');
     }
 
-    public function insertResetPasswordForm(Request $request)
-    {   
-        // dd($request->all());
-        
-        if(session()->has('phone')){
-            $request->validate([
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
-            ],
-            [
-                'password.required' => 'Yêu cầu nhập mật khẩu',
-                'password.string' => 'Mật khẩu phải là chuỗi ký tự',
-                'password.min' => 'Mật khẩu không được nhỏ hơn 8 kí tự',
-                'password.confirmed' => 'Mật khẩu không trùng vui lòng nhập lại',
-            ]);
-           $phone = session()->get('phone');
-           $update_password = User::where('phone',$phone)->get()->first();
-           $update_password->password = Hash::make($request->password);
-           $update_password->save();
-           session()->forget('phone');
-        }else{
-            return redirect()->route('login');
-        }
-
-        Toastr::success('Đổi mật khẩu thành công', 'Thành công');
-        return redirect()->route('login');
+    
+    public function showForgetPasswordCodeForm()
+    {
+        return view('auth.forgetPasswordCode');
     }
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
+
     public function submitResetPasswordForm(Request $request)
     {   
         
-        session()->put('phone_number',$request->phone);
+        session()->put('phone',$request->phone);
         $data = $request->validate([
             'code_verify' => ['required', 'numeric'],
             'phone' => ['required', 'numeric'],
@@ -167,7 +131,7 @@ class ForgotPasswordController extends Controller
             Toastr::error('Không tìm thấy số điện thoại', 'Thất bại');
         }
         $code_verify = DB::table('code_verify')->where('phone_number',$request->phone)->orderBy('created_at','DESC')->first();
-        $phoneSend['phone'] = '+84'. session()->get('phone_number');
+        $phoneSend['phone'] = '+84'. session()->get('phone');
         // dd($request->phone);
         if ($request->code_verify == $code_verify->code_verify && $request->phone == $code_verify->phone_number && $code_verify->status == 0) {
             $user = tap(User::where('phone', $request->phone))
@@ -178,18 +142,22 @@ class ForgotPasswordController extends Controller
             ->where('phone_number', $request->phone)
             ->orderBy('created_at','DESC')
             ->limit(1)
-            ->update(['status' => 1]);
-            session()->forget('phone_number');
+            ->update([
+                'status' => 0,
+                ]);
+            // session()->forget('phone_number');
             session()->put(['phone' => $request->phone]);
+            session()->put('code_verify',$request->code_verify);
+            
             Toastr::success('Xác minh số điện thoại thành công, vui lòng đổi mật khẩu', 'Thành công');
-            return view('auth.forgetPasswordLink');
+            return redirect()->route('reset.password.get'); 
         }
         
         elseif($request->phone == $code_verify->phone_number){
             $actual_end_at = Carbon::parse(Carbon::now());
             $actual_start_at   = Carbon::parse($code_verify->created_at);
             $mins = $actual_end_at->diffInMinutes($actual_start_at, true);
-            if($code_verify->time_request >= 10 || $mins >= 20 || $code_verify->status == 1){
+            if($code_verify->time_request >= 5 || $mins >= 5 || $code_verify->status == 1){
                 $update_code_verify = DB::table('code_verify')
                 ->where('phone_number', $request->phone)
                 ->orderBy('created_at','DESC')
@@ -208,5 +176,51 @@ class ForgotPasswordController extends Controller
         }
         Toastr::error('Mã xác minh không đúng', 'Thất bại');
         return back()->with(['phone' => $data['phone']]);
+    }
+
+    public function showResetPasswordForm(Request $request)
+    {   
+        if(session()->has('phone') && session()->has('code_verify')){
+            $phone = session()->get('phone');
+            $code_verify = DB::table('code_verify')->where('phone_number',$phone)->orderBy('created_at','DESC')->first();
+            return view('auth.forgetPasswordLink',compact('code_verify')); 
+        }elseif(Auth::check()){
+            return redirect()->route('home');
+        }
+        return redirect()->route('login');
+    }
+
+    public function insertResetPasswordForm(Request $request)
+    {   
+        if(session()->has('phone') && session()->has('code_verify')){
+            $request->validate([
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ],
+            [
+                'password.required' => 'Yêu cầu nhập mật khẩu',
+                'password.string' => 'Mật khẩu phải là chuỗi ký tự',
+                'password.min' => 'Mật khẩu không được nhỏ hơn 8 kí tự',
+                'password.confirmed' => 'Mật khẩu không trùng vui lòng nhập lại',
+            ]);
+            $phone = session()->get('phone');
+            $update_password = User::where('phone',$phone)->get()->first();
+            Auth::login($update_password);
+            $update_code_verify = DB::table('code_verify')
+            ->where('phone_number',$phone)
+            ->orderBy('created_at','DESC')
+            ->take(1)
+            ->update([
+                'status' => 2,
+            ]);
+            $update_password->password = Hash::make($request->password);
+            $update_password->save();
+        }else{
+            return redirect()->route('login');
+        }
+        Toastr::success('Đổi mật khẩu thành công', 'Thành công');
+        if($update_password->id_role == 1){
+            return redirect()->route('admin.dashboard');
+        }
+        return redirect()->route('home');
     }
 }

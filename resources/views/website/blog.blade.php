@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bệnh Viện Laptop 51</title>
+    <title>Tin tức</title>
 				<meta name="keywords" content="" />
 				<meta name="description" content="" />		
 
