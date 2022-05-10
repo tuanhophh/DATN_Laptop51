@@ -29,7 +29,7 @@
                             {{ Session::get('message') }}
                         </div>
                         @endif
-                        @if($code_verify->status == 1)
+                        @if($code_verify->status == 0)
                         <form method="POST" action="{{route('insert.password.post')}}">
                             @csrf
                             <div class="login-account p-30 box-shadow">
@@ -57,10 +57,8 @@
                                 </div>
                             </div>
                         </form>
-
-                        
                         @else
-                        <h5 class="text-center">Bạn đã đổi mật khẩu, <a href="/home">vui lòng nhấn vào đây </a>để quay lại trang chủ</h5>
+                        <h5 class="text-center">Bạn đã đổi mật khẩu, vui lòng<a style="color: #ff7f00;" href="/home"> nhấn vào đây </a>để quay lại trang chủ</h5>
                         @endif
 
                     </div>

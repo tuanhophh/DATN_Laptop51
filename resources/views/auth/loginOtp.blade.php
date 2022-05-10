@@ -33,7 +33,42 @@
 
                         <div class="login-account p-30 box-shadow">
                             <p>Bạn chưa có tài khoản? <a href="/register"> Nhấp vào đây để đăng ký!</a></p>
-                            <form method="POST" action="{{route('send.otp.login')}}">
+                            <form method="POST" action="{{route('send.otp.login')}}" form>
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <input type="text" name="phone" placeholder="Số điện thoại" id="slug"
+                                            onkeyup="ChangeToSlug()"
+                                            class="@error('phone_otp') is-invalid @enderror mb-0 mt-4"
+                                            value=@if(session()->has('phone'))
+                                        "{{session()->get('phone')}}"
+                                        @else
+                                        "{{ old('phone') }}"
+                                        @endif
+                                        >
+                                        @error('phone')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                        <!-- Google reCaptcha -->
+                                        <div class="g-recaptcha pt-4" id="feedback-recaptcha"
+                                            data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY')  }}"></div>
+                                        @error('g-recaptcha-response')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                        <!-- End Google reCaptcha -->
+                                        <p><small>Nhập số điện thoại và xác thực captcha</small></p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="submit-btn-1 btn-hover-1 mb-0 mt-4" type="submit">Gửi
+                                            mã</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- <form method="POST" action="{{route('send.otp.login')}}">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-9">
@@ -89,7 +124,7 @@
                                         <button class="submit-btn-1 btn-hover-1" type="submit">Đăng nhập</button>
                                     </div>
                                 </div>
-                            </form>
+                            </form> -->
                         </div>
                     </div>
                 </div>

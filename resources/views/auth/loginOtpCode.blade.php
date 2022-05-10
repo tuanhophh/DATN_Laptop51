@@ -8,7 +8,6 @@
     <title>Bệnh Viện Laptop 51</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
-
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     @include('layout_client.style')
@@ -18,7 +17,7 @@
 <body>
 
     @include('layout_client.menu')
-    <h1 style="padding: 55px 0 55px;" class="breadcrumbs-title">Quên mật khẩu</h1>
+    <h1 style="padding: 55px 0 55px;" class="breadcrumbs-title">Đăng nhập OTP</h1>
     <div class="login-section">
         <div class="container">
             <div class="row justify-content-center">
@@ -32,40 +31,37 @@
                         @endif
                         <div class="login-account p-30 box-shadow">
                             <p>Bạn chưa có tài khoản? <a href="/register"> Nhấp vào đây để đăng ký!</a></p>
-                            <p>Bạn đã có tài khoản? <a href="/login"> Nhấp vào đây để đăng nhập!</a></p>
+                            <!-- <p>Bạn đã có tài khoản? <a href="/login"> Nhấp vào đây để đăng nhập!</a></p> -->
 
-                            <form method="POST" action="{{route('forget.password.post')}}" form>
+                            <form method="POST" action="{{route('login.otp')}}">
                                 @csrf
+                                <input type="hidden" class="@error('phone') is-invalid @enderror mb-0 mt-4"
+                                    value=@if(session()->has('phone'))
+                                "{{session()->get('phone')}}"
+                                @else
+                                "{{ old('phone') }}"
+                                @endif
+                                name="phone" placeholder="Số điện thoại">
+                                <input type="text" name="phone_otp" class="mb-0 mt-4" placeholder="Mã">
+                                <p><small>Nhập mã rồi nhấn gửi</small></p>
+                                @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                                @error('phone_otp')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                                 <div class="row">
-                                    <div class="col-md-9">
-                                        <input type="text" name="phone" placeholder="Số điện thoại" id="slug"
-                                            onkeyup="ChangeToSlug()"
-                                            class="@error('phone_otp') is-invalid @enderror mb-0 mt-4"
-                                            value=@if(session()->has('phone'))
-                                        "{{session()->get('phone')}}"
-                                        @else
-                                        "{{ old('phone') }}"
-                                        @endif
-                                        >
-                                        @error('phone')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                        <!-- Google reCaptcha -->
-                                        <div class="g-recaptcha pt-4" id="feedback-recaptcha"
-                                            data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY')  }}"></div>
-                                        @error('g-recaptcha-response')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                        <!-- End Google reCaptcha -->
-                                        <p><small>Nhập số điện thoại và xác thực captcha</small></p>
+
+                                    <div class="col-md-6">
+                                       
                                     </div>
-                                    <div class="col-md-3">
-                                        <button class="submit-btn-1 btn-hover-1 mb-0 mt-4" type="submit">Gửi
-                                            mã</button>
+                                    <div class="col-md-6">
+                                        <button class="submit-btn-1 btn-hover-1 f-right" type="submit">Đăng nhập</button>
+                                    <p class="btn btn-hover-1 submit-btn-1 windown-back" onclick="windownBack()" type="reset">Quay lại</p>
                                     </div>
                                 </div>
                             </form>
@@ -114,7 +110,13 @@
     if (window.performance.navigation.type === 2) {
         location.reload();
     }
+
     </script>
+    <script>
+function windownBack() {
+  window.history.back();
+}
+</script>
 </body>
 
 </html>

@@ -48,14 +48,16 @@ Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::get('login-otp', [LoginController::class, 'showLoginOtp'])->name('show.login');
 Route::post('login-otp', [LoginController::class, 'sendLoginOtp'])->name('send.otp.login');
+Route::get('login-otp-code', [LoginController::class, 'showLoginOtpCode'])->name('login.otp.code');
 Route::post('send-login-otp', [LoginController::class, 'loginOtp'])->name('login.otp');
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 // //  Quên mật khẩu
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
-Route::get('reset-password', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::get('forget-password-code', [ForgotPasswordController::class, 'showForgetPasswordCodeForm'])->name('forget.password.code');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+Route::get('reset-password', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('insert-password', [ForgotPasswordController::class, 'insertResetPasswordForm'])->name('insert.password.post');
 
 //  Giỏ hàng

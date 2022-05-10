@@ -162,13 +162,16 @@ class LoginController extends Controller
             'phone' => ['required', 
                         'numeric',
                         'regex:/^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/',
-                        new Throttle('resend', $maxAttempts = 1, $minutes = 5),
+                        new Throttle('resend', $maxAttempts = 1, $minutes = 1),
+                        
                     ],
+            'g-recaptcha-response' => ['required', new \App\Rules\ValidRecaptcha]
         ],
         [
             'phone.required' => 'Yêu cầu nhập số điện thoại',
             'phone.numeric' => 'Số điện thoại phải là số',
             'phone.regex' => 'Số điện thoại phải thuộc đầu số Việt Nam',
+            'g-recaptcha-response.required' => 'Yêu cầu xác thực captcha',
         ]);        
         $phone_check = User::where('phone', $request->phone)->get()->first();
         if ($phone_check != null) {
@@ -197,9 +200,9 @@ class LoginController extends Controller
                     'time_request' => 0,
                     'created_at' => Carbon::now(),
                 ]);
-            session()->put('login_phone_otp', $request->phone);
-            Toastr::success('Đã gửi mã đăng nhập số điện thoại', 'Thành công');
-            return back();
+            session()->put('phone', $request->phone);
+            Toastr::success('Đã gửi mã đăng nhập về số điện thoại', 'Thành công');
+            return redirect()->route('login.otp.code');
         } else {
             $data['phone'] = $request->phone;
             $phoneSend['phone'] = '+84' . $request->phone;
@@ -234,14 +237,20 @@ class LoginController extends Controller
                     'time_request' => 0,
                     'created_at' => Carbon::now(),
                 ]);
-            session()->put('login_phone_otp', $request->phone);
+            session()->put('phone', $request->phone);
             Toastr::success('Đã gửi mã đăng nhập về số điện thoại', 'Thành công');
-            return back();
+            return redirect()->route('login.otp.code');
         }
     }
+
+    protected function showLoginOtpCode()
+    {
+        return view('auth.loginOtpCode');
+    }
+
     protected function loginOtp(Request $request)
     {   
-        session()->put('login_phone_otp', $request->phone);
+        session()->put('phone', $request->phone);
         $data = $request->validate([
             'phone_otp' => ['required', 'numeric'],
             'phone' => ['required', 'numeric', 'regex:/^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/'],
@@ -277,8 +286,11 @@ class LoginController extends Controller
             ->update(['status' => 1]);
             /* Authenticate user */
             Auth::login($user_id);
-            session()->forget('login_phone_otp');
+            // session()->forget('login_phone_otp');
             Toastr::success('Đăng nhập thành công', 'Thành công');
+            if($user_id->id_role == 1){
+                return redirect()->route('admin.dashboard');
+            }
             return redirect()->route('home');
         }
         elseif($request->phone == $code_verify->phone_number){

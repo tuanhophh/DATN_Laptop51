@@ -1,3 +1,4 @@
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <link rel="shortcut icon" type="image/x-icon" href="{{ asset('client') }}/img/logo/logo_sticky1.png">
    
 <!-- All CSS Files -->

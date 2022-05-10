@@ -49,12 +49,17 @@ class ForgotPasswordController extends Controller
             'phone' => ['required',
              'numeric', 
              'regex:/^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/',
-             new Throttle('resend', $maxAttempts = 1, $minutes = 5),],
+             new Throttle('resend', $maxAttempts = 1, $minutes = 1),
+             
+            ],
+            'g-recaptcha-response' => ['required', new \App\Rules\ValidRecaptcha]
         ],
         [
                 'phone.required' => 'Yêu cầu nhập số điện thoại',
                 'phone.numeric' => 'Số điện thoại phải là số',
                 'phone.regex' => 'Số điện thoại phải thuộc đầu số Việt Nam',
+                'g-recaptcha-response.required' => 'Yêu cầu xác thực captcha',
+
         ]);
             $user_phone = User::where('phone',$request->phone)->get()->first;
             if($user_phone == NULL){
@@ -97,7 +102,13 @@ class ForgotPasswordController extends Controller
         session()->put('code_verify',$code_verify);
         session()->put('phone',$request->phone);
         Toastr::success('Gửi mã về số điện thoại', 'Thành công');
-        return back()->with('message', 'Gửi mã thành công');
+        return redirect()->route('forget.password.code');
+    }
+
+    
+    public function showForgetPasswordCodeForm()
+    {
+        return view('auth.forgetPasswordCode');
     }
 
     public function submitResetPasswordForm(Request $request)
@@ -132,7 +143,7 @@ class ForgotPasswordController extends Controller
             ->orderBy('created_at','DESC')
             ->limit(1)
             ->update([
-                'status' => 1,
+                'status' => 0,
                 ]);
             // session()->forget('phone_number');
             session()->put(['phone' => $request->phone]);
@@ -207,6 +218,9 @@ class ForgotPasswordController extends Controller
             return redirect()->route('login');
         }
         Toastr::success('Đổi mật khẩu thành công', 'Thành công');
+        if($update_password->id_role == 1){
+            return redirect()->route('admin.dashboard');
+        }
         return redirect()->route('home');
     }
 }
