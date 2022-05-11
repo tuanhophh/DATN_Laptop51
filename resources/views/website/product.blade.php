@@ -97,15 +97,7 @@ if (!function_exists('currency_format')) {
                                 </div>
                                 <!-- Tab Content end -->
                                 <!-- shop-pagination start -->
-                                <ul class="shop-pagination box-shadow text-center ptblr-10-30">
-                                    <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
-                                    <li><a href="#">01</a></li>
-                                    <li><a href="#">02</a></li>
-                                    <li><a href="#">03</a></li>
-                                    <li><a href="#">...</a></li>
-                                    <li><a href="#">05</a></li>
-                                    <li class="active"><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
-                                </ul>
+                                {{ $productNew->links('vendor.pagination.customer') }}
                                 <!-- shop-pagination end -->
                             </div>
                         </div>
@@ -116,9 +108,16 @@ if (!function_exists('currency_format')) {
                                 <div id="cat-treeview" class="product-cat">
                                     <ul>
                                         <li class="open"><a href="#">Laptop</a>
-                                            <ul>
-                                                @foreach($ComputerCompany as $ComputerCom)
-                                                <li><a
+                                        <ul>
+                                            <li>
+                                                <a @if(session()->get('url_path') == "cua-hang") style="color:#ff7f00" @endif href="/cua-hang">
+                                                    Tất cả
+                                                </a>
+                                            </li>
+                                            @foreach($ComputerCompany as $ComputerCom)
+                                                <li><a class="" @if(session()->get('url_path') == "cua-hang/$ComputerCom->id")
+                                                        style="color:#ff7f00"
+                                                        @endif
                                                         href="/cua-hang/{{$ComputerCom->id}}">{{$ComputerCom->company_name}}</a>
                                                 </li>
                                                 @endforeach

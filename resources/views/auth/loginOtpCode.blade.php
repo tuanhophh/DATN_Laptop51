@@ -10,6 +10,12 @@
     <meta name="description" content="" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <script>
+    if (window.performance.navigation.type === 2) {
+        location.reload();
+    }
+
+    </script>
     @include('layout_client.style')
 
 </head>
@@ -71,6 +77,7 @@
             </div>
         </div>
     </div>
+
     @include('layout_client.script')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
@@ -106,17 +113,8 @@
         document.getElementById('convert_slug').value = slug;
     }
     </script>
-    <script>
-    if (window.performance.navigation.type === 2) {
-        location.reload();
-    }
 
-    </script>
-    <script>
-function windownBack() {
-  window.history.back();
-}
-</script>
+
 </body>
 
 </html>
