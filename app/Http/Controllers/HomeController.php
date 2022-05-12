@@ -46,13 +46,14 @@ class HomeController extends Controller
     public function show(Request $request)
     {   
         session()->put('url_path',FacadesRequest::path());
+        
         $product_hot_sell = Product::select('bill_details.*', 'products.*', DB::raw('SUM(bill_details.qty) As total'))
             ->join('bill_details', 'bill_details.product_id', '=', 'products.id')
             ->groupBy('products.id')
-            ->get();
+            ->get()->take(5);
             $images_product_list = DB::table('product_images')->get();
         $ComputerCompany = ComputerCompany::all();
-        $productNew = Product::where('status', 1)->orderBy('id', 'DESC')->paginate(10);
+        $productNew = Product::where('status', 1)->orderBy('id', 'DESC')->paginate(9);
         $images = DB::table('product_images')->get();
         
         // $product_hot_sell =
@@ -60,10 +61,8 @@ class HomeController extends Controller
     }
     public function detail($slug)
     {   
-        session()->put('url_path',FacadesRequest::path());
         $ComputerCompany = ComputerCompany::all();
         $pro = Product::where('slug', $slug)->first();
-        session()->put('url_path', $pro->slug);
         // dd($ComputerCompany);
         if (!$pro || !$ComputerCompany) {
             // $productNew = Product::where('status', 1)->orderBy('id', 'DESC')->get()->take(4);
@@ -71,6 +70,7 @@ class HomeController extends Controller
             // $images = DB::table('product_images')->get();
             return abort(404);
         }
+        session()->put('url_path',FacadesRequest::path());
         $product_hot_sell = Product::select('bill_details.*', 'products.*', DB::raw('SUM(bill_details.qty) As total'))
         ->join('bill_details', 'bill_details.product_id', '=', 'products.id')
         ->groupBy('products.id')
@@ -89,8 +89,7 @@ class HomeController extends Controller
     public function company($id)
 
     {   
-        session()->put('url_path',FacadesRequest::path());
-        $products = Product::where('companyComputer_id', $id)->get();
+        $products = Product::where('companyComputer_id', $id)->paginate(9);
         $ComputerCompany = ComputerCompany::all();
         $images = DB::table('product_images')->get();
         $product_hot_sell = Product::select('bill_details.*', 'products.*', DB::raw('SUM(bill_details.qty) As total'))
@@ -98,6 +97,7 @@ class HomeController extends Controller
         ->groupBy('products.id')
         ->get()
         ->take(6);
+        $productNew = Product::where('status', 1)->orderBy('id', 'DESC')->paginate(9);
         $images_product_list = DB::table('product_images')->get();
         // dd($ComputerCompany = ComputerCompany::find($id)->first());
         // $comPany = ComputerCompany::where('companyComputer_id',$companyComputer_id)->get();
@@ -107,9 +107,11 @@ class HomeController extends Controller
         if ($ComputerCompany == null) {
             return back()->with('error', 'Không tìm thấy danh mục sản phẩm');
         }
+        
+        session()->put('url_path',FacadesRequest::path());
         return view(
             'website.product-category',
-            compact('products', 'ComputerCompany', 'images','id','product_hot_sell','images_product_list')
+            compact('products', 'ComputerCompany', 'images','id','product_hot_sell','images_product_list','productNew')
         );
     }
     public function seachproduct($name)
@@ -119,6 +121,11 @@ class HomeController extends Controller
         $images = DB::table('product_images')->get();
         // dd($productNew);
         $products = Product::where('status', 1)->get();
-        return view('website.product', compact('products', 'ComputerCompany', 'productNew','images'));
+        $product_hot_sell = Product::select('bill_details.*', 'products.*', DB::raw('SUM(bill_details.qty) As total'))
+        ->join('bill_details', 'bill_details.product_id', '=', 'products.id')
+        ->groupBy('products.id')
+        ->get()->take(5);
+        $images_product_list = DB::table('product_images')->get();
+        return view('website.product', compact('products', 'ComputerCompany', 'productNew','images','product_hot_sell','images_product_list'));
     }
 }

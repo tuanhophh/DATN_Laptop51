@@ -9,6 +9,8 @@ use App\Models\BillDetail;
 use App\Models\BillUser;
 use App\Models\list_bill;
 use App\Models\Payment;
+use App\Models\User;
+use App\Notifications\TestNotification;
 use Brian2694\Toastr\Facades\Toastr;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -19,7 +21,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Twilio\Rest\Client;
-
+use Pusher\Pusher;
 class PaymentController extends Controller
 {
     public function showPayment()
@@ -164,7 +166,32 @@ class PaymentController extends Controller
                 //     )
                 //     );
             Cart::destroy();
-            Toastr::success('Đặt hàng thành công', 'Thành công');
+            $user_send = User::find(Auth::id());
+
+            $data['title'] = 'Bạn có một đơn hàng mới';
+            $data['from'] = $user_send->id;
+            $data['to'] = 1;
+            $data['code'] = $length;
+            $data['url'] = '/admin/bill/detail/'.$bill->id;
+
+            $users = User::where('id_role', 1)->get();
+            foreach($users as $user){
+                $user->notify(new TestNotification($data));
+            }
+            $options = array(
+                'cluster' => 'ap1',
+                'encrypted' => true
+            );
+    
+            $pusher = new Pusher(
+                env('PUSHER_APP_KEY'),
+                env('PUSHER_APP_SECRET'),
+                env('PUSHER_APP_ID'),
+                $options
+            );
+    
+            $pusher->trigger('my-channel', 'my-event', $data);
+                Toastr::success('Đặt hàng thành công', 'Thành công');
             return Redirect::to('/don-hang/'.$length);
            
         };
@@ -263,6 +290,31 @@ class PaymentController extends Controller
             //         'body' => 'Cam on ban da dat hang tai laptop51, ma hoa don cua ban la: ' . $request->vnp_TxnRef,
             //     )
             //     );
+            $user_send = User::find(Auth::id());
+
+            $data['title'] = 'Bạn có một đơn hàng mới';
+            $data['from'] = $user_send->id;
+            $data['to'] = 1;
+            $data['code'] = $request->vnp_TxnRef;
+            $data['url'] = '/admin/bill/detail/'.$payment_status->id;
+
+            $users = User::where('id_role', 1)->get();
+            foreach($users as $user){
+                $user->notify(new TestNotification($data));
+            }
+            $options = array(
+                'cluster' => 'ap1',
+                'encrypted' => true
+            );
+    
+            $pusher = new Pusher(
+                env('PUSHER_APP_KEY'),
+                env('PUSHER_APP_SECRET'),
+                env('PUSHER_APP_ID'),
+                $options
+            );
+    
+            $pusher->trigger('my-channel', 'my-event', $data);
             Toastr::success('Đặt hàng thành công', 'Thành công');
             return Redirect::to('/don-hang/'.$data['bill_code']);
         }

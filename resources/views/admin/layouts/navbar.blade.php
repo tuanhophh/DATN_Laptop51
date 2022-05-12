@@ -45,7 +45,7 @@
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <a href="#" class="dropdown-item">
                     <!-- Message Start -->
-                    <div class="media">
+                   <div class="media">
                         {{-- <img src="{{'./public/adminlte/'}}dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle"> --}}
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
@@ -57,11 +57,11 @@
                         </div>
                     </div>
                     <!-- Message End -->
-                </a>
+               </a>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
+                <a href="#" class="dropdown-item"> -->
                     <!-- Message Start -->
-                    <div class="media">
+                   <div class="media">
                         {{-- <img src="{{'./public/adminlte/'}}dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3"> --}}
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
@@ -71,13 +71,13 @@
                             <p class="text-sm">I got your message bro</p>
                             <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- Message End -->
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
+             </a>
+              <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item"> -->
                     <!-- Message Start -->
-                    <div class="media">
+                   <div class="media">
                         {{-- <img src="{{'./public/adminlte/'}}dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3"> --}}
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
@@ -87,38 +87,29 @@
                             <p class="text-sm">The subject goes here</p>
                             <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
                         </div>
-                    </div>
+                    </div> 
                     <!-- Message End -->
                 </a>
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
             </div>
-        </li>
+        </li> 
         <!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
+            <a class="nav-link" data-toggle="dropdown" class="" id="idCount" href="#">
                 <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">15</span>
+                <span class="badge badge-danger navbar-badge pending NotificationBadge" id="NotificationBadge">{{Auth::user()->unreadNotifications()->count()}}</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <span class="dropdown-item dropdown-header">15 Notifications</span>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i> 4 new messages
-                    <span class="float-right text-muted text-sm">3 mins</span>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="dropdown-notification">
+                @foreach (Auth::user()->notifications as $notification)
+                <a href="{{$notification->data['url']}}" @if($notification->unread()) style="background:#f8f9fa;" @endif class="dropdown-item">
+                {{ $notification->data['title'] }}
+                    <span class="float-right text-muted text-sm text-info">@if($notification->unread()) <i class="fas fa-star"></i> @endif</span>
                 </a>
+                @endforeach
+                
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-users mr-2"></i> 8 friend requests
-                    <span class="float-right text-muted text-sm">12 hours</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-file mr-2"></i> 3 new reports
-                    <span class="float-right text-muted text-sm">2 days</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                <a href="#" class="dropdown-item dropdown-footer">Đánh dấu đã đọc tất cả</a>
             </div>
         </li>
         <li class="nav-item">

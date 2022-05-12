@@ -24,7 +24,7 @@
                 <table class="table table-bordered">
                     <thead>
                         <th>STT</th>
-                        <th>Mã hóa đơn</th>
+                        <th onclick="onClick()">Mã hóa đơn</th>
                         <th>Tổng tiền</th>
                         <th>Phương thức</th>
                         <th>Trạng thái</th>
@@ -42,13 +42,13 @@
                                 // $total = str_replace('.', '', $item->total);
                                 // $total= number_format($item->total, 2, ',', '.');
                                 ?>
-                                {{ $item->total }} VNĐ
+                                {{ $item->total_price }} VNĐ
                             </td>
-                            <td>{{ $item->payment_method == 1 ? 'Tiền măt' : 'Chuyển khoản'}}</td>
-                            <td>@if($item->payment_status == 0)
+                            <td>{{ $item->method == 1 ? 'Tiền măt' : 'Chuyển khoản'}}</td>
+                            <td>@if($item->status == 0)
                                 <p class="text-warning">Chưa thanh toán</p>
 
-                                @elseif($item->payment_status == 1)
+                                @elseif($item->status == 1)
                                 <p class="text-danger">Hủy</p>
                                 @else
                                 <p class="text-success">Đã thanh toán</p>

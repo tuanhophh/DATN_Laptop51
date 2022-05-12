@@ -11,6 +11,11 @@
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <script>
+    if (window.performance.navigation.type === 2) {
+        location.reload();
+    }
+    </script>
     @include('layout_client.style')
 
 </head>
@@ -125,11 +130,7 @@
         document.getElementById('convert_slug').value = slug;
     }
     </script>
-    <script>
-    if (window.performance.navigation.type === 2) {
-        location.reload();
-    }
-    </script>
+
 </body>
 
 </html>

@@ -11,6 +11,11 @@
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <script>
+    if (window.performance.navigation.type === 2) {
+        location.reload();
+    }
+    </script>
     @include('layout_client.style')
 
 </head>
@@ -82,11 +87,7 @@
 @include('layout_client.script')
 <!-- MDB -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.js"></script>
-<script>
-    if (window.performance.navigation.type === 2) {
-        location.reload();
-    }
-    </script>
+
 </body>
 
 </html>
