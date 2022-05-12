@@ -52,3 +52,10 @@
     color: #fff !important;
 }
 </style>
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<style>
+    .dropdown-menu-right{
+        max-height: 400px;
+        overflow:hidden; overflow-y:scroll;
+    }
+</style>
