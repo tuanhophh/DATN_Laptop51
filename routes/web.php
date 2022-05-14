@@ -93,7 +93,7 @@ Route::get('cua-hang', [HomeController::class, 'show'])->name('website.product')
 
 Route::get('san-pham/{slug}', [HomeController::class, 'detail'])->name('website.product-detail');
 Route::get('cua-hang/{id}', [HomeController::class, 'company'])->name('website.product-category');
-Route::get('cua-hang/product/{name}', [HomeController::class, 'seachproduct']);
+Route::get('cua-hang/tim-kiem/{name}', [HomeController::class, 'seachproduct']);
 // trang giới thiệu
 Route::get('gioi-thieu', function () {
     return view('website.gioi-thieu');

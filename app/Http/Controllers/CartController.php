@@ -30,6 +30,7 @@ class CartController extends Controller
         $data['price'] = $product->price;
         $data['weight'] = '50';
         $data['options']['image'] = $image_product->path;
+        $data['options']['import_price'] = $product->import_price;
         Cart::add($data);
         // dd($data);
         return Redirect::to('/gio-hang');
@@ -53,6 +54,7 @@ class CartController extends Controller
         $data['price'] = $product->price;
         $data['weight'] = '50';
         $data['options']['image'] = $image_product->path;
+        $data['options']['import_price'] = $product->import_price;
         Cart::add($data);
         // dd($data)
         Toastr::success('Thêm giỏ hàng thành công', 'Thành công');

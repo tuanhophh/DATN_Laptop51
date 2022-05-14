@@ -14,32 +14,32 @@
                             @if(Auth::check())
                             <li>
                                 <a href="{{ asset('') }}profile">
-                                    <i class="zmdi zmdi-account"></i>
+                                   
                                     Tài Khoản Của Tôi
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ asset('') }}profile">
-                                    <i class="zmdi zmdi-assignment"></i>
+                                   
                                     Hóa đơn
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ asset('') }}logout">
-                                    <i class="zmdi zmdi-lock"></i>
+                                  
                                     Thoát
                                 </a>
                             </li>
                             @else
                             <li>
                             <a href="{{ asset('') }}login">
-                                    <i class="zmdi zmdi-lock"></i>
+                                 
                                     Đăng Nhập
                                 </a>
                             </li>      
                             <li>
                             <a href="{{ asset('') }}register">
-                                    <i class="zmdi zmdi-lock"></i>
+                                  
                                     Đăng ký
                                 </a>
                             </li>

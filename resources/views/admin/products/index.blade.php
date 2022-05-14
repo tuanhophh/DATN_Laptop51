@@ -104,7 +104,7 @@
                             <td>{{ $item->qty }}</td>
                             <td>{{ $item->insurance }} tháng</td>
                             <td>
-                             {{ $item->status == 1 ? 'Hiện ' : 'Ẩn' }}
+                             {{ $item->status == 1 ? 'Đang hiện ' : 'Đang ẩn' }}
                             </td>
                             <td>
                                 @can('edit-product')

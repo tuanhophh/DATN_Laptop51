@@ -243,7 +243,6 @@ NOTE: This is Header style file. All Header related style included in this file.
   background: #ddd none repeat scroll 0 0;
   content: "";
   height: 15px;
-  left: 0;
   position: absolute;
   top: 13px;
   width: 1px;
@@ -254,15 +253,15 @@ NOTE: This is Header style file. All Header related style included in this file.
 .top-link > ul.link > li a {
   color: #cccccc;
   display: block;
-  font-size: 0;
   height: 40px;
   line-height: 30px;
   overflow: hidden;
-  padding: 10px 20px;
+  padding: 10px 10px;
   text-align: center;
-  text-transform: capitalize;
-  white-space: nowrap;
-  width: 50px;
+  color: #fff;
+  font-size: 13px;
+  line-height: 19px;
+  width: auto;
 }
 .top-link > ul.link > li a i {
   font-size: 14px;
@@ -270,13 +269,10 @@ NOTE: This is Header style file. All Header related style included in this file.
   color: #CCCCCC;
 }
 .top-link > ul.link > li a:hover i {
-  padding-right: 5px;
+  color: #FF7F00;
 }
 .top-link > ul.link > li a:hover, .top-link > ul.link > li a:focus, .top-link > ul.link > li a:active {
-  color: #fff;
-  font-size: 13px;
-  line-height: 19px;
-  width: auto;
+  color: #FF7F00;
 }
 
 

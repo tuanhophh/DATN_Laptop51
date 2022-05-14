@@ -138,12 +138,16 @@ class ProfileController extends Controller
         if (!$user) {
             return back();
         }
-        if($user->email == 'admin@gmail.com' && $request->email != 'admin@gmail.com'){
-            Toastr::error('Tài khoản admin không được thay đổi', 'Thất bại');
+        if($user->email == 'admin@gmail.com' && $request->email !=  'admin@gmail.com'){
+            Toastr::error('Tài khoản admin không được thay đổi email', 'Thất bại');
             return back();
         }
-        $user->fill($request->all());
+        $user->email = $request->email;
+        $user->address = $request->address;
+        $user->name = $request->name;
+        $user->description = $request->description;
         $user->save();
+        Toastr::success('Đổi thông tin thành công', 'Thành công');
         return Redirect::back()->with('message', 'Thay đổi thông tin thành công');
     }
 

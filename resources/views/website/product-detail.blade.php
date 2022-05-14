@@ -78,7 +78,7 @@
                                         <div class="single-product-info">
                                             <h3 class="text-black-1 pro-price">{{$pro->name}}</h3>
                                             <h6 class="brand-name-2">{{$pro->companyComputer->company_name}}</h6>
-                                            
+
                                             <hr>
                                             <!-- single-pro-color-rating -->
                                             <div class="single-pro-color-rating">
@@ -90,9 +90,9 @@
                                                     <p class="text-black-1 title">Màn hình: {{$pro->screen}}</p>
                                                     <p class="text-black-1 title">Card đồ họa: {{$pro->cardgraphic}}</p>
                                                 </div>
-                            
+
                                             </div>
-                                           
+
                                             <hr>
                                             <?php
                                             if (!function_exists('currency_format')) {
@@ -146,71 +146,70 @@
                                                         </button>
                                                     </form>
                                                 </div>
-                                                @elseif($pro->qty < 1)
-                                                <div class="f-right">
-                                                <button type="submit">
-                                                            <a href="#" class="button extra-small button-black"
-                                                                tabindex="-1">
-                                                                <span class="text-uppercase">Hết hàng</span>
-                                                            </a>
-                                                        </button>
-                                                </div>
-                                                @endif
+                                                @elseif($pro->qty < 1) <div class="f-right">
+                                                    <button type="submit">
+                                                        <a href="#" class="button extra-small button-black"
+                                                            tabindex="-1">
+                                                            <span class="text-uppercase">Hết hàng</span>
+                                                        </a>
+                                                    </button>
                                             </div>
+                                            @endif
                                         </div>
                                     </div>
-                                    <!-- single-product-info end -->
                                 </div>
-                                <!-- single-product-tab -->
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <!-- hr -->
-                                        <hr>
-                                        <div class="single-product-tab reviews-tab">
-                                            <ul class="nav mb-20">
-                                                <li><a class="active" href="#description" data-bs-toggle="tab">Mô tả</a>
-                                                </li>
-                                            </ul>
-                                            <div class="tab-content">
-                                                <div role="tabpanel" class="tab-pane active show" id="description">
+                                <!-- single-product-info end -->
+                            </div>
+                            <!-- single-product-tab -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <!-- hr -->
+                                    <hr>
+                                    <div class="single-product-tab reviews-tab">
+                                        <ul class="nav mb-20">
+                                            <li><a class="active" href="#description" data-bs-toggle="tab">Mô tả</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane active show" id="description">
 
-                                                    {!! $pro->desc !!}
+                                                {!! $pro->desc !!}
 
-                                                </div>
                                             </div>
                                         </div>
-                                        <!--  hr -->
-                                        <hr>
                                     </div>
+                                    <!--  hr -->
+                                    <hr>
                                 </div>
                             </div>
-                            <!-- single-product-area end -->
-                            <div class="related-product-area">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="section-title text-left mb-40">
-                                            <h2 class="uppercase">Sản phẩm cùng hãng</h2>
-                                        </div>
-                                        <div class="active-related-product">
-                                            @foreach($productsComputerCompany as $productsComputer)
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    @foreach ($images_product_list as $image)
-                                                    @if ($image->product_id == $productsComputer->id)
-                                                    <a href="/san-pham/{{$productsComputer->slug}}">
-                                                        <img src="{{ asset($image->path) }}"
-                                                            alt="{{ asset($image->path) }}" />
-                                                    </a>
-                                                    @break;
-                                                    @endif
-                                                    @endforeach
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-title text-black-1 px-2 mb-0">
-                                                        <a
-                                                            href="/san-pham/{{$productsComputer->slug}}">{{$productsComputer->name}}</a>
-                                                    </h3>
-                                                    <?php
+                        </div>
+                        <!-- single-product-area end -->
+                        <div class="related-product-area">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="section-title text-left mb-40">
+                                        <h2 class="uppercase">Sản phẩm cùng hãng</h2>
+                                    </div>
+                                    <div class="active-related-product">
+                                        @foreach($productsComputerCompany as $productsComputer)
+                                        <div class="product-item">
+                                            <div class="product-img">
+                                                @foreach ($images_product_list as $image)
+                                                @if ($image->product_id == $productsComputer->id)
+                                                <a href="/san-pham/{{$productsComputer->slug}}">
+                                                    <img src="{{ asset($image->path) }}"
+                                                        alt="{{ asset($image->path) }}" />
+                                                </a>
+                                                @break;
+                                                @endif
+                                                @endforeach
+                                            </div>
+                                            <div class="product-info">
+                                                <h3 class="product-title text-black-1 px-2 mb-0">
+                                                    <a
+                                                        href="/san-pham/{{$productsComputer->slug}}">{{$productsComputer->name}}</a>
+                                                </h3>
+                                                <?php
 
 if (!function_exists('currency_format')) {
     function currency_format($productsComputer, $suffix = ' VNĐ')
@@ -222,39 +221,48 @@ if (!function_exists('currency_format')) {
 }
 ?>
 
-                                                    <h6 class="pro-price mb-0">
-                                                        {{ currency_format($productsComputer->price) }}</h6>
-                                                </div>
+                                                <h6 class="pro-price mb-0">
+                                                    {{ currency_format($productsComputer->price) }}</h6>
                                             </div>
-                                            @endforeach
                                         </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3">
-                            <!-- widget-categories -->
-                            <aside class="widget widget-categories box-shadow mb-30">
-                                <h6 class="widget-title border-left mb-20">Danh mục</h6>
-                                <div id="cat-treeview" class="product-cat">
-                                    <ul>
-                                        <li class="open"><a href="#">Laptop</a>
-                                            <ul>
-                                                @foreach($ComputerCompany as $ComputerCom)
-                                                <li><a
-                                                        href="/cua-hang/{{$ComputerCom->id}}">{{$ComputerCom->company_name}}</a>
-                                                </li>
-                                                @endforeach
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </aside>
-                            <aside class="widget widget-product box-shadow">
-                                <h6 class="widget-title border-left mb-20">Sản phẩm bán chạy</h6>
-                                <!-- product-item start -->
-                                @foreach($product_hot_sell as $products_hot)
-                                <?php
+                    </div>
+                    <div class="col-lg-3">
+                        <!-- widget-categories -->
+                        <aside class="widget widget-categories box-shadow mb-30">
+                            <h6 class="widget-title border-left mb-20">Danh mục</h6>
+                            <div id="cat-treeview" class="product-cat">
+                                <ul>
+                                    <li class="open"><a href="#">Laptop</a>
+                                        <ul>
+                                            <li>
+                                                <a @if(session()->get('url_path') == "cua-hang") style="color:#ff7f00"
+                                                    @endif href="/cua-hang">
+                                                    Tất cả
+                                                </a>
+                                            </li>
+                                            @foreach($ComputerCompany as $ComputerCom)
+                                            <li><a class="" @if(session()->get('url_path') ==
+                                                    "cua-hang/$ComputerCom->id")
+                                                    style="color:#ff7f00"
+                                                    @endif
+                                                    href="/cua-hang/{{$ComputerCom->id}}">{{$ComputerCom->company_name}}</a>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </aside>
+                        <aside class="widget widget-product box-shadow">
+                            <h6 class="widget-title border-left mb-20">Sản phẩm bán chạy</h6>
+                            <!-- product-item start -->
+                            @foreach($product_hot_sell as $products_hot)
+                            <?php
 
                                     if (!function_exists('currency_format')) {
                                         function currency_format($products_hot, $suffix = ' VNĐ')
@@ -266,36 +274,36 @@ if (!function_exists('currency_format')) {
                                     }
                                     ?>
 
-                                <div class="product-item">
-                                    <div class="product-img">
-                                        @foreach ($images_product_list as $image)
-                                        @if ($image->product_id == $products_hot->id)
-                                        <a href="/san-pham/{{$products_hot->slug}}">
-                                            <img src="{{ asset($image->path) }}" alt="{{ asset($image->path) }}" />
-                                        </a>
-                                        @break;
-                                        @endif
-                                        @endforeach
-                                    </div>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/san-pham/{{$products_hot->slug}}">{{$products_hot->name}}</a>
-                                        </h6>
-                                        <h3 class="pro-price">{{ currency_format($products_hot->price) }}</h3>
-                                    </div>
+                            <div class="product-item">
+                                <div class="product-img">
+                                    @foreach ($images_product_list as $image)
+                                    @if ($image->product_id == $products_hot->id)
+                                    <a href="/san-pham/{{$products_hot->slug}}">
+                                        <img src="{{ asset($image->path) }}" alt="{{ asset($image->path) }}" />
+                                    </a>
+                                    @break;
+                                    @endif
+                                    @endforeach
                                 </div>
-                                @endforeach
-                                <!-- product-item end -->
+                                <div class="product-info">
+                                    <h6 class="product-title">
+                                        <a href="/san-pham/{{$products_hot->slug}}">{{$products_hot->name}}</a>
+                                    </h6>
+                                    <h3 class="pro-price">{{ currency_format($products_hot->price) }}</h3>
+                                </div>
+                            </div>
+                            @endforeach
+                            <!-- product-item end -->
 
-                            </aside>
-                        </div>
+                        </aside>
                     </div>
                 </div>
             </div>
-            <!-- SHOP SECTION END -->
-        </section>
     </div>
-    
+    <!-- SHOP SECTION END -->
+    </section>
+    </div>
+
     @include('layout_client.footer')
     @include('layout_client.script')
 </body>

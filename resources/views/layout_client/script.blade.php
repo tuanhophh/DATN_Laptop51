@@ -12,7 +12,7 @@
 <script>
     $('#btn-timkiem').on('click',function(){
         
-    window.location.replace('http://127.0.0.1:8000/cua-hang/product/'+$('#timkiem').val())
+    window.location.replace('http://127.0.0.1:8000/cua-hang/tim-kiem/'+$('#timkiem').val())
 
     })
 </script>

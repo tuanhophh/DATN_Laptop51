@@ -43,7 +43,7 @@
 
                             <div class="form-group">
                                 <label for="">Tổng tiền</label>
-                                <input type="text" name="" disabled value="{{ old('total', $bill->total) }} VNĐ"
+                                <input type="text" name="" disabled value="{{ old('total', $bill->total_price) }} VNĐ"
                                     class="form-control" placeholder="">
                             </div>
 
@@ -150,9 +150,9 @@
                 <!-- <td><input disabled type="text" value="{{$bill_d->product->name}}" name="addMoreInputFields[0][subject]"
                         placeholder="Tên sản phẩm" class="form-control" />
                 </td> -->
-                <td><input disabled type="text" value="{{$bill_d->price}}" name="addMoreInputFields[0][subject]"
+                <td><input disabled type="text" value="{{$bill_d->ban}} VNĐ" name="addMoreInputFields[0][subject]"
                         placeholder="Nhập giá" class="form-control" /></td>
-                <td><input disabled type="text" value="{{$bill_d->qty}}" name="addMoreInputFields[0][subject]"
+                <td><input disabled type="text" value="{{$bill_d->quaty}}" name="addMoreInputFields[0][subject]"
                         placeholder="Số lượng" class="form-control" /></td>
                 <!-- <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Thêm sản
                         phẩm</button></td> -->

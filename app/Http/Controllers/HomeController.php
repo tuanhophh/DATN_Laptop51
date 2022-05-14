@@ -25,9 +25,10 @@ class HomeController extends Controller
     public function index()
     {   
         session()->put('url_path',FacadesRequest::path());
-        $product_hot_sell = Product::select('bill_details.*', 'products.*', DB::raw('SUM(bill_details.qty) As total'))
-        ->join('bill_details', 'bill_details.product_id', '=', 'products.id')
+        $product_hot_sell = Product::select('billdetail.*', 'products.*', DB::raw('SUM(billdetail.quaty) As total'))
+        ->join('billdetail', 'billdetail.product_id', '=', 'products.id')
         ->groupBy('products.id')
+        ->orderBy('total' ,'DESC')
         ->get()
         ->take(8);
         $ComputerCompany = ComputerCompany::all();
@@ -47,9 +48,10 @@ class HomeController extends Controller
     {   
         session()->put('url_path',FacadesRequest::path());
         
-        $product_hot_sell = Product::select('bill_details.*', 'products.*', DB::raw('SUM(bill_details.qty) As total'))
-            ->join('bill_details', 'bill_details.product_id', '=', 'products.id')
+        $product_hot_sell = Product::select('billdetail.*', 'products.*', DB::raw('SUM(billdetail.quaty) As total'))
+            ->join('billdetail', 'billdetail.product_id', '=', 'products.id')
             ->groupBy('products.id')
+            ->orderBy('total' ,'DESC')
             ->get()->take(5);
             $images_product_list = DB::table('product_images')->get();
         $ComputerCompany = ComputerCompany::all();
@@ -71,9 +73,10 @@ class HomeController extends Controller
             return abort(404);
         }
         session()->put('url_path',FacadesRequest::path());
-        $product_hot_sell = Product::select('bill_details.*', 'products.*', DB::raw('SUM(bill_details.qty) As total'))
-        ->join('bill_details', 'bill_details.product_id', '=', 'products.id')
+        $product_hot_sell = Product::select('billdetail.*', 'products.*', DB::raw('SUM(billdetail.quaty) As total'))
+        ->join('billdetail', 'billdetail.product_id', '=', 'products.id')
         ->groupBy('products.id')
+        ->orderBy('total' ,'DESC')
         ->get()
         ->take(6);
         // $countPro = Product::where('');
@@ -92,9 +95,10 @@ class HomeController extends Controller
         $products = Product::where('companyComputer_id', $id)->paginate(9);
         $ComputerCompany = ComputerCompany::all();
         $images = DB::table('product_images')->get();
-        $product_hot_sell = Product::select('bill_details.*', 'products.*', DB::raw('SUM(bill_details.qty) As total'))
-        ->join('bill_details', 'bill_details.product_id', '=', 'products.id')
+        $product_hot_sell = Product::select('billdetail.*', 'products.*', DB::raw('SUM(billdetail.quaty) As total'))
+        ->join('billdetail', 'billdetail.product_id', '=', 'products.id')
         ->groupBy('products.id')
+        ->orderBy('total' ,'DESC')
         ->get()
         ->take(6);
         $productNew = Product::where('status', 1)->orderBy('id', 'DESC')->paginate(9);
@@ -117,13 +121,14 @@ class HomeController extends Controller
     public function seachproduct($name)
     {
         $ComputerCompany = ComputerCompany::all();
-        $productNew = Product::where('status', 1)->where('name', 'like', '%' . $name . '%')->get();
+        $productNew = Product::where('status', 1)->where('name', 'like', '%' . $name . '%')->paginate(9);
         $images = DB::table('product_images')->get();
         // dd($productNew);
         $products = Product::where('status', 1)->get();
-        $product_hot_sell = Product::select('bill_details.*', 'products.*', DB::raw('SUM(bill_details.qty) As total'))
-        ->join('bill_details', 'bill_details.product_id', '=', 'products.id')
+        $product_hot_sell = Product::select('billdetail.*', 'products.*', DB::raw('SUM(billdetail.quaty) As total'))
+        ->join('billdetail', 'billdetail.product_id', '=', 'products.id')
         ->groupBy('products.id')
+        ->orderBy('total' ,'DESC')
         ->get()->take(5);
         $images_product_list = DB::table('product_images')->get();
         return view('website.product', compact('products', 'ComputerCompany', 'productNew','images','product_hot_sell','images_product_list'));

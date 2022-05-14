@@ -33,7 +33,7 @@
 <style>
     .preview-image img {
         padding: 10px;
-        max-width: 100px;
+        max-width: 200px;
     }
 
 </style>

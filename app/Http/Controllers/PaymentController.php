@@ -9,6 +9,7 @@ use App\Models\BillDetail;
 use App\Models\BillUser;
 use App\Models\list_bill;
 use App\Models\Payment;
+use App\Models\Product;
 use App\Models\User;
 use App\Notifications\TestNotification;
 use Brian2694\Toastr\Facades\Toastr;
@@ -85,9 +86,11 @@ class PaymentController extends Controller
                 $bill_detail = new bill_detail();
                 $bill_detail->product_id = $item->id;
                 $bill_detail->quaty = $item->qty;
+                $product_import_price = Product::find($item->id);
                 $bill_detail->bill_id = $bill->id;
                 $bill_detail->ban = $item->price;
                 $bill_detail->bill_code = $length;
+                $bill_detail->nhap = $product_import_price->import_price;
                 $bill_detail->save();
             }
 
@@ -130,10 +133,13 @@ class PaymentController extends Controller
                 $bill_detail = new bill_detail();
                 $bill_detail->product_id = $item->id;
                 $bill_detail->quaty = $item->qty;
+                $product_import_price = Product::find($item->id);
                 $bill_detail->bill_id = $bill->id;
                 $bill_detail->ban = $item->price;
                 $bill_detail->bill_code = $length;
+                $bill_detail->nhap = $product_import_price->import_price;
                 $bill_detail->save();
+
             }
 
             // Lưu vào bảng bill_users
