@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 
 <head>
-    <title>Bệnh Viện Laptop 51</title>
+    <title>Chi tiết đơn hàng</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
 
@@ -106,10 +106,10 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="breadcrumbs-inner">
-                                <h1 class="breadcrumbs-title">Chi tiết sản phẩm</h1>
+                                <h1 class="breadcrumbs-title">Đặt hàng thành công</h1>
                                 <ul class="breadcrumb-list">
                                     <li><a href="/">Trang chủ</a></li>
-                                    <li>Chi tiết sản phẩm</li>
+                                    <li>Đặt hàng thành công</li>
                                 </ul>
                             </div>
                         </div>

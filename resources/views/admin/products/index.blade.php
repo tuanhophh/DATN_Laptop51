@@ -55,7 +55,9 @@
                             <td>{{ $item->price }}</td>
                             <td>{{ $item->qty }}</td>
                             <td>{{ $item->insurance }} tháng</td>
-                            <td>{{ $item->status == 1 ? 'Hiển thị' : 'Không hiển thị' }}</td>
+                            <td>
+                             {{ $item->status == 1 ? 'Hiện ' : 'Ẩn' }}
+                            </td>
                             <td>
                                 @can('edit-product')
                                 <!-- <a href="{{ route('nhap-sanpham.add', ['id' => $item->id]) }}"
@@ -69,7 +71,7 @@
                                     <form class="d-inline" action="product/show-hide/{{$item->id}}" method="POST">
                                         @csrf
                                         <input name="id" hidden value="{{$item->id}}">
-                                        <button style="font:14px" class="btn btn-sm btn-danger" type="submit">
+                                        <button style="font:14px" class="btn btn-sm btn-success" type="submit">
                                             Hiện
                                         </button>
                                     </form>
@@ -78,7 +80,7 @@
                                     <form class="d-inline" action="product/show-hide/{{$item->id}}" method="POST">
                                         @csrf
                                         <input name="id" hidden value="{{$item->id}}">
-                                        <button class="btn btn-sm btn-secondary" type="submit">
+                                        <button class="btn btn-sm btn-danger" type="submit">
                                             Ẩn
                                         </button>
                                     </form>

@@ -28,7 +28,7 @@ class Booking extends Model
      */
     public function computerCompany()
     {
-        return $this->belongsToMany(ComputerCompany::class, 'company_computer_id', 'id',);
+        return $this->belongsTo(ComputerCompany::class, 'company_computer_id', 'id',);
     }
     /**
      * Get the booking that owns the Booking

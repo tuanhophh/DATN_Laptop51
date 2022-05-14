@@ -42,81 +42,84 @@ s
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+
+
 {{-- Tổng doanh thu --}}
 <script>
-    var datacot = {
-        labels: [`Số tiền nhập (${$('#sotiennhap').val()})`, `Số tiền lãi (${$('#sotienlai').val()})`],
-        datasets: [{
-            label: 'Tổng doanh thu',
-            backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-            ],
-            data: [$('#sotiennhap').val(), $('#sotienlai').val()],
-        }]
-    };
+var datacot = {
+    labels: [`Số tiền nhập (${$('#sotiennhap').val()})`, `Số tiền lãi (${$('#sotienlai').val()})`],
+    datasets: [{
+        label: 'Tổng doanh thu',
+        backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+        ],
+        data: [$('#sotiennhap').val(), $('#sotienlai').val()],
+    }]
+};
 
-    var config = {
-        type: 'pie',
-        data: datacot,
-        options: {}
-    };
-    var doanhthuchart = new Chart(
-        document.getElementById('doanhthuchart'),
-        config
-    );
+var config = {
+    type: 'pie',
+    data: datacot,
+    options: {}
+};
+var doanhthuchart = new Chart(
+    document.getElementById('doanhthuchart'),
+    config
+);
 </script>
 
 {{-- Tổng doanh thu sửa --}}
 <script>
-    var datasuachua = {
-        labels: [`Số tiền nhập (${$('#sotiennhapsuachua').val()})`,
-            `Số tiền lãi (${$('#sotienlaisuachua').val()})`
+var datasuachua = {
+    labels: [`Số tiền nhập (${$('#sotiennhapsuachua').val()})`,
+        `Số tiền lãi (${$('#sotienlaisuachua').val()})`
+    ],
+    datasets: [{
+        label: 'Tổng doanh thu',
+        backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
         ],
-        datasets: [{
-            label: 'Tổng doanh thu',
-            backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-            ],
-            data: [$('#sotiennhapsuachua').val(), $('#sotienlaisuachua').val()],
-        }]
-    }
-    var configsuachua = {
-        type: 'pie',
-        data: datasuachua,
-        options: {}
-    };
-    var doanhthusuachua = new Chart(
-        document.getElementById('doanhthusuachua'),
-        configsuachua
-    );
+        data: [$('#sotiennhapsuachua').val(), $('#sotienlaisuachua').val()],
+    }]
+}
+var configsuachua = {
+    type: 'pie',
+    data: datasuachua,
+    options: {}
+};
+var doanhthusuachua = new Chart(
+    document.getElementById('doanhthusuachua'),
+    configsuachua
+);
 </script>
 
 {{-- Tổng doanh thu bán --}}
 <script>
-    var databan = {
-        labels: [`Số tiền nhập (${$('#sotiennhapban').val()})`,
-            `Số tiền lãi (${$('#sotienlaiban').val()})`
+var databan = {
+    labels: [`Số tiền nhập (${$('#sotiennhapban').val()})`,
+        `Số tiền lãi (${$('#sotienlaiban').val()})`
+    ],
+    datasets: [{
+        label: 'Tổng doanh thu',
+        backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
         ],
-        datasets: [{
-            label: 'Tổng doanh thu',
-            backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-            ],
-            data: [$('#sotiennhapban').val(), $('#sotienlaiban').val()],
-        }]
-    }
-    var configban = {
-        type: 'pie',
-        data: databan,
-        options: {}
-    };
-    var doanhthuban = new Chart(
-        document.getElementById('doanhthuban'),
-        configban
-    );
+        data: [$('#sotiennhapban').val(), $('#sotienlaiban').val()],
+    }]
+}
+var configban = {
+    type: 'pie',
+    data: databan,
+    options: {}
+};
+var doanhthuban = new Chart(
+    document.getElementById('doanhthuban'),
+    configban
+);
 </script>
 <script>
     $(function() {
@@ -146,36 +149,37 @@ s
                     ketqua.datasanphamban.forEach(function callback(value, index) {
                         $("#listtopdata").append(
                             ` <li class="list-group-item d-flex justify-content-between align-items-center">
+
                                     ${value[index]['name']}<span class="badge badge-primary badge-pill">${value[index]['quaty']}</span></li>`
-                        );
-                    })
-                } else {
-                    $("#listtopdata").empty()
-                }
-                if (ketqua.datanhanvien.length != 0) {
-                    $("#listtopdatanhanvien").empty()
-                    ketqua.datanhanvien.forEach(function callback(value, index) {
-                        $("#listtopdatanhanvien").append(
-                            ` <li class="list-group-item d-flex justify-content-between align-items-center">
+                    );
+                })
+            } else {
+                $("#listtopdata").empty()
+            }
+            if (ketqua.datanhanvien.length != 0) {
+                $("#listtopdatanhanvien").empty()
+                ketqua.datanhanvien.forEach(function callback(value, index) {
+                    $("#listtopdatanhanvien").append(
+                        ` <li class="list-group-item d-flex justify-content-between align-items-center">
                                     ${value[index]['name']}<span class="badge badge-primary badge-pill">${value[index]['quaty']}</span></li>`
-                        );
-                    })
-                } else {
-                    $("#listtopdatanhanvien").empty()
-                }
-            });
-            //ajax chartjs doanh thu
-            $.ajax({
-                url: 'http://127.0.0.1:8000/api/bieudo',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    timestart: timestart,
-                    timeend: timeend
-                },
-                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            }).done(function(ketqua) {
-                $('#tongdoanhthu').text(ketqua.doanhthutong)
+                    );
+                })
+            } else {
+                $("#listtopdatanhanvien").empty()
+            }
+        });
+        //ajax chartjs doanh thu
+        $.ajax({
+            url: 'http://127.0.0.1:8000/api/bieudo',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                timestart: timestart,
+                timeend: timeend
+            },
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        }).done(function(ketqua) {
+            $('#tongdoanhthu').text(ketqua.doanhthutong)
 
                 datacot.datasets[0].data = [ketqua.sotiennhap, ketqua.sotienlai]
                 datacot.labels = [`Số tiền nhập (${ketqua.sotiennhap})`,
@@ -217,12 +221,53 @@ s
             }).done(function(ketqua) {
                 $('#doanhthutongban').text(ketqua.doanhthutong)
 
-                databan.datasets[0].data = [ketqua.sotiennhap, ketqua.sotienlai]
-                databan.labels = [`Số tiền nhập (${ketqua.sotiennhap})`,
-                    `Số tiền lãi (${ketqua.sotienlai})`
-                ]
-                doanhthuban.update()
-            });
-        })
+
+            databan.datasets[0].data = [ketqua.sotiennhap, ketqua.sotienlai]
+            databan.labels = [`Số tiền nhập (${ketqua.sotiennhap})`,
+                `Số tiền lãi (${ketqua.sotienlai})`
+            ]
+            doanhthuban.update()
+        });
     })
+})
+</script>
+<script>
+$(".js-select2").select2({
+    'placeholder': 'Chọn vai trò'
+});
+</script>
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script>
+// Enable pusher logging - don't include this in production
+Pusher.logToConsole = true;
+
+var pusher = new Pusher('40b36816c265fa47e39d', {
+    cluster: 'ap1'
+});
+    
+var channel = pusher.subscribe('my-channel');
+channel.bind('my-event', function(data) {
+    var newNotificationHtml = `
+                <a href="${data.url}"  style="background:#f8f9fa;" class="dropdown-item">
+                ${data.title}
+                <span class="float-right text-muted text-sm text-info"><i class="fas fa-star"></i> </span>
+                </a>
+        `;
+    $('#dropdown-notification').prepend(newNotificationHtml);
+    document.getElementById('NotificationBadge').innerHTML = parseInt(document.getElementById(
+        'NotificationBadge').innerHTML) + 1;
+    matches = document.title.match(/\d+/);
+    matches = parseInt(matches);
+    one = parseInt(1);
+    add = matches + one;
+
+    var pattern = /\d+/;
+    if (pattern.test(document.title)) {
+        // update the counter
+        document.title = document.title.replace(pattern,   add  );
+    } else {
+        // prepend the counter
+        document.title = "(" + one + ")" + " Thông báo mới";
+    }
+});
 </script>

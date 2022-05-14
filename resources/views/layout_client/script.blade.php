@@ -14,9 +14,15 @@
         
     window.location.replace('http://127.0.0.1:8000/cua-hang/product/'+$('#timkiem').val())
 
-
-
     })
 </script>
 <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 {!! Toastr::message() !!}
+
+<script>
+    $(document).ready(function() {
+        $("#show-password").change(function(){
+            $(this).prop("checked") ?  $(".upassword").prop("type", "text") : $(".upassword").prop("type", "password");    
+        });
+    });
+</script>

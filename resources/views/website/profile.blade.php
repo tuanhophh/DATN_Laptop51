@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bệnh Viện Laptop 51</title>
+    <title>Trang cá nhân</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
@@ -320,7 +320,7 @@
                             <div class="card-body box-profile">
                                 <div class="text-center">
                                     <img class="profile-user-img img-fluid img-circle"
-                                        src="{{ asset($user->avatar) }}" alt="User profile picture">
+                                        src="{{ asset($user->avatar) }}" alt="{{ asset($user->avatar) }}">
                                     <div class="mt-2">
                                         <form enctype="multipart/form-data"
                                             action="{{ URL::to('/profile/update-avatar') }}"
@@ -429,6 +429,7 @@
                                                         <div class="timeline-item">
 
                                                             <div class="row">
+
                                                                 <div class="col-7">
                                                                     <h3 class="timeline-header"><a
                                                                             href="#">{{ $item->name }}</a>

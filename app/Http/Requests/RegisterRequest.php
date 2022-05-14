@@ -27,8 +27,9 @@ class RegisterRequest extends FormRequest
             'name' => ['required', 'string', 'max:60'],
             'phone' => ['required', 'numeric', 'unique:users','regex:/^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'email' => ['required','unique:users','email'],
+
         ];
-        
         
     }
     public function messages()
@@ -37,6 +38,9 @@ class RegisterRequest extends FormRequest
             'name.required' => 'Yêu cầu nhập tên',
             'name.string' => 'Tên phải là chữ',
             'name.max' => 'Tên không dài quá 60 ký tự',
+            'email.required' => 'Yêu cầu nhập email',
+            'email.unique' => 'Email đã được sử dụng',
+            'email.email' => 'Email phải có đuôi @',
             'phone.required' => 'Yêu cầu nhập số điện thoại',
             'phone.numeric' => 'Số điện thoại phải là số',
             'phone.unique' => 'Số điện thoại đã được đăng ký',
