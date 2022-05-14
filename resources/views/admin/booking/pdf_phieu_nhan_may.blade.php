@@ -33,7 +33,7 @@
             $booking_detail->created_at
             }}
             <br><br>
-            <b>Tình trạng máy:</b> {{ $booking_detail->comment }}
+            <b>Tình trạng máy:</b> {!! $booking_detail->comment !!}
         </div><br><br>
 
         <div style="display:flex ; margin-bottom: 40px;font-size: 20px">

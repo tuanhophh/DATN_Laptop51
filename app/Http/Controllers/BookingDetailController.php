@@ -108,6 +108,8 @@ class BookingDetailController extends Controller
                 'customers_pay' => $request->customers_pay,
                 'excess_cash' => $request->customers_pay - array_sum(array_column($repair_parts->toArray(), 'into_money')),
                 'type' => 2,
+                'status' => 2,
+                'method' => 1
             ];
             if (!$list_bill) {
                 $data = [
