@@ -245,8 +245,8 @@
                 </ul>
 
             </li> -->
-            <li class="nav-item {{ request()->is('admin/categoryComponent*') ? ' menu-is-opening menu-open' : '' }}">
-                <a href="" class="nav-link {{ request()->is('admin/categoryComponent*') ? 'active ' : '' }}">
+            <li class="nav-item {{ request()->is('admin/category_component*') ? ' menu-is-opening menu-open' : '' }}">
+                <a href="" class="nav-link {{ request()->is('admin/category_component*') ? 'active ' : '' }}">
                     <i class="nav-icon fas fa-copy"></i>
                     <p>
                         Danh mục linh kiện sửa
@@ -255,15 +255,15 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="/admin/categoryComponent"
-                            class="nav-link {{ request()->is('admin/categoryComponent') ? 'active' : '' }}">
+                        <a href="/admin/category_component"
+                            class="nav-link {{ request()->is('admin/category_component') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Danh sách</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/admin/categoryComponent/add"
-                            class="nav-link {{ request()->is('admin/categoryComponent/add') ? 'active' : '' }}">
+                        <a href="/admin/category_component/add"
+                            class="nav-link {{ request()->is('admin/category_component/add') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Thêm mới</p>
                         </a>
