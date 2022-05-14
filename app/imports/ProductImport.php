@@ -19,7 +19,7 @@ use Illuminate\Validation\ValidationException;
 
 class ProductImport implements ToModel, WithStartRow, WithValidation, SkipsOnError
 {
-    use Importable, SkipsErrors; //, SkipsFailures
+    use Importable, SkipsErrors, SkipsFailures;
 
     public function model(array $row)
     {
@@ -53,7 +53,7 @@ class ProductImport implements ToModel, WithStartRow, WithValidation, SkipsOnErr
     public function rules(): array
     {
         return [
-            '0' => 'required',
+            '0' => 'required|exists:products,id',
             '1' => 'required|string',
             '6' => 'required',
             '3' => 'required|integer|min:0',
@@ -67,7 +67,8 @@ class ProductImport implements ToModel, WithStartRow, WithValidation, SkipsOnErr
     public function customValidationMessages()
     {
         return [
-            '0.required' => 'Tên không được để trống',
+            '0.required' => 'Tên sản phẩm không được để trống',
+            '0.exists' => 'Tên sản phẩm đã tồn tại',
             '1.required' => 'Ảnh không được để trống',
             '2.required' => 'Giá không được để trống',
             '2.integer' => 'Kiểu dữ liệu phải là số',

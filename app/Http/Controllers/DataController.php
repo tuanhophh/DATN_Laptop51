@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchRequest;
 use App\Models\bill_detail;
 use App\Models\ComputerCompany;
 use App\Models\User;
 use App\Models\DetailProduct;
 use App\Models\Booking;
 use App\Models\BillDetail;
+use App\Models\CategoryComponent;
+use App\Models\Component;
 use App\Models\list_bill;
 use App\Models\Product;
 use App\Models\UserRepair;
@@ -25,7 +28,7 @@ class DataController extends Controller
         $products = Product::where('name', 'like', '%' . $name['name'] . '%')->get();
         return response()->json(['products' => $products], 200);
     }
-    public function LayDuLieuTheoNgay(Request $request)
+    public function LayDuLieuTheoNgay(SearchRequest $request)
     {
         $input = $request->only('timestart', 'timeend');
         $start = $input['timestart'];
@@ -33,8 +36,11 @@ class DataController extends Controller
         $total_category = ComputerCompany::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->count('id');
         $total_product = Product::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->count('id');
         $total_user = User::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->count();
-        $total_bill = list_bill::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->count('id');
-        $total_huy = list_bill::where('status', 'erro')->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->count('id');
+        $total_mua_hang = list_bill::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->count('id');
+        $total_danh_muc_linh_kien = CategoryComponent::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->count('id');
+        $total_linh_kien = Component::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->count('id');
+        $total_dat_lich = Booking::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->count('id');
+
         //data sản phẩm
         $datasanphamban = [];
         $socacsanphamdaban = bill_detail::whereNotNull('product_id')->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->distinct()->limit(10)->pluck('product_id');
@@ -62,8 +68,10 @@ class DataController extends Controller
             'total_category' => $total_category,
             'total_product' => $total_product,
             'total_user' => $total_user,
-            'total_bill' => $total_bill,
-            'total_huy' => $total_huy,
+            'total_mua_hang' => $total_mua_hang,
+            'total_danh_muc_linh_kien' => $total_danh_muc_linh_kien,
+            'total_linh_kien' => $total_linh_kien,
+            'total_dat_lich' => $total_dat_lich,
             'datasanphamban' => $datasanphamban,
             'datanhanvien' => $datanhanvien,
 

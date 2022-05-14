@@ -41,7 +41,9 @@ s
 
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+
 
 {{-- Tổng doanh thu --}}
 <script>
@@ -67,6 +69,8 @@ var doanhthuchart = new Chart(
     config
 );
 </script>
+
+{{-- Tổng doanh thu sửa --}}
 <script>
 var datasuachua = {
     labels: [`Số tiền nhập (${$('#sotiennhapsuachua').val()})`,
@@ -91,6 +95,8 @@ var doanhthusuachua = new Chart(
     configsuachua
 );
 </script>
+
+{{-- Tổng doanh thu bán --}}
 <script>
 var databan = {
     labels: [`Số tiền nhập (${$('#sotiennhapban').val()})`,
@@ -116,29 +122,34 @@ var doanhthuban = new Chart(
 );
 </script>
 <script>
-$(function() {
-    $('#search_date').click(() => {
-        var timestart = $('#datetimestart').val()
-        var timeend = $('#datetimeend').val()
-        //ajax widget
-        $.ajax({
-            url: 'http://127.0.0.1:8000/api/laydulieutheongay?timestart=' + timestart +
-                '&timeend=' + timeend + '',
-            type: 'POST',
-            dataType: 'json',
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        }).done(function(ketqua) {
-            $('#total_category').text(ketqua.total_category)
-            $('#total_huy').text(ketqua.total_huy)
-            $('#total_product').text(ketqua.total_product)
-            $('#total_order').text(ketqua.total_bill)
-            $('#total_user').text(ketqua.total_user)
+    $(function() {
+        $('#search_date').click(() => {
+            var timestart = $('#datetimestart').val()
+            var timeend = $('#datetimeend').val()
+            //ajax widget
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/laydulieutheongay?timestart=' + timestart +
+                    '&timeend=' + timeend + '',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            }).done(function(ketqua) {
+                $('#total_category').text(ketqua.total_category)
+                $('#total_product').text(ketqua.total_product)
+                $('#total_user').text(ketqua.total_user)
+                $('#total_mua_hang').text(ketqua.total_mua_hang)
+                $('#total_user').text(ketqua.total_user)
+                $('#total_danh_muc_linh_kien').text(ketqua.total_danh_muc_linh_kien)
+                $('#total_linh_kien').text(ketqua.total_linh_kien)
+                $('#total_dat_lich').text(ketqua.total_dat_lich)
 
-            if (ketqua.datasanphamban.length != 0) {
-                $("#listtopdata").empty()
-                ketqua.datasanphamban.forEach(function callback(value, index) {
-                    $("#listtopdata").append(
-                        ` <li class="list-group-item d-flex justify-content-between align-items-center">
+              
+                if (ketqua.datasanphamban.length != 0) {
+                    $("#listtopdata").empty()
+                    ketqua.datasanphamban.forEach(function callback(value, index) {
+                        $("#listtopdata").append(
+                            ` <li class="list-group-item d-flex justify-content-between align-items-center">
+
                                     ${value[index]['name']}<span class="badge badge-primary badge-pill">${value[index]['quaty']}</span></li>`
                     );
                 })
@@ -170,43 +181,46 @@ $(function() {
         }).done(function(ketqua) {
             $('#tongdoanhthu').text(ketqua.doanhthutong)
 
-            datacot.datasets[0].data = [ketqua.sotiennhap, ketqua.sotienlai]
-            datacot.labels = [`Số tiền nhập (${ketqua.sotiennhap})`,
-                `Số tiền lãi (${ketqua.sotienlai})`
-            ]
-            doanhthuchart.update()
-        });
-        //ajax sửa chữa
-        $.ajax({
-            url: 'http://127.0.0.1:8000/api/bieudosuachua',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                timestart: timestart,
-                timeend: timeend
-            },
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        }).done(function(ketqua) {
-            $('#tongdoanhthusuachua').text(ketqua.doanhthutong)
+                datacot.datasets[0].data = [ketqua.sotiennhap, ketqua.sotienlai]
+                datacot.labels = [`Số tiền nhập (${ketqua.sotiennhap})`,
+                    `Số tiền lãi (${ketqua.sotienlai})`
+                ]
+                doanhthuchart.update()
+            });
 
-            datasuachua.datasets[0].data = [ketqua.sotiennhap, ketqua.sotienlai]
-            datasuachua.labels = [`Số tiền nhập (${ketqua.sotiennhap})`,
-                `Số tiền lãi (${ketqua.sotienlai})`
-            ]
-            doanhthusuachua.update()
-        });
-        //ajax bán
-        $.ajax({
-            url: 'http://127.0.0.1:8000/api/bieudoban',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                timestart: timestart,
-                timeend: timeend
-            },
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        }).done(function(ketqua) {
-            $('#doanhthutongban').text(ketqua.doanhthutong)
+            //ajax sửa chữa
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/bieudosuachua',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    timestart: timestart,
+                    timeend: timeend
+                },
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            }).done(function(ketqua) {
+                $('#tongdoanhthusuachua').text(ketqua.doanhthutong)
+
+                datasuachua.datasets[0].data = [ketqua.sotiennhap, ketqua.sotienlai]
+                datasuachua.labels = [`Số tiền nhập (${ketqua.sotiennhap})`,
+                    `Số tiền lãi (${ketqua.sotienlai})`
+                ]
+                doanhthusuachua.update()
+            });
+
+            //ajax bán
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/bieudoban',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    timestart: timestart,
+                    timeend: timeend
+                },
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            }).done(function(ketqua) {
+                $('#doanhthutongban').text(ketqua.doanhthutong)
+
 
             databan.datasets[0].data = [ketqua.sotiennhap, ketqua.sotienlai]
             databan.labels = [`Số tiền nhập (${ketqua.sotiennhap})`,

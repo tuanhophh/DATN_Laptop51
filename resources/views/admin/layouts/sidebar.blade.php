@@ -147,7 +147,6 @@
                     <p>
                         Máy sửa chữa
                         <i class="fas fa-angle-left right"></i>
-                        <span class="badge badge-info right">6</span>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
@@ -206,7 +205,6 @@
                     <p>
                         Order
                         <i class="fas fa-angle-left right"></i>
-                        <span class="badge badge-info right">6</span>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
@@ -253,7 +251,6 @@
                     <p>
                         Danh mục linh kiện sửa
                         <i class="fas fa-angle-left right"></i>
-                        <span class="badge badge-info right">6</span>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
@@ -313,7 +310,6 @@
                     <p>
                         Hóa đơn
                         <i class="fas fa-angle-left right"></i>
-                        <span class="badge badge-info right">6</span>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
@@ -335,7 +331,6 @@
                     <p>
                         Hóa đơn sửa chữa
                         <i class="fas fa-angle-left right"></i>
-                        <span class="badge badge-info right">6</span>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
@@ -369,25 +364,6 @@
                 </ul>
             </li>
             @endcan
-            <li class="nav-item {{ request()->is('profile/history*') ? ' menu-is-opening menu-open' : '' }}">
-                <a href="" class="nav-link {{ request()->is('profile/history') ? 'active ' : '' }}">
-                    <i class="nav-icon fas fa-copy"></i>
-                    <p>
-                        Lịch sử mua hàng
-                        <i class="fas fa-angle-left right"></i>
-                        <span class="badge badge-info right">6</span>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="/profile/history"
-                            class="nav-link {{ request()->is('profile/history') ? 'active' : '' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Danh sách</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
         </ul>
     </nav>
     <!-- /.sidebar-menu -->
