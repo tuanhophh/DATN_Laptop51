@@ -1,11 +1,10 @@
 @extends('admin.layouts.main')
 @section('title', 'Trang chủ')
 @section('content')
-<section class="content">
-    <div class="container-fluid">
-        <div class='row'>
-            <div class="col-6">
-
+    <section class="content">
+        <div class="container-fluid">
+            <div class='row'>
+                <div class="col-6">
                 </div>
                 <div class='col-6 mb-5'>
                     <form action="" id="form_search_ajax">
@@ -39,14 +38,9 @@
                                 class="fas fa-arrow-circle-right"></i></a>
 
                     </div>
-                    <div class="icon">
-                        <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
-            </div>
 
-            <div class="col-lg-3 col-6">
+                <div class="col-lg-3 col-6">
 
                     <div class="small-box bg-success">
                         <div class="inner">
@@ -60,12 +54,9 @@
                                 class="fas fa-arrow-circle-right"></i></a>
 
                     </div>
-                    <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
-                    </div>
-                    <a href="{{ route('thongke-sanpham') }}" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
+
                 </div>
+
                 <div class="col-lg-3 col-6">
 
                     <div class="small-box bg-danger">
@@ -80,9 +71,9 @@
                                 class="fas fa-arrow-circle-right"></i></a>
 
                     </div>
-                    <a href="{{ route('thongke-sanpham') }}" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
+
                 </div>
+
                 <div class="col-lg-3 col-6">
 
                     <div class="small-box bg-warning">
@@ -127,15 +118,10 @@
                                 class="fas fa-arrow-circle-right"></i></a>
 
                     </div>
-                    <div class="icon">
-                        <i class="ion ion-person-add"></i>
-                    </div>
-                    <a href="{{ route('thongke-order') }}" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
 
-            <div class="col-lg-3 col-6">
+                </div>
+
+                <div class="col-lg-3 col-6">
 
                     <div class="small-box bg-danger">
                         <div class="inner">
@@ -149,11 +135,7 @@
                                 class="fas fa-arrow-circle-right"></i></a>
 
                     </div>
-                    <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
-                    </div>
-                    <a href="{{ route('thongke-doanhthu') }}" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
+
                 </div>
             </div>
 
@@ -164,26 +146,17 @@
                     <div class="card-header">
                         <h5 class="card-title">Top sản phẩm bán chạy</h5>
                     </div>
-                </div>
-                <div class="col-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title">Top nhân viên sửa chữa</h5>
-                        </div>
-                        <div class="card-body">
+                    <div class="card-body">
 
-                            <ul class="list-group" id='listtopdatanhanvien'>
-                                @foreach ($datanhanvien as $key => $nhanvien)
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        {{ $nhanvien[$key]['name'] }}
-                                        <span
-                                            class="badge badge-primary badge-pill">{{ $nhanvien[$key]['quaty'] }}</span>
-                                    </li>
-                                @endforeach
+                        <ul class="list-group" id='listtopdata'>
+                            @foreach ($datasanphamban as $key => $sanpham)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ $sanpham[0]['name'] }}
+                                    <span class="badge badge-primary badge-pill">{{ $sanpham[0]['quaty'] }}</span>
+                                </li>
+                            @endforeach
 
-                            </ul>
-                        </div>
-
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -196,10 +169,12 @@
 
                         <ul class="list-group" id='listtopdatanhanvien'>
                             @foreach ($datanhanvien as $key => $nhanvien)
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                {{ $nhanvien[$key]['name'] }}
-                                <span class="badge badge-primary badge-pill">{{ $nhanvien[$key]['quaty'] }}</span>
-                            </li>
+                            {{-- {{dd($nhanvien[$key]['name'])}} --}}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ $nhanvien['name'] }}
+                                    
+                                    <span class="badge badge-primary badge-pill">{{ $nhanvien['quaty'] }}</span>
+                                </li>
                             @endforeach
 
                         </ul>
@@ -256,6 +231,6 @@
             </div>
 
         </div>
-    </div>
-</section>
+        </div>
+    </section>
 @endsection

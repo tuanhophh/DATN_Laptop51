@@ -62,10 +62,14 @@ class HomeAdminController extends Controller
     // top nv sửa chữa
     $datanhanvien = [];
     $topnvsuachua = UserRepair::where('status',2)->distinct()->limit(10)->pluck('user_id');
+    
     foreach($topnvsuachua as $nhanvien){
       $profile = User::find($nhanvien)['name'];
-      array_push($datanhanvien,[['name'=>$profile,'quaty'=>UserRepair::where('user_id',$nhanvien)->count()]]);
+      if($profile ?? null){
+         array_push($datanhanvien,['name'=>$profile,'quaty'=>UserRepair::where('user_id',$nhanvien)->count()]);
+      }
     }
+  
     return view('admin.index', compact(
       'total_category',
       'total_product',
