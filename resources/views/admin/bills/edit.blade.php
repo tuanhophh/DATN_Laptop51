@@ -55,27 +55,25 @@
                     <div class="col-6">
 
                         <label for="">Phương thức thanh toán</label>
-                        <select @if($bill->payment_status == 2 || $bill->payment_status == 1) disabled @endif
+                        <select @if($bill->status == 2 || $bill->status == 1) disabled @endif
                             name="payment_method" class="form-control">
-                            @if($bill->payment_method == 1)
-                            <option value="{{$bill->payment_method}}">Tiền mặt</option>
-                            <option value="2">Chuyển khoản</option>
-                            @elseif($bill->payment_method == 2)
-                            <option value="{{$bill->payment_method}}">Chuyển khoản</option>
-                            <option value="1">Tiền mặt</option>
-                            @endif
+
+                        
+                            <option @if($bill->method == 2) selected @endif value="2">Chuyển khoản</option>
+                            <option @if($bill->method == 1) selected @endif value="1">Tiền mặt</option>
+                          
                         </select>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="">Trạng thái thanh toán</label>
-                            <select @if($bill->payment_status == 2 || $bill->payment_status == 1) disabled @endif
+                            <select @if($bill->status == 2 || $bill->status == 1) disabled @endif
                                 name="payment_status" class="form-control">
 
-                                <option @if($bill->payment_status == 0) selected @endif value="0">Chưa thanh toán
+                                <option @if($bill->status == 0) selected @endif value="0">Chưa thanh toán
                                 </option>
-                                <option @if($bill->payment_status == 1) selected @endif value="1">Hủy</option>
-                                <option @if($bill->payment_status == 2) selected @endif value="2">Thanh toán thành công
+                                <option @if($bill->status == 1) selected @endif value="1">Hủy</option>
+                                <option @if($bill->status == 2) selected @endif value="2">Thanh toán thành công
                                 </option>
 
                             </select>

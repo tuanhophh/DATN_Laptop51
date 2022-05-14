@@ -5,7 +5,7 @@
 
 <head>
 
-    <title>Bệnh Viện Laptop 51</title>
+    <title>Sản phẩm</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
 
@@ -97,35 +97,27 @@ if (!function_exists('currency_format')) {
                                 </div>
                                 <!-- Tab Content end -->
                                 <!-- shop-pagination start -->
-                                <ul class="shop-pagination box-shadow text-center ptblr-10-30">
-                                    <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
-                                    <li><a href="#">01</a></li>
-                                    <li><a href="#">02</a></li>
-                                    <li><a href="#">03</a></li>
-                                    <li><a href="#">...</a></li>
-                                    <li><a href="#">05</a></li>
-                                    <li class="active"><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
-                                </ul>
+                                {{ $productNew->links('vendor.pagination.customer') }}
                                 <!-- shop-pagination end -->
                             </div>
                         </div>
                         <div class="col-lg-3 order-lg-1 order-2">
-                            <!-- widget-search -->
-                            <aside class="widget-search mb-30">
-                                <form action="#">
-                                    <input type="text" placeholder="Tìm kiếm...">
-                                    <button type="submit"><i class="zmdi zmdi-search"></i></button>
-                                </form>
-                            </aside>
                             <!-- widget-categories -->
                             <aside class="widget widget-categories box-shadow mb-30">
                                 <h6 class="widget-title border-left mb-20">Danh mục</h6>
                                 <div id="cat-treeview" class="product-cat">
                                     <ul>
                                         <li class="open"><a href="#">Laptop</a>
-                                            <ul>
-                                                @foreach($ComputerCompany as $ComputerCom)
-                                                <li><a
+                                        <ul>
+                                            <li>
+                                                <a @if(session()->get('url_path') == "cua-hang") style="color:#ff7f00" @endif href="/cua-hang">
+                                                    Tất cả
+                                                </a>
+                                            </li>
+                                            @foreach($ComputerCompany as $ComputerCom)
+                                                <li><a class="" @if(session()->get('url_path') == "cua-hang/$ComputerCom->id")
+                                                        style="color:#ff7f00"
+                                                        @endif
                                                         href="/cua-hang/{{$ComputerCom->id}}">{{$ComputerCom->company_name}}</a>
                                                 </li>
                                                 @endforeach
@@ -137,20 +129,38 @@ if (!function_exists('currency_format')) {
                             <aside class="widget widget-product box-shadow">
                                 <h6 class="widget-title border-left mb-20">Sản phẩm bán chạy</h6>
                                 <!-- product-item start -->
+                                @foreach($product_hot_sell as $products_hot)
+                                <?php
+
+                                    if (!function_exists('currency_format')) {
+                                        function currency_format($products_hot, $suffix = ' VNĐ')
+                                        {
+                                            if (!empty($products_hot)) {
+                                                return number_format($products_hot, 0, ',', '.') . "{$suffix}";
+                                            }
+                                        }
+                                    }
+                                    ?>
 
                                 <div class="product-item">
                                     <div class="product-img">
-                                        <a href="single-product.html">
-                                            <img src="img/product/4.jpg" alt="" />
+                                        @foreach ($images_product_list as $image)
+                                        @if ($image->product_id == $products_hot->id)
+                                        <a href="/san-pham/{{$products_hot->slug}}">
+                                            <img src="{{ asset($image->path) }}" alt="{{ asset($image->path) }}" />
                                         </a>
+                                        @break;
+                                        @endif
+                                        @endforeach
                                     </div>
                                     <div class="product-info">
                                         <h6 class="product-title">
-                                            <a href="single-product.html">Product Name</a>
+                                            <a href="/san-pham/{{$products_hot->slug}}">{{$products_hot->name}}</a>
                                         </h6>
-                                        <h3 class="pro-price">$ 869.00</h3>
+                                        <h3 class="pro-price">{{ currency_format($products_hot->price) }}</h3>
                                     </div>
                                 </div>
+                                @endforeach
                                 <!-- product-item end -->
 
                             </aside>
@@ -162,8 +172,6 @@ if (!function_exists('currency_format')) {
         </div>
         @include('layout_client.footer')
         @include('layout_client.script')
-
-
 
 </body>
 

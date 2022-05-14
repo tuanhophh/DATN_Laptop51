@@ -15,62 +15,95 @@ $(function() {
 });
 </script>
 <div class="row">
-        <div class="card">
-            <div class="card-body">
-                <form action="" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="">Tên người dùng</label>
-                                <input type="text" name="name" class="form-control" placeholder="">
+    <div class="card">
+        <div class="card-body">
+            <form action="" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="">Tên người dùng</label>
+                            <input type="text" name="name" class="form-control" placeholder="">
+                            @error('name')
+                            <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="">
+                            @error('email')
+                            <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">Mật khẩu</label>
+                            <input type="password" name="password" class="form-control" placeholder="">
+                            @error('password')
+                            <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">Ảnh đại diện</label>
+                            <input type="file" name="avatar" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Quyền truy cập admin</label>
+                            <div class="form-check mx-2">
+                                <input class="form-check-input radio-color" value="1" type="radio" name="id_role"
+                                    id="flexRadioDefault1" autocompleted="">
+                                <label class="form-check-label" for="flexRadioDefault1"> Có
+                                </label>
                             </div>
-                            <div class="form-group">
-                                <label for="">Email</label>
-                                <input type="email" name="email" class="form-control" placeholder="">
+                            <div class="form-check mx-2">
+                                <input class="form-check-input radio-color" checked value="0" type="radio"
+                                    name="id_role" id="flexRadioDefault1" autocompleted="">
+                                <label class="form-check-label" for="flexRadioDefault1"> Không
+                                </label>
                             </div>
-                            <div class="form-group">
-                                <label for="">Mật khẩu</label>
-                                <input type="password" name="password" class="form-control" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Ảnh đại diện</label>
-                                <input type="file" name="avatar" class="form-control" placeholder="">
-                            </div>
-                          </div>
-                          <div class="col-6">
-                          <div class="form-group">
-                                <label for="">Số điện thoại</label>
-                                <input type="number" name="phone" class="form-control" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Địa chỉ</label>
-                                <input type="text" name="address" class="form-control" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Mô tả</label>
-                                <input type="text" name="description" class="form-control" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Vai trò</label>
-                                <select name="role_id" class="form-control select2_init">
-                                    @foreach($roles as $roleItem)
-                                    @if(Auth::user()->email == 'admin@gmail.com' || (Auth::user()->email !='admin@gmail.com' && $roleItem->id != 1))
-                                    <option value="{{$roleItem->id}}">{{$roleItem->name}}</option>
-                                    @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                          </div>
-                          <div class="col-12 d-flex justify-content-end">
-                            <br>
-                            <a href="{{route('user.index')}}" class="btn btn-sm btn-danger">Hủy</a>
-                            &nbsp;
-                            <button type="submit" class="btn btn-sm btn-success">Lưu</button>
+                            @error('id_role')
+                            <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
-                </form>
-            </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="">Số điện thoại</label>
+                            <input type="number" name="phone" class="form-control" placeholder="">
+                            @error('phone')
+                            <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">Địa chỉ</label>
+                            <input type="text" name="address" class="form-control" placeholder="">
+                            @error('address')
+                            <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">Mô tả</label>
+                            <input type="text" name="description" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Vai trò</label>
+                            <select name="role_id[]" class="form-control select2_init" multiple>
+                                @foreach($roles as $role)
+                                @if($role->id != 1)
+                                <option value="{{$role->id}}">{{$role->name}}</option>
+                                @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-end">
+                        <br>
+                        <a href="{{route('user.index')}}" class="btn btn-sm btn-danger">Hủy</a>
+                        &nbsp;
+                        <button type="submit" class="btn btn-sm btn-success">Lưu</button>
+                    </div>
+                </div>
+            </form>
         </div>
+    </div>
 </div>
-            @endsection
+@endsection

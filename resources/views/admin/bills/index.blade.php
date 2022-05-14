@@ -40,14 +40,14 @@
     {{-- <button type="submit" name="type_bill" value="1" class="btn btn-info"> Bán hàng</button>
     <button type="submit" name="type_bill" value="2" class="btn btn-info"> Sửa chữa</button> --}}
 </form>
+
 <div class="row">
     <div class="col-12">
         <div class="card-body">
             <table class="table table-bordered">
                 <thead>
                     <th>STT</th>
-                    <th>Mã hóa đơn</th>
-                    <th>Loại hóa đơn</th>
+                    <th onclick="onClick()">Mã hóa đơn</th>
                     <th>Tổng tiền</th>
                     <th>Phương thức</th>
                     <th>Trạng thái</th>
@@ -59,19 +59,13 @@
                     @foreach ($bills as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
-                        <td>{{ $item->codebill }}</td>
-                        <td>@if ($item->type==1)
-                            <span class="text-info">Bán hàng</span>
-                            @else
-                            <span class="text-success">Sửa chữa</span>
-                            @endif
-                        </td>
+                        <td>{{ $item->code }}</td>
                         <td>
                             <?php
                                 // $total = str_replace('.', '', $item->total);
                                 // $total= number_format($item->total, 2, ',', '.');
                                 ?>
-                            {{ $item->total }} VNĐ
+                            {{ $item->total_price }} VNĐ
                         </td>
                         <td>{{ $item->method == 1 ? 'Tiền măt' : 'Chuyển khoản'}}</td>
                         <td>@if($item->status == 0)
@@ -90,7 +84,7 @@
                                 tiết</a>
                             @endcan
                             @can('edit-bill')
-                            @if($item->payment_status != 2)
+                            @if($item->status != 0)
                             <a href="{{ route('bill.edit', ['id' => $item->id]) }}"
                                 class="btn btn-sm btn-warning">Sửa</a>
                             @endif

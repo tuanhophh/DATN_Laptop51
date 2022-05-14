@@ -5,7 +5,7 @@
 
 <head>
 
-    <title>Bệnh Viện Laptop 51</title>
+    <title>Thanh toán</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
 
@@ -434,7 +434,5 @@
         @include('layout_client.script_payment')
 
 </body>
-
-
 
 </html>

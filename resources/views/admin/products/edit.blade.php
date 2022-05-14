@@ -2,7 +2,6 @@
 @section('title', 'Sửa sản phẩm')
 @section('content')
 
-
 <form action="" method="post" enctype="multipart/form-data">
     @csrf
     <div class="card">

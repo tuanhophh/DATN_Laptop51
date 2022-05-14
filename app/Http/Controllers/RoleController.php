@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Permission;
 use App\Models\Role;
+use App\Rules\Throttle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +31,17 @@ class RoleController extends Controller
 
     }
     public function store(Request $request)
-    {
+    {           
+        
+        $request->validate([
+        'name' => ['required',],
+        'display_name' => ['required',],
+    ],
+        [
+            'name.required' => 'Vui lòng nhập tên vai trò',
+            'display_name.required' => 'Vui lòng nhập mô tả',
+        ]);
+
         $role = $this->role->create([
             'name' => $request->name,
             'display_name' => $request->display_name,

@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bill;
-use App\Models\bill_detail;
-use App\Models\BillDetail;
 use App\Models\BillUser;
+use App\Models\bill_detail;
 use App\Models\list_bill;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Toastr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class BillController extends Controller
 {
@@ -40,6 +39,17 @@ class BillController extends Controller
         if (!$bill) {
             return view('admin.bills.index')->with('error', 'Không tìm thấy hóa đơn');
         }
+        foreach (Auth::user()->unreadNotifications as $notification) {
+            if ($notification->data['url'] ===  '/' . FacadesRequest::path()) {
+                $userUnreadNotification = auth()->user()
+                    ->unreadNotifications
+                    ->where('id', $notification->id)
+                    ->first();
+                if ($userUnreadNotification) {
+                    $userUnreadNotification->markAsRead();
+                }
+            }
+        };
         // $ComputerCompany = ComputerCompany::all();
         return view(
             'admin.bills.detail',

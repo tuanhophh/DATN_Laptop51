@@ -10,14 +10,14 @@
             <div class="col-6 mt-2">
                 <div class="form-group">
                     <label for="">Tên sản phẩm</label>
-                    <input type="text" name="name" id="slug" class="form-control" onkeyup="ChangeToSlug()" placeholder="Tên sản phẩm">
+                    <input type="text" name="name" id="slug" value="{{old('name')}}" class="form-control" onkeyup="ChangeToSlug()" placeholder="Tên sản phẩm">
                     @error('name')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="">Đường dẫn</label>
-                    <input type="text" name="slug" id="convert_slug" class="form-control" placeholder="">
+                    <input type="text" name="slug" id="convert_slug" value="{{old('slug')}}" class="form-control" placeholder="">
                     @error('slug')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
@@ -27,7 +27,7 @@
                     <select name="companyComputer_id" class="form-control">
                         <option value="">Chọn CompanyComputer</option>
                         @foreach ($ComputerCompany as $item)
-                        <option value="{{ $item->id }}">{{ $item->company_name }}</option>
+                        <option @if(old('companyComputer_id') == $item->id) selected @endif value="{{ $item->id }}">{{ $item->company_name }}</option>
                         @endforeach
                     </select>
                     @error('companyComputer_id')
@@ -114,9 +114,9 @@
                 <div class="form-group pt-1 pr-2">
                     <label for="">Thời gian bảo hành</label>
                     <select name="insurance" id="" class="form-control">
-                        <option value="6">6 tháng</option>
-                        <option value="12">12 tháng</option>
-                        <option value="24">24 tháng</option>
+                        <option @if(old('insurance') == 6) selected @endif value="6">6 tháng</option>
+                        <option @if(old('insurance') == 12) selected @endif value="12">12 tháng</option>
+                        <option @if(old('insurance') == 24) selected @endif value="24">24 tháng</option>
                     </select>
                     @error('insurance')
                     <p class="text-danger">{{ $message }}</p>
@@ -126,8 +126,8 @@
                     <label for="">Trạng thái</label>
                     <select name="status" id="" class="form-control">
                         <option value="">Chọn trạng thái</option>
-                        <option value="1">Hiển thị</option>
-                        <option value="0">Ẩn</option>
+                        <option @if(old('status') == 1) selected @endif value="1">Hiển thị</option>
+                        <option @if(old('status') == 0) selected @endif value="0">Ẩn</option>
                     </select>
                     @error('status')
                     <p class="text-danger">{{ $message }}</p>
