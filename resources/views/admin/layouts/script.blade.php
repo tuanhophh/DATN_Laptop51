@@ -41,6 +41,7 @@ s
 
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
 {{-- Tổng doanh thu --}}
 <script>
     var datacot = {
@@ -65,6 +66,8 @@ s
         config
     );
 </script>
+
+{{-- Tổng doanh thu sửa --}}
 <script>
     var datasuachua = {
         labels: [`Số tiền nhập (${$('#sotiennhapsuachua').val()})`,
@@ -89,6 +92,8 @@ s
         configsuachua
     );
 </script>
+
+{{-- Tổng doanh thu bán --}}
 <script>
     var databan = {
         labels: [`Số tiền nhập (${$('#sotiennhapban').val()})`,
@@ -127,10 +132,14 @@ s
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             }).done(function(ketqua) {
                 $('#total_category').text(ketqua.total_category)
-                $('#total_huy').text(ketqua.total_huy)
                 $('#total_product').text(ketqua.total_product)
-                $('#total_order').text(ketqua.total_bill)
                 $('#total_user').text(ketqua.total_user)
+                $('#total_mua_hang').text(ketqua.total_mua_hang)
+                $('#total_user').text(ketqua.total_user)
+                $('#total_danh_muc_linh_kien').text(ketqua.total_danh_muc_linh_kien)
+                $('#total_linh_kien').text(ketqua.total_linh_kien)
+                $('#total_dat_lich').text(ketqua.total_dat_lich)
+
               
                 if (ketqua.datasanphamban.length != 0) {
                     $("#listtopdata").empty()
@@ -174,6 +183,7 @@ s
                 ]
                 doanhthuchart.update()
             });
+
             //ajax sửa chữa
             $.ajax({
                 url: 'http://127.0.0.1:8000/api/bieudosuachua',
@@ -193,6 +203,7 @@ s
                 ]
                 doanhthusuachua.update()
             });
+
             //ajax bán
             $.ajax({
                 url: 'http://127.0.0.1:8000/api/bieudoban',

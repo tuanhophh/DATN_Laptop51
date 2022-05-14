@@ -8,11 +8,20 @@
 
                 </div>
                 <div class='col-6 mb-5'>
-                    <label for="datetimestart">Bắt đầu</label>
-                    <input type="date" id="datetimestart" name="datetimestart" class="btn btn-light mr-3">
-                    <label for="datetimeend">Kết thúc</label>
-                    <input type="date" id="datetimeend" name="datetimeend" class="btn btn-light mr-3">
-                    <button type="button" id="search_date" class="btn btn-primary">tìm kiếm</button>
+                    <form action="" id="form_search_ajax">
+                        {{ csrf_field() }}
+                        <label for="datetimestart">Bắt đầu</label>
+                        <input type="date" id="datetimestart" name="datetime_start" class="btn btn-light mr-3">
+                        @error('datetime_start')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                        <label for="datetimeend">Kết thúc</label>
+                        <input type="date" id="datetimeend" name="datetime_end" class="btn btn-light mr-3">
+                        @error('datetime_end')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                        <button type="button" id="search_date" class="btn btn-primary">tìm kiếm</button>
+                    </form>
                 </div>
             </div>
             <div class="row">
@@ -21,12 +30,13 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3 id='total_category'>{{ $total_category }}</h3>
-                            <p>Categories</p>
+                            <p>Danh mục</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('CompanyComputer.index') }}" class="small-box-footer">Chi tiết <i
+                                class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
 
@@ -35,26 +45,26 @@
                     <div class="small-box bg-success">
                         <div class="inner">
                             <h3 id='total_product'>{{ $total_product }}</h3>
-                            <p>Product</p>
+                            <p>Sản phẩm</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="{{ route('thongke-sanpham') }}" class="small-box-footer">More info <i
+                        <a href="{{ route('product.index') }}" class="small-box-footer">Chi tiết <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-6">
 
-                    <div class="small-box bg-Info">
+                    <div class="small-box bg-danger">
                         <div class="inner">
                             <h3 id='total_user'>{{ $total_user }}</h3>
-                            <p>User</p>
+                            <p>Thành viên</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="{{ route('thongke-sanpham') }}" class="small-box-footer">More info <i
+                        <a href="{{ route('user.index') }}" class="small-box-footer">Chi tiết <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -62,13 +72,43 @@
 
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3 id='total_order'>{{ $total_bill }}</h3>
-                            <p>Order</p>
+                            <h3 id='total_mua_hang'>{{ $total_bill }}</h3>
+                            <p>Mua hàng</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        <a href="{{ route('thongke-order') }}" class="small-box-footer">More info <i
+                        <a href="{{ route('bill.index') }}" class="small-box-footer">Chi tiết <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
+
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3 id='total_danh_muc_linh_kien'>{{ $total_componentComputerConpany }}</h3>
+                            <p>Danh mục linh kiện</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="{{ route('category_component.index') }}" class="small-box-footer">Chi tiết <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
+
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3 id='total_linh_kien'>{{ $total_component }}</h3>
+                            <p>Linh kiện</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="{{ route('component.index') }}" class="small-box-footer">Chi tiết <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -77,13 +117,13 @@
 
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3 id='total_huy'>{{ $total_huy }}</h3>
-                            <p>Đơn hàng hủy</p>
+                            <h3 id='total_dat_lich'>{{ $total_order }}</h3>
+                            <p>Đặt lịch</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
                         </div>
-                        <a href="{{ route('thongke-doanhthu') }}" class="small-box-footer">More info <i
+                        <a href="{{ route('dat-lich.index') }}" class="small-box-footer">Chi tiết <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -120,7 +160,8 @@
                                 @foreach ($datanhanvien as $key => $nhanvien)
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         {{ $nhanvien[$key]['name'] }}
-                                        <span class="badge badge-primary badge-pill">{{ $nhanvien[$key]['quaty'] }}</span>
+                                        <span
+                                            class="badge badge-primary badge-pill">{{ $nhanvien[$key]['quaty'] }}</span>
                                     </li>
                                 @endforeach
 

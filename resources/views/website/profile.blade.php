@@ -425,43 +425,23 @@
                                                             Ngày mua: {{ $item->created_at }}
                                                         </p>
                                                     </div>
-                                                    <!-- /.timeline-label -->
-                                                    <!-- timeline item -->
                                                     <div>
                                                         <div class="timeline-item">
 
                                                             <div class="row">
-                                                                <div class="col-3">
-                                                                    <a href=""><img src="{{ asset($item->image) }}"
-                                                                            alt=""
-                                                                            style="background-size: 150px 150px;width: 200px;height: 170px;"></a>
-                                                                </div>
                                                                 <div class="col-7">
                                                                     <h3 class="timeline-header"><a
                                                                             href="#">{{ $item->name }}</a>
                                                                     </h3>
-                                                                    <div class="timeline-body">
-                                                                        Etsy doostang zoodles disqus groupon greplin
-                                                                        oooj
-                                                                        voxy
-                                                                        zoodles,
-                                                                        weebly ning heekya handango imeem plugg dopplr
-                                                                        jibjab,
-                                                                        movity
-                                                                        jajah plickers sifteo edmodo ifttt zimbra.
-                                                                        Babblely
-                                                                        odeo
-                                                                        kaboodle
-                                                                        quora plaxo ideeli hulu weebly balihoo...
-                                                                    </div>
+                                                                    
                                                                     <br>
                                                                     <div class="timeline-footer">
                                                                         <div class="row flex">
                                                                             <div class="col-6">Sản phẩm:
-                                                                                {{ $item->qty }}</div>
+                                                                                {{ $item->count_order }}</div>
                                                                             <div class="col-4 ">
                                                                                 <b class="text-danger"
-                                                                                    style="font-size: 20px"><i>{{ $item->price * $item->qty }}
+                                                                                    style="font-size: 20px"><i>{{ $item->total_price }}
                                                                                         VNĐ </i></b>
                                                                             </div>
                                                                         </div>
@@ -641,7 +621,7 @@
                                                 <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" id="inputEmail"
-                                                        placeholder="Email..." name="email" value="{{ $user->email }}">
+                                                        placeholder="Email..." name="email" value="{{ Auth::user()->email }}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
