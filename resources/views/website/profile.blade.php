@@ -413,7 +413,7 @@
 
                                             @if ($bill->toArray() == [])
                                                 <div class="text-center">
-                                                    <h3>hiện tại bạn chưa có đơn hàng nào.</h3>
+                                                    <h3>Hiện tại bạn chưa có đơn hàng nào.</h3>
                                                     <a href="{{ asset('') }}cua-hang">
                                                         <b>Đặt hàng ngay</b>
                                                     </a>
@@ -785,8 +785,7 @@
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
-</script>
+integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 <script>
     function doAfterSelectImage(input) {
         readURL(input);
