@@ -160,7 +160,7 @@
 
                                                 </td>
                                                 <td> <input type="text" name="price_product_repair[]"
-                                                        placeholder="Nhập giá tiền" class="form-control"></td>
+                                                        placeholder="Nhập giá tiền" value="0" class="form-control"></td>
                                                 <td></td>
                                             </tr>
 

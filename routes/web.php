@@ -102,10 +102,10 @@ Route::get('gioi-thieu', function () {
 Route::get('dat-lich', function () {
     $company_computer = ComputerCompany::all();
     return view('website.booking', compact('company_computer'));
-})->name('dat-lich.add_client');
+});
 Route::get('dat-lich-thanh-cong', function () {
     return view('website.success');
-})->name('dat-lich.add_client');
+});
 Route::post('dat-lich', [BookingController::class, 'creatBooking']);
 // trang liên hệ
 Route::get('lien-he', function () {

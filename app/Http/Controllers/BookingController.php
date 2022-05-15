@@ -287,7 +287,6 @@ class BookingController extends Controller
    }
    public function repairDetail($id)
    {
-
       $booking_detail = BookingDetail::find($id);
       // dd($booking_detail->booking()->first());
       if ($booking_detail) {
@@ -314,6 +313,7 @@ class BookingController extends Controller
 
    public function finishRepairDetail($id, Request $request)
    {
+      dd($request->all());
       // dd($request);
       function detailComponent($id)
       {
