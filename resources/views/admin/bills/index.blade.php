@@ -18,35 +18,58 @@
     </button>
 </div>
 @endif
-    <div class="row">
-        <div class="col-12">
-            <div class="card-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <th>STT</th>
-                        <th onclick="onClick()">Mã hóa đơn</th>
-                        <th>Tổng tiền</th>
-                        <th>Phương thức</th>
-                        <th>Trạng thái</th>
-                        <th>Ngày đặt</th>
-                        <th>
-                        </th>
-                    </thead>
-                    <tbody>
-                        @foreach ($bills as $item)
-                        <tr>
-                            <td>{{ $item->id }}</td>
-                            <td>{{ $item->code }}</td>
-                            <td>
-                                <?php
+<form action="" method="get" class="row">
+    <div class="form-group col-3">
+        {{-- <label for="">Tìm kiếm</label> --}}
+        <input type="text" class="form-control" name="search" id="" aria-describedby="helpId"
+            placeholder="Tìm kiếm mã hóa đơn">
+        {{-- <button>Tìm</button> --}}
+    </div>
+    <div class="form-group col-2">
+        {{-- <label for=""></label> --}}
+        <select name="type_bill" class="form-control ">
+            <option value="1">Bán hàng</option>
+            <option value="2"> Sửa chữa</option>
+            {{-- <option></option> --}}
+        </select>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+
+    </div class="form-group col-3">
+    {{-- <button type="submit" name="type_bill" value="1" class="btn btn-info"> Bán hàng</button>
+    <button type="submit" name="type_bill" value="2" class="btn btn-info"> Sửa chữa</button> --}}
+</form>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <th>STT</th>
+                    <th onclick="onClick()">Mã hóa đơn</th>
+                    <th>Tổng tiền</th>
+                    <th>Phương thức</th>
+                    <th>Trạng thái</th>
+                    <th>Ngày đặt</th>
+                    <th>
+                    </th>
+                </thead>
+                <tbody>
+                    @foreach ($bills as $item)
+                    <tr>
+                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->code }}</td>
+                        <td>
+                            <?php
                                 // $total = str_replace('.', '', $item->total);
                                 // $total= number_format($item->total, 2, ',', '.');
                                 ?>
-                                {{ $item->total_price }} VNĐ
-                            </td>
-                            <td>{{ $item->method == 1 ? 'Tiền măt' : 'Chuyển khoản'}}</td>
-                            <td>@if($item->status == 0)
-                                <p class="text-warning">Chưa thanh toán</p>
+                            {{ $item->total_price }} VNĐ
+                        </td>
+                        <td>{{ $item->method == 1 ? 'Tiền măt' : 'Chuyển khoản'}}</td>
+                        <td>@if($item->status == 0)
+                            <p class="text-warning">Chưa thanh toán</p>
 
                                 @elseif($item->status == 1)
                                 <p class="text-danger">Hủy</p>
@@ -69,31 +92,31 @@
                                 @endcan
                                 @can('delete-bill')
 
-                                <!-- <a class="text-secondary" data-toggle="modal" id="mediumButton"
+                            <!-- <a class="text-secondary" data-toggle="modal" id="mediumButton"
                                 data-target=".bd-example-modal-lg" data-attr="">
                                 <i class="fas fa-edit text-gray-300"></i>
                             </a> -->
-                                @endcan
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <h4 class="text-center ">
-                    @if($bills == NULL)
-                    Không có dữ liệu
-                    @endif
-                </h4>
-                <div class="d-flex justify-content-center">
-                    {{ $bills->appends($_GET)->links() }}
-                </div>
+                            @endcan
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <h4 class="text-center ">
+                @if($bills == NULL)
+                Không có dữ liệu
+                @endif
+            </h4>
+            <div class="d-flex justify-content-center">
+                {{ $bills->appends($_GET)->links() }}
             </div>
         </div>
     </div>
+</div>
 
 
 <script>
-// display a modal (medium modal)
+    // display a modal (medium modal)
 $(document).on('click', '#mediumButton', function(event) {
     event.preventDefault();
     let href = $(this).attr('data-attr');

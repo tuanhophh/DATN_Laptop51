@@ -190,6 +190,11 @@ class BookingController extends Controller
       // if ($request->btn == 'admin') {
       //    return back()->with('msg', '<script>	alert("Đặt lịch thành công");	</script>');
       // } else {
+
+      if ($request->btn == 'client') {
+         return view('website.success', compact('request'));
+      }
+
       return back()->with('msg', '<script>alert("Đặt lịch thành công");	</script>');
       // }
 
@@ -282,7 +287,6 @@ class BookingController extends Controller
    }
    public function repairDetail($id)
    {
-
       $booking_detail = BookingDetail::find($id);
       // dd($booking_detail->booking()->first());
       if ($booking_detail) {
@@ -309,6 +313,7 @@ class BookingController extends Controller
 
    public function finishRepairDetail($id, Request $request)
    {
+      dd($request->all());
       // dd($request);
       function detailComponent($id)
       {
@@ -426,7 +431,7 @@ class BookingController extends Controller
    public function DanhSachChoSua()
    {
       $booking_details = BookingDetail::join('bookings', 'booking_details.booking_id', 'bookings.id')
-         ->where('status_repair', 'waiting')->where('status_booking', 'latch')->get();
+         ->where('status_repair', 'waiting')->orWhere('status_repair', 'fixing')->where('status_booking', 'latch')->get();
       $users = User::all();
       return view('admin.booking.ds_cho_sua', compact('booking_details', 'users'));
    }

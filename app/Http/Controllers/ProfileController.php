@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
 use App\Models\Bill;
+use App\Models\BillDetail;
 use App\Models\BookingDetail;
 use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
@@ -35,13 +36,16 @@ class ProfileController extends Controller
         $user = User::find($id);
         // dd($user);
         $bill = DB::table('bill_users')
-            ->join('bills', 'bill_users.bill_code', 'bills.code')
-            ->join('bill_details', 'bills.code', 'bill_details.bill_code')
-            ->join('products', 'bill_details.product_id', 'products.id')
-            ->select('bill_users.address', 'bills.id', 'bills.total', 'bills.payment_status', 'bill_details.qty', 'bill_details.price', 'bill_details.bill_code', 'bill_details.created_at', 'products.name')
-            ->where('bills.user_id', '=', auth()->user()->id)
-            ->groupBy('bills.total')
+            ->join('list_bill', 'bill_users.bill_code', 'list_bill.code')
+            ->join('billdetail', 'list_bill.code', 'billdetail.bill_code')
+            ->join('products', 'billdetail.product_id', 'products.id')
+            ->select(DB::raw('count(billdetail.bill_code) as count_order'),'bill_users.address', 'list_bill.id', 'list_bill.total_price', 'billdetail.quaty', 'billdetail.ban', 'billdetail.bill_code', 'billdetail.created_at', 'products.name')
+            ->where('bill_users.user_id', '=', auth()->user()->id)
+            ->groupBy('list_bill.total_price')
+            
             ->get();
+
+            // dd($bill);
 
         if (!empty(auth()->user())) {
             $repair = DB::table('bookings')
@@ -200,14 +204,18 @@ class ProfileController extends Controller
     public function historyDetail(Request $request, $code)
     {
         $user = User::find(auth()->user()->id);
-        $bill = DB::table('bills')
-            ->join('bill_details', 'bills.code', 'bill_details.bill_code')
-            ->join('products', 'bill_details.product_id', 'products.id')
-            ->select('bills.total', 'bill_details.qty', 'bill_details.bill_code', 'bill_details.price', 'bill_details.created_at', 'products.name', 'products.image')
-            ->where('bills.user_id', '=', auth()->user()->id)
-            ->where('bill_details.bill_code', '=', $code)
-            // ->groupBy('bill_details.bill_code')
+
+            $bill = DB::table('bill_users')
+            ->join('list_bill', 'bill_users.bill_code', 'list_bill.code')
+            ->join('billdetail', 'list_bill.code', 'billdetail.bill_code')
+            ->join('products', 'billdetail.product_id', 'products.id')
+            ->select(DB::raw('count(billdetail.bill_code) as count_order'),'billdetail.product_id','list_bill.method','list_bill.status','bill_users.address', 'list_bill.id', 'list_bill.total_price', 'billdetail.quaty', 'billdetail.ban', 'billdetail.bill_code', 'billdetail.created_at', 'products.name')
+            ->where('bill_users.user_id', '=', auth()->user()->id)
+            ->where('billdetail.bill_code', '=', $code)
             ->get();
-        return view('website.history-detail', compact('bill', 'code', 'user'));
+            // dd($bill);
+            $images = DB::table('product_images')->get();
+        // dd($images,$bill);
+        return view('website.history-detail', compact('bill','user','images'));
     }
 }

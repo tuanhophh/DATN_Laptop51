@@ -63,29 +63,36 @@
 <body onload="validateSelectBox()" class="">
     <style>
         .mota img {
-            max-width: 70px;
+            max-width: 200px;
         }
     </style>
     {{-- <div class="container mt-4 "> --}}
         <div class="row card bg-success p-2 text-dark bg-opacity-10 bg-opacity-10">
             <div class=" row">
                 <div class="col">
-                    <div class="row ">
-                        <div class="col">
-                            <h5>Họ tên :</h5>
-                            <p>{{ $booking->full_name }}</p>
+                    {{-- <div class="row " style="font-size: 20px"> --}}
+                        <div class="col flex">
+                            <b>Họ tên :</b> <span>{{ $booking->full_name }}</span>
+                            {{-- <span>{{ $booking->full_name }}</span> --}}
                         </div>
-                        <div class="col">
-                            <h5>Số điện thoại</h5>
-                            <p>{{ $booking->phone }}</p>
-                        </div>
-                    </div>
 
+                        <div class="col flex">
+                            <b>Số điện thoại :</b> <span>{{ $booking->phone }}</span>
+                            {{-- <span>{{ $booking->full_name }}</span> --}}
+                        </div>
+                        {{--
+                    </div> --}}
                     <div>
-                        <h5>Tên máy :</h5>
-                        <p>{{ $booking_detail->name_computer }}</p>
-                    </div>
 
+                        <div class="col flex">
+                            <b>Tên máy :</b> <span>{{ $booking_detail->name_computer }}</span>
+                            {{-- <span>{{ $booking->full_name }}</span> --}}
+                        </div>
+                        <div class="col flex">
+                            <b>Hãng máy :</b> <span>{{ $booking_detail->computerCompany->company_name }}</span>
+                            {{-- <span>{{ $booking->full_name }}</span> --}}
+                        </div>
+                    </div>
 
                     <h5>Mô tả tình trạng: </h5>
 
@@ -153,7 +160,7 @@
 
                                                 </td>
                                                 <td> <input type="text" name="price_product_repair[]"
-                                                        placeholder="Nhập giá tiền" class="form-control"></td>
+                                                        placeholder="Nhập giá tiền" value="0" class="form-control"></td>
                                                 <td></td>
                                             </tr>
 
@@ -169,8 +176,7 @@
                             <div class="form-group ">
                                 <label for=""></label>
                                 <h5>Mô tả sửa chữa, lưu ý cho khách hàng</h5>
-                                <textarea class="form-control" name="description_repair" id="ckeditor1"
-                                    rows="3"></textarea>
+                                <textarea class="form-control" name="repair" id="ckeditor1" rows="3"></textarea>
 
 
                             </div>

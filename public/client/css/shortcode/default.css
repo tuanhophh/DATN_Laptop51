@@ -127,6 +127,7 @@ h3,
 h4,
 h5,
 h6 {
+    font-family: 'Raleway', sans-serif;
     font-weight: normal;
     color: #434343;
     margin-top: 0px;
@@ -818,7 +819,7 @@ a.button.extra-small i {
   6. Input 
 *************************/
 
-select[name=con_ht] {
+select[id=con_ht] {
     background: #fff none repeat scroll 0 0;
     border: 1px solid transparent;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
@@ -831,7 +832,7 @@ select[name=con_ht] {
     width: 100%;
 }
 
-select[name=con_ht]:focus {
+select[id=con_ht]:focus {
     border: 1px solid #FFBF7F;
 }
 
@@ -2651,8 +2652,8 @@ textarea:focus {
 .section-title {}
 
 .section-title h2 {
-    font-size: 24px;
-    font-weight: 650;
+    font-size: 30px;
+    font-weight: 700;
     line-height: 24px;
 }
 

@@ -91,7 +91,7 @@
                                             </select>
                                         </div> --}}
                                         <div class="col-lg-6">
-                                            <select name="company_computer_id">
+                                            <select name="company_computer_id" id="con_ht">
                                                 <option value="company_computer_id" hidden>Thương hiệu máy</option>
                                                 @foreach ($company_computer as $item)
                                                 <option value="{{ $item->id }}">{{ $item->company_name }}</option>
@@ -107,7 +107,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-lg-6">
-                                            <select name="interval">
+                                            <select name="interval" id="con_ht">
                                                 <option hidden value="">Khung giờ sửa chữa</option>
                                                 <option value="1">8h-10h</option>
                                                 <option value="2">10h-12h</option>
@@ -120,8 +120,8 @@
                                             <small id="helpId" class="form-text text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
-                                        <div class="col-lg-6">
-                                            <input type="date" min="{{ now()->format('Y-m-d') }}" name="date"
+                                        <div class="col">
+                                            <input type="date" id="date" min="{{ now()->format('Y-m-d') }}" name="date"
                                                 value="{{ old('date') }}" placeholder="Ngày">
                                             @error('date')
                                             <small id="helpId" class="form-text text-danger">{{ $message }}</small>
@@ -131,7 +131,8 @@
                                             <textarea class="custom-textarea" name="description" id="ckeditor"
                                                 placeholder="Nội dung...">{{ old('description') }}</textarea>
 
-                                        </div> <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Đặt
+                                        </div> <button class="submit-btn-1 mt-30 btn-hover-1" name="btn" value="client"
+                                            type="submit">Đặt
                                             Lịch</button>
                                     </div>
                                     <p class="form-message"></p>

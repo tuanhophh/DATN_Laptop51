@@ -24,55 +24,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <form action="" method="get">
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="">Từ khóa</label>
-                                <input type="text" class="form-control" name="keyword"
-                                    value="{{ $searchData['keyword'] }}" placeholder="Tìm theo tên sản phẩm">
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="">Tên cột</label>
-                                <select name="column_names" class="form-control">
-                                    @foreach ($column_names as $key => $item)
-                                    <option @if ($key==$searchData['column_names']) selected @endif value="{{ $key }}">
-                                        {{ $item }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="form-group">
-                                <label for="">Hãng</label>
-                                <select name="companyComputer_id" class="form-control">
-                                    <option value="">Tất cả</option>
-                                    @foreach ($ComputerCompany as $item)
-                                    <option @if ($item->id == $searchData['companyComputer_id']) selected @endif
-                                        value="{{ $item->id }}">{{ $item->company_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="form-group">
-                                <label for="">Sắp xếp theo</label>
-                                <select name="order_by" class="form-control">
-                                    @foreach ($order_by as $key => $item)
-                                    <option @if ($key==$searchData['order_by']) selected @endif value="{{ $key }}">{{
-                                        $item }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-2 d-flex pt-3 align-items-center justify-content-end">
-                            <button class="btn btn-primary" style="width: 120px; height: 40px;" type="submit">Tìm
-                                kiếm</button>
-                        </div>
-                    </div>
-                </form>
+                
             </div>
             <div class="card-body">
                 <table class="table table-bordered">

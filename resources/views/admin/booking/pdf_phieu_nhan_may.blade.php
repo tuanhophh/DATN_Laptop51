@@ -10,8 +10,9 @@
 
 <body>
     <div>
-        <h2 style="text-align: center">CỬA HÀNG SỬA CHỮA VÀ KINH DOANH MÁY TÍNH LAPTOP51</h2>
+        <h2 style="text-align: center">CỬA HÀNG LAPTOP51</h2>
         <h3 style="text-align: center">Địa chỉ: Số 1 Trịnh Văn Bô, Nam Từ Liêm, Hà Nội</h3>
+        <p style="text-align: right"><i>Hotline:</i> 0399958700</p>
         <h2 style="text-align: center">GIẤY HẸN</h2>
         <p style="text-align: center"><i>Mã phiếu: <b>{{ $booking_detail->code }}</b></i></p>
         <div style="font-size: 20px">
@@ -20,8 +21,9 @@
             <b>Họ tên khách hàng:</b> {{$booking_detail->booking->full_name}} <br><br>
             <b>Số điện thoại:</b> {{$booking_detail->booking->phone}} <br>
             {{-- Địa chỉ{{ $booking_detail->booking->address }} --}}
+            <br>
             <div style="display: inline-block;">
-                <div><b>Tên máy:</b> {{ $booking_detail->name_computer }} </div>
+                <div><b>Tên máy:</b> {{ $booking_detail->name_computer }} </div><br>
                 <div><span><b style="padding-left: 50px">Hãng
                             mãy:</b>
                         {{
@@ -31,12 +33,13 @@
             $booking_detail->created_at
             }}
             <br><br>
-            <b>Tình trạng máy:</b> {{ $booking_detail->comment }}
+            <b>Tình trạng máy:</b> {!! $booking_detail->comment !!}
         </div><br><br>
 
-        <div style="display:flex">
+        <div style="display:flex ; margin-bottom: 40px;font-size: 20px">
 
-
+            <b>Ngày đến lấy:
+            </b> <span style="text-align: center">Ngày.....tháng.....năm 20.....</span>
         </div>
     </div>
     <table style="text-align: center;width: 100%">

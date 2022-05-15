@@ -52,7 +52,6 @@
                         @endif" class="form-control col-4" name="customers_pay" id="" aria-describedby="helpId"
                                 placeholder=" VND">
                         </form>
-                        {{-- <small id="helpId" class="form-text text-muted">Help text</small> --}}
                     </div>
                 </th>
             </tr>
@@ -60,13 +59,8 @@
                 <td></td>
                 <th colspan="3">Tiền thừa</th>
                 <th id="tien_thua"> </th>
-
-                {{--
             <tr>
-                <td scope="row"></td>
-                <td></td>
-                <td></td>
-            </tr> --}}
+
         </tbody>
     </table>
 

@@ -9,7 +9,7 @@ class list_bill extends Model
 {
     use HasFactory;
     protected $table = 'list_bill';
-    public $fillable = ['user_id', 'booking_detail_id', 'status', 'type', 'total_price', 'date', 'customers_pay', 'excess_cash', 'debt','code','method'];
+    public $fillable = ['user_id', 'booking_detail_id', 'status', 'type', 'total_price', 'date', 'customers_pay', 'excess_cash', 'debt', 'code', 'method', 'codebill'];
     public function bill()
     {
         return $this->hasMany(bill_detail::class, 'bill_id', 'id');
