@@ -30,7 +30,7 @@ class HomeAdminController extends Controller
     $total_user = User::count('id');
     $total_mua_hang = list_bill::where('type', 1)->where('status',2)->count('id');
     $total_dat_lich = list_bill::where('type', 2)->where('status',2)->count('id');
-    $total_ComputerConpany = ComputerCompany::count('id');
+    $total_category_component = CategoryComponent::count('id');
     $total_component = Component::count('id');
 
     // tong doanh thu 
@@ -122,7 +122,7 @@ class HomeAdminController extends Controller
       'total_mua_hang',
       'total_user',
       'total_dat_lich',
-      'total_ComputerConpany',
+      'total_category_component',
       'total_component',
       'doanhthutong',
       'sotiennhap',

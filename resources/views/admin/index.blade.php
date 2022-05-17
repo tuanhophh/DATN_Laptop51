@@ -29,7 +29,7 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3 id='total_category'>{{ $total_category }}</h3>
-                            <p>Danh mục</p>
+                            <p>Danh mục sản phẩm</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
@@ -93,7 +93,7 @@
 
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3 id='total_danh_muc_linh_kien'>{{ $total_ComputerConpany }}</h3>
+                            <h3 id='total_danh_muc_linh_kien'>{{ $total_category_component }}</h3>
                             <p>Danh mục linh kiện</p>
                         </div>
                         <div class="icon">
