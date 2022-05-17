@@ -80,13 +80,12 @@ class HomeController extends Controller
         ->get()
         ->take(6);
         // $countPro = Product::where('');
-        $detailPro = DB::table('attribute_value')->where('product_id', $pro->id)->get();
         $productsComputerCompany = Product::where('companyComputer_id', $pro->companyComputer_id)->where('status', 1)->get()->take(8);
         $images = DB::table('product_images')->where('product_id', $pro->id)->get();
         $images_product_list = DB::table('product_images')->get();
         return view(
             'website.product-detail',
-            compact('pro', 'detailPro', 'productsComputerCompany', 'images', 'ComputerCompany','product_hot_sell','images_product_list')
+            compact('pro', 'productsComputerCompany', 'images', 'ComputerCompany','product_hot_sell','images_product_list')
         );
     }
     public function company($id)

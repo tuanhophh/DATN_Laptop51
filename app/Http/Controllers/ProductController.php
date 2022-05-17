@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductRequest;
 use App\Models\ComputerCompany;
 use App\Models\Product;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -71,13 +72,14 @@ class ProductController extends Controller
             }
             DB::table('product_images')->insert($insert);
         }
+        Toastr::success('Tạo sản phẩm thành công','Thành công');
+
         return redirect(route('product.index'));
     }
 
     public function editForm($id)
     {
         $pro = Product::find($id);
-        $attribute_value = DB::table('attribute_value')->where('product_id', $pro->id)->get();
         $images = DB::table('product_images')->where('product_id', $id)->get();
         if (!$pro) {
             return redirect(route('error'));
@@ -85,7 +87,7 @@ class ProductController extends Controller
         $ComputerCompany = ComputerCompany::all();
         return view(
             'admin.products.edit',
-            compact('pro', 'ComputerCompany', 'attribute_value', 'images')
+            compact('pro', 'ComputerCompany', 'images')
         );
     }
 
@@ -110,17 +112,17 @@ class ProductController extends Controller
         $model->save();
         $images = DB::table('product_images')->where('product_id', $id)->get();
 
-        if ($request->hasfile('anh')) {
-            foreach ($request->file('anh') as $key => $file) {
-                $imgPath = $request->file('anh')->store('products');
-                $imgPath = str_replace('public/', 'storage/', $imgPath);
-                $a = $request->merge(['image' => $imgPath]);
-                $insert[$key]['name_image'] = $a;
+        if ($request->hasfile('images')) {
+            foreach ($request->file('images') as $key => $file) {
+                $path = $file->store('products');
+                $path = str_replace('public/', 'storage/', $path);
+                $name = $file->getClientOriginalName();
+                $insert[$key]['name_image'] = $name;
                 $insert[$key]['product_id'] = $model->id;
-                $insert[$key]['path'] = $imgPath;
+                $insert[$key]['path'] = $path;
             }
             foreach ($images as $image) {
-
+                
                 $id = $image->id;
                 $image_path = $image->path;
                 // if($image_path){
@@ -130,7 +132,7 @@ class ProductController extends Controller
             }
             DB::table('product_images')->insert($insert);
         }
-
+        Toastr::success('Sửa sản phẩm thành công','Thành công');
         return redirect(route('product.index'));
     }
 
@@ -140,11 +142,13 @@ class ProductController extends Controller
         if ($model->status == 1) {
             $model['status'] = 0;
             $model->save();
-            return back()->with('success', 'Ẩn sản phẩm thành công');
+            Toastr::success('Ẩn sản phẩm thành công','Thành công');
+            return back();
         } else {
             $model['status'] = 1;
             $model->save();
-            return back()->with('success', 'Hiện sản phẩm thành công');
+            Toastr::success('Hiện sản phẩm thành công','Thành công');
+            return back();
         }
     }
 

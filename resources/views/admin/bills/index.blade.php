@@ -47,7 +47,7 @@
             <table class="table table-bordered">
                 <thead>
                     <th>STT</th>
-                    <th onclick="onClick()">Mã hóa đơn</th>
+                    <th>Mã hóa đơn</th>
                     <th>Tổng tiền</th>
                     <th>Phương thức</th>
                     <th>Trạng thái</th>

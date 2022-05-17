@@ -127,7 +127,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Raleway', sans-serif;
+   font-family: "tahoma";
     font-weight: normal;
     color: #434343;
     margin-top: 0px;
@@ -2652,8 +2652,8 @@ textarea:focus {
 .section-title {}
 
 .section-title h2 {
-    font-size: 30px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 600;
     line-height: 24px;
 }
 

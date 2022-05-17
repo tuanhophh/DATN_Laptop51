@@ -143,7 +143,7 @@ class AuthController extends Controller
             $actual_end_at = Carbon::parse(Carbon::now());
             $actual_start_at   = Carbon::parse($code_verify->created_at);
             $mins = $actual_end_at->diffInMinutes($actual_start_at, true);
-            if($code_verify->time_request >= 5 || $mins >= 5 || $code_verify->status != 0){
+            if($code_verify->time_request >= 10 || $mins >= 30 || $code_verify->status != 0){
                 $update_code_verify = DB::table('code_verify')
                 ->where('phone_number', $request->phone)
                 ->orderBy('created_at','DESC')

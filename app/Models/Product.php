@@ -31,4 +31,8 @@ class Product extends Model
     {
         return $this->hasMany(BillDetail::class, 'product_id');
     }
+    public function bill_detail()
+    {
+        return $this->hasOne(bill_detail::class);
+    }
 }
