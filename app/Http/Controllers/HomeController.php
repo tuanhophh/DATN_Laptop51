@@ -119,8 +119,10 @@ class HomeController extends Controller
     }
     public function seachproduct($name)
     {
+        dd(1);
         $ComputerCompany = ComputerCompany::all();
         $productNew = Product::where('status', 1)->where('name', 'like', '%' . $name . '%')->paginate(9);
+        dd($productNew);
         $images = DB::table('product_images')->get();
         // dd($productNew);
         $products = Product::where('status', 1)->get();
