@@ -27,67 +27,113 @@ class HomeAdminController extends Controller
   {
     $total_category = ComputerCompany::count('id');
     $total_product = Product::count('id');
-    $total_user = User::count();
-    $total_bill = list_bill::where('type',1)->count('id');
-    $total_order = Booking::count('id');
-    $total_componentComputerConpany=CategoryComponent::count('id');
-    $total_component=Component::count('id');
+    $total_user = User::count('id');
+    $total_mua_hang = list_bill::where('type', 1)->where('status',2)->count('id');
+    $total_dat_lich = list_bill::where('type', 2)->where('status',2)->count('id');
+    $total_category_component = CategoryComponent::count('id');
+    $total_component = Component::count('id');
 
     // tong doanh thu 
-    $doanhthutong = list_bill::sum('total_price');
-    $sotiennhap = bill_detail::sum('nhap');
-    $sotienban = bill_detail::sum('ban');
+    $doanhthutong = list_bill::where('status', 2)->sum('total_price');
+    $bill = bill_detail::query()
+      ->with('list_bill')
+      ->whereHas('list_bill', function ($q) {
+        $q->where('status', '=', 2);
+      })
+      ->get();
+    foreach ($bill as $item) {
+      $item->total_nhap = ($item->nhap * $item->quaty);
+      $item->total_ban = ($item->ban * $item->quaty);
+    }
+    $arrayTotalNhap = $bill->pluck('total_nhap')->toArray();
+    $sotiennhap = array_sum($arrayTotalNhap);
+    $arrayTotalBan = $bill->pluck('total_ban')->toArray();
+    $sotienban = array_sum($arrayTotalBan);
     $sotienlai = $sotienban - $sotiennhap;
 
     //doanh thu sửa chữa
-    $doanhthusuachua = list_bill::where('type', 1)->sum('total_price');
-    $sotiennhapsuachua = bill_detail::whereNotNull('component_id')->sum('nhap');
-    $sotienbansuachua = bill_detail::whereNotNull('component_id')->sum('ban');
-    $sotienlaisuachua = $sotienban - $sotiennhap;
+    $doanhthusuachua = list_bill::where('type', 2)->where('status', 2)->sum('total_price');
+    $billSua = bill_detail::query()
+      ->with('list_bill')
+      ->whereHas('list_bill', function ($q) {
+        $q->where('status', '=', 2);
+      })
+      ->where('product_id','=',null)->where('component_id','!=',null)->get();
+    foreach ($billSua as $item) {
+      $item->total_nhap = ($item->nhap * $item->quaty);
+      $item->total_ban = ($item->ban * $item->quaty);
+    }
+    $arrayTotalNhapSua = $billSua->pluck('total_nhap')->toArray();
+    $sotiennhapSua = array_sum($arrayTotalNhapSua);
+    $arrayTotalBanSua = $billSua->pluck('total_ban')->toArray();
+    $sotienbanSua = array_sum($arrayTotalBanSua);
+    $sotienlaisuachua = $sotienbanSua - $sotiennhapSua;
 
     //doanh thu bán
-    $doanhthutongban = list_bill::where('type', 2)->sum('total_price');
-    $sotiennhapban = bill_detail::whereNotNull('product_id')->sum('nhap');
-    $sotienbanban = bill_detail::whereNotNull('product_id')->sum('ban');
-    $sotienlaiban = $sotienban - $sotiennhap;
+    $doanhthutongban = list_bill::where('type', 1)->where('status', 2)->sum('total_price');
+    $billBan = bill_detail::query()
+      ->with('list_bill')
+      ->whereHas('list_bill', function ($q) {
+        $q->where('status', '=', 2);
+      })
+      ->where('product_id','!=',null)->where('component_id','=',null)->get();
+    foreach ($billBan as $item) {
+      $item->total_nhap = ($item->nhap * $item->quaty);
+      $item->total_ban = ($item->ban * $item->quaty);
+    }
+    $arrayTotalNhapOrder = $billBan->pluck('total_nhap')->toArray();
+    $sotiennhapOrder = array_sum($arrayTotalNhapOrder);
+    $arrayTotalBanOrder = $billBan->pluck('total_ban')->toArray();
+    $sotienbanOrder = array_sum($arrayTotalBanOrder);
+    $sotienlaiban = $sotienbanOrder - $sotiennhapOrder;
 
     //top thể loại
-    $socacsanphamdaban = bill_detail::whereNotNull('product_id')->distinct()->limit(10)->pluck('product_id');
+    $socacsanphamdaban = bill_detail::query()
+      ->with('list_bill')
+      ->whereHas('list_bill', function ($q) {
+        $q->where('status', '=', 2);
+      })
+      ->where('product_id','!=',null)->where('component_id','=',null)
+      ->distinct()->limit(10)
+      ->pluck('product_id');
     $datasanphamban = [];
- 
-    foreach($socacsanphamdaban as $sanpham){
+
+    foreach ($socacsanphamdaban as $sanpham) {
       $product = Product::find($sanpham)['name'];
-      array_push($datasanphamban,[['name'=>$product,'quaty'=>bill_detail::where('product_id',$sanpham)->count()]]);
-    }
-    // top nv sửa chữa
-    $datanhanvien = [];
-    $topnvsuachua = UserRepair::where('status',2)->distinct()->limit(10)->pluck('user_id');
-    
-    foreach($topnvsuachua as $nhanvien){
-      $profile = User::find($nhanvien)['name'];
-      if($profile ?? null){
-         array_push($datanhanvien,['name'=>$profile,'quaty'=>UserRepair::where('user_id',$nhanvien)->count()]);
+      if ($product ?? null) {
+        array_push($datasanphamban, [['name' => $product, 'quaty' => bill_detail::where('product_id', $sanpham)->count()]]);
       }
     }
-  
+
+    // top nv sửa chữa
+    $datanhanvien = [];
+    $topnvsuachua = UserRepair::where('status', 2)->distinct()->limit(10)->pluck('user_id');
+
+    foreach ($topnvsuachua as $nhanvien) {
+      $profile = User::find($nhanvien)['name'];
+      if ($profile ?? null) {
+        array_push($datanhanvien, ['name' => $profile, 'quaty' => UserRepair::where('user_id', $nhanvien)->count()]);
+      }
+    }
+
     return view('admin.index', compact(
       'total_category',
       'total_product',
-      'total_bill',
+      'total_mua_hang',
       'total_user',
-      'total_order',
-      'total_componentComputerConpany',
+      'total_dat_lich',
+      'total_category_component',
       'total_component',
       'doanhthutong',
       'sotiennhap',
       'sotienlai',
       'doanhthusuachua',
-      'sotiennhapsuachua',
-      'sotienbansuachua',
+      'sotiennhapSua',
+      'sotienbanSua',
       'sotienlaisuachua',
       'doanhthutongban',
-      'sotiennhapban',
-      'sotienbanban',
+      'sotiennhapOrder',
+      'sotienbanOrder',
       'sotienlaiban',
       'datasanphamban',
       'datanhanvien'

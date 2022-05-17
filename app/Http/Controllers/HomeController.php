@@ -117,6 +117,8 @@ class HomeController extends Controller
             compact('products', 'ComputerCompany', 'images','id','product_hot_sell','images_product_list','productNew')
         );
     }
+
+    
     public function seachproduct($name)
     {
         $ComputerCompany = ComputerCompany::all();
