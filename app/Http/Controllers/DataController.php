@@ -102,7 +102,7 @@ class DataController extends Controller
     }
     public function databan($start, $end)
     {
-        $doanhthutong = list_bill::where('type', 1)->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->sum('total_price');
+        $doanhthutong = list_bill::where('type', 1)->where('status',2)->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->sum('total_price');
         $billBan = bill_detail::query()
       ->with('list_bill')
       ->whereHas('list_bill', function ($q) {
@@ -155,7 +155,7 @@ class DataController extends Controller
     }
     public function doanhthusuachua($start, $end)
     {
-        $doanhthutong = list_bill::where('type', 2)->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->sum('total_price');
+        $doanhthutong = list_bill::where('type', 2)->where('status',2)->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->sum('total_price');
         $billSua = bill_detail::query()
       ->with('list_bill')
       ->whereHas('list_bill', function ($q) {

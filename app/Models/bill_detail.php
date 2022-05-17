@@ -13,7 +13,7 @@ class bill_detail extends Model
 
     public function list_bill()
     {
-        return $this->hasOne(list_bill::class, 'code', 'bill_code');
+        return $this->belongsTo(list_bill::class, 'bill_code', 'code');
     }
     public function product()
     {
