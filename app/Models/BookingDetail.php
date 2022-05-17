@@ -16,7 +16,7 @@ class BookingDetail extends Model
     }
     public function booking()
     {
-        return $this->belongsTo(Booking::class);
+        return $this->hasOne(Booking::class, 'id', 'booking_id');
     }
     /**
      * Get the list_bill associated with the BookingDetail

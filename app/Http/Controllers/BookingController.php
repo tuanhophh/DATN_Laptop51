@@ -21,10 +21,6 @@ use Nexmo\Laravel\Facade\Nexmo;
 
 class BookingController extends Controller
 {
-   // public function check()
-   // {
-   //    return
-   // }
 
 
    public function formCreateBooking()
@@ -239,6 +235,7 @@ class BookingController extends Controller
       if ($request->status_booking == true) {
 
          $booking_detail = BookingDetail::find($request->booking_detail_id);
+         // dd($booking_detail);
          if ($booking_detail) {
             $booking_detail->status_booking = $request->status_booking;
             $booking_detail->save();
@@ -437,9 +434,30 @@ class BookingController extends Controller
    }
    public function DanhSachChuaXacNhan()
    {
+
+
+
+      // $booking_details = BookingDetail::query()
+      //    ->with('booking');
+      //    $booking_details->whereHas('booking', function ($p) {
+      //       $p->where('phone', 'like', '%' . $_GET['key_search'] . '%')->get();
+      //    });
+      // }  // if (isset($_GET['key_search'])) {
+
+      // $booking_details->get();
+      // dd($booking_details->get());
+      //    ->where('status_repair', null)->orWhereNull('status_booking');
       $booking_details = BookingDetail::join('bookings', 'booking_details.booking_id', 'bookings.id')
          ->where('status_repair', null)->orWhereNull('status_booking')
          ->orderBy("bookings.id", 'desc')->get();
+
+
+      if (isset($_GET)) {
+         $booking_details = BookingDetail::join('bookings', 'booking_details.booking_id', 'bookings.id')
+            ->where('status_repair', null)->orWhereNull('status_booking')
+            ->orderBy("bookings.id", 'desc')->where('phone', 'like', '%' . trim($_GET['key_search']) . '%')->where('status_booking', 'like', '%' . trim($_GET['status']) . '%')->get();
+      }
+
       return view('admin.booking.ds_chua_xac_nhan', compact('booking_details'));
    }
 

@@ -16,7 +16,7 @@ class BillController extends Controller
     public function index(Request $request)
     {
 
-        $bills = list_bill::orderBy('id', 'desc')->paginate(8);
+        // $bills = list_bill::orderBy('id', 'desc')->paginate(8);
         if (!empty($_GET['type_bill'])) {
             $type_bill = $_GET['type_bill'];
             $bills = list_bill::where('type', $type_bill)->orderBy('id', 'desc')->paginate(8);

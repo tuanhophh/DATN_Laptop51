@@ -1,6 +1,29 @@
 @extends('admin.layouts.main')
 @section('content')
 <div class="table-responsive " style="background-color: white">
+    <h3 class="text-center">DANH SÁCH ĐẶT LỊCH</h3>
+
+
+    <form action="" class="row ml-3">
+
+        <div class="form-group ">
+            <input type="text" class="form-control" @if (!empty($_GET['key_search'])) value="{{ $_GET['key_search'] }}"
+                @endif name="key_search" id="" placeholder="Số diện thoại...">
+        </div>
+        <div class="form-group">
+
+            <select class="form-control" name="status" id="">
+                <option value="">Tất cả</option>
+
+                <option @if (isset($_GET['status'])&& !empty($_GET['status']=='received' )) selected @endif
+                    value="received"> Chưa xác nhận
+                </option>
+                {{-- <option @if (!empty($_GET['status']=='latch' )) selected @endif value="latch">Xác nhận</option>
+                <option @if (!empty($_GET['status']=='cancel' )) selected @endif value="cancel">Hủy bỏ</option> --}}
+            </select>
+        </div>
+        <div><button type="submit" class="btn btn-primary">Tìm kiếm</button></div>
+    </form>
     <table class="table align-items-center table-flush">
         <thead class="thead-light">
             <tr>
@@ -55,9 +78,9 @@
 
                             </select>
                             <input type="hidden" name="booking_detail_id" value="{{ $b->id }}">
-                           
+
                             <button class="btn btn-primary" type="submit">Chọn</button>
-                            
+
                         </form>
                     </div>
 
