@@ -49,7 +49,7 @@ class ForgotPasswordController extends Controller
             'phone' => ['required',
              'numeric', 
              'regex:/^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/',
-             new Throttle('resend', $maxAttempts = 1, $minutes = 1),
+             new Throttle('resend', $maxAttempts = 3, $minutes = 1),
              
             ],
             'g-recaptcha-response' => ['required', new \App\Rules\ValidRecaptcha]
@@ -157,7 +157,7 @@ class ForgotPasswordController extends Controller
             $actual_end_at = Carbon::parse(Carbon::now());
             $actual_start_at   = Carbon::parse($code_verify->created_at);
             $mins = $actual_end_at->diffInMinutes($actual_start_at, true);
-            if($code_verify->time_request >= 5 || $mins >= 5 || $code_verify->status == 1){
+            if($code_verify->time_request >= 10 || $mins >= 30 || $code_verify->status == 1){
                 $update_code_verify = DB::table('code_verify')
                 ->where('phone_number', $request->phone)
                 ->orderBy('created_at','DESC')

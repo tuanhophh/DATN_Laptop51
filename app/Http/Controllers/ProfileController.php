@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
 use App\Models\Bill;
+use App\Models\bill_detail;
 use App\Models\BillDetail;
 use App\Models\BookingDetail;
 use App\Models\User;
@@ -31,34 +32,26 @@ class ProfileController extends Controller
     }
 
     public function index()
-    {
+    {   
         $id = Auth::id();
         $user = User::find($id);
         // dd($user);
-        $bill = DB::table('bill_users')
-            ->join('list_bill', 'bill_users.bill_code', 'list_bill.code')
-            ->join('billdetail', 'list_bill.code', 'billdetail.bill_code')
-            ->join('products', 'billdetail.product_id', 'products.id')
-            ->select(DB::raw('count(billdetail.bill_code) as count_order'),'bill_users.address', 'list_bill.id', 'list_bill.total_price', 'billdetail.quaty', 'billdetail.ban', 'billdetail.bill_code', 'billdetail.created_at', 'products.name')
-            ->where('bill_users.user_id', '=', auth()->user()->id)
-            ->groupBy('list_bill.total_price')
-            
+        // $bill = DB::table('bill_users')
+        //     ->join('list_bill', 'bill_users.bill_code', 'list_bill.code')
+        //     ->join('billdetail', 'list_bill.code', 'billdetail.bill_code')
+        //     ->join('products', 'billdetail.product_id', 'products.id')
+        //     ->select(DB::raw('count(billdetail.bill_code) as count_order'),'bill_users.address', 'list_bill.id', 'list_bill.total_price', 'billdetail.quaty', 'billdetail.ban', 'billdetail.bill_code', 'billdetail.created_at', 'products.name')
+        //     ->where('bill_users.user_id', '=', auth()->user()->id)
+        //     ->groupBy('list_bill.total_price')
+        //     ->get();
+        $bill = DB::table('list_bill')->where('type', 1)->where('user_id',$id)  
             ->get();
-
-            // dd($bill);
-
-        if (!empty(auth()->user())) {
-            $repair = DB::table('bookings')
-                ->join('booking_details', 'bookings.id', 'booking_details.booking_id')
-                ->join('repair_parts', 'booking_details.id', 'repair_parts.booking_detail_id')
-                ->select('repair_parts.into_money','bookings.created_at','booking_details.status_booking','booking_details.code')
-                ->where('bookings.phone', '=', auth()->user()->phone)
-                ->get();
-
-            return view('website.profile', compact('user', 'bill', 'repair'))->with('message', 'Đăng nhập thành công');
-        }
-
-        return view('website.profile', compact('user', 'bill'))->with('message', 'Đăng nhập thành công');
+            $bill = DB::table('list_bill')->where('type', 1)->where('user_id',$id)  
+            ->get();
+        $bill_detail = bill_detail::all();
+        $bill_user = DB::table('bill_users')->get();
+        $img_product = DB::table('product_images')->get();
+        return view('website.profile', compact('user', 'bill','bill_user','bill_detail','img_product'))->with('message', 'Đăng nhập thành công');
     }
 
     public function cancelOrder(Request $request, $code)
@@ -179,25 +172,26 @@ class ProfileController extends Controller
         );
 
         if (!Hash::check($request->current_password, $userPassword)) {
-            return Redirect::back()->with('current_password', 'Sai mật khẩu');
+            Toastr::error('Đổi mật khẩu thất bại');
+            return Redirect::back();
             // dd($user);
         }
 
         $user->password = Hash::make($request->password);
+        Toastr::success('Đổi mật khẩu thành công');
         $user->save();
-        return Redirect::back()->with('message', 'Thay đổi mật khẩu thành công');
+        return Redirect::back();
     }
 
     public function history()
     {
-        dd(1);
         $bill = DB::table('bills')
-            ->join('bill_details', 'bills.code', 'bill_details.bill_code')
-            ->join('products', 'bill_details.product_id', 'products.id')
-            ->select('bills.total', 'bill_details.qty', 'bill_details.price', 'bill_details.bill_code', 'bill_details.created_at', 'products.name')
-            ->where('bills.user_id', '=', auth()->user()->id)
-            ->groupBy('bills.total')
-            ->get();
+        ->join('bill_details', 'bills.code', 'bill_details.bill_code')
+        ->join('products', 'bill_details.product_id', 'products.id')
+        ->select('bills.total', 'bill_details.qty', 'bill_details.price', 'bill_details.bill_code', 'bill_details.created_at', 'products.name')
+        ->where('bills.user_id', '=', auth()->user()->id)
+        ->groupBy('bills.total')
+        ->get();
         return view('website.profile', compact('bill'));
     }
 

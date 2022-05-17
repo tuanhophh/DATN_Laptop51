@@ -271,3 +271,5 @@ channel.bind('my-event', function(data) {
     }
 });
 </script>
+<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+{!! Toastr::message() !!}

@@ -92,10 +92,10 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="breadcrumbs-inner">
-                                <h1 class="breadcrumbs-title">Chi tiết sản phẩm</h1>
+                                <h1 class="breadcrumbs-title">Giỏ hàng</h1>
                                 <ul class="breadcrumb-list">
                                     <li><a href="/">Trang chủ</a></li>
-                                    <li>Chi tiết sản phẩm</li>
+                                    <li>Giỏ hàng</li>
                                 </ul>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                                 <li>
                                     <a>
                                         <span>02</span>
-                                        Checkout
+                                        Thanh toán
                                     </a>
                                 </li>
                                 <li>

@@ -36,14 +36,22 @@ class DataController extends Controller
         $total_category = ComputerCompany::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->count('id');
         $total_product = Product::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->count('id');
         $total_user = User::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->count();
-        $total_mua_hang = list_bill::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->count('id');
+        $total_mua_hang = list_bill::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->where('status',2)->where('type',1)->count('id');
         $total_danh_muc_linh_kien = CategoryComponent::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->count('id');
         $total_linh_kien = Component::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->count('id');
-        $total_dat_lich = Booking::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->count('id');
+        $total_dat_lich = list_bill::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->where('status',2)->where('type',2)->count('id');
 
         //data sản phẩm
         $datasanphamban = [];
-        $socacsanphamdaban = bill_detail::whereNotNull('product_id')->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->distinct()->limit(10)->pluck('product_id');
+        $socacsanphamdaban = bill_detail::query()
+      ->with('list_bill')
+      ->whereHas('list_bill', function ($q) {
+        $q->where('status', '=', 2);
+      })
+      ->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)
+      ->where('product_id','!=',null)->where('component_id','=',null)
+      ->distinct()->limit(10)
+      ->pluck('product_id');
         foreach ($socacsanphamdaban as $sanpham) {
             try {
                 $product = Product::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->where('id', $sanpham)->get();
@@ -94,23 +102,50 @@ class DataController extends Controller
     }
     public function databan($start, $end)
     {
-        $doanhthutong = list_bill::where('type', 2)->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->sum('total_price');
-        $sotiennhap = bill_detail::whereNotNull('product_id')->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->sum('nhap');
-        $sotienban = bill_detail::whereNotNull('product_id')->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->sum('ban');
-        $sotienlai = $sotienban - $sotiennhap;
+        $doanhthutong = list_bill::where('type', 1)->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->sum('total_price');
+        $billBan = bill_detail::query()
+      ->with('list_bill')
+      ->whereHas('list_bill', function ($q) {
+        $q->where('status', '=', 2);
+      })
+      ->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)
+      ->where('product_id','!=',null)->where('component_id','=',null)->get();
+        foreach ($billBan as $item) {
+            $item->total_nhap = ($item->nhap * $item->quaty);
+            $item->total_ban = ($item->ban * $item->quaty);
+        }
+        $arrayTotalNhapOrder = $billBan->pluck('total_nhap')->toArray();
+        $sotiennhapOrder = array_sum($arrayTotalNhapOrder);
+        $arrayTotalBanOrder = $billBan->pluck('total_ban')->toArray();
+        $sotienbanOrder = array_sum($arrayTotalBanOrder);
+        $sotienlaiban = $sotienbanOrder - $sotiennhapOrder;
         return [
             'doanhthutong' => $doanhthutong,
-            'sotiennhap' => $sotiennhap,
-            'sotienban' => $sotienban,
-            'sotienlai' => $sotienlai
+            'sotiennhap' => $sotiennhapOrder,
+            'sotienban' => $sotienbanOrder,
+            'sotienlai' => $sotienlaiban
         ];
     }
     public function laydatadoanhthu($start, $end)
     {
-        $doanhthutong = list_bill::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->sum('total_price');
-        $sotiennhap = bill_detail::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->sum('nhap');
-        $sotienban = bill_detail::whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->sum('ban');
+        $doanhthutong = list_bill::where('status', 2)->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->sum('total_price');
+        $bill = bill_detail::query()
+            ->with('list_bill')
+            ->whereHas('list_bill', function ($q) {
+                $q->where('status', '=', 2);
+            })
+            ->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)
+            ->get();
+        foreach ($bill as $item) {
+            $item->total_nhap = ($item->nhap * $item->quaty);
+            $item->total_ban = ($item->ban * $item->quaty);
+        }
+        $arrayTotalNhap = $bill->pluck('total_nhap')->toArray();
+        $sotiennhap = array_sum($arrayTotalNhap);
+        $arrayTotalBan = $bill->pluck('total_ban')->toArray();
+        $sotienban = array_sum($arrayTotalBan);
         $sotienlai = $sotienban - $sotiennhap;
+
         return [
             'doanhthutong' => $doanhthutong,
             'sotiennhap' => $sotiennhap,
@@ -120,15 +155,29 @@ class DataController extends Controller
     }
     public function doanhthusuachua($start, $end)
     {
-        $doanhthutong = list_bill::where('type', 1)->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->sum('total_price');
-        $sotiennhap = bill_detail::whereNotNull('component_id')->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->sum('nhap');
-        $sotienban = bill_detail::whereNotNull('component_id')->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->sum('ban');
-        $sotienlai = $sotienban - $sotiennhap;
+        $doanhthutong = list_bill::where('type', 2)->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)->sum('total_price');
+        $billSua = bill_detail::query()
+      ->with('list_bill')
+      ->whereHas('list_bill', function ($q) {
+        $q->where('status', '=', 2);
+      })
+      ->whereDate('created_at', '>', $start)->WhereDate('created_at', '<=', $end)
+      ->where('product_id','=',null)->where('component_id','!=',null)->get();
+        foreach ($billSua as $item) {
+            $item->total_nhap = ($item->nhap * $item->quaty);
+            $item->total_ban = ($item->ban * $item->quaty);
+        }
+
+        $arrayTotalNhapSua = $billSua->pluck('total_nhap')->toArray();
+        $sotiennhapSua = array_sum($arrayTotalNhapSua);
+        $arrayTotalBanSua = $billSua->pluck('total_ban')->toArray();
+        $sotienbanSua = array_sum($arrayTotalBanSua);
+        $sotienlaisuachua = $sotienbanSua - $sotiennhapSua;
         return [
             'doanhthutong' => $doanhthutong,
-            'sotiennhap' => $sotiennhap,
-            'sotienban' => $sotienban,
-            'sotienlai' => $sotienlai
+            'sotiennhap' => $sotiennhapSua,
+            'sotienban' => $sotienbanSua,
+            'sotienlai' => $sotienlaisuachua
         ];
     }
 }

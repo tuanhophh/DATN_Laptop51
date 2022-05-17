@@ -29,7 +29,7 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3 id='total_category'>{{ $total_category }}</h3>
-                            <p>Danh mục</p>
+                            <p>Danh mục sản phẩm</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
@@ -78,7 +78,7 @@
 
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3 id='total_mua_hang'>{{ $total_bill }}</h3>
+                            <h3 id='total_mua_hang'>{{ $total_mua_hang }}</h3>
                             <p>Mua hàng</p>
                         </div>
                         <div class="icon">
@@ -93,7 +93,7 @@
 
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3 id='total_danh_muc_linh_kien'>{{ $total_componentComputerConpany }}</h3>
+                            <h3 id='total_danh_muc_linh_kien'>{{ $total_category_component }}</h3>
                             <p>Danh mục linh kiện</p>
                         </div>
                         <div class="icon">
@@ -125,7 +125,7 @@
 
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3 id='total_dat_lich'>{{ $total_order }}</h3>
+                            <h3 id='total_dat_lich'>{{ $total_dat_lich }}</h3>
                             <p>Đặt lịch</p>
                         </div>
                         <div class="icon">
@@ -207,7 +207,7 @@
                                 {{ $doanhthusuachua }}</span>
                             Vnđ</h5>
                         <input type="button" style="display:none" id='sotiennhapsuachua'
-                            value="{{ $sotiennhapsuachua }}">
+                            value="{{ $sotiennhapSua }}">
                         <input type="button" style="display:none" id='sotienlaisuachua' value="{{ $sotienlaisuachua }}">
                         <canvas id="doanhthusuachua">
 
@@ -221,7 +221,7 @@
                         <h5 class="card-title">Tổng doanh thu bán: <span id='doanhthutongban'>
                                 {{ $doanhthutongban }}</span>
                             Vnđ</h5>
-                        <input type="button" style="display:none" id='sotiennhapban' value="{{ $sotiennhapban }}">
+                        <input type="button" style="display:none" id='sotiennhapban' value="{{ $sotiennhapOrder }}">
                         <input type="button" style="display:none" id='sotienlaiban' value="{{ $sotienlaiban }}">
                         <canvas id="doanhthuban">
 

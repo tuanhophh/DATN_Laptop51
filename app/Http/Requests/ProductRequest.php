@@ -24,7 +24,7 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:3|max:50|unique:products,name,'.$this->id,
+            'name' => 'required|string|min:3|max:80|unique:products,name,'.$this->id,
             'price' =>'required|numeric|min:20000|max:99999999',
             'import_price' =>'required|numeric|min:10000|max:50000000|lt:price',
             'companyComputer_id' =>'required',
@@ -48,7 +48,7 @@ class ProductRequest extends FormRequest
             'name.required' => 'Mời bạn nhập tên sản phẩm',
             'name.string' => 'Mời bạn nhập tên sản phẩm',
             'name.min' => 'Tên phải có độ dài lớn hơn 3 ký tự',
-            'name.max' => 'Tên phải có độ dài nhỏ hơn 50 ký tự',
+            'name.max' => 'Tên phải có độ dài nhỏ hơn 80 ký tự',
             'images.*.mimes'=>'Sai định dạng ảnh',
             'images.mimes'=>'Sai định dạng ảnh',
             'images.*.required'=>'Yêu cầu nhập ảnh',

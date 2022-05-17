@@ -41,4 +41,9 @@ class list_bill extends Model
     {
         return $this->belongsTo(Component::class, 'id', 'component_id');
     }
+
+    public function bill_user()
+    {
+        return $this->hasOne(BillUser::class, 'code', 'bill_code');
+    }
 }

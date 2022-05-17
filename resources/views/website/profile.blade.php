@@ -6,15 +6,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Trang cá nhân</title>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    .nav-pills .nav-link.active {
+        background-color: #f8f9fa !important;
+        color: #ff7f00 !important;
+        background-color: #fff !important;
+    }
 
+    .nav-pills .nav-link {
+        background-color: #f8f9fa !important;
+    }
+
+    .shadow {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .profile-tab-nav {
+        min-width: 250px;
+    }
+
+    a:hover {
+        color: #ff7f00 !important;
+    }
+
+    .tab-content {
+        flex: 1;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .nav-pills a.nav-link {
+        padding: 15px 20px;
+        border-bottom: 1px solid #ddd;
+        border-radius: 0;
+        background-color: #fff !important;
+    }
+
+    .nav-pills a.nav-link i {
+        width: 20px;
+    }
+
+    .img-circle img {
+        height: 100px;
+        width: 100px;
+        border-radius: 100%;
+        border: 5px solid #fff;
+    }
+
+    .form-control:focus {
+        border-color: #ff7f00 !important;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+    </style>
     @include('layout_client.style')
 </head>
 
 <body>
     @include('layout_client.menu')
+
+    <div class="container">
+
+    </div>
+
     <div class="breadcrumbs-section plr-200 mb-80 section">
         <div class="breadcrumbs overlay-bg">
             <div class="container">
@@ -27,753 +87,379 @@
                 </div>
             </div>
         </div>
-    </div>
-    {{-- <div class="container pt-6">
-        <div class="row flex-lg-nowrap">
-            <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
-                <div class="card p-3">
-                    <div class="e-navlist e-navlist--active-bg">
-                        <!-- <ul class="nav">
-                            <li class="nav-item"><a class="nav-link px-2 active" href="#"><i
-                                        class="fa fa-fw fa-bar-chart mr-1"></i><span>Overview</span></a></li>
-                            <li class="nav-item"><a class="nav-link px-2"
-                                    href="https://www.bootdey.com/snippets/view/bs4-crud-users" target="__blank"><i
-                                        class="fa fa-fw fa-th mr-1"></i><span>CRUD</span></a></li>
-                            <li class="nav-item"><a class="nav-link px-2"
-                                    href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page"
-                                    target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Settings</span></a>
-                            </li>
-                        </ul> -->
+
+        <div class="bg-white shadow rounded-lg d-block d-sm-flex mt-80">
+            <div class="profile-tab-nav border-right">
+                <div class="p-4 text-center">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="img-circle text-center mb-3 photo-img rounded-circle" id="image_user"
+                            style="background-size: 150px 150px;width: 150px;height: 150px;background-image:url('{{ asset($user->avatar) }}');">
+                        </div>
                     </div>
+                    <!-- <form enctype="multipart/form-data" action="{{ URL::to('/profile/update-avatar') }}"
+                        id="user_save_profile_form" method="POST">
+                        @csrf
+
+                        <label for="firstimg" class="submit-btn-1 mt-1 btn-hover-2 mb-0 pt-2 mr-2 px-2 rounded-pill">
+                            Thay ảnh
+                        </label>
+                        <input style="display: none;visibility: none;" type="file" onchange="doAfterSelectImage(this)"
+                            id="firstimg" name="avatar">
+                        <button type="submit" class="submit-btn-1 mt-1 btn-hover-2 rounded-pill">Lưu</button>
+                    </form> -->
+                    <h4 class="text-center td-title-2 mt-20">{{$user->name}}</h4>
+                </div>
+                <div class="nav flex-column nav-pills td-title-1" id="v-pills-tab" role="tablist"
+                    aria-orientation="vertical">
+                    <a class="nav-link active td-title-1" id="account-tab" data-toggle="pill" href="#account" role="tab"
+                        aria-controls="account" aria-selected="true">
+                        <i class="fa fa-user text-center mr-1"></i>
+                        Tài khoản
+                    </a>
+                    <a class="nav-link td-title-1" id="password-tab" data-toggle="pill" href="#password" role="tab"
+                        aria-controls="password" aria-selected="false">
+                        <i class="fa fa-key text-center mr-1"></i>
+                        Mật khẩu
+                    </a>
+                    <a class="nav-link td-title-1" id="security-tab" data-toggle="pill" href="#security" role="tab"
+                        aria-controls="security" aria-selected="false">
+                        <i class="fa fa-money text-center mr-1"></i>
+                        Lịch sử mua hàng
+                    </a>
+                    <a class="nav-link td-title-1" id="application-tab" data-toggle="pill" href="#application"
+                        role="tab" aria-controls="application" aria-selected="false">
+                        <i class="fa fa-tv text-center mr-1"></i>
+                        Lịch sử
+                    </a>
+                    <a class="nav-link td-title-1" id="notification-tab" data-toggle="pill" href="#notification"
+                        role="tab" aria-controls="notification" aria-selected="false">
+                        <i class="fa fa-bell text-center mr-1"></i>
+                        ...
+                    </a>
                 </div>
             </div>
-
-            <div class="col">
-                <div class="row">
-                    <div class="col mb-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="e-profile">
-                                    <div class="row">
-                                        <div class="col-12 col-sm-auto mb-3">
-                                            <div class="mx-auto">
-
-                                                <div class="align-items-center rounded-circle">
-
-                                                    <span style="font: bold 8pt Arial;">
-                                                        <div class="photo-img rounded-circle" id="image_user"
-                                                            style="background-size: 150px 150px;width: 150px;height: 150px;background-image:url('{{ asset($user->avatar) }}');">
-    </div>
-    </span>
-    </div>
-    </div>
-    </div>
-
-    <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
-        <div class="text-center text-sm-left mb-2 mb-sm-0">
-            <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{ $user->name }}</h4>
-            <p class="mb-0">{{ $user->email }}</p>
-            <!-- <div class="text-muted"><small>Last seen 2 hours ago</small></div> -->
-            <div class="mt-2">
-                <form enctype="multipart/form-data" action="{{ URL::to('/profile/update-avatar') }}"
-                    id="user_save_profile_form" method="POST">
-                    @csrf
-
-                    <label for="firstimg" class="btn btn-info m-0">
-                        Thay ảnh
-                    </label>
-                    <!-- <span class="change_photo" id="files" style="visibility:none;"
-                                                            for="profile_pic">Thay ảnh</span> -->
-                    <input style="display: none;visibility: none;" type="file" onchange="doAfterSelectImage(this)"
-                        id="firstimg" name="avatar">
-                    <button type="submit" class="btn btn-success m-0">Lưu</button>
-                </form>
-            </div>
-        </div>
-        <div class="text-center text-sm-right">
-            <span class="badge badge-secondary">{{ $user->role }}</span>
-            <div class="text-muted"><small>Ngày gia nhập:
-                    {{ $user->created_at->format('d-m-Y') }}</small></div>
-        </div>
-    </div>
-    </div>
-    @if (Session::has('message'))
-    <div class="alert alert-success" role="alert">
-        {{ Session::get('message') }}.
-    </div>
-    @endif
-    @if (Session::has('current_password'))
-    <div class="alert alert-danger" role="alert">
-        {{ Session::get('current_password') }}.
-    </div>
-    @endif
-
-    @error('avatar')
-    <p class="text-danger p-0 m-0">{{ $message }}</p>
-    @enderror
-    <ul class="nav nav-tabs">
-        <li class="nav-item"><a href="" class="text-dark active nav-link">Thông
-                tin</a>
-        </li>
-        <li class="nav-item"><a href="" class="text-dark nav-link">Hóa đơn</a>
-        </li>
-    </ul>
-    <div class="tab-content pt-3">
-        <div class="tab-pane active">
-            <form class="form" enctype="multipart/form-data" action="{{ URL::to('/profile/update-info') }}"
-                method="POST" novalidate="">
-                @csrf
-                <div class="row">
-                    <div class="col">
+            <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+                    <h3 class="widget-title border-left mb-20">Cài đặt tài khoản</h3>
+                    <form class="form" enctype="multipart/form-data" action="{{ URL::to('/profile/update-info') }}"
+                        method="POST" novalidate="">
+                        @csrf
                         <div class="row">
-                            <div class="col">
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <label class="p-0 m-0">Họ và tên</label>
+                                    <label class="td-title-2">Họ và tên</label>
+                                    <input type="text" class="form-control p-0 m-0" name="name" value="{{$user->name}}">
                                     @error('name')
                                     <p class="text-danger p-0 m-0">{{ $message }}
                                     </p>
                                     @enderror
-                                    <input class="form-control" type="text" name="name" value="{{ $user->name }}">
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <label class="p-0 m-0">Số điện thoại</label>
-                                    <input class="form-control" type="text" name="phone" placeholder="Số điện thoại"
-                                        value="{{ $user->phone }}">
+                                    <label class="td-title-2">Số điện thoại</label>
+                                    <input type="text" disabled class="form-control p-0 m-0" name="phone"
+                                        value="{{$user->phone}}">
+                                    <small class="text-danger">Hiện tại chưa cho phép đổi số điện thoại, vui lòng liên
+                                        hệ 0866491101 để được hỗ trợ</small>
+                                    @error('phone')
+                                    <p class="text-danger p-0 m-0">{{ $message }}
+                                    </p>
+                                    @enderror
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <label class="p-0 m-0">Email</label>
+                                    <label class="td-title-2">Email</label>
+                                    <input type="text" class="form-control p-0 m-0" name="email"
+                                        value="{{$user->email}}">
+                                    @if($user->email == 'admin@gmail.com')
+                                    <small class="text-danger">Tài khoản admin không được thay đổi email</small>
+                                    @endif
                                     @error('email')
                                     <p class="text-danger p-0 m-0">{{ $message }}
                                     </p>
                                     @enderror
-                                    <input class="form-control" type="text" name="email" value="{{ $user->email }}">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <label class="p-0 m-0">Địa chỉ</label>
-                                    <input class="form-control" type="text" name="address" value="{{ $user->address }}">
+                                    <label class="td-title-2">Địa chỉ</label>
+                                    <input type="text" class="form-control p-0 m-0" name="address"
+                                        value="{{$user->address}}">
+                                    @error('address')
+                                    <p class="text-danger p-0 m-0">{{ $message }}
+                                    </p>
+                                    @enderror
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col mb-3">
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <label class="p-0 m-0">Ghi chú</label>
-                                    <textarea class="form-control text-dark" name="description"
-                                        rows="5">{{ $user->description }}</textarea>
+                                    <label class="td-title-2">Mô tả</label>
+                                    <textarea class="custom-textarea" name="description" id="" cols="10"
+                                        rows="3">{{$user->description}}</textarea>
                                 </div>
                             </div>
+
                         </div>
-                    </div>
+                        <div>
+                            <button class="submit-btn-1 mt-20 btn-hover-1">Lưu thay đổi</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="col d-flex justify-content-end">
-                    <button class="btn btn-success" type="submit">Lưu thay đổi</button>
-                </div>
-            </form>
-            <form class="form" enctype="multipart/form-data" action="{{ URL::to('/profile/update-password') }}"
-                method="POST">
-                @csrf
-                <div class="row">
-                    <div class="col-12 col-sm-6 mb-3">
-                        <div class="mb-2"><b>Đổi mật khẩu</b></div>
+                <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+                    <h3 class="widget-title border-left mb-20">Đổi mật khẩu</h3>
+                    <form class="form" enctype="multipart/form-data" action="{{ URL::to('/profile/update-password') }}"
+                        method="POST">
+                        @csrf
                         <div class="row">
-
-
-
-                            <div class="col">
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <label class="p-0 m-0">Mật khẩu cũ</label>
+                                    <label class="td-title-2">Mật khẩu cũ</label>
+                                    <input type="password" name="current_password" class="form-control p-0 m-0 upassword    ">
                                     @error('current_password')
                                     <p class="text-danger p-0 m-0">{{ $message }}
                                     </p>
                                     @enderror
-                                    <input class="form-control" name="current_password" type="password"
-                                        placeholder="Nhập mật khẩu cũ">
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
-                            <div class="col">
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <label class="p-0 m-0">Mật khẩu mới</label>
+                                    <label class="td-title-2">Mật khẩu mới</label>
+                                    <input type="password" name="password" class="form-control p-0 m-0 upassword">
                                     @error('password')
                                     <p class="text-danger p-0 m-0">{{ $message }}
                                     </p>
                                     @enderror
-                                    <input class="form-control" type="password" name="password"
-                                        placeholder="Nhập mật khẩu mới">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <label class="p-0 m-0">Xác nhận mật khẩu
-                                        mới</label>
+                                    <label class="td-title-2">Nhập lại mật khẩu mới</label>
+                                    <input type="password" name="confirm_password" class="form-control p-0 m-0 upassword">
                                     @error('confirm_password')
                                     <p class="text-danger p-0 m-0">{{ $message }}
                                     </p>
                                     @enderror
-                                    <input class="form-control" name="confirm_password" type="password"
-                                        placeholder="Nhập lại mậu khẩu mới">
+                                </div>
+                                <input type="checkbox" id="show-password">
+                                        <small for="show-password">Hiện mật khẩu</small>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="submit-btn-1 mt-20 btn-hover-1">Đổi mật khẩu</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+                    <h3 class="widget-title border-left mb-20">Lịch sử mua hàng</h3>
+
+                    @if ($bill->toArray() == [])
+                    <div class="text-center">
+                        <h3>hiện tại bạn chưa có đơn hàng nào.</h3>
+                        <a href="{{ asset('') }}cua-hang">
+                            <b>Đặt hàng ngay</b>
+                        </a>
+                    </div>
+                    @else
+                    <table class="table">
+                        <thead>
+                            <th>Mã hóa đơn</th>
+                            <th>Tổng tiền</th>
+                            <th>Thanh toán</th>
+                            <th>Trạng thái</th>
+                            <th>Ngày đặt</th>
+                            <th>
+                            </th>
+                        </thead>
+                        <tbody>
+                            @foreach ($bill as $item)
+
+                            <tr class="">
+                                <td class="align-middle">{{ $item->code }}</td>
+                                <td class="align-middle">
+                                    <?php
+                                        if (!function_exists('currency_format')) {
+                                            function currency_format($cont, $suffix = ' VNĐ')
+                                                {
+                                                    if (!empty($cont)) {
+                                                        return number_format($cont, 0, ',', '.') . "{$suffix}";
+                                                        }
+                                                }
+                                            }                    
+                                            ?>
+                                    {{ currency_format($item->total_price) }}
+                                </td>
+                                <td class="align-middle">{{ $item->method == 1 ? 'Tiền mặt' : 'Chuyển khoản'}}</td>
+                                <td class="align-middle text-center">@if($item->status == 0)
+                                    <p class="text-white mb-0 p-2 bg-info">Chưa thanh toán</p>
+
+                                    @elseif($item->status == 1)
+                                    <p class="text-white mb-0 p-2 bg-danger">Hủy</p>
+                                    @else
+                                    <p class="text-white mb-0 p-2 bg-success">Đã thanh toán</p>
+                                    @endif
+                                </td>
+                                <td class="align-middle">{{ $item->created_at }}</td>
+                                <td class="align-middle">
+                                    <a data-bs-toggle="collapse" data-bs-target="#collapseFour{{$item->id}}"
+                                        aria-expanded="false" aria-controls="collapseFour{{$item->id}}">
+
+                                        <button class="py-1 px-2 submit-btn-1 btn-hover-1">Chi tiết</button>
+                                    </a>
+                                </td>
+                            </tr>
+                            <td colspan="12" class="p-0 border-0">
+                                <div id="collapseFour{{$item->id}}" class="collapse" aria-labelledby="headingFour"
+                                    data-bs-parent="#accordion">
+                                    <div class="card mb-3">
+                                        <h5 class="card-header">Thông tin người nhận</h5>
+                                        <div class="card-body">
+
+                                            @foreach($bill_user as $bill_u)
+                                            @if($bill_u->bill_code == $item->code)
+                                            <dl class="row mb-0">
+                                                <dt class="col-sm-3">Họ và tên:</dt>
+                                                <dd class="col-sm-9">{{$bill_u->name}}
+                                                </dd>
+
+                                                <dt class="col-sm-3">Số điện thoại:</dt>
+                                                <dd class="col-sm-9">
+                                                    {{$bill_u->phone}}
+
+                                                </dd>
+
+                                                <dt class="col-sm-3">Email</dt>
+                                                <dd class="col-sm-9">{{$bill_u->email}}
+                                                </dd>
+
+                                                <dt class="col-sm-3">Địa chỉ</dt>
+                                                <dd class="col-sm-9">{{$bill_u->address}}
+                                                </dd>
+
+                                                <dt class="col-sm-3">Ghi chú</dt>
+                                                <dd class="col-sm-9"><textarea class="p-0" name="" id="" disabled
+                                                        cols="10" rows="2">{{$bill_u->note}}</textarea>
+                                                </dd>
+                                            </dl>
+                                            @endif
+
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <h5 class="card-header">Thông tin sản phẩm</h5>
+                                        <div class="card-body">
+                                            @foreach($bill_detail as $bill_d)
+                                            @if($bill_d->bill_code == $item->code)
+
+                                            <dl class="row">
+                                                <dt class="col-sm-3">
+                                                    @foreach($img_product as $img)
+                                                    @if($img->product_id == $bill_d->product->id)
+                                                    <img width="120px" src="{{ asset($img->path) }}"
+                                                        alt="{{ asset($img->path) }}">
+                                                    @break;
+                                                    @endif
+                                                    @endforeach
+                                                </dt>
+                                                <dd class="col-sm-9 pt-5">
+                                                    <p> Tên sản phẩm: {{$bill_d->product->name}} </p>
+                                                    <p>Giá: {{ currency_format($bill_d->ban) }}</p>
+                                                    <p>Số lượng x {{$bill_d->quaty}} </p>
+                                                </dd>
+                                            </dl>
+                                            <hr class="m-0">
+
+                                            @endif
+                                            @endforeach
+                                            <h5 class="card-header order-total-price text-end">Tổng:
+                                                {{ currency_format($item->total_price) }}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @endforeach
+
+                        </tbody>
+
+                    </table>
+                    @endif
+
+                </div>
+                <div class="tab-pane fade" id="application" role="tabpanel" aria-labelledby="application-tab">
+                    <h3 class="mb-4">Application Settings</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="app-check">
+                                    <label class="form-check-label" for="app-check">
+                                        App check
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                                    <label class="form-check-label" for="defaultCheck2">
+                                        Lorem ipsum dolor sit.
+                                    </label>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col d-flex justify-content-end">
-                                <button class="btn btn-success" type="submit">Đổi mật
-                                    khẩu</button>
-                            </div>
-                        </div>
                     </div>
-                    <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                        <!-- <div class="mb-2"><b>Keeping in Touch</b></div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <label>Email Notifications</label>
-                                                                <div class="custom-controls-stacked px-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input"
-                                                                            id="notifications-blog" checked="">
-                                                                        <label class="custom-control-label"
-                                                                            for="notifications-blog">Blog
-                                                                            posts</label>
-                                                                    </div>
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input"
-                                                                            id="notifications-news" checked="">
-                                                                        <label class="custom-control-label"
-                                                                            for="notifications-news">Newsletter</label>
-                                                                    </div>
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input"
-                                                                            id="notifications-offers" checked="">
-                                                                        <label class="custom-control-label"
-                                                                            for="notifications-offers">Personal
-                                                                            Offers</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div> -->
+                    <div>
+                        <button class="btn btn-primary">Update</button>
+                        <button class="btn btn-light">Cancel</button>
                     </div>
                 </div>
-            </form>
-        </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-
-    <div class="col-12 col-md-3 mb-3">
-        <div class="card mb-3">
-            <div class="card-body">
-                <div class="px-xl-3">
-                    <i class="fa fa-sign-out"></i>
-                    <button class="btn btn-block btn-secondary">
-                        <a class="text-white" href="/logout"> <span>Đăng xuất</span></a>
-                    </button>
+                <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+                    <h3 class="mb-4">Notification Settings</h3>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="notification1">
+                            <label class="form-check-label" for="notification1">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum accusantium accusamus,
+                                neque cupiditate quis
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="notification2">
+                            <label class="form-check-label" for="notification2">
+                                hic nesciunt repellat perferendis voluptatum totam porro eligendi.
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="notification3">
+                            <label class="form-check-label" for="notification3">
+                                commodi fugiat molestiae tempora corporis. Sed dignissimos suscipit
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary">Update</button>
+                        <button class="btn btn-light">Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="card">
-            <!-- <div class="card-body">
-                                <h6 class="card-title font-weight-bold">Support</h6>
-                                <p class="card-text">Get fast, free help from our friendly assistants.</p>
-                                <button type="button" class="btn btn-primary">Contact Us</button>
-                            </div> -->
-        </div>
-    </div>
-    </div>
-
-    </div>
-    </div>
-    </div> --}}
-    <div class="container pt-6">
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-3">
-
-                        <!-- Profile Image -->
-                        <div class="card card-primary card-outline">
-                            <div class="card-body box-profile">
-                                <div class="text-center">
-                                    <img class="profile-user-img img-fluid img-circle" src="{{ asset($user->avatar) }}"
-                                        alt="{{ asset($user->avatar) }}">
-                                    <div class="mt-2">
-                                        <form enctype="multipart/form-data"
-                                            action="{{ URL::to('/profile/update-avatar') }}" id="user_save_profile_form"
-                                            method="POST">
-                                            @csrf
-
-                                            <label for="firstimg" class="btn btn-info m-0">
-                                                Thay ảnh
-                                            </label>
-                                            <!-- <span class="change_photo" id="files" style="visibility:none;"
-                                                    for="profile_pic">Thay ảnh</span> -->
-                                            <input style="display: none;visibility: none;" type="file"
-                                                onchange="doAfterSelectImage(this)" id="firstimg" name="avatar">
-                                            <button type="submit" class="btn btn-success m-0">Lưu</button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <br>
-                                <h3 class="profile-username text-center">{{ $user->name }}</h3>
-
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-
-                        <!-- About Me Box -->
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">Thông tin</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <strong><i class="fas fa-map-marker-alt mr-1"></i> Địa Chỉ</strong>
-
-                                <p class="text-muted">{{ $user->address }}</p>
-
-                                <hr>
-
-                                <strong><i class="fas fa-pencil-alt mr-1"></i> Số điện thoại</strong>
-
-                                <p class="text-muted">{{ $user->phone }}</p>
-
-                                <hr>
-
-                                <strong><i class="far fa-file-alt mr-1"></i> Email</strong>
-
-                                <p class="text-muted">{{ $user->email }}</p>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-md-9">
-                        <div class="card">
-                            <div class="card-header p-2">
-                                <ul class="nav nav-pills">
-                                    <li class="nav-item"><a class="nav-link active" href="#activity"
-                                            data-toggle="tab">Lịch sử mua hàng</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Lịch sử
-                                            đặt lịch</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Cài
-                                            đặt</a></li>
-                                </ul>
-                            </div><!-- /.card-header -->
-                            <div class="card-body">
-                                <div class="tab-content">
-                                    <div class="active tab-pane" id="activity">
-                                        <!-- Post -->
-
-                                        <div class="timeline timeline-inverse">
-                                            <!-- timeline time label -->
-
-
-                                            @if ($bill->toArray() == [])
-                                            <div class="text-center">
-                                                <h3>hiện tại bạn chưa có đơn hàng nào.</h3>
-                                                <a href="{{ asset('') }}cua-hang">
-                                                    <b>Đặt hàng ngay</b>
-                                                </a>
-                                            </div>
-                                            @else
-                                                @foreach ($bill as $item)
-                                                    <div class="time-label">
-                                                        <p>
-                                                            Ngày mua: {{ $item->created_at }}
-                                                        </p>
-                                                    </div>
-                                                    <div>
-                                                        <div class="timeline-item">
-
-                                                            <div class="row">
-
-                                                                <div class="col-7">
-                                                                    <h3 class="timeline-header"><a
-                                                                            href="#">{{ $item->name }}</a>
-                                                                    </h3>
-                                                                    
-                                                                    <br>
-                                                                    <div class="timeline-footer">
-                                                                        <div class="row flex">
-                                                                            <div class="col-6">Sản phẩm:
-                                                                                {{ $item->count_order }}</div>
-                                                                            <div class="col-4 ">
-                                                                                <b class="text-danger"
-                                                                                    style="font-size: 20px"><i>{{ $item->total_price }}
-                                                                                        VNĐ </i></b>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="timeline-footer">
-                                                                        <a href="{{ route('profile.history.detail', ['code' => $item->bill_code]) }}"
-                                                                            class="button extra-small">
-                                                                            <span class="text-uppercase">Chi tiết</span>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="timeline-footer">
-                                                                <a href="{{ route('profile.history.detail', ['code' => $item->bill_code]) }}"
-                                                                    class="button extra-small">
-                                                                    <span class="text-uppercase">Chi tiết</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <!-- END timeline item -->
-                                            <!-- timeline item -->
-                                            <div>
-                                                <i class="far fa-clock bg-gray"></i>
-                                            </div>
-                                            @endforeach
-                                            @endif
-
-                                        </div>
-
-                                        <!-- /.post -->
-                                    </div>
-                                    <div class="tab-pane" id="timeline">
-                                        <!-- The timeline -->
-                                        <div class="timeline timeline-inverse">
-
-                                            {{-- @if ($bill->toArray() == [])
-                                                <div class="text-center">
-                                                    <h3>hiện tại bạn chưa có đơn hàng nào.</h3>
-                                                    <a href="">
-                                                        <b>Đặt hàng ngay</b>
-                                                    </a>
-                                                </div>
-                                            @else
-                                                @foreach ($bill_sc as $item)
-                                                    <div class="time-label">
-                                                        <p>
-                                                            Ngày đặt lịch: 10-4-2022
-                                                        </p>
-                                                    </div>
-                                                    <!-- /.timeline-label -->
-                                                    <!-- timeline item -->
-                                                    <div>
-                                                        <div class="timeline-item">
-
-                                                            <div class="row">
-                                                                <div class="col-3 flex text-center">
-                                                                    <a href=""><img
-                                                                            src="{{ asset('client') }}/img/icon/icon.png"
-                                            alt=""
-                                            style="background-size: 110px 110px;width: 170px;height: 140px;"></a>
-                                        </div>
-                                        <div class="col-7">
-                                            <h3 class="timeline-header"><a href="#">Sửa chữa
-                                                    Laptop</a>
-                                            </h3>
-                                            <div class="timeline-body">
-                                                {{ $item->desc }}
-                                            </div>
-                                            <br>
-                                            <div class="timeline-footer">
-                                                <div class="row flex">
-                                                    <div class="col-6">Sản phẩm:
-                                                        {{ $item->qty }}</div>
-                                                    <div class="col-4 ">
-                                                        <b class="text-danger"
-                                                            style="font-size: 20px"><i>{{ $item->price * $item->qty }}
-                                                                VNĐ </i></b>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="timeline-footer">
-                                                <a href="{{ route('profile.history.detail', ['code' => $item->bill_code]) }}"
-                                                    class="button extra-small">
-                                                    <span class="text-uppercase">Chi tiết</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <hr>
-                            <!-- END timeline item -->
-                            <!-- timeline item -->
-                            <div>
-                                <i class="far fa-clock bg-gray"></i>
-                            </div>
-                            @endforeach
-                            @endif --}}
-
-
-                            <!-- timeline time label -->
-                            <div class="time-label">
-                                <p>
-                                    Ngày đặt lịch: 10-4-2022
-                                </p>
-                            </div>
-                            <!-- /.timeline-label -->
-                            <!-- timeline item -->
-                            <div>
-                                <div class="timeline-item">
-
-                                    <div class="row">
-                                        <div class="col-3 flex text-center">
-                                            <a href=""><img src="{{ asset('client') }}/img/icon/icon.png" alt=""
-                                                    style="background-size: 110px 110px;width: 170px;height: 140px;"></a>
-                                        </div>
-                                        <div class="col-7">
-                                            <h3 class="timeline-header"><a href="#">Sửa chữa Laptop</a>
-                                            </h3>
-                                            <div class="timeline-body">
-                                                Etsy doostang zoodles disqus groupon greplin
-                                                oooj
-                                                voxy
-                                                zoodles,
-                                                weebly ning heekya handango imeem plugg dopplr
-                                                jibjab,
-                                                movity
-                                                jajah plickers sifteo edmodo ifttt zimbra.
-                                                Babblely
-                                                odeo
-                                                kaboodle
-                                                quora plaxo ideeli hulu weebly balihoo...
-                                            </div>
-                                            <br>
-                                            <div class="timeline-footer">
-                                                <div class="row flex">
-                                                    <div class="col-6">Sản phẩm:
-                                                        1</div>
-                                                    <div class="col-4 ">
-                                                        <b class="text-danger" style="font-size: 20px"><i>99999
-                                                                VNĐ </i></b>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputEmail"
-                                                        placeholder="Email..." name="email" value="{{ Auth::user()->email }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <hr>
-                            <!-- END timeline item -->
-                            <!-- timeline item -->
-                            <div>
-                                <i class="far fa-clock bg-gray"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="settings">
-                        <form class="form" enctype="multipart/form-data" action="{{ URL::to('/profile/update-info') }}"
-                            method="POST" novalidate="">
-                            @csrf
-                            <div class="form-group row">
-                                <label for="inputName" class="col-sm-2 col-form-label">Tên</label>
-                                <div class="col-sm-10 pb-0 mb-0">
-                                    <input type="text" class="form-control pb-0 mb-0" id="inputName"
-                                        placeholder="Tên..." name="name" value="{{ $user->name }}">
-                                    @error('name')
-                                    <p class="text-danger">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                                <div class="col-sm-10 pb-0 mb-0">
-                                    <input type="text" class="form-control pb-0 mb-0" id="inputEmail"
-                                        placeholder="Email..." name="email" value="{{ $user->email }}">
-                                    @error('email')
-                                    <p class="text-danger">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                                <label for="inputEmail" class="col-sm-2 col-form-label"></label>
-                                <div class="col-sm-10">
-                                    @if($user->email == 'admin@gmail.com')
-                                    <small class="text-danger">Tài khoản admin không được thay đổi email</small>
-                                    @endif
-                                </div>
-
-                            </div>
-                            <div class="form-group row">
-                                <label for="inputName2" class="col-sm-2 col-form-label">Số điện
-                                    thoại</label>
-                                <div class="col-sm-10 pb-0 mb-0">
-                                    <input type="text" class="form-control pb-0 mb-0" id="inputName2"
-                                        placeholder="Số điện thoại..." name="phone" value="{{ $user->phone }}">
-                                </div>
-                                <label for="inputEmail" class="col-sm-2 col-form-label"></label>
-                                <div class="col-sm-10">
-                                    @if($user->email == 'admin@gmail.com')
-                                    <small class="text-danger">Hiện tại chưa cho phép đổi số điện thoại, vui lòng liên hệ 0866491101 để được hỗ trợ</small>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="inputName2" class="col-sm-2 col-form-label pb-0 mb-0">Địa chỉ</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control pb-0 mb-0" id="inputName2"
-                                        placeholder="Địa chỉ..." name="address" value="{{ $user->address }}">
-                                    @error('address')
-                                    <p class="text-danger">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="inputExperience" class="col-sm-2 col-form-label pb-0 mb-0">Mô
-                                    tả</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control pb-0 mb-0" name="description" id="inputExperience"
-                                        placeholder="Mô tả">{{ $user->description }}</textarea>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="offset-sm-2 col-sm-10">
-                                    <button type="submit" class="submit-btn-1 mt-30 btn-hover-1">Lưu</button>
-                                </div>
-                            </div>
-                        </form>
-                        <form class="form" enctype="multipart/form-data"
-                            action="{{ URL::to('/profile/update-password') }}" method="POST">
-                            @csrf
-                            <div class="row">
-                                <div class=" mb-3">
-                                    <div class="mb-2"><b>Đổi mật khẩu</b></div>
-                                    <div class="row">
-
-
-
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label class="p-0 m-0">Mật khẩu cũ</label>
-                                                @error('current_password')
-                                                <p class="text-danger p-0 m-0">{{ $message }}
-                                                </p>
-                                                @enderror
-                                                <input class="form-control" name="current_password" type="password"
-                                                    placeholder="Nhập mật khẩu cũ">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label class="p-0 m-0">Mật khẩu mới</label>
-                                                @error('password')
-                                                <p class="text-danger p-0 m-0">{{ $message }}
-                                                </p>
-                                                @enderror
-                                                <input class="form-control" type="password" name="password"
-                                                    placeholder="Nhập mật khẩu mới">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label class="p-0 m-0">Xác nhận mật khẩu
-                                                    mới</label>
-                                                @error('confirm_password')
-                                                <p class="text-danger p-0 m-0">{{ $message }}
-                                                </p>
-                                                @enderror
-                                                <input class="form-control" name="confirm_password" type="password"
-                                                    placeholder="Nhập lại mậu khẩu mới">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col d-flex justify-content-end">
-                                            <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Đổi mật
-                                                khẩu</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                                    <!-- <div class="mb-2"><b>Keeping in Touch</b></div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <label>Email Notifications</label>
-                                                                <div class="custom-controls-stacked px-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input"
-                                                                            id="notifications-blog" checked="">
-                                                                        <label class="custom-control-label"
-                                                                            for="notifications-blog">Blog
-                                                                            posts</label>
-                                                                    </div>
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input"
-                                                                            id="notifications-news" checked="">
-                                                                        <label class="custom-control-label"
-                                                                            for="notifications-news">Newsletter</label>
-                                                                    </div>
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input"
-                                                                            id="notifications-offers" checked="">
-                                                                        <label class="custom-control-label"
-                                                                            for="notifications-offers">Personal
-                                                                            Offers</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div> -->
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- /.tab-pane -->
-
-                </div>
-                <!-- /.tab-content -->
-            </div><!-- /.card-body -->
-    </div>
-    <!-- /.card -->
-    </div>
-    <!-- /.col -->
-    </div>
-    <!-- /.row -->
-    </div><!-- /.container-fluid -->
-    </section>
     </div>
 
 
     @include('layout_client.footer')
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     @include('layout_client.script')
 
 
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
-</script>
 <script>
 function doAfterSelectImage(input) {
     readURL(input);
