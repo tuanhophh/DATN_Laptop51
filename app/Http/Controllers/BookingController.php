@@ -180,7 +180,7 @@ class BookingController extends Controller
       }
       // dd($details);
 
-      dispatch(new SendOrderSuccessEmail($details));
+      // dispatch(new SendOrderSuccessEmail($details));
       // $mod = $request->all(); 
       // dd($mod);
       // if ($request->btn == 'admin') {
@@ -310,7 +310,7 @@ class BookingController extends Controller
 
    public function finishRepairDetail($id, Request $request)
    {
-      dd($request->all());
+      // dd($request->all());
       // dd($request);
       function detailComponent($id)
       {
@@ -452,11 +452,11 @@ class BookingController extends Controller
          ->orderBy("bookings.id", 'desc')->get();
 
 
-      if (isset($_GET)) {
-         $booking_details = BookingDetail::join('bookings', 'booking_details.booking_id', 'bookings.id')
-            ->where('status_repair', null)->orWhereNull('status_booking')
-            ->orderBy("bookings.id", 'desc')->where('phone', 'like', '%' . trim($_GET['key_search']) . '%')->where('status_booking', 'like', '%' . trim($_GET['status']) . '%')->get();
-      }
+      // if (isset($_GET)) {
+      //    $booking_details = BookingDetail::join('bookings', 'booking_details.booking_id', 'bookings.id')
+      //       ->where('status_repair', null)->orWhereNull('status_booking')
+      //       ->orderBy("bookings.id", 'desc')->where('phone', 'like', '%' . trim($_GET['key_search']) . '%')->where('status_booking', 'like', '%' . trim($_GET['status']) . '%')->get();
+      // }
 
       return view('admin.booking.ds_chua_xac_nhan', compact('booking_details'));
    }
@@ -485,7 +485,9 @@ class BookingController extends Controller
       $booking_details = BookingDetail::join('bookings', 'booking_details.booking_id', 'bookings.id')
          // ->where('status_repair', null)->orWhereNull('status_booking')
          ->join('list_bill', 'booking_details.id', 'list_bill.booking_detail_id')
+         ->where('type', 2)->orderBy('list_bill.id', 'desc')
          ->get();
+      dd($booking_details);
       return view('admin.booking.ds_da_giao_khach', compact('booking_details'));
    }
 }

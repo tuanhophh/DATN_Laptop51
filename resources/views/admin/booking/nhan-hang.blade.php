@@ -40,7 +40,7 @@
                     @foreach ($computers as $item)
                     <option @if ($item->id==$booking_detail->company_computer_id)
                         selected
-                        @endif value="{{ $item->id }}">comment</option>
+                        @endif value="{{ $item->id }}">{{ $item->name_company }} </option>
                     @endforeach
 
 
@@ -57,7 +57,7 @@
 
 
         <div class="form-group">
-            <label for="">Tình trạng máy hiện tại</label>
+            <label for="">Ghi chú</label>
             <textarea class="form-control" name="comment" id="ckeditor1"
                 rows="3">{{ $booking_detail->comment }}</textarea>
         </div>

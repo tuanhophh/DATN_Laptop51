@@ -68,7 +68,7 @@
                             @endif
                         </td>
                         <td>
-                        <?php
+                            <?php
                             if (!function_exists('currency_format')) {
                                 function currency_format($item, $suffix = ' VNĐ')
                                     {
@@ -93,13 +93,23 @@
                         <td>{{ $item->created_at }}</td>
                         <td>
                             @can('list-bill')
+
+                            @if ($item->type==1)
                             <a href="{{route('bill.detail',['id' => $item->id])}}" class="btn btn-sm btn-success">Chi
                                 tiết</a>
+                            @else
+                            <a href="{{route('dat-lich.hoa-don',['id' => $item->booking_detail_id])}}"
+                                class="btn btn-sm btn-success">Chi
+                                tiết</a>
+                            @endif
+
                             @endcan
                             @can('edit-bill')
                             @if($item->payment_status != 2)
+                            @if ($item->type==1)
                             <a href="{{ route('bill.edit', ['id' => $item->id]) }}"
                                 class="btn btn-sm btn-warning">Sửa</a>
+                            @endif
                             @endif
                             @endcan
                             @can('delete-bill')
