@@ -10,16 +10,16 @@ class RepairPart extends Model
 {
     use HasFactory;
     protected $table = 'repair_parts';
-    public $fillable = ['booking_detail_id', 'detail_product_id', 'unit_price', 'quantity', 'into_money', 'sale', 'insurance', 'warranty_period','created_at','updated_at'];
+    public $fillable = ['booking_detail_id', 'detail_product_id', 'unit_price', 'quantity', 'into_money', 'sale', 'insurance', 'warranty_period', 'created_at', 'name_product', 'component_id', 'updated_at'];
 
     /**
      * Get the user associated with the RepairPart
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function detail_product()
+    public function component()
     {
-        return $this->hasOne(DetailProduct::class, 'id', 'detail_product_id');
+        return $this->hasOne(Component::class, 'id', 'component_id');
     }
 
     /**

@@ -87,13 +87,16 @@
   6. Custom-content all   
  **************************************/
 
+
 .boxed-layout .wrapper {
     box-shadow: -3px 0 50px -2px rgba(0, 0, 0, 0.14);
     margin: auto;
     position: relative;
     width: 1240px;
 }
-
+h3{
+    
+}
 .boxed-layout .sticky {
     left: auto;
     margin: auto;
@@ -118,6 +121,7 @@
 .brand-item {
     padding-left: 15px;
     padding-right: 15px;
+    width: 100px !important;
 }
 
 .single-brand-product {
@@ -173,7 +177,6 @@
 
 .product-title {
     color: #434343;
-    font-family: "Raleway", sans-serif;
     font-size: 14px;
     font-weight: 700;
     margin-bottom: 10px;
@@ -1507,6 +1510,7 @@ input.cart-plus-minus-box {
     padding: 0;
     text-align: center;
     width: 40%;
+    -webkit-appearance: none;
 }
 
 
@@ -1639,7 +1643,7 @@ table {
     overflow: hidden;
     text-overflow: ellipsis;
     text-transform: uppercase;
-    white-space: nowrap;
+    /* white-space: nowrap; */
 }
 
 .pro-thumbnail-info>p {

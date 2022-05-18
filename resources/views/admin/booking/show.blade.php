@@ -18,12 +18,12 @@
               <th scope="col">Kiểu sửa</th>
               <th scope="col" class="sort" data-sort="completion">Thời gian sửa</th>
               <th scope="col">Trạng thái</th>
+              @can('add-booking')
               <th scope="col"><a href="{{ route('dat-lich.add') }}">Tạo mới</a></th>
+              @endcan
             </tr>
           </thead>
           <tbody class="list">
-
-
 
             @foreach ($bookings as $b)
             <tr>

@@ -9,37 +9,35 @@
         <div class="row ml-2">
             <div class="col-6 mt-2">
                 <div class="form-group">
-                    <label for="">Tên sản phẩm</label>
-                    <input type="text" name="name" id="slug" class="form-control" onkeyup="ChangeToSlug()" placeholder="Tên sản phẩm">
-                    @error('name')
+                    <label for="">Tên linh kiện</label>
+                    <input type="text" name="name_component" id="slug" class="form-control" onkeyup="ChangeToSlug()"
+                        placeholder="Tên sản phẩm">
+                    @error('name_component')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="">Slug</label>
-                    <input type="text" name="slug" id="convert_slug" class="form-control" placeholder="">
-                    @error('slug')
+                    <label for=""> Số lượng</label>
+                    <input type="number" name="qty" id="convert_slug" class="form-control" placeholder="">
+                    @error('price')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="">Danh mục</label>
-                    <select name="companyComputer_id" class="form-control">
-                        <option value="">Chọn CompanyComputer</option>
-                        @foreach ($ComputerCompany as $item)
-                        <option value="{{ $item->id }}">{{ $item->company_name }}</option>
+                    <select name="category_component_id" class="form-control">
+                        <option hidden value="">Chọn danh mục</option>
+                        @foreach ($categories as $item)
+                        <option value="{{ $item->id }}">{{ $item->name_category }}</option>
                         @endforeach
                     </select>
-                    @error('companyComputer_id')
-                    <p class="text-danger">{{ $message }}</p>
-                    @enderror
                 </div>
                 <div class="form-group">
                     <div class="mt-1 text-center">
                         <div class="preview-image"> </div>
                     </div>
                     <label for="">Ảnh</label>
-                    <input type="file" id="images" name="images[]" accept="image/png, image/jpeg" class="form-control"
+                    <input type="file" id="image" name="image" accept="image/png, image/jpeg" class="form-control"
                         multiple placeholder="Chọn ảnh">
                     @error('images')
                     <p class="text-danger">{{ $message }}</p>
@@ -66,64 +64,14 @@
                     @enderror
                 </div>
             </div>
-            <input type="hidden" name="qty" value="0">
+            {{-- <input type="hidden" name="qty" value="0">x --}}
             <div class="col-6 mt-2">
 
-                <div class="form-group text-center mb-0">
-                    <label for="">Chi tiết sản phẩm</label>
-                </div>
-                @error('value.*')
-                <p class="text-danger">{{ $message }}</p>
-                @enderror
-                @error('value')
-                <p class="text-danger">{{ $message }}</p>
-                @enderror
 
-                <div class="form-group row mb-1 pr-2">
-                    <label for="" class="font-italic col-sm-2 col-form-label">CPU:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" value="" name="value[]" id="" placeholder="CPU">
-                    </div>
-                </div>
-                <div class="form-group row mb-1 pr-2">
-                    <label for="" class="font-italic col-sm-2 col-form-label">RAM:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" value="" name="value[]" id="" placeholder="RAM">
-                    </div>
-                    @error('value')
-                    <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="form-group row mb-1 pr-2">
-                    <label for="" class="font-italic col-sm-2 col-form-label">Ổ cứng:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" value="" name="value[]" id="" placeholder="Ổ cứng">
-                    </div>
-                    @error('value')
-                    <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="form-group row mb-1 pr-2">
-                    <label for="" class="font-italic col-sm-2 col-form-label">Card đồ họa:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" value="" name="value[]" id="" placeholder="Card đồ họa">
-                    </div>
-                    @error('value')
-                    <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="form-group row pr-2">
-                    <label for="" class="font-italic col-sm-2 col-form-label">Màn hình:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" value="" name="value[]" id="" placeholder="Màn hình">
-                    </div>
-                    @error('value')
-                    <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
                 <div class="form-group pt-1 pr-2">
                     <label for="">Thời gian bảo hành</label>
-                    <input type="number" name="insurance" value="{{ old('insurance') }}" placeholder="Thời gian bảo hành" class="form-control">
+                    <input type="number" name="insurance" value="{{ old('insurance') }}"
+                        placeholder="Thời gian bảo hành" class="form-control">
                     @error('insurance')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
@@ -139,14 +87,23 @@
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
+                <div class="form-group pr-2">
+                    <label for="">Chọn loại máy</label>
+                    <div class=" row">@foreach ($computer_company as $c)
+                        <div class="form-check col-4">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" name="computer_company_id[]" id=""
+                                    value="{{ $c->id }}">
+                                {{ $c->company_name }}
+                            </label>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+
+
             </div>
-            <div class="form-group col-12 pr-2">
-                <label for="">Mô tả đầu trang</label>
-                <input name="desc_short" value="{{old('desc_short')}}" class="form-control pr-2"></input>
-                @error('desc_short')
-                <p class="text-danger">{{ $message }}</p>
-                @enderror
-            </div>
+
             <div class="form-group col-12 pr-2">
                 <label for="">Mô tả</label>
                 <textarea name="desc" rows="4" id="ckeditor1" class="form-control pr-2">{{old('desc')}}</textarea>
@@ -164,10 +121,10 @@
 </form>
 <script src="{{asset('ckeditor')}}/ckeditor.js"></script>
 <script type="text/javascript">
-CKEDITOR.replace('ckeditor1');
+    CKEDITOR.replace('ckeditor1');
 </script>
 <script>
-$(function() {
+    $(function() {
     // Multiple images preview with JavaScript
     let multiImgPreview = function(input, imgPreviewPlaceholder) {
 
@@ -192,8 +149,7 @@ $(function() {
 });
 </script>
 <script type="text/javascript">
- 
- function ChangeToSlug()
+    function ChangeToSlug()
 	 {
 		 var slug;
 		 //Lấy text từ thẻ input title 

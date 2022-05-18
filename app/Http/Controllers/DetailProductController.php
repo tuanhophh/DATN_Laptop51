@@ -69,9 +69,9 @@ class DetailProductController extends Controller
     }
     public function addForm()
     {
-        $products=Product::all();
-        $categories=Category::all();
-        return view('admin.detail-products.add',compact('products','categories'));
+        $products = Product::all();
+        $categories = Category::all();
+        return view('admin.detail-products.add', compact('products', 'categories'));
     }
     public function saveAdd(DetailProductRequest $request)
     {
@@ -79,9 +79,9 @@ class DetailProductController extends Controller
         if ($request->hasFile('anh')) {
             $imgPath = $request->file('anh')->store('products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
-            $request->merge(['image'=>$imgPath]);
+            $request->merge(['image' => $imgPath]);
         }
-        
+
         $model->fill($request->all());
         $model->save();
         return redirect(route('detail-product.index'));
@@ -111,7 +111,7 @@ class DetailProductController extends Controller
             Storage::delete($model->image);
             $imgPath = $request->file('anh')->store('products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
-            $request->merge(['image'=>$imgPath]);
+            $request->merge(['image' => $imgPath]);
         }
 
         $model->fill($request->all());

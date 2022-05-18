@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\UserController;
 use App\Models\ComputerCompany;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,42 +34,47 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//  Đăng nhập
+
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
+
+Route::get('/register', [AuthController::class,'register']);
+Route::post('/register', [AuthController::class,'create'])->name('register');
+Route::post('/verify/resend', [AuthController::class, 'resendVerify'])->name('resend.verify');
+Route::get('/verify', [AuthController::class, 'showVerify'])->name('show.verify');
+Route::post('/verify', [AuthController::class, 'verify'])->name('verify');
+
+// //  Đăng nhập
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
-Route::get('logout', [LoginController::class, 'logout']);
+Route::get('login-otp', [LoginController::class, 'showLoginOtp'])->name('show.login');
+Route::post('login-otp', [LoginController::class, 'sendLoginOtp'])->name('send.otp.login');
+Route::get('login-otp-code', [LoginController::class, 'showLoginOtpCode'])->name('login.otp.code');
+Route::post('send-login-otp', [LoginController::class, 'loginOtp'])->name('login.otp');
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
-//  Đăng ký
-Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('register', [RegisterController::class, 'register']);
-
-//  Quên mật khẩu
+// //  Quên mật khẩu
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
-Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::get('forget-password-code', [ForgotPasswordController::class, 'showForgetPasswordCodeForm'])->name('forget.password.code');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
-Auth::routes(['verify' => true]);
-
-// //  Xác thực mail
-// Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
-// Route::get('email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify');
-// Route::get('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
+Route::get('reset-password', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('insert-password', [ForgotPasswordController::class, 'insertResetPasswordForm'])->name('insert.password.post');
 
 //  Giỏ hàng
-Route::post('save-cart', [CartController::class, 'saveCart']);
-Route::post('add-cart', [CartController::class, 'add']);
-Route::get('gio-hang', [CartController::class, 'showCart']);
-Route::get('delete-to-cart/{rowId}', [CartController::class, 'deleteToCart']);
-Route::post('update-cart-quantity', [CartController::class, 'updateCartQuantity']);
+Route::post('save-cart', [CartController::class, 'saveCart'])->middleware(['auth','phoneverify']);
+Route::post('add-cart', [CartController::class, 'add'])->middleware(['auth','phoneverify']);
+Route::get('gio-hang', [CartController::class, 'showCart'])->middleware(['auth','phoneverify']);
+Route::get('delete-to-cart/{rowId}', [CartController::class, 'deleteToCart'])->middleware(['auth','phoneverify']);
+Route::post('update-cart-quantity', [CartController::class, 'updateCartQuantity'])->middleware(['auth','phoneverify']);
 
 //  Thanh toán
-Route::get('thanh-toan', [PaymentController::class, 'showPayment']);
+Route::get('thanh-toan', [PaymentController::class, 'showPayment'])->name('payment')->middleware(['auth','phoneverify']);
 Route::post('save-payment', [PaymentController::class, 'savePayment']);
 Route::post('payment/online', [PaymentController::class, 'createPayment'])->name('payment.online');
 Route::get('vnpay/return', [PaymentController::class, 'vnpayReturn'])->name('vnpay.return');
-// Route::get('vnpay/return', function(){
-//     return view('vnpay.vnpay_return');
-// });
+Route::get('don-hang/{code}', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
 
 //     trang cá nhân
 Route::get('profile', [ProfileController::class, 'index'])->name('profile');
@@ -75,42 +82,32 @@ Route::post('profile/update-avatar', [ProfileController::class, 'changeImage'])-
 Route::post('profile/update-info', [ProfileController::class, 'changeInfo'])->name('changeInfo');
 Route::post('profile/update-password',  [ProfileController::class, 'changePassword'])->name('changePassword');
 Route::get('profile/history',  [ProfileController::class, 'history'])->name('profile.history');
+Route::post('cancel-order/{code}', [ProfileController::class, 'cancelOrder'])->name('cancel-order');
+Route::post('restore-order/{code}', [ProfileController::class, 'restoreOrder'])->name('restore-order');
+Route::get('profile/history/{code}',  [ProfileController::class, 'historyDetail'])->name('profile.history.detail');
 
-Route::get('profile/lich-su-mua-hang/{code}',  [ProfileController::class, 'historyDetail'])->name('profile.history.detail');
+Route::post('cancel-repair/{code}',[ProfileController::class,'cancelRepair'])->name('cancel-repair');
+Route::post('restore-repair/{code}',[ProfileController::class,'restoreRepair'])->name('restore-repair');
+Route::get('profile/history-repair/{code}',  [ProfileController::class, 'historyDetailRepair'])->name('profile.history.detail-repair');
 
 // trang cửa hàng
 Route::get('cua-hang', [HomeController::class, 'show'])->name('website.product');
 
 Route::get('san-pham/{slug}', [HomeController::class, 'detail'])->name('website.product-detail');
-Route::get('cua-hang/{id}', [HomeController::class, 'company'])->name('website.product-category.');
+Route::get('cua-hang/{id}', [HomeController::class, 'company'])->name('website.product-category');
+Route::get('cua-hang/tim-kiem/{name}', [HomeController::class, 'seachproduct']);
 // trang giới thiệu
 Route::get('gioi-thieu', function () {
     return view('website.gioi-thieu');
-});
-//Dịch vụ
-Route::get('sua-laptop-lay-ngay-1h', function () {
-    return view('website.dv-sua-1h');
-});
-Route::get('sua-laptop-tai-nha-hoac-van-phong', function () {
-    return view('website.dv-sua-tai-nha');
-});
-Route::get('thay-the-va-nang-cap-phan-cung', function () {
-    return view('website.dv-thay-or-nang-cap');
-});
-Route::get('cai-dat-phan-mem-ban-quyen', function () {
-    return view('website.dv-cai-dat-phan-mem');
-});
-Route::get('dich-vu-cho-macbook', function () {
-    return view('website.dv-macbook');
 });
 // trang đặt lịch
 Route::get('dat-lich', function () {
     $company_computer = ComputerCompany::all();
     return view('website.booking', compact('company_computer'));
-})->name('dat-lich.add_client');
+});
 Route::get('dat-lich-thanh-cong', function () {
     return view('website.success');
-})->name('dat-lich.add_client');
+});
 Route::post('dat-lich', [BookingController::class, 'creatBooking']);
 // trang liên hệ
 Route::get('lien-he', function () {

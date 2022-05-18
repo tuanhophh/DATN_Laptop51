@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
@@ -15,6 +16,7 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
+            Toastr::error('Bạn cần đăng nhập để thực hiện hành động này', 'Thất bại');
             return route('login');
         }
     }

@@ -9,14 +9,23 @@ class BookingDetail extends Model
 {
     use HasFactory;
     protected $table = "booking_details";
-    public $fillable = ["booking_id", 'company_computer_id', 'expected_cost', 'repair', 'repair_type', 'description', 'start_time', 'finish_time', 'active', 'name_computer'];
+    public $fillable = ["booking_id", 'company_computer_id', 'expected_cost', 'repair', 'repair_type', 'description', 'start_time', 'finish_time', 'active', 'name_computer', 'comment', 'status_repair', 'status_booking'];
     public function computerCompany()
     {
-        return $this->belongsToMany(ComputerCompany::class, 'computer_company_id', 'id');
+        return $this->belongsTo(ComputerCompany::class, 'company_computer_id', 'id');
     }
     public function booking()
     {
-        return $this->belongsTo(Booking::class);
+        return $this->hasOne(Booking::class, 'id', 'booking_id');
+    }
+    /**
+     * Get the list_bill associated with the BookingDetail
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function list_bill()
+    {
+        return $this->hasOne(list_bill::class, 'id', 'booking_detail_id');
     }
     /**
      * The roles that belong to the BookingDetail

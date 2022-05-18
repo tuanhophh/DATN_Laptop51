@@ -9,5 +9,20 @@
 <script src="{{ asset('client') }}/js/plugins.js"></script>
 <!-- Main js file that contents all jQuery plugins activation. -->
 <script src="{{ asset('client') }}/js/main.js"></script>
-<!-- ajax-mail js -->
-<script src="{{ asset('client') }}/js/ajax-mail.js"></script>
+<script>
+    $('#btn-timkiem').on('click',function(){
+        
+    window.location.replace('http://127.0.0.1:8000/cua-hang/tim-kiem/'+$('#timkiem').val())
+
+    })
+</script>
+<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+{!! Toastr::message() !!}
+
+<script>
+    $(document).ready(function() {
+        $("#show-password").change(function(){
+            $(this).prop("checked") ?  $(".upassword").prop("type", "text") : $(".upassword").prop("type", "password");    
+        });
+    });
+</script>

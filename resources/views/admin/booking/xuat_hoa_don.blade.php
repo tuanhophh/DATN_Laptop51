@@ -31,6 +31,9 @@
         <h4 style="text-align: center">HÓA ĐƠN SỬA CHỮA</h4>
         <p>Ho va ten: {{ $booking_detail->booking->full_name }}</p>
         <p>So dien thoai: {{ $booking_detail->booking->phone }}</p>
+        <p>Tên máy: {{ $booking_detail->name_computer }}</p>
+        {{-- <p>Hãng máy: {{ $booking_detail->computerCompany->company_name }}</p> --}}
+
         <h5>Danh sach linh kien</h5>
 
         <table class="table" border="1" draggable="false" style="border: red solid 1px">
@@ -45,24 +48,36 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($repair_parts as $key=>$p)
+                @foreach ($bill_detail as $key=>$p)
                 <tr>
                     <td scope="row">{{ $key +1}}</td>
-                    <td>{{ $p->detail_product->name }}</td>
-                    <td>{{ $p->unit_price }}</td>
-                    <td>{{ $p->quantity }}</td>
-                    <td>{{ $p->into_money }}</td>
+                    <td>{{ $p->description }}</td>
+                    <td>{{ $p->ban }}</td>
+                    <td>{{ $p->quaty }}</td>
+                    <td>{{ $p->ban*$p->quaty }}</td>
+                    <td></td>
                 </tr>
                 @endforeach
                 <tr>
-                    <th colspan='4'>TONG</th>
-                    <th colspan="" class="tong-tien"> {{ array_sum(array_column($repair_parts->toArray(),'into_money'))
-                        }}</th>
+                    <th colspan='4'>TỔNG</th>
+                    <th colspan="" class="tong-tien">{{ $booking_detail_bill->total_price }}</th>
                     <td></td>
                 </tr>
-
+                <tr>
+                    <th colspan='4'>Khách trả</th>
+                    <th colspan="" class="tong-tien">{{ $booking_detail_bill->customers_pay }}</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th colspan='4'>Tiền thừa</th>
+                    <th colspan="" class="tong-tien">{{ $booking_detail_bill->excess_cash }}</th>
+                    <td></td>
+                </tr>
             </tbody>
+
         </table>
+
+        {{-- Mô tả sửa chữa: {{ $data }} --}}
 
 
 

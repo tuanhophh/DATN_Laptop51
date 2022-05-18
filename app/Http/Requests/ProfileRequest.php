@@ -37,7 +37,7 @@ class ProfileRequest extends FormRequest
             'email.required' => 'Mời bạn nhập email',
             'email.email' => 'Phải là định dạng email',
             'email.unique' => 'Email không được trùng',
-            'avatar.mimes' => 'Định dạng ảnh không đúng',
+            'avatar.mimes' => 'Sai định dạng ảnh',
         ];
     }
     

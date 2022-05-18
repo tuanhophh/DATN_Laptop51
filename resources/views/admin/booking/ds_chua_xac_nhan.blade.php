@@ -1,21 +1,44 @@
 @extends('admin.layouts.main')
 @section('content')
 <div class="table-responsive " style="background-color: white">
+    <h3 class="text-center">DANH SÁCH ĐẶT LỊCH</h3>
+
+
+    <form action="" class="row ml-3">
+
+        <div class="form-group ">
+            <input type="text" class="form-control" @if (!empty($_GET['key_search'])) value="{{ $_GET['key_search'] }}"
+                @endif name="key_search" id="" placeholder="Số diện thoại...">
+        </div>
+        <div class="form-group">
+
+            <select class="form-control" name="status" id="">
+                <option value="">Tất cả</option>
+
+                <option @if (isset($_GET['status'])&& !empty($_GET['status']=='received' )) selected @endif
+                    value="received"> Chưa xác nhận
+                </option>
+                {{-- <option @if (!empty($_GET['status']=='latch' )) selected @endif value="latch">Xác nhận</option>
+                <option @if (!empty($_GET['status']=='cancel' )) selected @endif value="cancel">Hủy bỏ</option> --}}
+            </select>
+        </div>
+        <div><button type="submit" class="btn btn-primary">Tìm kiếm</button></div>
+    </form>
     <table class="table align-items-center table-flush">
         <thead class="thead-light">
             <tr>
                 <th scope="col" class="sort" data-sort="name">Tên máy</th>
                 <th scope="col" class="sort" data-sort="budget">Tên khách hàng</th>
-                <th scope="col" class="sort" data-sort="status">SDT</th>
-                <th scope="col">Hình thức sửa</th>
+                <th scope="col" class="sort" data-sort="status">Số điện thoại</th>
+                {{-- <th scope="col">Hình thức sửa</th> --}}
                 <th scope="col">Trạng thái</th>
-                <th scope="col" class="sort" data-sort="completion">Nhân viên</th>
+                <th scope="col" class="sort" data-sort="completion">Sửa thông tin</th>
+                @can('add-booking')
                 <th scope="col"><a href="{{ route('dat-lich.add') }}">Tạo mới</a></th>
+                @endcan
             </tr>
         </thead>
         <tbody class="list">
-
-
 
             @foreach ($booking_details as $b)
             <tr>
@@ -25,11 +48,11 @@
 
                     @endif</td>
                 <td>{{ $b->booking->phone }}</td>
-                <td>@if ($b->repair_type=='TN')
+                {{-- <td>@if ($b->repair_type=='TN')
                     {{ 'Tại nhà' }}
                     @else
                     {{ 'Đem đến cửa hàng' }}
-                    @endif</td>
+                    @endif</td> --}}
                 <td>
                     {{-- @if ($b->active==0)
                     {{ 'Chưa sửa' }}
@@ -46,13 +69,18 @@
                         <form action="{{ route('dat-lich.chuyen-trang-thai') }}" method="POST" class="d-flex">
                             @csrf
                             <select class="form-control" name="status_booking" id="">
-                                <option value="received">Chưa xác nhận</option>
-                                <option value="latch">Xác nhận</option>
-                                <option value="cancel">Hủy bỏ</option>
+                                <option @if ($b->status_booking=='received')selected
+                                    @endif value="received">Chưa xác nhận</option>
+                                <option @if ($b->status_booking=='latch')selected
+                                    @endif value="latch">Xác nhận</option>
+                                <option @if ($b->status_booking=='cancel')selected
+                                    @endif value="cancel">Hủy bỏ</option>
 
                             </select>
                             <input type="hidden" name="booking_detail_id" value="{{ $b->id }}">
+
                             <button class="btn btn-primary" type="submit">Chọn</button>
+
                         </form>
                     </div>
 
@@ -88,13 +116,15 @@
                     <a name="" id="" class="btn btn-success" href="{{ route('suachua.get', ['id'=>$b->id]) }}"
                         role="button">Sửa chữa</a>
                     @endif --}}
-
+                    @can('edit-booking')
                     <a name="" id="" class="btn btn-primary" href="{{ route('dat-lich.edit', ['id'=>$b->id]) }}"
                         role="button">Sửa thông tin</a>
-                    {{-- <a name="" id="" class="btn btn-info" href="{{ route('dat-lich.hoa-don', ['id'=>$b->id]) }}"
-                        role="button">Chi tiết
-                        sửa
-                        chữa</a> --}}
+                    <a name="" id="" class="btn btn-info" @if ($b->status_booking!='latch')
+                        style="display: none"
+                        @endif
+                        href="{{ route('dat-lich.tiep-nhan-may', ['booking_detail_id'=>$b->id]) }}" role="button">Tiếp
+                        nhận máy</a>
+                    @endcan
                     {{-- <a name="" id="" class="btn btn-danger"
                         href="{{ route('dat-lich.deleteBookingDetail', ['id'=>$b->id]) }}" role="button">Xóa</a> --}}
                 </td>

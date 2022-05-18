@@ -19,7 +19,11 @@ class Bill extends Model
 
     public function billDetail()
     {
-        return $this->belongsTo(BillDetail::class, 'user_id');
+        return $this->belongsTo(BillDetail::class, 'code','bill_code');
     }
+    /**
+     * Get the booking associated with the Bill
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
 }
-

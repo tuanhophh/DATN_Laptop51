@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bệnh Viện Laptop 51</title>
+    <title>Lịch sử chi tiết</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
@@ -112,108 +112,75 @@
                                 <div class="tab-content">
                                     <div class="active tab-pane" id="settings">
                                         <form class="form-horizontal">
-                                            <div class="form-group row">
-                                                <label for="inputName" class="col-sm-4 col-form-label">
-                                                    <label for="">Thời gian: {{ $user->created_at }}
+                                            @foreach ($bill as $item)
+                                                <div class="form-group row">
+                                                    <label for="inputName" class="col-sm-4 col-form-label">
+                                                        <label for="">Thời gian: {{ $item->created_at }}
+                                                        </label>
+                                                        @foreach ($images as $item2)
+                                                        
+                                                            @if ($item2->product_id == $item->product_id)
+                                                            
+                                                                <a href=""><img src="{{ asset($item2->path) }}" alt=""
+                                                                        style="" width="200" height="200"></a>
+                                                                  @break
+                                                                  {{dd($item2->product_id)}}
+                                                            @endif
+                                                            
+                                                        @endforeach
                                                     </label>
-                                                    <a href=""><img src="{{ asset($user->avatar) }}" alt="" style=""
-                                                            width="200" height="200"></a>
-                                                </label>
-                                                <div class="col-sm-6">
-                                                    <label for="">
-                                                        <b class="text-dark">Mã hóa đơn: </b> {{ $user->name }}
-                                                    </label>
-                                                    <br>
-                                                    <label for="">
-                                                        <h2><b class="text-dark">Tên sản phẩm:</b>
-                                                            <a href=""> {{ $user->name }}</a>
-                                                        </h2>
-                                                    </label>
-                                                    <br>
-                                                    <label for=""> <b class="text-dark">Địa chỉ nhận
-                                                            hàng: </b>
+                                                    <div class="col-sm-6">
+                                                        <label for="">
+                                                            <b class="text-dark">Mã hóa đơn: </b>
+                                                            {{ $item->bill_code }}
+                                                        </label>
                                                         <br>
-                                                        {{ $user->name }} <br>
-                                                        {{ $user->phone }} <br>
-                                                        {{ $user->address }}
-                                                    </label>
-                                                    <br>
-                                                    <label for="">
-                                                        <b class="text-dark">Số lượng sản phẩm:</b>
-                                                        x{{ $user->name }}
-                                                    </label>
-                                                    <label for="">
-                                                        <b class="text-dark">Giá sản phẩm:</b>
-                                                        {{ $user->name }} vnđ
-                                                    </label>
-                                                    <br>
-                                                    <label for="">
-                                                        <b class="text-dark">Phương thức thanh toán: </b>
-                                                        <br> Thanh toán khi nhận hàng
-                                                    </label><br>
-                                                </div>
-                                                <div class="   col-sm-2">
-                                                    <label for=""> <a href="" class="text-success">Hoàn
-                                                            thành</a>
-                                                    </label>
-                                                </div>
-
-                                            </div>
-                                            <hr>
-                                            <div class="form-group row">
-                                                <label for="inputName" class="col-sm-4 col-form-label">
-                                                    <label for="">Thời gian: {{ $user->created_at }}
-                                                    </label>
-                                                    <a href=""><img src="{{ asset($user->avatar) }}" alt="" style=""
-                                                            width="200" height="200"></a>
-                                                </label>
-                                                <div class="col-sm-6">
-                                                    <label for="">
-                                                        <b class="text-dark">Mã hóa đơn: </b> {{ $user->name }}
-                                                    </label>
-                                                    <br>
-                                                    <label for="">
-                                                        <h2><b class="text-dark">Tên sản phẩm:</b>
-                                                            <a href="">{{ $user->name }}</a>
-                                                        </h2>
-                                                    </label>
-                                                    <br>
-                                                    <label for=""> <b class="text-dark">Địa chỉ nhận
-                                                            hàng: </b>
+                                                        <label for="">
+                                                            <h2><b class="text-dark">Tên sản phẩm:</b>
+                                                                <a href=""> {{ $item->name }}</a>
+                                                            </h2>
+                                                        </label>
                                                         <br>
-                                                        {{ $user->name }} <br>
-                                                        {{ $user->phone }} <br>
-                                                        {{ $user->address }}
-                                                    </label>
-                                                    <br>
-                                                    <label for="">
-                                                        <b class="text-dark">Số lượng sản phẩm:</b>
-                                                        x{{ $user->name }}
-                                                    </label>
-                                                    <label for="">
-                                                        <b class="text-dark">Giá sản phẩm:</b>
-                                                        {{ $user->name }} vnđ
-                                                    </label>
-                                                    <br>
-                                                    <label for="">
-                                                        <b class="text-dark">Phương thức thanh toán: </b>
-                                                        <br> Thanh toán khi nhận hàng
-                                                    </label><br>
-                                                </div>
-                                                <div class="   col-sm-2">
-                                                    <label for=""> <a href="" class="text-success">Hoàn
-                                                            thành</a>
-                                                    </label>
-                                                </div>
+                                                        <label for=""> <b class="text-dark">Địa chỉ nhận
+                                                                hàng: </b>
+                                                            {{ $item->address }} <br>
 
-                                            </div>
-                                            <hr>
-                                            <div class="form-group row">
-                                                <div class="offset-sm-2 col-sm-10">
-                                                    <button type="submit" class="submit-btn-1 mt-30 btn-hover-1">Mua
-                                                        Lại</button>
+                                                        </label>
+                                                        <br>
+                                                        <label for="">
+                                                            <b class="text-dark">Số lượng sản phẩm:</b>
+                                                            x{{ $item->quaty }}
+                                                        </label>
+                                                        <br>
+                                                        <label for="">
+                                                            <b class="text-dark">Giá sản phẩm:</b>
+                                                            {{ $item->ban }} vnđ
+                                                        </label>
+                                                        <br>
+                                                        <label for="">
+                                                            <b class="text-dark">Phương thức thanh toán: </b>
+
+                                                            @if ($item->method == 1)
+                                                                Thanh toán khi nhận hàng
+                                                            @else
+                                                                Thanh toán trực tuyến
+                                                            @endif
+                                                        </label><br>
+                                                    </div>
+                                                    <div class="   col-sm-2">
+                                                        <label for="">
+                                                            <div class="text-success">
+                                                                @if ($item->status == 0)
+                                                                    Chưa xác nhận
+                                                                @elseif($item->status == 2)
+                                                                    Hoàn thành
+                                                                @endif
+                                                            </div>
+                                                        </label>
+                                                    </div>
+
                                                 </div>
-                                            </div>
+                                            @endforeach
                                         </form>
                                     </div>
                                     <!-- /.tab-pane -->
@@ -238,8 +205,7 @@
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
-</script>
+integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 <script>
     function doAfterSelectImage(input) {
         readURL(input);

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bệnh Viện Laptop 51</title>
+    <title>Tin tức</title>
     @include('layout_client.style')
 </head>
 

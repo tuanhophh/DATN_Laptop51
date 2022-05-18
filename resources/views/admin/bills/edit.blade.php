@@ -9,22 +9,22 @@
             <div class="col-6 mt-2">
                 <div class="form-group">
                     <label for="">Tên người mua</label>
-                    <input type="text" name="name" disabled value="{{ old('total', $bill_user->name) }}"
+                    <input type="text" name="" value="{{ old('total', $bill_user->name) }}"
                         class="form-control" placeholder="">
                 </div>
                 <div class="form-group">
                     <label for="">Email</label>
-                    <input type="text" name="email" disabled value="{{ old('email', $bill_user->email) }}"
+                    <input type="text" name="" value="{{ old('email', $bill_user->email) }}"
                         class="form-control" placeholder="">
                 </div>
                 <div class="form-group">
                     <label for="">Số điện thoại</label>
-                    <input type="text" name="phone" disabled value="{{ old('phone', $bill_user->phone) }}"
+                    <input type="text" name="" value="{{ old('phone', $bill_user->phone) }}"
                         class="form-control" placeholder="">
                 </div>
                 <div class="form-group">
                     <label for="">Địa chỉ</label>
-                    <input type="text" name="address" disabled value="{{ $bill_user->address }}" class="form-control"
+                    <input type="text" name="" value="{{ $bill_user->address }}" class="form-control"
                         placeholder="">
                 </div>
             </div>
@@ -34,22 +34,27 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="">Mã hóa đơn</label>
-                            <input type="text" name="code" disabled value="{{ old('code', $bill->code) }}"
+                            <input type="text" name="" value="{{ old('code', $bill->code) }}"
                                 class="form-control" placeholder="">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="">Phương thức thanh toán</label>
-                            <select name="payment_method" class="form-control">
-                                @if($bill->payment_method == 1)
-                                <option value="{{$bill->payment_method}}">Tiền mặt</option>
-                                <option value="2">Chuyển khoản</option>
-                                @elseif($bill->payment_method == 2)
-                                <option value="{{$bill->payment_method}}">Chuyển khoản</option>
-                                <option value="1">Tiền mặt</option>
-                                @endif
-                            </select>
+                        <?php
+                            if (!function_exists('currency_format')) {
+                                function currency_format($item, $suffix = ' VNĐ')
+                                    {
+                                        if (!empty($item)) {
+                                            return number_format($item, 0, ',', '.') . "{$suffix}";
+                                        }
+                                    }
+                                }
+                        ?>
+                            <div class="form-group">
+                                <label for="">Tổng tiền</label>
+                                <input type="text" name="" value="{{ currency_format(old('total_price', $bill->total_price)) }}"
+                                    class="form-control" placeholder="">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -57,36 +62,44 @@
                 <div class="row">
                     <div class="col-6">
 
-                        <div class="form-group">
-                            <label for="">Tổng tiền</label>
-                            <input type="text" name="total" disabled value="{{ old('total', $bill->total) }} VNĐ"
-                                class="form-control" placeholder="">
-                        </div>
+                        <label for="">Phương thức thanh toán</label>
+                        <select @if($bill->status == 2 || $bill->status == 1) disabled @endif
+                            name="payment_method" class="form-control">
+
+                        
+                            <option @if($bill->method == 2) selected @endif value="2">Chuyển khoản</option>
+                            <option @if($bill->method == 1) selected @endif value="1">Tiền mặt</option>
+                          
+                        </select>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="">Trạng thái thanh toán</label>
-                            <select  name="payment_status" class="form-control">
-                           
-                                <option @if($bill->payment_status == 0) selected @endif value="0">Chưa thanh toán</option>
-                                <option @if($bill->payment_status == 1) selected @endif value="1">Thanh toán thất bại</option>
-                                <option @if($bill->payment_status == 9) selected @endif value="9">Thanh toán thành công</option>
-                             
+                            <select @if($bill->status == 2 || $bill->status == 1) disabled @endif
+                                name="payment_status" class="form-control">
+
+                                <option @if($bill->status == 0) selected @endif value="0">Chưa thanh toán
+                                </option>
+                                <option @if($bill->status == 1) selected @endif value="1">Hủy</option>
+                                <option @if($bill->status == 2) selected @endif value="2">Thanh toán thành công
+                                </option>
+
                             </select>
                         </div>
 
                     </div>
 
                 </div>
-                <div class="form-group">
-                    <label for="">Ngày tạo</label>
-                    <input type="text" name="created_at" disabled value="{{ old('created_at', $bill->created_at) }}"
-                        class="form-control" placeholder="">
 
-                </div>
                 <div class="form-group">
                     <label for="">Ghi chú</label>
-                    <textarea disabled class="form-control" name="note" id="">{{$bill_user->note}}</textarea>
+                    <textarea class="form-control" name="" id="">{{$bill_user->note}}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="">Ngày tạo</label>
+                    <input type="text" name="" disabled value="{{ old('created_at', $bill->created_at) }}"
+                        class="form-control" placeholder="">
+
                 </div>
             </div>
         </div>
@@ -146,20 +159,19 @@
                 <!-- <td><input disabled type="text" value="{{$bill_d->product->name}}" name="addMoreInputFields[0][subject]"
                         placeholder="Tên sản phẩm" class="form-control" />
                 </td> -->
-                <td><input disabled type="text" value="{{$bill_d->price}}" name="addMoreInputFields[0][subject]"
+                <td><input disabled type="text" value="{{currency_format($bill_d->ban)}}" name="addMoreInputFields[0][subject]"
                         placeholder="Nhập giá" class="form-control" /></td>
-                <td><input disabled type="text" value="{{$bill_d->qty}}" name="addMoreInputFields[0][subject]"
+                <td><input disabled type="text" value="{{$bill_d->quaty}}" name="addMoreInputFields[0][subject]"
                         placeholder="Số lượng" class="form-control" /></td>
-                <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Thêm sản
-                        phẩm</button></td>
+                <!-- <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Thêm sản
+                        phẩm</button></td> -->
             </tr>
+            @endforeach
         </table>
-        @endforeach
         <div class="d-flex justify-content-end mb-2 mr-2">
             <br>
-            <a href="{{ route('bill.index') }}" class="btn btn-info mr-2">Quay lại </a>
-            <a href="{{ route('bill.index') }}" class="btn btn-warning mr-2" type="submit">Sửa toàn bộ</a>
-            <button class="btn btn-success" type="submit">Lưu</button>
+            <a href="{{ route('bill.index') }}" class="btn btn-sm btn-info mr-2">Quay lại </a>
+            <button class="btn btn-sm btn-success" type="submit">Lưu</button>
             &nbsp;
         </div>
     </div>

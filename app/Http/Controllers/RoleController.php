@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Permission;
 use App\Models\Role;
+use App\Rules\Throttle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
@@ -28,7 +31,17 @@ class RoleController extends Controller
 
     }
     public function store(Request $request)
-    {
+    {           
+        
+        $request->validate([
+        'name' => ['required',],
+        'display_name' => ['required',],
+    ],
+        [
+            'name.required' => 'Vui lòng nhập tên vai trò',
+            'display_name.required' => 'Vui lòng nhập mô tả',
+        ]);
+
         $role = $this->role->create([
             'name' => $request->name,
             'display_name' => $request->display_name,
@@ -40,6 +53,9 @@ class RoleController extends Controller
 
     public function edit($id)
     {
+    // if($id == 1){
+    //     return redirect()->route('admin.dashboard');
+    // }
     $permissionsParent = $this->permission->where('parent_id',0)->get();
     $role = $this->role->find($id);
     // dd($role);
@@ -63,8 +79,11 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
         $role = Role::where('id', '=', $id)->first();
-            if ($role){
-                Role::where('id', $id)->delete();
+        // dd($role_user);
+        if ($role){
+            Role::where('id', $id)->delete();
+            $permission_role = DB::table('permission_role')->where('role_id',$role->id)->delete();
+            $role_user = DB::table('role_user')->where('role_id',$role->id)->delete();
                 return redirect(route('roles.index'))->with('success', 'Xóa thành công');
             }
             else {

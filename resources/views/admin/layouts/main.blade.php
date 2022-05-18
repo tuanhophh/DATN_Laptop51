@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> @yield('title')</title>
-    @include('admin.layouts.style')
+    <title>@if(Auth::user()->unreadNotifications()->count() != 0) ({{Auth::user()->unreadNotifications()->count()}}) Thông báo mới @else  @yield('title') @endif </title>
+    <input type="hidden" id="total-unread-notifications" value="{{Auth::user()->unreadNotifications()->count()}}" />
+    @include('admin.layouts.style') 
 
 </head>
 
@@ -66,10 +67,10 @@
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-        All rights reserved.
+<strong>Copyright &copy; Đăt lịch sửa chữa và quản lí cửa hàng Laptop 51</strong>
+       
         <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 3.1.0
+         
         </div>
     </footer>
 

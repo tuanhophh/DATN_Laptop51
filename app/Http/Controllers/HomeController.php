@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\ComputerCompany;
-use App\Models\DetailProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request as FacadesRequest;
+use Illuminate\Support\Facades\Route;
 
 class HomeController extends Controller
 {
@@ -22,73 +23,115 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        return view('website.index');
+    {   
+        session()->put('url_path',FacadesRequest::path());
+        $product_hot_sell = Product::select('billdetail.*', 'products.*', DB::raw('SUM(billdetail.quaty) As total'))
+        ->join('billdetail', 'billdetail.product_id', '=', 'products.id')
+        ->groupBy('products.id')
+        ->orderBy('total' ,'DESC')
+        ->get()
+        ->take(8);
+        $ComputerCompany = ComputerCompany::all();
+        $productNew = Product::where('status', 1)->orderBy('id', 'DESC')->get()->take(8);
+        // dd($productNew);
+        $products = Product::where('status', 1)->get();
+        $images = DB::table('product_images')->get();
+        // $searchData = compact('keyword', 'computerCompany_id');
+        return view('website.index', compact('products', 'ComputerCompany', 'productNew', 'images','product_hot_sell'));
     }
     public function logout(Request $request)
     {
         Auth::logout();
-        return redirect('/');
-
+        return back();
     }
     public function show(Request $request)
-    {
-        // dd($product=Product::all());
-
-        // dd($keyword, $cate_id, $rq_column_names, $rq_order_by);
+    {   
+        session()->put('url_path',FacadesRequest::path());
         
+        $product_hot_sell = Product::select('billdetail.*', 'products.*', DB::raw('SUM(billdetail.quaty) As total'))
+            ->join('billdetail', 'billdetail.product_id', '=', 'products.id')
+            ->groupBy('products.id')
+            ->orderBy('total' ,'DESC')
+            ->get()->take(5);
+            $images_product_list = DB::table('product_images')->get();
         $ComputerCompany = ComputerCompany::all();
-        $productNew = Product::where('status',1)->orderBy('id', 'DESC')->get()->take(4);
-        // dd($productNew);
-        $products = Product::where('status',1)->get();
-        foreach($products as $product){
+        $productNew = Product::where('status', 1)->orderBy('id', 'DESC')->paginate(9);
         $images = DB::table('product_images')->get();
-        }   
-        // $searchData = compact('keyword', 'computerCompany_id');
-        return view('website.product', compact('products', 'ComputerCompany','productNew'  ));
-        // return response()->json($products);
+        
+        // $product_hot_sell =
+        return view('website.product', compact( 'ComputerCompany', 'productNew', 'images', 'product_hot_sell','images_product_list'));
     }
     public function detail($slug)
     {   
         $ComputerCompany = ComputerCompany::all();
-        $pro = Product::where('slug',$slug)->first();
+        $pro = Product::where('slug', $slug)->first();
         // dd($ComputerCompany);
         if (!$pro || !$ComputerCompany) {
-            $productNew = Product::where('status',1)->orderBy('id', 'DESC')->get()->take(4);
-            $products = Product::where('status',1)->get();
-            $images = DB::table('product_images')->get();
-            return view('website.product',compact('productNew','ComputerCompany','products','images'))->with('error','Không tìm thấy sản phẩm');
+            // $productNew = Product::where('status', 1)->orderBy('id', 'DESC')->get()->take(4);
+            // $products = Product::where('status', 1)->get();
+            // $images = DB::table('product_images')->get();
+            return abort(404);
         }
+        session()->put('url_path',FacadesRequest::path());
+        $product_hot_sell = Product::select('billdetail.*', 'products.*', DB::raw('SUM(billdetail.quaty) As total'))
+        ->join('billdetail', 'billdetail.product_id', '=', 'products.id')
+        ->groupBy('products.id')
+        ->orderBy('total' ,'DESC')
+        ->get()
+        ->take(6);
         // $countPro = Product::where('');
-        // ->join('computer_companies', 'products.companyComputer_id', '=', 'computer_companies.id')->select()->first();
-        $detailPro = DB::table('attribute_value')->where('product_id',$pro->id)->get();
-        // dd(DB::table('attribute_value')->where('product_id',$id)->get());
-        $products = Product::where('companyComputer_id', $pro->companyComputer_id)->where('status',1)->get()->take(4);
-        $images = DB::table('product_images')->get();
-        // dd($detailPro);
-
+        $productsComputerCompany = Product::where('companyComputer_id', $pro->companyComputer_id)->where('status', 1)->get()->take(8);
+        $images = DB::table('product_images')->where('product_id', $pro->id)->get();
+        $images_product_list = DB::table('product_images')->get();
         return view(
             'website.product-detail',
-            compact('pro','detailPro','products','images')
+            compact('pro', 'productsComputerCompany', 'images', 'ComputerCompany','product_hot_sell','images_product_list')
         );
     }
     public function company($id)
+
     {   
-        $products = Product::where('companyComputer_id',$id)->get();;
-        
-        $ComputerCompany = ComputerCompany::find($id);
+        $products = Product::where('companyComputer_id', $id)->paginate(9);
+        $ComputerCompany = ComputerCompany::all();
         $images = DB::table('product_images')->get();
+        $product_hot_sell = Product::select('billdetail.*', 'products.*', DB::raw('SUM(billdetail.quaty) As total'))
+        ->join('billdetail', 'billdetail.product_id', '=', 'products.id')
+        ->groupBy('products.id')
+        ->orderBy('total' ,'DESC')
+        ->get()
+        ->take(6);
+        $productNew = Product::where('status', 1)->orderBy('id', 'DESC')->paginate(9);
+        $images_product_list = DB::table('product_images')->get();
         // dd($ComputerCompany = ComputerCompany::find($id)->first());
         // $comPany = ComputerCompany::where('companyComputer_id',$companyComputer_id)->get();
         // $ComputerCompany = ComputerCompany::where('id',$id)->get();
         // $pro = Product::find($id);
         // $detailPro = DetailProduct::where('id', $companyComputer_id)->get();
-        if ($ComputerCompany == NULL) {
-            return back()->with('error','Không tìm thấy danh mục sản phẩm');
+        if ($ComputerCompany == null) {
+            return back()->with('error', 'Không tìm thấy danh mục sản phẩm');
         }
+        
+        session()->put('url_path',FacadesRequest::path());
         return view(
             'website.product-category',
-            compact('products','ComputerCompany','images')
+            compact('products', 'ComputerCompany', 'images','id','product_hot_sell','images_product_list','productNew')
         );
+    }
+
+    
+    public function seachproduct($name)
+    {
+        $ComputerCompany = ComputerCompany::all();
+        $productNew = Product::where('status', 1)->where('name', 'like', '%' . $name . '%')->paginate(9);
+        $images = DB::table('product_images')->get();
+        // dd($productNew);
+        $products = Product::where('status', 1)->get();
+        $product_hot_sell = Product::select('billdetail.*', 'products.*', DB::raw('SUM(billdetail.quaty) As total'))
+        ->join('billdetail', 'billdetail.product_id', '=', 'products.id')
+        ->groupBy('products.id')
+        ->orderBy('total' ,'DESC')
+        ->get()->take(5);
+        $images_product_list = DB::table('product_images')->get();
+        return view('website.product', compact('products', 'ComputerCompany', 'productNew','images','product_hot_sell','images_product_list'));
     }
 }

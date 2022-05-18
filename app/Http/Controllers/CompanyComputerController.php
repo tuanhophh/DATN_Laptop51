@@ -44,7 +44,14 @@ class CompanyComputerController extends Controller
     public function saveAdd(CompanyComputerRequest $request)
     {
         $model = new ComputerCompany();
-        $model->fill($request->all());
+        if ($request->hasFile('anh')) {
+            $imgPath = $request->file('anh')->store('products');
+            $imgPath = str_replace('public/', 'storage/', $imgPath);
+            $request->merge(['logo'=>$imgPath]);
+        }
+        $model->company_name = $request->company_name;
+        $model->logo = $request->logo;
+        // dd($model);
         $model->save();
         return redirect(route('CompanyComputer.index'))->with('success', 'Thêm thành công');
     }
@@ -63,7 +70,13 @@ class CompanyComputerController extends Controller
     public function saveEdit(CompanyComputerRequest $request, $id)
     {
         $model = ComputerCompany::find($id);
-        $model->fill($request->all());
+        if ($request->hasFile('anh')) {
+            $imgPath = $request->file('anh')->store('products');
+            $imgPath = str_replace('public/', 'storage/', $imgPath);
+            $request->merge(['logo'=>$imgPath]);
+        }
+        $model->company_name = $request->company_name;
+        $model->logo = $request->logo;
         $model->save();
         return redirect(route('CompanyComputer.index'))->with('success', 'Sửa thành công');
     }

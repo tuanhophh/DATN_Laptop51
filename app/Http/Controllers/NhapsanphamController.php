@@ -25,39 +25,24 @@ class NhapsanphamController extends Controller
     public function addForm($id)
     {
         $findProduct = Product::find($id);
-        if(!empty($findProduct)){
+        if (!empty($findProduct)) {
             return view('admin.nhap_sanpham.add', compact('findProduct'));
-
-        }else{
+        } else {
             return redirect(route('error'));
         }
     }
     public function saveAdd(NhaphangRequest $request, $id)
     {
-
         $model = new Nhaphangsanpham();
-        //    $a=json_encode
-        if ($request->product_id) {
-            $model->product_id = $id;
-            $model->fill($request->all());
-            $model->save();
-            $product = Product::find($id);
-            if (!empty($product)) {
-                $product->qty = $product->qty + $request->qty;
-                $product->save();
-            }
-        } elseif ($request->detail_product_id) {
-            $model->detail_product_id = $id;
-            $model->fill($request->all());
-            $model->save();
-            $detail_product = DetailProduct::find($id);
-            if (!empty($detail_product)) {
-                $detail_product->qty = $detail_product->qty + $request->qty;
-                $detail_product->save();
-            }
+        $model->product_id = $id;
+        $model->fill($request->all());
+        $model->save();
+        $product = Product::find($id);
+        if (!empty($product)) {
+            $product->qty = $product->qty + $request->qty;
+            $product->save();
+            
         }
         return redirect(route('product.index'))->with('success', 'Thêm thành công');
     }
-
-    
 }

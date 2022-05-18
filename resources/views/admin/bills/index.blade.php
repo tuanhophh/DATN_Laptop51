@@ -2,25 +2,6 @@
 @section('title', 'Danh sách đặt hàng')
 @section('content')
 
-<?php
-use App\Models\BillUser;
-?>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
-
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<!-- Script -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' type='text/javascript'></script>
-
-<!-- Font Awesome JS -->
-<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-    integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous">
-</script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-    integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
-</script>
-
-<link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
 @if (Session::has('success'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>Thông báo: </strong>{{ Session::get('success') }}.
@@ -37,7 +18,29 @@ use App\Models\BillUser;
     </button>
 </div>
 @endif
-<div class="bg-white">
+<form action="" method="get" class="row">
+    <div class="form-group col-3">
+        {{-- <label for="">Tìm kiếm</label> --}}
+        <input type="text" class="form-control" name="search" id="" aria-describedby="helpId"
+            placeholder="Tìm kiếm mã hóa đơn">
+        {{-- <button>Tìm</button> --}}
+    </div>
+    <div class="form-group col-2">
+        {{-- <label for=""></label> --}}
+        <select name="type_bill" class="form-control ">
+            <option value="2"> Tất cả</option>
+            <option value="1">Bán hàng</option>
+            <option value="2"> Sửa chữa</option>
+            {{-- <option></option> --}}
+        </select>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+
+    </div class="form-group col-3">
+    {{-- <button type="submit" name="type_bill" value="1" class="btn btn-info"> Bán hàng</button>
+    <button type="submit" name="type_bill" value="2" class="btn btn-info"> Sửa chữa</button> --}}
+</form>
 <div class="row">
     <div class="col-12">
         <div class="card-body">
@@ -45,9 +48,10 @@ use App\Models\BillUser;
                 <thead>
                     <th>STT</th>
                     <th>Mã hóa đơn</th>
+                    <th>Loại hóa đơn</th>
                     <th>Tổng tiền</th>
-                    <th>Phương thức thanh toán</th>
-                    <th>Trạng thái thanh toán</th>
+                    <th>Thanh toán</th>
+                    <th>Trạng thái</th>
                     <th>Ngày đặt</th>
                     <th>
                     </th>
@@ -57,19 +61,31 @@ use App\Models\BillUser;
                     <tr>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->code }}</td>
-                        <td>
-                            <?php  
-                                // $total = str_replace('.', '', $item->total);
-                                // $total= number_format($item->total, 2, ',', '.');
-                            ?>
-                            {{ $item->total }} VNĐ
+                        <td>@if ($item->type==1)
+                            <span class="text-info">Bán hàng</span>
+                            @else
+                            <span class="text-success">Sửa chữa</span>
+                            @endif
                         </td>
-                        <td>{{ $item->payment_method == 1 ? 'Tiền măt' : 'Chuyển khoản'}}</td>
-                        <td>@if($item->payment_status == 0)
+                        <td>
+                            <?php
+                            if (!function_exists('currency_format')) {
+                                function currency_format($item, $suffix = ' VNĐ')
+                                    {
+                                        if (!empty($item)) {
+                                            return number_format($item, 0, ',', '.') . "{$suffix}";
+                                        }
+                                    }
+                                }
+                        ?>
+                            {{ currency_format($item->total_price) }}
+                        </td>
+                        <td>{{ $item->method == 1 ? 'Tiền măt' : 'Chuyển khoản'}}</td>
+                        <td>@if($item->status == 0)
                             <p class="text-warning">Chưa thanh toán</p>
 
-                            @elseif($item->payment_status == 1)
-                            <p class="text-danger">Thanh toán thất bại</p>
+                            @elseif($item->status == 1)
+                            <p class="text-danger">Hủy</p>
                             @else
                             <p class="text-success">Đã thanh toán</p>
                             @endif
@@ -77,27 +93,42 @@ use App\Models\BillUser;
                         <td>{{ $item->created_at }}</td>
                         <td>
                             @can('list-bill')
+
+                            @if ($item->type==1)
                             <a href="{{route('bill.detail',['id' => $item->id])}}" class="btn btn-sm btn-success">Chi
                                 tiết</a>
+                            @else
+                            <a href="{{route('dat-lich.hoa-don',['id' => $item->booking_detail_id])}}"
+                                class="btn btn-sm btn-success">Chi
+                                tiết</a>
+                            @endif
+
                             @endcan
                             @can('edit-bill')
-
+                            @if($item->payment_status != 2)
+                            @if ($item->type==1)
                             <a href="{{ route('bill.edit', ['id' => $item->id]) }}"
                                 class="btn btn-sm btn-warning">Sửa</a>
+                            @endif
+                            @endif
                             @endcan
                             @can('delete-bill')
 
-                            <a class="text-secondary" data-toggle="modal" id="mediumButton"
+                            <!-- <a class="text-secondary" data-toggle="modal" id="mediumButton"
                                 data-target=".bd-example-modal-lg" data-attr="">
                                 <i class="fas fa-edit text-gray-300"></i>
-                            </a>
+                            </a> -->
                             @endcan
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-
+            <h4 class="text-center ">
+                @if($bills == NULL)
+                Không có dữ liệu
+                @endif
+            </h4>
             <div class="d-flex justify-content-center">
                 {{ $bills->appends($_GET)->links() }}
             </div>
@@ -106,72 +137,8 @@ use App\Models\BillUser;
 </div>
 
 
-<!-- medium modal -->
-<div class="modal fade bd-example-modal-lg" id="largeModal" tabindex="-1" role="dialog"
-    aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title font-weight-bold" id="exampleModalLabel">Chi tiét hóa đơn</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="mediumBody">
-                <form action="" class="row-8">
-                    <div class="form-group row">
-                        <div class="form-group col">
-                            <label for="inputEmail3" class="col-sm-3 col-form-label px-0">Mã hóa đơn: </label>
-                            <div class="col-sm-8 pl-0">
-                                <label for="inputEmail3" class="col-form-label px-0"></label>
-                            </div>
-                        </div>
-                        <div class="form-group col px-0">
-                            <label for="inputEmail3" class="col-sm-3 col-form-label px-0">Tên:
-                            </label>
-                            <div class="col-sm-8 pl-0">
-                                <label for="inputEmail3" class="col-form-label px-0"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="form-group col">
-                            <label for="inputEmail3" class="col-sm-3 col-form-label px-0">Mã hóa đơn: </label>
-                            <div class="col-sm-8 pl-0">
-                                <label for="inputEmail3" class="col-form-label px-0"></label>
-                            </div>
-                        </div>
-                        <div class="form-group col px-0">
-                            <label for="inputEmail3" class="col-sm-3 col-form-label px-0">Tên:
-                            </label>
-                            <div class="col-sm-8 pl-0">
-                                <label for="inputEmail3" class="col-form-label px-0"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="form-group col">
-                            <label for="inputEmail3" class="col-sm-3 col-form-label px-0">Mã hóa đơn: </label>
-                            <div class="col-sm-8 pl-0">
-                                <label for="inputEmail3" class="col-form-label px-0"></label>
-                            </div>
-                        </div>
-                        <div class="form-group col px-0">
-                            <label for="inputEmail3" class="col-sm-3 col-form-label px-0">Tên:
-                            </label>
-                            <div class="col-sm-8 pl-0">
-                                <label for="inputEmail3" class="col-form-label px-0"></label>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
 <script>
-// display a modal (medium modal)
+    // display a modal (medium modal)
 $(document).on('click', '#mediumButton', function(event) {
     event.preventDefault();
     let href = $(this).attr('data-attr');

@@ -1,5 +1,6 @@
-<link rel="shortcut icon" type="image/x-icon" href="{{ asset('client') }}/img/icon/favicon.png">
-
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<link rel="shortcut icon" type="image/x-icon" href="{{ asset('client') }}/img/logo/logo_sticky1.png">
+   
 <!-- All CSS Files -->
 <!-- Bootstrap fremwork main css -->
 <link rel="stylesheet" href="{{ asset('client') }}/css/bootstrap.min.css">
@@ -22,3 +23,16 @@
 
 <!-- Modernizr JS -->
 <script src="{{ asset('client') }}/js/vendor/modernizr-3.11.2.min.js"></script>
+
+<link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+<style>
+    .toast-title{
+        font-size:14px;
+    }
+    .toast-message{
+        font-size:13px;
+    }
+    .invalid-feedback{
+        display: inline;
+    }
+</style>

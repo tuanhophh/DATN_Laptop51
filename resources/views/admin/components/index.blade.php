@@ -17,13 +17,13 @@
     </button>
 </div>
 @endif
-<a class="btn btn-warning" href="{{ route('export-product') }}">Export Data</a>
-<a class="btn btn-info" href="{{ route('view-import-product') }}">Import Data</a>
+{{-- <a class="btn btn-warning" href="{{ route('export-component') }}">Export Data</a>
+<a class="btn btn-info" href="{{ route('view-import-component') }}">Import Data</a> --}}
 
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
+            {{-- <div class="card-header">
                 <form action="" method="get">
                     <div class="row">
                         <div class="col-3">
@@ -68,54 +68,49 @@
                             </div>
                         </div>
                         <div class="col-2 d-flex pt-3 align-items-center justify-content-end">
-                            <button class="btn btn-primary" style="width: 120px; height: 40px;" type="submit">Tìm kiếm</button>
+                            <button class="btn btn-primary" style="width: 120px; height: 40px;" type="submit">Tìm
+                                kiếm</button>
                         </div>
                     </div>
                 </form>
-            </div>
+            </div> --}}
             <div class="card-body">
                 <table class="table table-bordered">
                     <thead>
                         <th class="px-0 text-center" style="width: 1px;">STT</th>
                         <th>Tên</th>
-                        <th>Slug</th>
                         <th>Giá mua</th>
                         <th>Giá bán</th>
                         <th class="px-0 text-center">Bảo hành</th>
                         <th class="px-0 text-center">Trạng thái</th>
                         <th>
-                            @can('add-product')
-                            <a class="btn btn-info" href="{{ route('product.add') }}">Thêm</a>
+                            @can('add-component')
+                            <a class="btn btn-info" href="{{ route('component.add') }}">Thêm</a>
                             @endcan
                         </th>
                     </thead>
                     <tbody>
-                        @foreach ($products as $item)
+                        @foreach ($components as $item)
                         <tr>
-                            <td>{{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ $item->slug }}</td>
-                            <!-- <td>
-                                {{ $item->companyComputer->company_name }}
+                            <td>{{ $loop->iteration }}
                             </td>
-                            <td>
-                                <img src="{{ asset($item->image) }}" width="100">
-                            </td> -->
+                            <td>{{ $item->name_component }}</td>
+
                             <td>{{ $item->import_price }}</td>
                             <td>{{ $item->price }}</td>
                             <td>{{ $item->insurance }}</td>
                             <td>{{ $item->status == 1 ? 'Hiển thị' : 'Không hiển thị' }}</td>
                             <td>
-                                @can('edit-product')
+                                @can('edit-component')
                                 <!-- <a href="{{ route('nhap-sanpham.add', ['id' => $item->id]) }}"
                                     class="btn btn-sm btn-success">Thêm SL</a> -->
-                                <a href="{{ route('product.edit', ['id' => $item->id]) }}"
+                                <a href="{{ route('component.edit', ['id' => $item->id]) }}"
                                     class="btn btn-sm btn-warning">Sửa</a>
                                 @endcan
 
-                                @can('delete-product')
+                                @can('delete-component')
                                 @if($item->status === 0)
-                                <form class="d-inline" action="product/show-hide/{{$item->id}}" method="POST">
+                                <form class="d-inline" action="component/show-hide/{{$item->id}}" method="POST">
                                     @csrf
                                     <input name="id" hidden value="{{$item->id}}">
                                     <button style="font:14px" class="btn btn-danger" type="submit">
@@ -124,7 +119,7 @@
                                 </form>
                                 @endif
                                 @if($item->status === 1)
-                                <form class="d-inline" action="product/show-hide/{{$item->id}}" method="POST">
+                                <form class="d-inline" action="component/show-hide/{{$item->id}}" method="POST">
                                     @csrf
                                     <input name="id" hidden value="{{$item->id}}">
                                     <button class="btn btn-secondary" type="submit">
@@ -134,7 +129,7 @@
                                 @endif
                                 @endcan
                                 <!-- <a onclick="return confirm('Bạn có chắc muốn xóa')"
-                                    href="{{route('product.remove', ['id' => $item->id])}}"
+                                    href="{{route('component.remove', ['id' => $item->id])}}"
                                     class="btn btn-sm btn-danger">Xóa</a> -->
                             </td>
                         </tr>
@@ -142,7 +137,7 @@
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-center">
-                    {{ $products->appends($_GET)->links() }}
+                    {{-- {{ $components->appends($_GET)->links() }} --}}
                 </div>
             </div>
         </div>
