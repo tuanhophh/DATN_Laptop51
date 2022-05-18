@@ -4,43 +4,55 @@
 
 <form method="POST" enctype="multipart/form-data">
     @csrf
-    <div class="card">
-        <div class="row mx-2">
-            <div class="col-6 mt-2">
-                <div class="form-group">
-                    <label for="">Tên người mua</label>
-                    <input type="text" name="" value="{{ old('total', $bill_user->name) }}"
-                        class="form-control" placeholder="">
-                </div>
-                <div class="form-group">
-                    <label for="">Email</label>
-                    <input type="text" name="" value="{{ old('email', $bill_user->email) }}"
-                        class="form-control" placeholder="">
-                </div>
-                <div class="form-group">
-                    <label for="">Số điện thoại</label>
-                    <input type="text" name="" value="{{ old('phone', $bill_user->phone) }}"
-                        class="form-control" placeholder="">
-                </div>
-                <div class="form-group">
-                    <label for="">Địa chỉ</label>
-                    <input type="text" name="" value="{{ $bill_user->address }}" class="form-control"
-                        placeholder="">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 style="float: none !important;" class="card-title text-bold text-center">Thông tin người mua
+                    </h4>
+                    <hr>
+                    <div class="form-group">
+                        <label for="">Họ và tên</label>
+                        <input type="text" name="name" value="{{ old('total', $bill_user->name) }}" class="form-control"
+                            placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input type="text" name="email" value="{{ old('email', $bill_user->email) }}"
+                            class="form-control" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Số điện thoại</label>
+                        <input type="text" name="phone" value="{{ old('phone', $bill_user->phone) }}"
+                            class="form-control" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Địa chỉ</label>
+                        <input type="text" name="address" value="{{ $bill_user->address }}" class="form-control"
+                            placeholder="">
+                    </div>
+
+
+
                 </div>
             </div>
-
-            <div class="col-6 mt-2">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="">Mã hóa đơn</label>
-                            <input type="text" name="" value="{{ old('code', $bill->code) }}"
-                                class="form-control" placeholder="">
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 style="float: none !important;" class="card-title text-bold text-center">Thông tin hóa đơn</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="">Mã hóa đơn</label>
+                                <input disabled type="text" name="code" value="{{ old('code', $bill->code) }}"
+                                    class="form-control" placeholder="">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                        <?php
+                        <div class="col-6">
+                            <div class="form-group">
+                                <?php
                             if (!function_exists('currency_format')) {
                                 function currency_format($item, $suffix = ' VNĐ')
                                     {
@@ -50,63 +62,71 @@
                                     }
                                 }
                         ?>
-                            <div class="form-group">
-                                <label for="">Tổng tiền</label>
-                                <input type="text" name="" value="{{ currency_format(old('total_price', $bill->total_price)) }}"
-                                    class="form-control" placeholder="">
+                                <div class="form-group">
+                                    <label for="">Tổng tiền</label>
+                                    <input type="number" name="total_price"
+                                        value="{{ old('total_price', $bill->total_price) }}"
+                                        class="form-control" placeholder="">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-6">
+                    <div class="row">
+                        <div class="col-6">
 
-                        <label for="">Phương thức thanh toán</label>
-                        <select @if($bill->status == 2 || $bill->status == 1) disabled @endif
-                            name="payment_method" class="form-control">
-
-                        
-                            <option @if($bill->method == 2) selected @endif value="2">Chuyển khoản</option>
-                            <option @if($bill->method == 1) selected @endif value="1">Tiền mặt</option>
-                          
-                        </select>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="">Trạng thái thanh toán</label>
+                            <label for="">Thanh toán bằng</label>
                             <select @if($bill->status == 2 || $bill->status == 1) disabled @endif
-                                name="payment_status" class="form-control">
+                                name="method" class="form-control">
 
-                                <option @if($bill->status == 0) selected @endif value="0">Chưa thanh toán
-                                </option>
-                                <option @if($bill->status == 1) selected @endif value="1">Hủy</option>
-                                <option @if($bill->status == 2) selected @endif value="2">Thanh toán thành công
-                                </option>
+
+                                <option @if($bill->method == 2) selected @endif value="2">Chuyển khoản</option>
+                                <option @if($bill->method == 1) selected @endif value="1">Tiền mặt</option>
 
                             </select>
                         </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="">Trạng thái</label>
+                                <select name="status" @if($bill->status == 2 || $bill->status == 1) disabled @endif
+                                    class="form-control">
+                                    @if($bill->status == 0)
+                                    <option @if($bill->status == 0) selected @endif value="0">Chưa thanh toán</option>
+                                    @endif
+                                    @if($bill->status == 3 || $bill->status == 0)
+                                    <option @if($bill->status == 3) selected @endif value="3">Xác nhận</option>
+                                    @endif
+                                    @if($bill->status == 0 || $bill->status == 3 || $bill->status == 4)
+                                    <option @if($bill->status == 4) selected @endif value="4">Đang di chuyển</option>
+                                    @endif
+                                    <option @if($bill->status == 2) selected @endif value="2">Thanh toán thành công
+                                    </option>
+                                    <option @if($bill->status == 1) selected @endif value="1">Hủy</option>
+
+                                </select>
+                            </div>
+
+                        </div>
 
                     </div>
+                    <div class="form-group">
+                        <label for="">Ghi chú</label>
+                        <textarea class="form-control" name="note" rows="1" id="">{{$bill_user->note}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Ngày tạo</label>
+                        <input type="text" name="" disabled value="{{ old('created_at', $bill->created_at) }}"
+                            class="form-control" placeholder="">
 
-                </div>
-
-                <div class="form-group">
-                    <label for="">Ghi chú</label>
-                    <textarea class="form-control" name="" id="">{{$bill_user->note}}</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="">Ngày tạo</label>
-                    <input type="text" name="" disabled value="{{ old('created_at', $bill->created_at) }}"
-                        class="form-control" placeholder="">
-
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+        
         <div class="form-group mb-0 pb-0 text-center">
             <label class="mb-0 pb-0 text-center" for="">Sản phẩm đã mua</label>
         </div>
-        <hr>
         <!-- <div class="row" style="height: 30px;">
             <div class="col-7 mb-0 pb-0">
                 <label class="mb-0 pb-0" for="">Tên sản phẩm</label>
@@ -127,11 +147,7 @@
                 </div>
             </div>
         </div> -->
-        <!-- <div class="row">
-            <div class="col-7">
 
-            </div>
-        </div> -->
         <table class="table table-bordered" id="dynamicAddRemove">
             <tr>
                 <th class="p-0">
@@ -159,8 +175,8 @@
                 <!-- <td><input disabled type="text" value="{{$bill_d->product->name}}" name="addMoreInputFields[0][subject]"
                         placeholder="Tên sản phẩm" class="form-control" />
                 </td> -->
-                <td><input disabled type="text" value="{{currency_format($bill_d->ban)}}" name="addMoreInputFields[0][subject]"
-                        placeholder="Nhập giá" class="form-control" /></td>
+                <td><input disabled type="text" value="{{currency_format($bill_d->ban)}}"
+                        name="addMoreInputFields[0][subject]" placeholder="Nhập giá" class="form-control" /></td>
                 <td><input disabled type="text" value="{{$bill_d->quaty}}" name="addMoreInputFields[0][subject]"
                         placeholder="Số lượng" class="form-control" /></td>
                 <!-- <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Thêm sản

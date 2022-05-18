@@ -33,22 +33,23 @@
                                     <!-- short-by -->
 
                                     <form action="{{ route('website.product') }}" method="GET" class="m-0 pt-4 p-0 f-right">
-                                        <input style="width: 30% !important; height: auto !important;" type="text"
+                                    <!-- <span class="ml-10" style="color:#ff7f00">Tên sản phẩm: </span>     -->
+                                    <input style="width: 30% !important; height: auto !important;" type="text"
                                             placeholder="Lọc theo tên" name="name">
-                                        <span class="pl-20" style="color:#ff7f00">
+                                        <!-- <span class="pl-20" style="color:#ff7f00">
                                             Hãng:
-                                        </span>
+                                        </span> -->
                                         <select name="companyComputer_id">
-                                            <option value="0">Tất cả</option>
+                                            <option value="0">Lọc theo hãng máy</option>
                                             @foreach($ComputerCompany as $com)
                                             <option value="{{$com->id}}">{{$com->company_name}}</option>
                                             @endforeach
                                         </select>
-                                        <span class="pl-20" style="color:#ff7f00">
+                                        <!-- <span class="pl-20" style="color:#ff7f00">
                                             Giá:
-                                        </span>
+                                        </span> -->
                                         <select name="price">
-                                            <option value="all">Tất cả</option>
+                                            <option value="all">Lọc theo giá</option>
                                             <option value="5000000-10000000">5 triệu dến 10 triệu </option>
                                             <option value="10000000-15000000">10 triệu dến 15 triệu </option>
                                             <option value="15000000-20000000">15 triệu dến 20 triệu </option>

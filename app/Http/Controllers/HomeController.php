@@ -72,9 +72,6 @@ class HomeController extends Controller
                 return $query->whereRaw('price BETWEEN ' . '20000000' . ' AND ' . '30000000' . '');
             }
             return $query->orderBy('price', $request->price == 'all' ? 'desc' : 'asc');
-        })
-        ->when($request->price, function ($query, $price) {
-            return $query->whereRaw('price BETWEEN ' . '10000' . ' AND ' . '200000000' . '');
         })->when($request->companyComputer_id, function ($query, $companyComputer_id) {
             return $query->where('companyComputer_id','=',$companyComputer_id);
         })->orderBy('created_at', 'DESC')->paginate(9);

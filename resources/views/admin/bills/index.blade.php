@@ -18,28 +18,31 @@
     </button>
 </div>
 @endif
-<form action="" method="get" class="row">
+<form action="{{ route('bill.index') }}" method="GET" class="row">
     <div class="form-group col-3">
-        {{-- <label for="">Tìm kiếm</label> --}}
-        <input type="text" class="form-control" name="search" id="" aria-describedby="helpId"
+        <input type="text" class="form-control" name="code" id="" aria-describedby="helpId"
             placeholder="Tìm kiếm mã hóa đơn">
-        {{-- <button>Tìm</button> --}}
     </div>
-    <div class="form-group col-2">
-        {{-- <label for=""></label> --}}
-        <select name="type_bill" class="form-control ">
-            <option value="2"> Tất cả</option>
+    <div class="form-group col-3">
+        <select name="type" class="form-control ">
+            <option value="0"> Loại hóa đơn</option>
             <option value="1">Bán hàng</option>
             <option value="2"> Sửa chữa</option>
-            {{-- <option></option> --}}
+        </select>
+    </div>
+    <div class="form-group col-3">
+        <select name="status" class="form-control ">
+            <option value="0">Trạng thái</option>
+            <option value="5">Chưa thanh toán</option>
+            <option value="3">Xác nhận</option>
+            <option value="4">Đang di chuyển</option>
+            <option value="2">Đã thanh toán</option>
+            <option value="1">Hủy</option>
         </select>
     </div>
     <div>
         <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-
-    </div class="form-group col-3">
-    {{-- <button type="submit" name="type_bill" value="1" class="btn btn-info"> Bán hàng</button>
-    <button type="submit" name="type_bill" value="2" class="btn btn-info"> Sửa chữa</button> --}}
+    </div>
 </form>
 <div class="row">
     <div class="col-12">
@@ -47,6 +50,7 @@
             <table class="table table-bordered">
                 <thead>
                     <th>STT</th>
+                    <th>Người mua</th>
                     <th>Mã hóa đơn</th>
                     <th>Loại hóa đơn</th>
                     <th>Tổng tiền</th>
@@ -60,6 +64,7 @@
                     @foreach ($bills as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
+                        <td>Tên người mua</td>
                         <td>{{ $item->code }}</td>
                         <td>@if ($item->type==1)
                             <span class="text-info">Bán hàng</span>
@@ -82,12 +87,16 @@
                         </td>
                         <td>{{ $item->method == 1 ? 'Tiền măt' : 'Chuyển khoản'}}</td>
                         <td>@if($item->status == 0)
-                            <p class="text-warning">Chưa thanh toán</p>
+                            <p class="text-info">Chưa thanh toán</p>
 
                             @elseif($item->status == 1)
                             <p class="text-danger">Hủy</p>
-                            @else
+                            @elseif($item->status == 2)
                             <p class="text-success">Đã thanh toán</p>
+                            @elseif($item->status == 3)
+                            <p class="text-primary">Xác nhận</p>
+                            @elseif($item->status == 4)
+                            <p class="text-warning">Đang di chuyển</p>
                             @endif
                         </td>
                         <td>{{ $item->created_at }}</td>
@@ -105,8 +114,8 @@
 
                             @endcan
                             @can('edit-bill')
-                            @if($item->payment_status != 2)
                             @if ($item->type==1)
+                            @if($item->status != 2 && $item->status != 1)
                             <a href="{{ route('bill.edit', ['id' => $item->id]) }}"
                                 class="btn btn-sm btn-warning">Sửa</a>
                             @endif

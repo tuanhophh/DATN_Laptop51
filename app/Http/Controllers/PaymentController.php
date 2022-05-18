@@ -297,6 +297,14 @@ class PaymentController extends Controller
             //         'body' => 'Cam on ban da dat hang tai laptop51, ma hoa don cua ban la: ' . $request->vnp_TxnRef,
             //     )
             //     );
+            $bill_detail = bill_detail::where('bill_code',$payment_status->code)->get();
+            foreach($bill_detail as $bill_d){
+                $products = Product::where('id', $bill_d->product_id)->get();
+                    foreach($products as $product){
+                        $product->qty = $product->qty - $bill_d->quaty;
+                        $product->save();
+                    }
+                }
             $user_send = User::find(Auth::id());
 
             $data['title'] = 'Đơn hàng từ: '.  $bill_code->name;
