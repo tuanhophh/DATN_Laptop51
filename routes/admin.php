@@ -8,6 +8,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyComputerController;
 use App\Http\Controllers\DetailProductController;
 use App\Http\Controllers\HomeAdminController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\Categories_NewsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ThongkeController;
@@ -115,7 +117,38 @@ Route::prefix('sua-chua')->group(function () {
     // Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaDuocPhanTho']);
 
 });
+Route::prefix('tin-tuc')->group(function(){
+    //list
+    Route::get('/',[NewsController::class, 'index'])->name('news.index');
+    //remove
+    Route::get('/delete/{id}',[NewsController::class, 'remove'])->name('news.remove');
+    
 
+    //add
+    Route::get('/add',[NewsController::class, 'add'])->name('news.add');
+    Route::post('/add',[NewsController::class, 'save_add']);
+
+    //edit
+    Route::get('/edit/{id}',[NewsController::class, 'edit'])->name('news.edit');
+    Route::post('/edit/{id}',[NewsController::class, 'save_edit']);
+ 
+   
+});
+Route::prefix('danh-muc-tin-tuc')->group(function(){
+    //list
+    Route::get('/',[Categories_NewsController::class, 'index'])->name('category_news.index');
+
+    //add
+    Route::get('/add',[Categories_NewsController::class, 'add'])->name('category_news.add');
+    Route::post('/add',[Categories_NewsController::class, 'save_add']);
+
+    //edit
+    Route::get('/edit/{id}',[Categories_NewsController::class, 'edit'])->name('category_news.edit');
+    Route::post('/edit/{id}',[Categories_NewsController::class, 'save_edit']);
+    
+    //remove
+    Route::get('/delete/{id}',[Categories_NewsController::class, 'remove'])->name('category_news.remove');
+});
 Route::post('chuyen-trang-thai', [BookingController::class, 'selectStatusBooking'])->name('dat-lich.chuyen-trang-thai');
 Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaPhanTho'])->name('sua-chua.danh-sach-chua-phan-tho');
 Route::get('/danh-sach-da-sua-xong', [BookingController::class, 'DanhSachDaSuaXong'])->name('sua-chua.danh-sach-da-sua-xong');

@@ -8,6 +8,8 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 // use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NewsController;
+
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductExportController;
@@ -115,8 +117,10 @@ Route::get('lien-he', function () {
     return view('website.contact');
 });
 // trang tin tức
-Route::get('tin-tuc', function () {
-    return view('website.tin-tuc');
+Route::prefix('tin-tuc')->group(function () {
+    Route::get('/', [NewsController::class, 'show'])->name('tin-tuc');
+    Route::get('/{id}', [NewsController::class, 'detail'])->name('tin-tuc-detail');
+    Route::get('/danh-muc/{id}', [NewsController::class, 'cates'])->name('category');
 });
 // trang lỗi 404
 Route::get('404', function () {
