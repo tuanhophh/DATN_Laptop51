@@ -29,21 +29,40 @@
                         <div class="col-lg-9 order-lg-2 order-1">
                             <div class="shop-content">
                                 <!-- shop-option start -->
-                                <div class="shop-option box-shadow mb-30 clearfix">
-                                    <!-- Nav tabs -->
-                                    <ul class="nav shop-tab f-left" role="tablist">
-                                        <li>
-                                            <a class="active" href="#grid-view" data-bs-toggle="tab"><i
-                                                    class="zmdi zmdi-view-module"></i></a>
-                                        </li>
-                                    </ul>
+                                <div class="box-shadow mb-30 clearfix">
                                     <!-- short-by -->
-                                    <div class="short-by f-right text-center">
-                                        <span>Sắp xếp :</span>
-                                        <select>
-                                            <option value="volvo">Mới nhất</option>
+
+                                    <form action="{{ route('website.product') }}" method="GET" class="m-0 pt-4 p-0 f-right">
+                                        <input style="width: 30% !important; height: auto !important;" type="text"
+                                            placeholder="Lọc theo tên" name="name">
+                                        <span class="pl-20" style="color:#ff7f00">
+                                            Hãng:
+                                        </span>
+                                        <select name="companyComputer_id">
+                                            <option value="0">Tất cả</option>
+                                            @foreach($ComputerCompany as $com)
+                                            <option value="{{$com->id}}">{{$com->company_name}}</option>
+                                            @endforeach
                                         </select>
-                                    </div>
+                                        <span class="pl-20" style="color:#ff7f00">
+                                            Giá:
+                                        </span>
+                                        <select name="price">
+                                            <option value="all">Tất cả</option>
+                                            <option value="5000000-10000000">5 triệu dến 10 triệu </option>
+                                            <option value="10000000-15000000">10 triệu dến 15 triệu </option>
+                                            <option value="15000000-20000000">15 triệu dến 20 triệu </option>
+                                            <option value="20000000-30000000">20 triệu dến 30 triệu </option>
+                                        </select>
+
+                                        <button class="submit-btn-1 btn-hover-1" id="filter">Lọc</button>
+                                        <!-- <select name="sort" id="sort">
+                                            <option value="cunhat">Giá giảm dần</option>
+                                            <option value="price-asc">Giá tăng dần</option>
+                                            <option value="moinhat">Mới nhất</option>
+                                        </select> -->
+                                    </form>
+
                                 </div>
                                 <!-- shop-option end -->
                                 <!-- Tab Content start -->
@@ -108,14 +127,16 @@ if (!function_exists('currency_format')) {
                                 <div id="cat-treeview" class="product-cat">
                                     <ul>
                                         <li class="open"><a href="#">Laptop</a>
-                                        <ul>
-                                            <li>
-                                                <a @if(session()->get('url_path') == "cua-hang") style="color:#ff7f00" @endif href="/cua-hang">
-                                                    Tất cả
-                                                </a>
-                                            </li>
-                                            @foreach($ComputerCompany as $ComputerCom)
-                                                <li><a class="" @if(session()->get('url_path') == "cua-hang/$ComputerCom->id")
+                                            <ul>
+                                                <li>
+                                                    <a @if(session()->get('url_path') == "cua-hang")
+                                                        style="color:#ff7f00" @endif href="/cua-hang">
+                                                        Tất cả
+                                                    </a>
+                                                </li>
+                                                @foreach($ComputerCompany as $ComputerCom)
+                                                <li><a class="" @if(session()->get('url_path') ==
+                                                        "cua-hang/$ComputerCom->id")
                                                         style="color:#ff7f00"
                                                         @endif
                                                         href="/cua-hang/{{$ComputerCom->id}}">{{$ComputerCom->company_name}}</a>
@@ -132,15 +153,15 @@ if (!function_exists('currency_format')) {
                                 @foreach($product_hot_sell as $products_hot)
                                 <?php
 
-                                    if (!function_exists('currency_format')) {
-                                        function currency_format($products_hot, $suffix = ' VNĐ')
-                                        {
-                                            if (!empty($products_hot)) {
-                                                return number_format($products_hot, 0, ',', '.') . "{$suffix}";
-                                            }
-                                        }
-                                    }
-                                    ?>
+if (!function_exists('currency_format')) {
+    function currency_format($products_hot, $suffix = ' VNĐ')
+    {
+        if (!empty($products_hot)) {
+            return number_format($products_hot, 0, ',', '.') . "{$suffix}";
+        }
+    }
+}
+?>
 
                                 <div class="product-item">
                                     <div class="product-img">

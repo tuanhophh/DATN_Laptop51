@@ -174,7 +174,7 @@ class PaymentController extends Controller
                 //     );
             $user_send = User::find(Auth::id());
 
-            $data['title'] = 'Đơn hàng mới từ: '.  $request->name;
+            $data['title'] = 'Đơn hàng từ: '.  $request->name;
             $data['from'] = $user_send->id;
             $data['to'] = 1;
             $data['code'] = $length;
@@ -299,7 +299,7 @@ class PaymentController extends Controller
             //     );
             $user_send = User::find(Auth::id());
 
-            $data['title'] = 'Đơn hàng mới từ: '.  $bill_code->name;
+            $data['title'] = 'Đơn hàng từ: '.  $bill_code->name;
             $data['from'] = Auth::id();
             $data['to'] = 1;
             $data['code'] = $request->vnp_TxnRef;

@@ -41,10 +41,10 @@
                             <form method="POST" action="{{route('send.otp.login')}}" form>
                                 @csrf
                                 <div class="row">
-                                    <div class="col-md-9">
+                                    <div class="col-md-8">
                                         <input type="text" name="phone" placeholder="Số điện thoại" id="slug"
                                             onkeyup="ChangeToSlug()"
-                                            class="@error('phone_otp') is-invalid @enderror mb-0 mt-4"
+                                            class="@error('phone') is-invalid @enderror mb-0 mt-4"
                                             value=@if(session()->has('phone'))
                                         "{{session()->get('phone')}}"
                                         @else
@@ -57,79 +57,24 @@
                                         </span>
                                         @enderror
                                         <!-- Google reCaptcha -->
-                                        <div class="g-recaptcha pt-4" id="feedback-recaptcha"
+                                        <!-- <div class="g-recaptcha pt-4" id="feedback-recaptcha"
                                             data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY')  }}"></div>
                                         @error('g-recaptcha-response')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                        @enderror
+                                        @enderror -->
                                         <!-- End Google reCaptcha -->
-                                        <p><small>Nhập số điện thoại và xác thực captcha</small></p>
+                                        <p><small>Nhập số điện thoại</small></p>
                                     </div>
-                                    <div class="col-md-3">
-                                        <button class="submit-btn-1 btn-hover-1 mb-0 mt-4" type="submit">Gửi
+                                    <div class="col-md-4">
+                                    <button class="text-center submit-btn-1 btn-hover-1 mt-4 mb-0" type="submit">Nhận
                                             mã</button>
                                     </div>
+                                                    
                                 </div>
                             </form>
-                            <!-- <form method="POST" action="{{route('send.otp.login')}}">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-md-9">
-                                        <input type="text" id="slug" onkeyup="ChangeToSlug()"
-                                            class="@error('phone') is-invalid @enderror mb-0 mt-4"
-                                            value=@if(session()->has('login_phone_otp'))
-                                        "{{session()->get('login_phone_otp')}}"
-                                        @else
-                                        "{{ old('phone') }}"
-                                        @endif
-                                        name="phone" placeholder="Số điện thoại">
-                                    </div>
-                                    @error('validation')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                    @error('phone')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                    <div class="col-md-3">
-                                        <button name="validation" class="submit-btn-1 btn-hover-1 mb-0 mt-4" type="submit">Gửi
-                                            mã</button>
-                                    </div>
-                                </div>
-                            </form>
-                            <form method="POST" action="{{route('login.otp')}}">
-                                @csrf
-                                <input id="convert_slug" type="hidden"
-                                    class="@error('phone') is-invalid @enderror mb-0 mt-4"
-                                    value=@if(session()->has('login_phone_otp'))
-                                "{{session()->get('login_phone_otp')}}"
-                                @else
-                                "{{ old('phone') }}"
-                                @endif
-                                name="phone" placeholder="Số điện thoại">
-                                <input type="text" name="phone_otp" class="mb-0 mt-4" placeholder="Mã">
-                                @error('phone')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                                @error('phone_otp')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                                <p><small>Nhập số điện thoại rồi nhấn gửi mã</small></p>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <button class="submit-btn-1 btn-hover-1" type="submit">Đăng nhập</button>
-                                    </div>
-                                </div>
-                            </form> -->
+                    
                         </div>
                     </div>
                 </div>

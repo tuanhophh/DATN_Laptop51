@@ -35,6 +35,9 @@ class ForgotPasswordController extends Controller
      */
     public function showForgetPasswordForm()
     {   
+        if(Auth::check()){
+        return redirect()->route('home');
+        }
         return view('auth.forgetPassword');
     }
 
@@ -52,19 +55,17 @@ class ForgotPasswordController extends Controller
              new Throttle('resend', $maxAttempts = 3, $minutes = 1),
              
             ],
-            'g-recaptcha-response' => ['required', new \App\Rules\ValidRecaptcha]
+          
         ],
         [
                 'phone.required' => 'Yêu cầu nhập số điện thoại',
                 'phone.numeric' => 'Số điện thoại phải là số',
                 'phone.regex' => 'Số điện thoại phải thuộc đầu số Việt Nam',
-                'g-recaptcha-response.required' => 'Yêu cầu xác thực captcha',
-
         ]);
-            $user_phone = User::where('phone',$request->phone)->get()->first;
+            $user_phone = User::where('phone',$request->phone)->get()->first();
             if($user_phone == NULL){
+                Toastr::error('Số điện thoại không chính xác', 'Thất bại');
                 return back();
-                Toastr::error('Không tìm thấy số điện thoại, bạn có muốn tạo mới?', 'Thất bại');
             }
             $data['phone'] = $request->phone;
             $data['password'] = $request->password;
@@ -107,7 +108,10 @@ class ForgotPasswordController extends Controller
 
     
     public function showForgetPasswordCodeForm()
-    {
+    {   
+        if(Auth::check()){
+            return redirect()->route('home');
+        }
         return view('auth.forgetPasswordCode');
     }
 
@@ -126,9 +130,9 @@ class ForgotPasswordController extends Controller
                 'phone.numeric' => 'Số điện thoại phải là số',
         ]);
         $user_phone = User::where('phone',$request->phone)->get()->first();
-        if($user_phone == NULL){
-            return back();
+        if(!$user_phone){
             Toastr::error('Không tìm thấy số điện thoại', 'Thất bại');
+            return back();
         }
         $code_verify = DB::table('code_verify')->where('phone_number',$request->phone)->orderBy('created_at','DESC')->first();
         $phoneSend['phone'] = '+84'. session()->get('phone');

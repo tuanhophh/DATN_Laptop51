@@ -15,7 +15,7 @@
                             <li>
                                 <a href="{{ asset('') }}profile">
 
-                                    Tài Khoản Của Tôi
+                                    Quản lý tài khoản
                                 </a>
                             </li>
                             @if(Auth::user()->isVerified == false)

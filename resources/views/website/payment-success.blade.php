@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 
 <head>
-    <title>Chi tiết đơn hàng</title>
+    <title>Đặt hàng thành công</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
 
