@@ -13,6 +13,7 @@ use App\Models\Product;
 use App\Models\User;
 use App\Notifications\TestNotification;
 use Brian2694\Toastr\Facades\Toastr;
+use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -77,7 +78,7 @@ class PaymentController extends Controller
             if (Auth::check()) {
                 $bill->user_id = Auth::id();
             }
-            $bill->status = 1;
+            $bill->status = 0;
             $bill->type = 1;
             $bill->save();
             
@@ -171,10 +172,9 @@ class PaymentController extends Controller
                 //         'body' => 'Cam on ban da dat hang tai laptop51, ma hoa don cua ban la: ' . $length,
                 //     )
                 //     );
-            Cart::destroy();
             $user_send = User::find(Auth::id());
 
-            $data['title'] = 'Bạn có một đơn hàng mới';
+            $data['title'] = 'Đơn hàng mới từ: '.  $request->name;
             $data['from'] = $user_send->id;
             $data['to'] = 1;
             $data['code'] = $length;
@@ -198,6 +198,8 @@ class PaymentController extends Controller
     
             $pusher->trigger('my-channel', 'my-event', $data);
                 Toastr::success('Đặt hàng thành công', 'Thành công');
+            Cart::destroy();
+
             return Redirect::to('/don-hang/'.$length);
            
         };
@@ -283,7 +285,6 @@ class PaymentController extends Controller
             // dd($request->all());
             $payment_status->update();
             Payment::insert($data);
-            Cart::destroy();       
             // $phoneSend = '+84'. $phone;
             // $token = getenv("TWILIO_AUTH_TOKEN");
             // $twilio_sid = getenv("TWILIO_SID");
@@ -298,12 +299,11 @@ class PaymentController extends Controller
             //     );
             $user_send = User::find(Auth::id());
 
-            $data['title'] = 'Bạn có một đơn hàng mới';
-            $data['from'] = $user_send->id;
+            $data['title'] = 'Đơn hàng mới từ: '.  $bill_code->name;
+            $data['from'] = Auth::id();
             $data['to'] = 1;
             $data['code'] = $request->vnp_TxnRef;
             $data['url'] = '/admin/bill/detail/'.$payment_status->id;
-
             $users = User::where('id_role', 1)->get();
             foreach($users as $user){
                 $user->notify(new TestNotification($data));
@@ -321,6 +321,7 @@ class PaymentController extends Controller
             );
     
             $pusher->trigger('my-channel', 'my-event', $data);
+            Cart::destroy();       
             Toastr::success('Đặt hàng thành công', 'Thành công');
             return Redirect::to('/don-hang/'.$data['bill_code']);
         }

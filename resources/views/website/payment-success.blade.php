@@ -87,12 +87,16 @@
         bottom: -1px;
         height: 50%;
     }
+
     .linedown {
         overflow: hidden;
-        word-wrap: break-word;      /* IE 5.5-7 */
-        white-space: -moz-pre-wrap; /* Firefox 1.0-2.0 */
-        white-space: pre-wrap;      /* current browsers */
-}
+        word-wrap: break-word;
+        /* IE 5.5-7 */
+        white-space: -moz-pre-wrap;
+        /* Firefox 1.0-2.0 */
+        white-space: pre-wrap;
+        /* current browsers */
+    }
     </style>
 </head>
 
@@ -118,7 +122,7 @@
             </div>
         </div>
         <section id="page-content" class="page-wrapper section">
-        <?php
+            <?php
                 if (!function_exists('currency_format')) {
                         function currency_format($bill_d, $suffix = ' VNĐ')
                         {
@@ -170,11 +174,11 @@
                                                 <!-- our order -->
                                                 <div class="col-md-12">
                                                     <div class="payment-details p-30">
-                                                        <h6 class="widget-title border-left mb-20">Hóa đơn</h6>
+                                                        <h4 class="widget-title border-left mb-20">Hóa đơn</h4>
                                                         <table>
                                                             <tr>
-                                                                <td class="td-title-1">Mã hóa đơn</td>
-                                                                <td class="td-title-2">{{$bill->code}}</td>
+                                                                <td class="td-title-1 "><h6>Mã hóa đơn: {{$bill->code}}</h6></td>
+
                                                             </tr>
                                                             @foreach($bill_detail as $bill_d)
 
@@ -187,43 +191,43 @@
                                                                 }
                                                             }
                                                         }
-                                                        $total = $bill_d->qty * $bill_d->price;
+                                                        $total = $bill_d->quaty * $bill_d->ban;
                                                         ?>
 
                                                             <tr>
-                                                                 <td class="td-title-1">Sản phẩm: {{$bill_d->product->name}} x
-                                                                    {{$bill_d->quaty}}</td>
-                                                                <td class="td-title-2">{{currency_format($total)}}</td>
-
+                                                                <td class="td-title-1"><h6>Sản phẩm:
+                                                                    {{$bill_d->product->name}}</h6>
+                                                                   </td>
+                                                                   <td class="td-title-2"><h6>Giá: {{currency_format($bill_d->ban)}} x Số lượng: {{$bill_d->quaty}} = {{currency_format($total)}}</h6>
+                                                            </td>
+                                                            </tr>
+                                                            @endforeach
                                                             <tr>
-                                                                @endforeach
-                                                                <td class="order-total">Tổng tiền</td>
-                                                                <td class="order-total-price">
-                                                                {{currency_format($bill->total_price)}}</td>
+                                                            <td class="td-title-1">
+                                                                <td class="td-title-2"><h5 class="widget-title order-total text-end">Tổng tiền:
+                                                                    {{currency_format($bill->total_price)}}</h5>
+                                                                </td>
                                                             </tr>
                                                         </table>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="bill-details p-30">
-                                                        <h6 class="widget-title border-left mb-20">Thông tin người nhận
-                                                        </h6>
+                                                        <h4 class="widget-title border-left mb-20">Thông tin người nhận
+                                                        </h4>
                                                         <table>
-                                                        <tr>
-                                                                <td class="td-title-1">Họ và tên </td>
-                                                                <td class="td-title-2"><p class="linedown">{{$bill_user->name}}</p></td>
+                                                            <tr>
+                                                                <td class="td-title-1"><h6> Họ và tên: {{$bill_user->name}} </h6></td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="td-title-1">Số điện thoại </td>
-                                                                <td class="td-title-2"><p class="linedown">{{$bill_user->phone}}</p></td>
+                                                                <td class="td-title-1"><h6>Số điện thoại:   {{$bill_user->phone}} </h6></td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="td-title-1">Email</td>
-                                                                <td class="td-title-2"><p class="linedown">{{$bill_user->email}}</p></td>
+                                                                <td class="td-title-1"><h6>Email:  {{$bill_user->email}}</h6></td>
+                                                          
                                                             </tr>
                                                             <tr>
-                                                                <td class="td-title-1"> Địa chỉ</td>
-                                                                <td class="td-title-2" style="width: 200px;"><p class="linedown">{{$bill_user->address}}</p></td>
+                                                                <td class="td-title-1"><h6> Địa chỉ:  {{$bill_user->address}}</h6></td>
                                                             </tr>
                                                         </table>
                                                         <!-- <ul class="bill-address">

@@ -9,22 +9,22 @@
             <div class="col-6 mt-2">
                 <div class="form-group">
                     <label for="">Tên người mua</label>
-                    <input type="text" name="" disabled value="{{ old('total', $bill_user->name) }}"
+                    <input type="text" name="" value="{{ old('total', $bill_user->name) }}"
                         class="form-control" placeholder="">
                 </div>
                 <div class="form-group">
                     <label for="">Email</label>
-                    <input type="text" name="" disabled value="{{ old('email', $bill_user->email) }}"
+                    <input type="text" name="" value="{{ old('email', $bill_user->email) }}"
                         class="form-control" placeholder="">
                 </div>
                 <div class="form-group">
                     <label for="">Số điện thoại</label>
-                    <input type="text" name="" disabled value="{{ old('phone', $bill_user->phone) }}"
+                    <input type="text" name="" value="{{ old('phone', $bill_user->phone) }}"
                         class="form-control" placeholder="">
                 </div>
                 <div class="form-group">
                     <label for="">Địa chỉ</label>
-                    <input type="text" name="" disabled value="{{ $bill_user->address }}" class="form-control"
+                    <input type="text" name="" value="{{ $bill_user->address }}" class="form-control"
                         placeholder="">
                 </div>
             </div>
@@ -34,19 +34,27 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="">Mã hóa đơn</label>
-                            <input type="text" name="" disabled value="{{ old('code', $bill->code) }}"
+                            <input type="text" name="" value="{{ old('code', $bill->code) }}"
                                 class="form-control" placeholder="">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-
+                        <?php
+                            if (!function_exists('currency_format')) {
+                                function currency_format($item, $suffix = ' VNĐ')
+                                    {
+                                        if (!empty($item)) {
+                                            return number_format($item, 0, ',', '.') . "{$suffix}";
+                                        }
+                                    }
+                                }
+                        ?>
                             <div class="form-group">
                                 <label for="">Tổng tiền</label>
-                                <input type="text" name="" disabled value="{{ old('total', $bill->total_price) }} VNĐ"
+                                <input type="text" name="" value="{{ currency_format(old('total_price', $bill->total_price)) }}"
                                     class="form-control" placeholder="">
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -82,15 +90,16 @@
                     </div>
 
                 </div>
+
+                <div class="form-group">
+                    <label for="">Ghi chú</label>
+                    <textarea class="form-control" name="" id="">{{$bill_user->note}}</textarea>
+                </div>
                 <div class="form-group">
                     <label for="">Ngày tạo</label>
                     <input type="text" name="" disabled value="{{ old('created_at', $bill->created_at) }}"
                         class="form-control" placeholder="">
 
-                </div>
-                <div class="form-group">
-                    <label for="">Ghi chú</label>
-                    <textarea disabled class="form-control" name="" id="">{{$bill_user->note}}</textarea>
                 </div>
             </div>
         </div>
@@ -150,7 +159,7 @@
                 <!-- <td><input disabled type="text" value="{{$bill_d->product->name}}" name="addMoreInputFields[0][subject]"
                         placeholder="Tên sản phẩm" class="form-control" />
                 </td> -->
-                <td><input disabled type="text" value="{{$bill_d->ban}} VNĐ" name="addMoreInputFields[0][subject]"
+                <td><input disabled type="text" value="{{currency_format($bill_d->ban)}}" name="addMoreInputFields[0][subject]"
                         placeholder="Nhập giá" class="form-control" /></td>
                 <td><input disabled type="text" value="{{$bill_d->quaty}}" name="addMoreInputFields[0][subject]"
                         placeholder="Số lượng" class="form-control" /></td>

@@ -96,17 +96,6 @@
                             style="background-size: 150px 150px;width: 150px;height: 150px;background-image:url('{{ asset($user->avatar) }}');">
                         </div>
                     </div>
-                    <!-- <form enctype="multipart/form-data" action="{{ URL::to('/profile/update-avatar') }}"
-                        id="user_save_profile_form" method="POST">
-                        @csrf
-
-                        <label for="firstimg" class="submit-btn-1 mt-1 btn-hover-2 mb-0 pt-2 mr-2 px-2 rounded-pill">
-                            Thay ảnh
-                        </label>
-                        <input style="display: none;visibility: none;" type="file" onchange="doAfterSelectImage(this)"
-                            id="firstimg" name="avatar">
-                        <button type="submit" class="submit-btn-1 mt-1 btn-hover-2 rounded-pill">Lưu</button>
-                    </form> -->
                     <h4 class="text-center td-title-2 mt-20">{{$user->name}}</h4>
                 </div>
                 <div class="nav flex-column nav-pills td-title-1" id="v-pills-tab" role="tablist"
@@ -170,12 +159,30 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
+                                    <label class="td-title-2">Ảnh đại diện: </label>
+                                    <label for="firstimg"
+                                        class="submit-btn-1 mt-1 mb-0 pt-2 mr-2 px-2 rounded-pill">
+                                        Nhấn vào đây để đổi ảnh đại diện
+                                    </label>
+                                    @error('avatar')
+                                    <p class="text-danger p-0 m-0">{{ $message }}
+                                    </p>
+                                    @enderror
+                                    <input style="display: none;visibility: none;" type="file"
+                                        onchange="doAfterSelectImage(this)" id="firstimg" name="avatar">
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
                                     <label class="td-title-2">Email</label>
-                                    <input type="text" class="form-control p-0 m-0" name="email"
+                                    <input type="text"  @if($user->email == 'admin@gmail.com') disabled @endif class="form-control p-0 m-0" @if($user->email != 'admin@gmail.com') name="email" @endif
                                         value="{{$user->email}}">
                                     @if($user->email == 'admin@gmail.com')
                                     <small class="text-danger">Tài khoản admin không được thay đổi email</small>
                                     @endif
+                                    <input type="hidden"  @if($user->email == 'admin@gmail.com') @endif class="form-control p-0 m-0" @if($user->email == 'admin@gmail.com') name="email" @endif
+                                        value="{{$user->email}}">
                                     @error('email')
                                     <p class="text-danger p-0 m-0">{{ $message }}
                                     </p>
@@ -196,7 +203,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="td-title-2">Mô tả</label>
-                                    <textarea class="custom-textarea" name="description" id="" cols="10"
+                                    <textarea class="custom-textarea px-0" name="description" id="" cols="10"
                                         rows="3">{{$user->description}}</textarea>
                                 </div>
                             </div>
@@ -216,7 +223,8 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="td-title-2">Mật khẩu cũ</label>
-                                    <input type="password" name="current_password" class="form-control p-0 m-0 upassword    ">
+                                    <input type="password" name="current_password"
+                                        class="form-control p-0 m-0 upassword    ">
                                     @error('current_password')
                                     <p class="text-danger p-0 m-0">{{ $message }}
                                     </p>
@@ -239,14 +247,15 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="td-title-2">Nhập lại mật khẩu mới</label>
-                                    <input type="password" name="confirm_password" class="form-control p-0 m-0 upassword">
+                                    <input type="password" name="confirm_password"
+                                        class="form-control p-0 m-0 upassword">
                                     @error('confirm_password')
                                     <p class="text-danger p-0 m-0">{{ $message }}
                                     </p>
                                     @enderror
                                 </div>
                                 <input type="checkbox" id="show-password">
-                                        <small for="show-password">Hiện mật khẩu</small>
+                                <small for="show-password">Hiện mật khẩu</small>
                             </div>
                         </div>
                         <div>
@@ -295,12 +304,12 @@
                                 </td>
                                 <td class="align-middle">{{ $item->method == 1 ? 'Tiền mặt' : 'Chuyển khoản'}}</td>
                                 <td class="align-middle text-center">@if($item->status == 0)
-                                    <p class="text-white mb-0 p-2 bg-info">Chưa thanh toán</p>
+                                    <p class="text-primary mb-0 p-2">Chưa thanh toán</p>
 
                                     @elseif($item->status == 1)
-                                    <p class="text-white mb-0 p-2 bg-danger">Hủy</p>
+                                    <p class="text-danger mb-0 p-2">Hủy</p>
                                     @else
-                                    <p class="text-white mb-0 p-2 bg-success">Đã thanh toán</p>
+                                    <p class="text-success mb-0 p-2">Đã thanh toán</p>
                                     @endif
                                 </td>
                                 <td class="align-middle">{{ $item->created_at }}</td>

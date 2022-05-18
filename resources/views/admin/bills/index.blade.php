@@ -50,7 +50,7 @@
                     <th>Mã hóa đơn</th>
                     <th>Loại hóa đơn</th>
                     <th>Tổng tiền</th>
-                    <th>Phương thức</th>
+                    <th>Thanh toán</th>
                     <th>Trạng thái</th>
                     <th>Ngày đặt</th>
                     <th>
@@ -60,7 +60,7 @@
                     @foreach ($bills as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
-                        <td>{{ $item->codebill }}</td>
+                        <td>{{ $item->code }}</td>
                         <td>@if ($item->type==1)
                             <span class="text-info">Bán hàng</span>
                             @else
@@ -69,10 +69,16 @@
                         </td>
                         <td>
                             <?php
-                                // $total = str_replace('.', '', $item->total);
-                                // $total= number_format($item->total, 2, ',', '.');
-                                ?>
-                            {{ $item->total }} VNĐ
+                            if (!function_exists('currency_format')) {
+                                function currency_format($item, $suffix = ' VNĐ')
+                                    {
+                                        if (!empty($item)) {
+                                            return number_format($item, 0, ',', '.') . "{$suffix}";
+                                        }
+                                    }
+                                }
+                        ?>
+                            {{ currency_format($item->total_price) }}
                         </td>
                         <td>{{ $item->method == 1 ? 'Tiền măt' : 'Chuyển khoản'}}</td>
                         <td>@if($item->status == 0)
@@ -86,14 +92,24 @@
                         </td>
                         <td>{{ $item->created_at }}</td>
                         <td>
-                            @can('list-bill')ơ
+                            @can('list-bill')
+
+                            @if ($item->type==1)
                             <a href="{{route('bill.detail',['id' => $item->id])}}" class="btn btn-sm btn-success">Chi
                                 tiết</a>
+                            @else
+                            <a href="{{route('dat-lich.hoa-don',['id' => $item->booking_detail_id])}}"
+                                class="btn btn-sm btn-success">Chi
+                                tiết</a>
+                            @endif
+
                             @endcan
                             @can('edit-bill')
                             @if($item->payment_status != 2)
+                            @if ($item->type==1)
                             <a href="{{ route('bill.edit', ['id' => $item->id]) }}"
                                 class="btn btn-sm btn-warning">Sửa</a>
+                            @endif
                             @endif
                             @endcan
                             @can('delete-bill')

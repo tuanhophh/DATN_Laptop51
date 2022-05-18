@@ -27,6 +27,7 @@ class ProfileRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'. Auth::id(),
+            'avatar' => 'mimes:jpg,png,jpeg',
         ];
     }
     public function messages()
@@ -36,6 +37,7 @@ class ProfileRequest extends FormRequest
             'email.required' => 'Mời bạn nhập email',
             'email.email' => 'Phải là định dạng email',
             'email.unique' => 'Email không được trùng',
+            'avatar.mimes' => 'Sai định dạng ảnh',
         ];
     }
     
