@@ -145,7 +145,7 @@
                 <a href="" class="nav-link">
                     <i class="nav-icon fas fa-hammer"></i>
                     <p>
-                        Máy sửa chữa
+                        Danh sách đặt lịch
                         <i class="fas fa-angle-left right"></i>
                     </p>
                 </a>
@@ -197,24 +197,6 @@
                         </a>
                     </li>
                     @endcan
-                </ul>
-            </li>
-            <li class="nav-item {{ request()->is('admin/sua-chua*') ? ' menu-is-opening menu-open' : '' }}">
-                <a href="" class="nav-link {{ request()->is('admin/sua-chua*') ? 'active ' : '' }}">
-                    <i class="nav-icon fas fa-copy"></i>
-                    <p>
-                        Order
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="/admin/dat-lich"
-                            class="nav-link {{ request()->is('admin/category') ? 'active' : '' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Danh sách</p>
-                        </a>
-                    </li>
                 </ul>
             </li>
             <!-- <li class="nav-item {{ request()->is('admin/category*') ? ' menu-is-opening menu-open' : '' }}">
@@ -325,26 +307,6 @@
                 </ul>
             </li>
             @endcan
-            <li class="nav-item {{ request()->is('admin/bills*') ? ' menu-is-opening menu-open' : '' }}">
-                <a href="" class="nav-link {{ request()->is('admin/bills*') ? 'active ' : '' }}">
-                    <i class="fas fa-file-invoice nav-icon"></i>
-                    <p>
-                        Hóa đơn sửa chữa
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    @can('list-bill')
-
-                    <li class="nav-item">
-                        <a href="/admin/bill" class="nav-link {{ request()->is('admin/bill') ? 'active' : '' }}">
-                            <i class="fas fa-regular fa-list nav-icon"></i>
-                            <p>Danh sách</p>
-                        </a>
-                    </li>
-                    @endcan
-                </ul>
-            </li>
             @can('list-role')
             <li class="nav-item {{ request()->is('admin/roles*') ? ' menu-is-opening menu-open' : '' }}">
                 <a href="" class="nav-link {{ request()->is('admin/roles*') ? 'active ' : '' }}">

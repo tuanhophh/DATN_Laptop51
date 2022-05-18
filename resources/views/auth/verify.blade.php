@@ -47,14 +47,22 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <input type="text" id="slug" @if(Auth::check()) @endif onkeyup="ChangeToSlug()"
+                                        <input disabled type="text" id="slug" @if(Auth::check()) @endif
                                             class="@error('phone') is-invalid @enderror mb-0 mt-4"
                                             value=@if(Auth::check()) {{Auth::user()->phone}}
                                             @elseif(session()->has('phone_verify'))
                                         "{{session()->get('phone_verify')}}"
                                         "{{ old('phone') }}"
                                         @endif
-                                        name="phone" placeholder="Số điện thoại">
+                                        name="" placeholder="Số điện thoại" >
+                                        <input hidden type="text" id="slug" @if(Auth::check()) @endif
+                                            class="@error('phone') is-invalid @enderror mb-0 mt-4"
+                                            value=@if(Auth::check()) {{Auth::user()->phone}}
+                                            @elseif(session()->has('phone_verify'))
+                                        "{{session()->get('phone_verify')}}"
+                                        "{{ old('phone') }}"
+                                        @endif
+                                        name="phone" placeholder="Số điện thoại" >
                                     </div>
                                     <div class="col-md-4">
                                         <button class="submit-btn-1 btn-hover-1 mb-0 mt-4" type="submit">Gửi lại

@@ -69,10 +69,10 @@ Route::post('update-cart-quantity', [CartController::class, 'updateCartQuantity'
 
 //  Thanh toán
 Route::get('thanh-toan', [PaymentController::class, 'showPayment'])->name('payment')->middleware(['auth','phoneverify']);
-Route::post('save-payment', [PaymentController::class, 'savePayment'])->middleware(['auth','phoneverify']);
-Route::post('payment/online', [PaymentController::class, 'createPayment'])->name('payment.online')->middleware(['auth','phoneverify']);
-Route::get('vnpay/return', [PaymentController::class, 'vnpayReturn'])->name('vnpay.return')->middleware(['auth','phoneverify']);
-Route::get('don-hang/{code}', [PaymentController::class, 'paymentSuccess'])->name('payment.success')->middleware(['auth','phoneverify']);
+Route::post('save-payment', [PaymentController::class, 'savePayment']);
+Route::post('payment/online', [PaymentController::class, 'createPayment'])->name('payment.online');
+Route::get('vnpay/return', [PaymentController::class, 'vnpayReturn'])->name('vnpay.return');
+Route::get('don-hang/{code}', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
 
 //     trang cá nhân
 Route::get('profile', [ProfileController::class, 'index'])->name('profile');

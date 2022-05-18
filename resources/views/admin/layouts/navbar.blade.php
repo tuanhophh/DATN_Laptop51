@@ -11,27 +11,34 @@
             <a href="/logout" class="nav-link">LogOut</a>
         </li>
     </ul>
-    
+
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Navbar Search -->
-        
-        <!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" class="" id="idCount" href="#">
-                <i class="far fa-bell"></i>
-                <span class="badge badge-danger navbar-badge pending NotificationBadge" id="NotificationBadge">{{Auth::user()->unreadNotifications()->count()}}</span>
+            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+            <i class="far fa-bell"></i>
+            <span class="badge badge-danger navbar-badge pending NotificationBadge"
+                    id="NotificationBadge">{{Auth::user()->unreadNotifications()->count()}}</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="dropdown-notification">
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;"  id="dropdown-notification">
                 @foreach (Auth::user()->notifications as $notification)
-                <a href="{{$notification->data['url']}}" @if($notification->unread()) style="background:#f8f9fa;" @endif class="dropdown-item">
-                {{ $notification->data['title'] }}
-                    <span class="float-right text-muted text-sm text-info">@if($notification->unread()) <i class="fas fa-star"></i> @endif</span>
+                <a href="{{$notification->data['url']}}" @if($notification->unread()) style="background:#f8f9fa;" @endif" class="dropdown-item">
+                    <div class="media">
+                        <div class="media-body">
+                            <h3 class="dropdown-item-title">
+                            {{ $notification->data['title'] }}
+                              
+                            </h3>
+                            <p class="text-sm">Mã hóa đơn: {{ $notification->data['code'] }}
+                            </p>
+                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{$notification->created_at->diffForHumans();}}
+                            <span class="float-right text-sm text-primary"> @if($notification->unread())<i class="fa fa-circle" aria-hidden="true"></i>@endif</span>   
+                        </p>
+                        </div>
+                    </div>
                 </a>
                 @endforeach
-                
-                <div class="dropdown-divider"></div>
-                <!-- <a href="#" class="dropdown-item dropdown-footer">Đánh dấu đã đọc tất cả</a> -->
             </div>
         </li>
         <li class="nav-item">

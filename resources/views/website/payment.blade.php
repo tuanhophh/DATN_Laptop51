@@ -256,8 +256,7 @@
                                                                                 name="payment_method"
                                                                                 id="flexRadioDefault2" />
                                                                             <label class="form-check-label"
-                                                                                for="flexRadioDefault2"> Thanh toán trực
-                                                                                tuyến </label>
+                                                                                for="flexRadioDefault2"> Thanh toán VNPAY </label>
                                                                         </div>
                                                                         @error('payment_method')
                                                                     <small

@@ -7,6 +7,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\ResendVerifyRequest;
 use App\Http\Requests\VerifyRequest;
 use App\Models\User;
+use App\Rules\Throttle;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -70,12 +71,17 @@ class AuthController extends Controller
     }
 
     //  Gửi lại mã 
-    protected function resendVerify(ResendVerifyRequest $request)
-    {   
-        session()->put('phone_verify', $request->phone);
+    protected function resendVerify(Request $request)
+    {
+        $request->validate([
+            'phone' => [ 
+                        new Throttle('resend', $maxAttempts = 1, $minutes = 1),
+            ]
+        ]);
+        session()->put('phone_verify',Auth::user()->phone);
         $pool = '0123456789';
         $code_verify = substr(str_shuffle(str_repeat($pool, 2)), 0, 6);
-        $phoneSend['phone'] = '+84' . $request->phone;
+        $phoneSend['phone'] = '+84' . Auth::user()->phone;
         $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
         $token = getenv("TWILIO_AUTH_TOKEN");
         $twilio_sid = getenv("TWILIO_SID");
@@ -91,7 +97,7 @@ class AuthController extends Controller
             // Tạo mã xác minh
         DB::table('code_verify')->insert([
                 'code_verify' => $code_verify,
-                'phone_number' => $request->phone,
+                'phone_number' => Auth::user()->phone,
                 'status' => 0,
                 'time_request' => 0,
                 'created_at' => Carbon::now(),
@@ -114,15 +120,15 @@ class AuthController extends Controller
     }
     protected function verify(VerifyRequest $request)
     {      
-        $code_verify = DB::table('code_verify')->where('phone_number',$request->phone)->orderBy('created_at','DESC')->first();
-        $phoneSend['phone'] = '+84' . $request->phone;
-        if ($request->verification_code == $code_verify->code_verify && $request->phone == $code_verify->phone_number && $code_verify->status == 0) {
-            $user = tap(User::where('phone', $request->phone))
+        $code_verify = DB::table('code_verify')->where('phone_number',Auth::user()->phone)->orderBy('created_at','DESC')->first();
+        $phoneSend['phone'] = '+84' . Auth::user()->phone;
+        if ($request->verification_code == $code_verify->code_verify && Auth::user()->phone == $code_verify->phone_number && $code_verify->status == 0) {
+            $user = tap(User::where('phone', Auth::user()->phone))
             ->update([
                 'isVerified' => true,
             ]);
             $update_code_verify = DB::table('code_verify')
-            ->where('phone_number', $request->phone)
+            ->where('phone_number', Auth::user()->phone)
             ->orderBy('created_at','DESC')
             ->limit(1)
             ->update(['status' => 1]);
@@ -139,28 +145,28 @@ class AuthController extends Controller
             Toastr::success('Xác minh số điện thoại thành công', 'Thành công');
             return redirect()->route('home');
         }
-        elseif($request->phone == $code_verify->phone_number){
+        elseif(Auth::user()->phone == $code_verify->phone_number){
             $actual_end_at = Carbon::parse(Carbon::now());
             $actual_start_at   = Carbon::parse($code_verify->created_at);
             $mins = $actual_end_at->diffInMinutes($actual_start_at, true);
             if($code_verify->time_request >= 10 || $mins >= 30 || $code_verify->status != 0){
                 $update_code_verify = DB::table('code_verify')
-                ->where('phone_number', $request->phone)
+                ->where('phone_number', Auth::user()->phone)
                 ->orderBy('created_at','DESC')
                 ->limit(1)
                 ->update(['status' => 1]);
                 Toastr::error('Mã xác minh đã quá hạn, vui lòng gửi lại mã', 'Thất bại');
-                return back()->with(['phone' => $request->phone]); 
+                return back()->with(['phone' => Auth::user()->phone]); 
             }
             $update_code_verify = DB::table('code_verify')
-              ->where('phone_number', $request->phone)
+              ->where('phone_number', Auth::user()->phone)
               ->orderBy('created_at','DESC')
               ->limit(1)
               ->update(['time_request' => $code_verify->time_request + 1]);
             Toastr::error('Mã xác minh không đúng', 'Thất bại');
-            return back()->with(['phone' => $request->phone]);
+            return back()->with(['phone' => Auth::user()->phone]);
         }
         Toastr::error('Mã xác minh không đúng', 'Thất bại');
-        return back()->with(['phone' => $request->phone]);
+        return back()->with(['phone' => Auth::user()->phone]);
     }
 }

@@ -50,7 +50,7 @@
                     <th>Mã hóa đơn</th>
                     <th>Loại hóa đơn</th>
                     <th>Tổng tiền</th>
-                    <th>Phương thức</th>
+                    <th>Thanh toán</th>
                     <th>Trạng thái</th>
                     <th>Ngày đặt</th>
                     <th>
@@ -60,7 +60,7 @@
                     @foreach ($bills as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
-                        <td>{{ $item->codebill }}</td>
+                        <td>{{ $item->code }}</td>
                         <td>@if ($item->type==1)
                             <span class="text-info">Bán hàng</span>
                             @else
@@ -68,11 +68,17 @@
                             @endif
                         </td>
                         <td>
-                            <?php
-                                // $total = str_replace('.', '', $item->total);
-                                // $total= number_format($item->total, 2, ',', '.');
-                                ?>
-                            {{ $item->total }} VNĐ
+                        <?php
+                            if (!function_exists('currency_format')) {
+                                function currency_format($item, $suffix = ' VNĐ')
+                                    {
+                                        if (!empty($item)) {
+                                            return number_format($item, 0, ',', '.') . "{$suffix}";
+                                        }
+                                    }
+                                }
+                        ?>
+                            {{ currency_format($item->total_price) }}
                         </td>
                         <td>{{ $item->method == 1 ? 'Tiền măt' : 'Chuyển khoản'}}</td>
                         <td>@if($item->status == 0)

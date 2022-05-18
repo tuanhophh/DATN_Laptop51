@@ -40,10 +40,19 @@
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-
+                        <?php
+                            if (!function_exists('currency_format')) {
+                                function currency_format($item, $suffix = ' VNĐ')
+                                    {
+                                        if (!empty($item)) {
+                                            return number_format($item, 0, ',', '.') . "{$suffix}";
+                                        }
+                                    }
+                                }
+                        ?>
                             <div class="form-group">
                                 <label for="">Tổng tiền</label>
-                                <input type="text" name="" disabled value="{{ old('total', $bill->total_price) }} VNĐ"
+                                <input type="text" name="" disabled value="{{ currency_format(old('total', $bill->total_price)) }}"
                                     class="form-control" placeholder="">
                             </div>
 
@@ -148,7 +157,7 @@
                 <!-- <td><input disabled type="text" value="{{$bill_d->product->name}}" name="addMoreInputFields[0][subject]"
                         placeholder="Tên sản phẩm" class="form-control" />
                 </td> -->
-                <td><input disabled type="text" value="{{$bill_d->ban}}" name="addMoreInputFields[0][subject]"
+                <td><input disabled type="text" value="{{currency_format($bill_d->ban)}}" name="addMoreInputFields[0][subject]"
                         placeholder="Nhập giá" class="form-control" /></td>
                 <td><input disabled type="text" value="{{$bill_d->quaty}}" name="addMoreInputFields[0][subject]"
                         placeholder="Số lượng" class="form-control" /></td>
