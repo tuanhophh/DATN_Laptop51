@@ -165,13 +165,13 @@ class LoginController extends Controller
                         new Throttle('resend', $maxAttempts = 3, $minutes = 1),
                         
                     ],
-            'g-recaptcha-response' => ['required', new \App\Rules\ValidRecaptcha]
+          
         ],
         [
             'phone.required' => 'Yêu cầu nhập số điện thoại',
             'phone.numeric' => 'Số điện thoại phải là số',
             'phone.regex' => 'Số điện thoại phải thuộc đầu số Việt Nam',
-            'g-recaptcha-response.required' => 'Yêu cầu xác thực captcha',
+            
         ]);        
         $phone_check = User::where('phone', $request->phone)->get()->first();
         if ($phone_check != null) {
@@ -204,42 +204,8 @@ class LoginController extends Controller
             Toastr::success('Đã gửi mã đăng nhập về số điện thoại', 'Thành công');
             return redirect()->route('login.otp.code');
         } else {
-            $data['phone'] = $request->phone;
-            $phoneSend['phone'] = '+84' . $request->phone;
-            if ($phone_check == null) {
-                User::create([
-                    'phone' => $data['phone'],
-                    'password' => Hash::make('00000000'),
-                    'id_role' => 0,
-                ]);
-            }
-            $pool = '0123456789';
-            $code_verify = substr(str_shuffle(str_repeat($pool, 2)), 0, 6);
-            /* Get credentials from .env */
-            // Gửi mã xác minh
-            $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
-            $token = getenv("TWILIO_AUTH_TOKEN");
-            $twilio_sid = getenv("TWILIO_SID");
-            $twilio_number = getenv("TWILIO_NUMBER");
-            $twilio = new Client($twilio_sid, $token);
-            $twilio->messages->create(
-                $phoneSend['phone'],
-                array(
-                    'from' => $twilio_number,
-                    'body' => 'Ma dang nhap cua ban la: '. $code_verify,
-                )
-                );
-            // Insert mã vào db
-            DB::table('code_verify')->insert([
-                    'code_verify' => $code_verify,
-                    'phone_number' => $request->phone,
-                    'status' => 0,
-                    'time_request' => 0,
-                    'created_at' => Carbon::now(),
-                ]);
-            session()->put('phone', $request->phone);
-            Toastr::success('Đã gửi mã đăng nhập về số điện thoại', 'Thành công');
-            return redirect()->route('login.otp.code');
+            Toastr::error('Số điện thoại không chính xác', 'Thất bại');
+            return back()->with('error','Số điện thoại chưa được đăng ký');
         }
     }
 

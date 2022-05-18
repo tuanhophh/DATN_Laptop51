@@ -174,7 +174,7 @@ class PaymentController extends Controller
                 //     );
             $user_send = User::find(Auth::id());
 
-            $data['title'] = 'Đơn hàng mới từ: '.  $request->name;
+            $data['title'] = 'Đơn hàng từ: '.  $request->name;
             $data['from'] = $user_send->id;
             $data['to'] = 1;
             $data['code'] = $length;
@@ -297,9 +297,17 @@ class PaymentController extends Controller
             //         'body' => 'Cam on ban da dat hang tai laptop51, ma hoa don cua ban la: ' . $request->vnp_TxnRef,
             //     )
             //     );
+            $bill_detail = bill_detail::where('bill_code',$payment_status->code)->get();
+            foreach($bill_detail as $bill_d){
+                $products = Product::where('id', $bill_d->product_id)->get();
+                    foreach($products as $product){
+                        $product->qty = $product->qty - $bill_d->quaty;
+                        $product->save();
+                    }
+                }
             $user_send = User::find(Auth::id());
 
-            $data['title'] = 'Đơn hàng mới từ: '.  $bill_code->name;
+            $data['title'] = 'Đơn hàng từ: '.  $bill_code->name;
             $data['from'] = Auth::id();
             $data['to'] = 1;
             $data['code'] = $request->vnp_TxnRef;

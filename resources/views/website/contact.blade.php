@@ -47,21 +47,21 @@
                             <div class="contact-address box-shadow">
                                 <i class="zmdi zmdi-pin"></i>
                                 <h6>Trịnh Văn Bô, Xuân Phương, Nam Từ Liêm, Hà Nội, Việt Nam</h6>
-                                <h6>Trịnh Văn Bô, Xuân Phương, Nam Từ Liêm, Hà Nội, Việt Nam</h6>
+                              
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="contact-address box-shadow">
                                 <i class="zmdi zmdi-phone"></i>
                                 <h6><a href="tel:0967758023">0967758023</a></h6>
-                                <h6><a href="tel:0967758023">0967758023</a></h6>
+                            
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="contact-address box-shadow">
                                 <i class="zmdi zmdi-email"></i>
                                 <h6>hungltph08107@fpt.edu.vn</h6>
-                                <h6>hungltph08107@fpt.edu.vn</h6>
+                           
                             </div>
                         </div>
                     </div>

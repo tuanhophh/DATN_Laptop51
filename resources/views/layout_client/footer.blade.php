@@ -14,7 +14,7 @@
                                         trong suốt 10 năm qua. Hàng triệu chiếc laptop đã được đưa tới trung tâm để sửa
                                         chữa nhằm mang lại niềm vui, hiệu quả và lợi ích cho khách hàng.</p>
                                 </div>
-                                <ul class="footer-social">
+                                <!-- <ul class="footer-social">
                                     <li>
                                         <a class="facebook" href="#" title="Facebook"><i
                                                 class="zmdi zmdi-facebook"></i></a>
@@ -31,7 +31,7 @@
                                         <a class="rss" href="#" title="RSS"><i
                                                 class="zmdi zmdi-rss"></i></a>
                                     </li>
-                                </ul>
+                                </ul> -->
                             </div>
                         </div>
                         <div class="col-xl-2 d-block d-xl-block d-lg-none d-md-none">
@@ -65,19 +65,29 @@
                             <div class="single-footer">
                                 <h4 class="footer-title border-left">Tài Khoản</h4>
                                 <ul class="footer-menu">
+                                   @if(Auth::check())
                                     <li>
-                                        <a href="{{ asset('') }}profile"><i class="zmdi zmdi-circle"></i><span>Quản
-                                                Lý Tài
-                                                Khoản</span>
+                                        <a href="{{ asset('') }}profile"><i class="zmdi zmdi-circle"></i><span>
+                                            Quản Lý Tài Khoản
+                                        </span></a>
                                     </li>
                                     <li>
-                                        <a href="{{ asset('') }}login"><i class="zmdi zmdi-circle"></i><span>Đăng
-                                                Nhập</span></a>
+                                        <a href="{{ asset('') }}gio-hang"><i class="zmdi zmdi-circle"></i><span>
+                                            Giỏ hàng
+                                        </span></a>
+                                    </li>
+                                    @else
+                                    <li>
+                                        <a href="{{ asset('') }}login"><i class="zmdi zmdi-circle"></i><span>
+                                            Đăng Nhập
+                                        </span></a>
                                     </li>
                                     <li>
-                                        <a href="{{ asset('') }}register"><i class="zmdi zmdi-circle"></i><span>Đăng
-                                                Ký</span></a>
+                                        <a href="{{ asset('') }}register"><i class="zmdi zmdi-circle"></i><span>
+                                            Đăng Ký
+                                        </span></a>
                                     </li>
+                                   @endif
                                 </ul>
                             </div>
                         </div>
@@ -117,7 +127,7 @@
                         </div>
                         <div class="col-md-6">
                             <ul class="footer-payment text-right">
-                                <li>
+                                <!-- <li>
                                     <a href="#"><img src="{{ asset('client') }}/img/payment/1.jpg" alt=""></a>
                                 </li>
                                 <li>
@@ -128,7 +138,7 @@
                                 </li>
                                 <li>
                                     <a href="#"><img src="{{ asset('client') }}/img/payment/4.jpg" alt=""></a>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                     </div>

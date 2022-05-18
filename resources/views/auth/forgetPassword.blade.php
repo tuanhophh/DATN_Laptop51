@@ -58,15 +58,9 @@
                                         </span>
                                         @enderror
                                         <!-- Google reCaptcha -->
-                                        <div class="g-recaptcha pt-4" id="feedback-recaptcha"
-                                            data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY')  }}"></div>
-                                        @error('g-recaptcha-response')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
+
                                         <!-- End Google reCaptcha -->
-                                        <p><small>Nhập số điện thoại và xác thực captcha</small></p>
+                                        <p><small>Nhập số điện thoại</small></p>
                                     </div>
                                     <div class="col-md-3">
                                         <button class="submit-btn-1 btn-hover-1 mb-0 mt-4" type="submit">Gửi
