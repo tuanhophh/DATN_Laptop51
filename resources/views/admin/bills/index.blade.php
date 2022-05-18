@@ -86,7 +86,7 @@
                         </td>
                         <td>{{ $item->created_at }}</td>
                         <td>
-                            @can('list-bill')
+                            @can('list-bill')ơ
                             <a href="{{route('bill.detail',['id' => $item->id])}}" class="btn btn-sm btn-success">Chi
                                 tiết</a>
                             @endcan
