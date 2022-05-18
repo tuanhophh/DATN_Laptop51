@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileRequest;
 use App\Models\Bill;
 use App\Models\bill_detail;
-use App\Models\BillDetail;
 use App\Models\BookingDetail;
 use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
@@ -32,7 +31,7 @@ class ProfileController extends Controller
     }
 
     public function index()
-    {   
+    {
         $id = Auth::id();
         $user = User::find($id);
         // dd($user);
@@ -44,14 +43,12 @@ class ProfileController extends Controller
         //     ->where('bill_users.user_id', '=', auth()->user()->id)
         //     ->groupBy('list_bill.total_price')
         //     ->get();
-        $bill = DB::table('list_bill')->where('type', 1)->where('user_id',$id)  
-            ->get();
-            $bill = DB::table('list_bill')->where('type', 1)->where('user_id',$id)  
+        $bill = DB::table('list_bill')->where('type', 1)->where('user_id', $id)->orderBy('created_at','DESC')
             ->get();
         $bill_detail = bill_detail::all();
         $bill_user = DB::table('bill_users')->get();
         $img_product = DB::table('product_images')->get();
-        return view('website.profile', compact('user', 'bill','bill_user','bill_detail','img_product'))->with('message', 'Đăng nhập thành công');
+        return view('website.profile', compact('user', 'bill', 'bill_user', 'bill_detail', 'img_product'))->with('message', 'Đăng nhập thành công');
     }
 
     public function cancelOrder(Request $request, $code)
@@ -135,9 +132,17 @@ class ProfileController extends Controller
         if (!$user) {
             return back();
         }
-        if($user->email == 'admin@gmail.com' && $request->email !=  'admin@gmail.com'){
+
+        if ($user->email == 'admin@gmail.com' && $request->email != 'admin@gmail.com') {
             Toastr::error('Tài khoản admin không được thay đổi email', 'Thất bại');
             return back();
+        }
+
+        if ($request->hasFile('avatar')) {
+            Storage::delete($user->avatar);
+            $imgu = $request->file('avatar')->store('products');
+            $imgu = str_replace('public/', 'storage', $imgu);
+            $user->avatar = $imgu;
         }
         $user->email = $request->email;
         $user->address = $request->address;
@@ -147,7 +152,6 @@ class ProfileController extends Controller
         Toastr::success('Đổi thông tin thành công', 'Thành công');
         return Redirect::back()->with('message', 'Thay đổi thông tin thành công');
     }
-
 
     public function changePassword(Request $request)
     {
@@ -186,12 +190,12 @@ class ProfileController extends Controller
     public function history()
     {
         $bill = DB::table('bills')
-        ->join('bill_details', 'bills.code', 'bill_details.bill_code')
-        ->join('products', 'bill_details.product_id', 'products.id')
-        ->select('bills.total', 'bill_details.qty', 'bill_details.price', 'bill_details.bill_code', 'bill_details.created_at', 'products.name')
-        ->where('bills.user_id', '=', auth()->user()->id)
-        ->groupBy('bills.total')
-        ->get();
+            ->join('bill_details', 'bills.code', 'bill_details.bill_code')
+            ->join('products', 'bill_details.product_id', 'products.id')
+            ->select('bills.total', 'bill_details.qty', 'bill_details.price', 'bill_details.bill_code', 'bill_details.created_at', 'products.name')
+            ->where('bills.user_id', '=', auth()->user()->id)
+            ->groupBy('bills.total')
+            ->get();
         return view('website.profile', compact('bill'));
     }
 
@@ -199,17 +203,17 @@ class ProfileController extends Controller
     {
         $user = User::find(auth()->user()->id);
 
-            $bill = DB::table('bill_users')
+        $bill = DB::table('bill_users')
             ->join('list_bill', 'bill_users.bill_code', 'list_bill.code')
             ->join('billdetail', 'list_bill.code', 'billdetail.bill_code')
             ->join('products', 'billdetail.product_id', 'products.id')
-            ->select(DB::raw('count(billdetail.bill_code) as count_order'),'billdetail.product_id','list_bill.method','list_bill.status','bill_users.address', 'list_bill.id', 'list_bill.total_price', 'billdetail.quaty', 'billdetail.ban', 'billdetail.bill_code', 'billdetail.created_at', 'products.name')
+            ->select(DB::raw('count(billdetail.bill_code) as count_order'), 'billdetail.product_id', 'list_bill.method', 'list_bill.status', 'bill_users.address', 'list_bill.id', 'list_bill.total_price', 'billdetail.quaty', 'billdetail.ban', 'billdetail.bill_code', 'billdetail.created_at', 'products.name')
             ->where('bill_users.user_id', '=', auth()->user()->id)
             ->where('billdetail.bill_code', '=', $code)
             ->get();
-            // dd($bill);
-            $images = DB::table('product_images')->get();
+        // dd($bill);
+        $images = DB::table('product_images')->get();
         // dd($images,$bill);
-        return view('website.history-detail', compact('bill','user','images'));
+        return view('website.history-detail', compact('bill', 'user', 'images'));
     }
 }

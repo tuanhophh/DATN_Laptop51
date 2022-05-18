@@ -37,7 +37,7 @@
                         @endif
 
                         <div class="login-account p-30 box-shadow">
-                            <p>Bạn chưa có tài khoản? <a href="/register"> Nhấp vào đây để đăng ký!</a></p>
+                           
                             <form method="POST" action="{{route('send.otp.login')}}" form>
                                 @csrf
                                 <div class="row">

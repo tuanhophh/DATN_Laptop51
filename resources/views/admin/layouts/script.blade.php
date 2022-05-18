@@ -248,9 +248,20 @@ var pusher = new Pusher('40b36816c265fa47e39d', {
 var channel = pusher.subscribe('my-channel');
 channel.bind('my-event', function(data) {
     var newNotificationHtml = `
-                <a href="${data.url}"  style="background:#f8f9fa;" class="dropdown-item">
-                ${data.title}
-                <span class="float-right text-muted text-sm text-info"><i class="fas fa-star"></i> </span>
+                <a href="${data.url}" style="background:#f8f9fa;" class="dropdown-item">
+                    <div class="media">
+                        <div class="media-body">
+                            <h3 class="dropdown-item-title">
+                            ${data.title}
+                              
+                            </h3>
+                            <p class="text-sm">Mã hóa đơn: ${data.code}
+                            </p>
+                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 1 giây trước
+                            <span class="float-right text-sm text-primary"><i class="fa fa-circle" aria-hidden="true"></i></span>   
+                        </p>
+                        </div>
+                    </div>
                 </a>
         `;
     $('#dropdown-notification').prepend(newNotificationHtml);

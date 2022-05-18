@@ -71,7 +71,7 @@ class Throttle implements Rule
      */
     public function message()
     {
-        return __('Vui lòng thử lại sau vài phút!');
+        return __('Vui lòng thử lại sau 1 phút!');
     }
 
     /**

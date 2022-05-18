@@ -14,32 +14,38 @@
                             @if(Auth::check())
                             <li>
                                 <a href="{{ asset('') }}profile">
-                                   
+
                                     Tài Khoản Của Tôi
                                 </a>
                             </li>
+                            @if(Auth::user()->isVerified == false)
                             <li>
-                                <a href="{{ asset('') }}profile">
-                                   
-                                    Hóa đơn
+                                <a href="{{ asset('') }}verify">
+                                    Xác minh tài khoản
                                 </a>
                             </li>
+                            @endif
+                            @if(Auth::user()->id_role == 1)
+                            <li>
+                                <a href="{{ asset('') }}admin">
+                                    Quản trị
+                                </a>
+                            </li>
+                            @endif
                             <li>
                                 <a href="{{ asset('') }}logout">
-                                  
                                     Thoát
                                 </a>
                             </li>
                             @else
                             <li>
-                            <a href="{{ asset('') }}login">
-                                 
+                                <a href="{{ asset('') }}login">
                                     Đăng Nhập
                                 </a>
-                            </li>      
+                            </li>
                             <li>
-                            <a href="{{ asset('') }}register">
-                                  
+                                <a href="{{ asset('') }}register">
+
                                     Đăng ký
                                 </a>
                             </li>
@@ -73,11 +79,6 @@
                                 <li><a href="{{ asset('') }}dat-lich">Đặt Lịch</a></li>
                                 <li><a href="{{ asset('') }}tin-tuc">Tin Tức</a></li>
                                 <li><a href="{{ asset('') }}lien-he">Liên Hệ</a></li>
-                                @if(Auth::check())
-                                    @if(Auth::user()->isVerified == false)
-                                    <li><a href="{{ asset('') }}verify">Xác minh tài khoản</a></li>
-                                    @endif
-                                @endif
                             </ul>
                         </nav>
                     </div>
@@ -90,14 +91,14 @@
                                     <button class="search-toggle">
                                         <i class="zmdi zmdi-search"></i>
                                     </button>
-                             
-                                        <div class="top-search-box">
-                                            <input type="text" placeholder="Tìm kiếm laptop..." name='timkiem' id="timkiem">
-                                            <button type="button" id='btn-timkiem'>
-                                                <i class="zmdi zmdi-search"></i>
-                                            </button>
-                                        </div>
-                                
+
+                                    <div class="top-search-box">
+                                        <input type="text" placeholder="Tìm kiếm laptop..." name='timkiem' id="timkiem">
+                                        <button type="button" id='btn-timkiem'>
+                                            <i class="zmdi zmdi-search"></i>
+                                        </button>
+                                    </div>
+
                                 </div>
                             </div>
                             <!-- total-cart -->
@@ -106,7 +107,7 @@
                                     <div class="cart-toggler">
                                         <a href="/gio-hang">
                                             <span class="cart-quantity">{{Cart::count()}}
-</span><br>
+                                            </span><br>
                                             <span class="cart-icon">
                                                 <i class="zmdi zmdi-shopping-cart-plus"></i>
                                             </span>
@@ -120,8 +121,8 @@
                                         </li>
                                         <li>
                                             <div class="total-cart-pro"> -->
-                                                <!-- single-cart -->
-                                                <!-- <div class="single-cart clearfix">
+                                    <!-- single-cart -->
+                                    <!-- <div class="single-cart clearfix">
                                                     <div class="cart-img f-left">
                                                         <a href="#">
                                                             <img src="{{ asset('client') }}/img/cart/1.jpg"
@@ -148,8 +149,8 @@
                                                         </p>
                                                     </div>
                                                 </div> -->
-                                                <!-- single-cart -->
-                                                <!-- <div class="single-cart clearfix">
+                                    <!-- single-cart -->
+                                    <!-- <div class="single-cart clearfix">
                                                     <div class="cart-img f-left">
                                                         <a href="#">
                                                             <img src="{{ asset('client') }}/img/cart/1.jpg"

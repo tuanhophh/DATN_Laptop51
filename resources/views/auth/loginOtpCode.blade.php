@@ -36,7 +36,7 @@
                         </div>
                         @endif
                         <div class="login-account p-30 box-shadow">
-                            <p>Bạn chưa có tài khoản? <a href="/register"> Nhấp vào đây để đăng ký!</a></p>
+                            <!-- <p>Bạn chưa có tài khoản? <a href="/register"> Nhấp vào đây để đăng ký!</a></p> -->
                             <!-- <p>Bạn đã có tài khoản? <a href="/login"> Nhấp vào đây để đăng nhập!</a></p> -->
 
                             <form method="POST" action="{{route('login.otp')}}">
@@ -49,7 +49,7 @@
                                 @endif
                                 name="phone" placeholder="Số điện thoại">
                                 <input type="text" name="phone_otp" class="mb-0 mt-4" placeholder="Mã">
-                                <p><small>Nhập mã rồi nhấn gửi</small></p>
+                                <p><small>Nhập mã rồi nhấn đăng nhập</small></p>
                                 @error('phone')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
