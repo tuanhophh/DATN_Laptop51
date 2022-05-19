@@ -14,10 +14,13 @@ use App\Models\Product;
 use App\Models\RepairPart;
 use App\Models\User;
 use App\Models\UserRepair;
+use App\Notifications\TestNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Mail;
 use Nexmo\Laravel\Facade\Nexmo;
+use Pusher\Pusher;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class BookingController extends Controller
 {
@@ -33,6 +36,17 @@ class BookingController extends Controller
    {
       $computers = ComputerCompany::all();
       $booking_detail = BookingDetail::find($id);
+      foreach (Auth::user()->unreadNotifications as $notification) {
+         if ($notification->data['url'] ===  '/' . FacadesRequest::path()) {
+             $userUnreadNotification = auth()->user()
+                 ->unreadNotifications
+                 ->where('id', $notification->id)
+                 ->first();
+             if ($userUnreadNotification) {
+                 $userUnreadNotification->markAsRead();
+             }
+         }
+     };
       // dd($booking_detail->booking->id);
       return view('admin.booking.edit', compact('booking_detail', 'computers'));
    }
@@ -63,6 +77,7 @@ class BookingController extends Controller
             'interval' => $request->interval
          ]);
          $booking->save();
+
       }
       return redirect(route('dat-lich.danh-sach-may'));
    }
@@ -187,6 +202,28 @@ class BookingController extends Controller
       //    return back()->with('msg', '<script>	alert("Đặt lịch thành công");	</script>');
       // } else {
 
+         $data['title'] = 'Đặt lịch từ: '.  $request->full_name;
+         $data['from'] = 1;
+         $data['to'] = 1;
+         $data['code'] =  $model->id;
+         $data['url'] = '/admin/dat-lich/sua/' . $model->id;
+         $users = User::where('id_role', 1)->get();
+         foreach($users as $user){
+             $user->notify(new TestNotification($data));
+         }
+         $options = array(
+             'cluster' => 'ap1',
+             'encrypted' => true
+         );
+ 
+         $pusher = new Pusher(
+             env('PUSHER_APP_KEY'),
+             env('PUSHER_APP_SECRET'),
+             env('PUSHER_APP_ID'),
+             $options
+         );
+ 
+         $pusher->trigger('my-channel', 'my-event', $data);
       if ($request->btn == 'client') {
          return view('website.success', compact('request'));
       }
@@ -270,7 +307,7 @@ class BookingController extends Controller
          }
       }
       // if ($request->user)  
-
+      
       return redirect(route('sua-chua.danh-sach-chua-xac-nhan'));
 
 
