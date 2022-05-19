@@ -19,6 +19,7 @@
 </div>
 @endif
 <form action="{{ route('bill.index') }}" method="GET" class="row">
+    <div class="col-1"></div>
     <div class="form-group col-3">
         <input type="text" class="form-control" name="code" id="" aria-describedby="helpId"
             placeholder="Tìm kiếm mã hóa đơn">

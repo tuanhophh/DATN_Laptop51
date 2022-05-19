@@ -28,6 +28,7 @@ class HomeController extends Controller
         $product_hot_sell = Product::select('billdetail.*', 'products.*', DB::raw('SUM(billdetail.quaty) As total'))
         ->join('billdetail', 'billdetail.product_id', '=', 'products.id')
         ->groupBy('products.id')
+        ->where('status',1)
         ->orderBy('total' ,'DESC')
         ->get()
         ->take(8);
@@ -51,6 +52,7 @@ class HomeController extends Controller
         $product_hot_sell = Product::select('billdetail.*', 'products.*', DB::raw('SUM(billdetail.quaty) As total'))
             ->join('billdetail', 'billdetail.product_id', '=', 'products.id')
             ->groupBy('products.id')
+            ->where('status',1)
             ->orderBy('total' ,'DESC')
             ->get()->take(5);
             $images_product_list = DB::table('product_images')->get();
@@ -93,6 +95,7 @@ class HomeController extends Controller
         $product_hot_sell = Product::select('billdetail.*', 'products.*', DB::raw('SUM(billdetail.quaty) As total'))
         ->join('billdetail', 'billdetail.product_id', '=', 'products.id')
         ->groupBy('products.id')
+        ->where('status',1)
         ->orderBy('total' ,'DESC')
         ->get()
         ->take(6);
@@ -108,12 +111,13 @@ class HomeController extends Controller
     public function company($id)
 
     {   
-        $products = Product::where('companyComputer_id', $id)->paginate(9);
+        $products = Product::where('companyComputer_id', $id)->where('status',1)->paginate(9);
         $ComputerCompany = ComputerCompany::all();
         $images = DB::table('product_images')->get();
         $product_hot_sell = Product::select('billdetail.*', 'products.*', DB::raw('SUM(billdetail.quaty) As total'))
         ->join('billdetail', 'billdetail.product_id', '=', 'products.id')
         ->groupBy('products.id')
+        ->where('status',1)
         ->orderBy('total' ,'DESC')
         ->get()
         ->take(6);
@@ -144,6 +148,7 @@ class HomeController extends Controller
         $product_hot_sell = Product::select('billdetail.*', 'products.*', DB::raw('SUM(billdetail.quaty) As total'))
         ->join('billdetail', 'billdetail.product_id', '=', 'products.id')
         ->groupBy('products.id')
+        ->where('status',1)
         ->orderBy('total' ,'DESC')
         ->get()->take(5);
         $images_product_list = DB::table('product_images')->get();
