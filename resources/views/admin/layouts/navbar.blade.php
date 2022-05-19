@@ -5,10 +5,10 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         {{-- <li class="nav-item d-none d-sm-inline-block">
-            <a href="/" class="nav-link">Home</a>
+            <a href="/" class="nav-link">Trang chủ</a>
         </li> --}}
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/logout" class="nav-link">LogOut</a>
+            <a href="/logout" class="nav-link">Đăng xuất</a>
         </li>
     </ul>
 
@@ -30,8 +30,6 @@
                             {{ $notification->data['title'] }}
                               
                             </h3>
-                            <p class="text-sm">Mã hóa đơn: {{ $notification->data['code'] }}
-                            </p>
                             <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{$notification->created_at->diffForHumans();}}
                             <span class="float-right text-sm text-primary"> @if($notification->unread())<i class="fa fa-circle" aria-hidden="true"></i>@endif</span>   
                         </p>

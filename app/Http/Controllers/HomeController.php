@@ -55,7 +55,6 @@ class HomeController extends Controller
             ->get()->take(5);
             $images_product_list = DB::table('product_images')->get();
         $ComputerCompany = ComputerCompany::all();
-        $productNew = Product::where('status', 1);
         $productNew = Product::when($request->name, function ($query, $name) {
             return $query->where('name', 'like', "%{$name}%");
         })->when($request->price && in_array($request->price, ['all','5000000-10000000', '10000000-15000000','15000000-20000000','20000000-30000000']), function ($query) use ($request) {
@@ -74,7 +73,7 @@ class HomeController extends Controller
             return $query->orderBy('price', $request->price == 'all' ? 'desc' : 'asc');
         })->when($request->companyComputer_id, function ($query, $companyComputer_id) {
             return $query->where('companyComputer_id','=',$companyComputer_id);
-        })->orderBy('created_at', 'DESC')->paginate(9);
+        })->where('status', 1)->orderBy('created_at', 'DESC')->paginate(9);
         $images = DB::table('product_images')->get();
         // $product_hot_sell =
         return view('website.product', compact( 'ComputerCompany', 'productNew', 'images', 'product_hot_sell','images_product_list'));

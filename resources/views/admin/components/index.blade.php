@@ -84,7 +84,7 @@
                         <th class="px-0 text-center">Bảo hành</th>
                         <th class="px-0 text-center">Trạng thái</th>
                         <th>
-                            @can('add-component')
+                            @can('add-product')
                             <a class="btn btn-info" href="{{ route('component.add') }}">Thêm</a>
                             @endcan
                         </th>
@@ -101,14 +101,14 @@
                             <td>{{ $item->insurance }}</td>
                             <td>{{ $item->status == 1 ? 'Hiển thị' : 'Không hiển thị' }}</td>
                             <td>
-                                @can('edit-component')
+                                @can('edit-product')
                                 <!-- <a href="{{ route('nhap-sanpham.add', ['id' => $item->id]) }}"
                                     class="btn btn-sm btn-success">Thêm SL</a> -->
                                 <a href="{{ route('component.edit', ['id' => $item->id]) }}"
                                     class="btn btn-sm btn-warning">Sửa</a>
                                 @endcan
 
-                                @can('delete-component')
+                                @can('delete-product')
                                 @if($item->status === 0)
                                 <form class="d-inline" action="component/show-hide/{{$item->id}}" method="POST">
                                     @csrf

@@ -79,13 +79,13 @@ Route::prefix('detail-product')->group(function () {
     Route::get('detail/{id}', [DetailProductController::class, 'detail'])->middleware('can:list-product');
 });
 Route::prefix('component')->group(function () {
-    Route::get('/', [ComponentController::class, 'index'])->name('component.index');
-    Route::get('/remove/{id}', [ComponentController::class, 'remove'])->name('component.remove');
-    Route::get('add', [ComponentController::class, 'addForm'])->name('component.add');
-    Route::post('add', [ComponentController::class, 'saveAdd']);
-    Route::get('edit/{id}', [ComponentController::class, 'editForm'])->name('component.edit');
-    Route::post('edit/{id}', [ComponentController::class, 'saveEdit']);
-    Route::get('detail/{id}', [ComponentController::class, 'detail']);
+    Route::get('/', [ComponentController::class, 'index'])->name('component.index')->middleware('can:list-product');
+    Route::get('/remove/{id}', [ComponentController::class, 'remove'])->name('component.remove')->middleware('can:delete-product');
+    Route::get('add', [ComponentController::class, 'addForm'])->name('component.add')->middleware('can:add-product');
+    Route::post('add', [ComponentController::class, 'saveAdd'])->middleware('can:add-product');
+    Route::get('edit/{id}', [ComponentController::class, 'editForm'])->name('component.edit')->middleware('can:edit-product');
+    Route::post('edit/{id}', [ComponentController::class, 'saveEdit'])->middleware('can:edit-product');
+    Route::get('detail/{id}', [ComponentController::class, 'detail'])->middleware('can:list-product');
     Route::get('query/{category_component_id}', function ($category_component_id) {
         $components = Component::where('category_component_id', $category_component_id)->get();
         return $components;
@@ -165,12 +165,12 @@ Route::prefix('thongke')->group(function () {
 //     // Route::get('detail/{id}', [CategoryController::class, 'detail'])->middleware('can:delete-category');
 // });
 Route::prefix('category_component')->group(function () {
-    Route::get('/', [CategoryComponentController::class, 'index'])->name('category_component.index');
-    Route::get('/remove/{id}', [CategoryComponentController::class, 'remove'])->name('category_component.remove');
-    Route::get('add', [CategoryComponentController::class, 'addForm'])->name('category_component.add');
-    Route::post('add', [CategoryComponentController::class, 'saveAdd']);
-    Route::get('edit/{id}', [CategoryComponentController::class, 'editForm'])->name('category_component.edit');
-    Route::post('edit/{id}', [CategoryComponentController::class, 'saveEdit']);
+    Route::get('/', [CategoryComponentController::class, 'index'])->name('category_component.index')->middleware('can:list-category');
+    Route::get('/remove/{id}', [CategoryComponentController::class, 'remove'])->name('category_component.remove')->middleware('can:delete-category');
+    Route::get('add', [CategoryComponentController::class, 'addForm'])->name('category_component.add')->middleware('can:add-category');
+    Route::post('add', [CategoryComponentController::class, 'saveAdd'])->middleware('can:add-category');
+    Route::get('edit/{id}', [CategoryComponentController::class, 'editForm'])->name('category_component.edit')->middleware('can:edit-category');
+    Route::post('edit/{id}', [CategoryComponentController::class, 'saveEdit'])->middleware('can:edit-category');
     // Route::get('detail/{id}', [CategoryController::class, 'detail'])->middleware('can:delete-category_component');
     Route::get('select-all', function () {
         $c = CategoryComponent::all();

@@ -111,10 +111,8 @@ class BillController extends Controller
     {   
         $list_bill = list_bill::find($id);
         $list_bill['method'] = $request->method;
-        $list_bill['status'] = $request->status;
-        $list_bill['total_price'] = $request->total_price;
         $bill_detail = bill_detail::where('bill_code',$list_bill->code)->get();
-        if(($list_bill->status == 0 || $list_bill->status == 3)  && ($request->status == 2 || $request->status == 4)){
+        if(($list_bill->status == 0 || $list_bill->status ==3)  && ($request->status == 2 || $request->status == 4)){
             foreach($bill_detail as $bill_d){
             $products = Product::where('id', $bill_d->product_id)->get();
                 foreach($products as $product){
@@ -123,6 +121,8 @@ class BillController extends Controller
                 }
             }
         }
+        $list_bill['status'] = $request->status;
+        $list_bill['total_price'] = $request->total_price;
         $bill_user = BillUser::where('bill_code',$list_bill->code)->orderBy('created_at','DESC')->first();
         $bill_user['name'] = $request->name;
         $bill_user['email'] = $request->email;

@@ -84,12 +84,12 @@
                     @endif
                 </td>
                 <td class="mx-auto">
-
+                    @can('edit-repair')
                     @if ($b->status_repair='waiting')
                     <a name="" id="" class="btn btn-success" href="{{ route('suachua.get', ['id'=>$b->id]) }}"
                         role="button">Sửa chữa</a>
                     @endif
-
+                    @endcan
                     {{-- <a name="" id="" class="btn btn-primary" href="{{ route('dat-lich.edit', ['id'=>$b->id]) }}"
                         role="button">Sửa thông tin</a> --}}
                     {{-- <a name="" id="" class="btn btn-info" href="{{ route('dat-lich.hoa-don', ['id'=>$b->id]) }}"
