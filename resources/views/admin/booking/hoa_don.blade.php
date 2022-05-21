@@ -2,9 +2,12 @@
 @section('content')
 {{-- <button>Xuất hóa đơn</button>
 --}}
-<div class="container"><a name="" id="" class="btn btn-primary" target="_blank"
+<div class="container">
+    @if ($booking_detail->list_bill)
+    <a name="" id="" class="btn btn-primary" target="_blank"
         href="{{ route('dat-lich.xuat-hoa-don', ['booking_detail_id'=>$booking_detail->id]) }}" role="button"> Xuất hóa
         đơn</a>
+    @endif
     <h4 class="text-center"><b>HÓA ĐƠN SỬA CHỮA</b></h4>
     <h5 class="text-center"><i>Số hóa đơn: <b>{{ $booking_detail->code }}</b></i></h5>
     <p>Họ và tên: {{ $booking_detail->booking->full_name }}</p>
