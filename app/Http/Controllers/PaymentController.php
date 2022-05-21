@@ -285,18 +285,6 @@ class PaymentController extends Controller
             // dd($request->all());
             $payment_status->update();
             Payment::insert($data);
-            // $phoneSend = '+84'. $phone;
-            // $token = getenv("TWILIO_AUTH_TOKEN");
-            // $twilio_sid = getenv("TWILIO_SID");
-            // $twilio_from = getenv("TWILIO_FROM");
-            // $twilio = new Client($twilio_sid, $token);
-            // $twilio->messages->create(
-            //     $phoneSend,
-            //     array(
-            //         'from' => $twilio_from,
-            //         'body' => 'Cam on ban da dat hang tai laptop51, ma hoa don cua ban la: ' . $request->vnp_TxnRef,
-            //     )
-            //     );
             $bill_detail = bill_detail::where('bill_code',$payment_status->code)->get();
             foreach($bill_detail as $bill_d){
                 $products = Product::where('id', $bill_d->product_id)->get();

@@ -221,12 +221,12 @@ Route::prefix('user')->group(function () {
 });
 
 Route::prefix('roles')->group(function () {
-    Route::get('/', [RoleController::class, 'index'])->name('roles.index');
-    Route::get('add', [RoleController::class, 'create'])->name('roles.create');
-    Route::post('add', [RoleController::class, 'store'])->name(('roles.store'));
-    Route::get('remove/{id}', [RoleController::class, 'remove'])->name('roles.remove');
-    Route::get('edit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
-    Route::post('edit/{id}', [RoleController::class, 'update'])->name('roles.update');
+    Route::get('/', [RoleController::class, 'index'])->name('roles.index')->middleware('can:list-role');
+    Route::get('add', [RoleController::class, 'create'])->name('roles.create')->middleware('can:add-role');
+    Route::post('add', [RoleController::class, 'store'])->name(('roles.store'))->middleware('can:add-role');
+    Route::get('remove/{id}', [RoleController::class, 'remove'])->name('roles.remove')->middleware('can:delete-role');
+    Route::get('edit/{id}', [RoleController::class, 'edit'])->name('roles.edit')->middleware('can:edit-role');
+    Route::post('edit/{id}', [RoleController::class, 'update'])->name('roles.update')->middleware('can:edit-role');
 });
 
 });
