@@ -15,13 +15,13 @@
                 alt="User Image">
         </div> --}}
         @if (Auth::user())
-            <div class="info">
-                <a href="" class="d-block">{{ Auth::user()->name }}</a>
-            </div>
+        <div class="info">
+            <a href="" class="d-block">{{ Auth::user()->name }}</a>
+        </div>
         @else
-            <div class="info">
-                <a href="" class="d-block">dang nhap</a>
-            </div>
+        <div class="info">
+            <a href="" class="d-block">dang nhap</a>
+        </div>
         @endif
 
         {{-- @endif --}}
@@ -45,194 +45,192 @@
 
             </li>
             @can('list-category')
-                <li class="nav-item {{ request()->is('admin/CompanyComputer*') ? ' menu-is-opening menu-open' : '' }}">
-                    <a href="" class="nav-link {{ request()->is('admin/CompanyComputer*') ? 'active ' : '' }}">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            Danh mục
-                            <i class="fas fa-angle-left right"></i>
-                            {{-- <span class="badge badge-info right">6</span> --}}
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        @can('list-category')
-                            <li class="nav-item">
-                                <a href="/admin/CompanyComputer"
-                                    class="nav-link {{ request()->is('admin/CompanyComputer') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Danh sách</p>
-                                </a>
-                            </li>
-                        @endcan
-                        @can('add-category')
-                            <li class="nav-item">
-                                <a href="/admin/CompanyComputer/add"
-                                    class="nav-link {{ request()->is('admin/CompanyComputer/add') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Thêm mới</p>
-                                </a>
-                            </li>
-                        @endcan
-                    </ul>
-                </li>
+            <li class="nav-item {{ request()->is('admin/CompanyComputer*') ? ' menu-is-opening menu-open' : '' }}">
+                <a href="" class="nav-link {{ request()->is('admin/CompanyComputer*') ? 'active ' : '' }}">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                        Danh mục
+                        <i class="fas fa-angle-left right"></i>
+                        {{-- <span class="badge badge-info right">6</span> --}}
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    @can('list-category')
+                    <li class="nav-item">
+                        <a href="/admin/CompanyComputer"
+                            class="nav-link {{ request()->is('admin/CompanyComputer') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Danh sách</p>
+                        </a>
+                    </li>
+                    @endcan
+                    @can('add-category')
+                    <li class="nav-item">
+                        <a href="/admin/CompanyComputer/add"
+                            class="nav-link {{ request()->is('admin/CompanyComputer/add') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Thêm mới</p>
+                        </a>
+                    </li>
+                    @endcan
+                </ul>
+            </li>
             @endcan
             @can('list-category')
-                <li class="nav-item {{ request()->is('admin/product*') ? ' menu-is-opening menu-open' : '' }}">
-                    <a href="" class="nav-link {{ request()->is('admin/product*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            Sản phẩm
-                            <i class="fas fa-angle-left right"></i>
-                            {{-- <span class="badge badge-info right">6</span> --}}
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        @can('list-category')
-                            <li class="nav-item">
-                                <a href="/admin/product"
-                                    class="nav-link {{ request()->is('admin/product') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Danh sách</p>
-                                </a>
-                            </li>
-                        @endcan
-                        @can('add-category')
-                            <li class="nav-item">
-                                <a href="/admin/product/add"
-                                    class="nav-link {{ request()->is('admin/product/add') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Thêm mới</p>
-                                </a>
-                            </li>
-                        @endcan
-                    </ul>
-                </li>
+            <li class="nav-item {{ request()->is('admin/product*') ? ' menu-is-opening menu-open' : '' }}">
+                <a href="" class="nav-link {{ request()->is('admin/product*') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                        Sản phẩm
+                        <i class="fas fa-angle-left right"></i>
+                        {{-- <span class="badge badge-info right">6</span> --}}
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    @can('list-category')
+                    <li class="nav-item">
+                        <a href="/admin/product" class="nav-link {{ request()->is('admin/product') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Danh sách</p>
+                        </a>
+                    </li>
+                    @endcan
+                    @can('add-category')
+                    <li class="nav-item">
+                        <a href="/admin/product/add"
+                            class="nav-link {{ request()->is('admin/product/add') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Thêm mới</p>
+                        </a>
+                    </li>
+                    @endcan
+                </ul>
+            </li>
             @endcan
             @can('list-user')
-                <li class="nav-item {{ request()->is('admin/user*') ? ' menu-is-opening menu-open' : '' }}">
-                    <a href="" class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            Tài khoản
-                            <i class="fas fa-angle-left right"></i>
-                            {{-- <span class="badge badge-info right">6</span> --}}
-                        </p>
-                    </a>
+            <li class="nav-item {{ request()->is('admin/user*') ? ' menu-is-opening menu-open' : '' }}">
+                <a href="" class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                        Tài khoản
+                        <i class="fas fa-angle-left right"></i>
+                        {{-- <span class="badge badge-info right">6</span> --}}
+                    </p>
+                </a>
 
-                    <ul class="nav nav-treeview">
-                        @can('list-user')
-                            <li class="nav-item">
-                                <a href="/admin/user" class="nav-link {{ request()->is('/user') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Danh sách</p>
-                                </a>
-                            </li>
-                        @endcan
-                        @can('add-user')
-                            <li class="nav-item">
-                                <a href="/admin/user/add" class="nav-link {{ request()->is('user/add') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Thêm mới</p>
-                                </a>
-                            </li>
-                        @endcan
-                    </ul>
-                </li>
-                <li class="nav-item {{ request()->is('admin/CompanyComputer*') ? ' menu-is-opening menu-open' : '' }}">
-                    <a href="" class="nav-link {{ request()->is('admin/CompanyComputer*') ? 'active ' : '' }}">
-                        <i class="nav-icon fas fa-align-justify"></i>
-                        <p>
-                            Danh mục sản phẩm
-                            <i class="fas fa-angle-left right"></i>
+                <ul class="nav nav-treeview">
+                    @can('list-user')
+                    <li class="nav-item">
+                        <a href="/admin/user" class="nav-link {{ request()->is('/user') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Danh sách</p>
+                        </a>
+                    </li>
+                    @endcan
+                    @can('add-user')
+                    <li class="nav-item">
+                        <a href="/admin/user/add" class="nav-link {{ request()->is('user/add') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Thêm mới</p>
+                        </a>
+                    </li>
+                    @endcan
+                </ul>
+            </li>
+            <li class="nav-item {{ request()->is('admin/CompanyComputer*') ? ' menu-is-opening menu-open' : '' }}">
+                <a href="" class="nav-link {{ request()->is('admin/CompanyComputer*') ? 'active ' : '' }}">
+                    <i class="nav-icon fas fa-align-justify"></i>
+                    <p>
+                        Danh mục sản phẩm
+                        <i class="fas fa-angle-left right"></i>
 
-                            {{-- <span class="badge badge-info right">6</span> --}}
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        @can('list-category')
-                            <li class="nav-item">
-                                <a href="/admin/CompanyComputer"
-                                    class="nav-link {{ request()->is('admin/CompanyComputer') ? 'active' : '' }}">
-                                    <i class="fas fa-regular fa-list nav-icon"></i>
-                                    <p>Danh sách</p>
-                                </a>
-                            </li>
-                        @endcan
-                        @can('add-category')
-                            <li class="nav-item">
-                                <a href="/admin/CompanyComputer/add"
-                                    class="nav-link {{ request()->is('admin/CompanyComputer/add') ? 'active' : '' }}">
-                                    <i class="fas fa-regular fa-plus nav-icon"></i>
-                                    <p>Thêm mới</p>
-                                </a>
-                            </li>
-                        @endcan
-                    </ul>
-                </li>
+                        {{-- <span class="badge badge-info right">6</span> --}}
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    @can('list-category')
+                    <li class="nav-item">
+                        <a href="/admin/CompanyComputer"
+                            class="nav-link {{ request()->is('admin/CompanyComputer') ? 'active' : '' }}">
+                            <i class="fas fa-regular fa-list nav-icon"></i>
+                            <p>Danh sách</p>
+                        </a>
+                    </li>
+                    @endcan
+                    @can('add-category')
+                    <li class="nav-item">
+                        <a href="/admin/CompanyComputer/add"
+                            class="nav-link {{ request()->is('admin/CompanyComputer/add') ? 'active' : '' }}">
+                            <i class="fas fa-regular fa-plus nav-icon"></i>
+                            <p>Thêm mới</p>
+                        </a>
+                    </li>
+                    @endcan
+                </ul>
+            </li>
             @endcan
             @can('list-category')
-                <li class="nav-item {{ request()->is('admin/product*') ? ' menu-is-opening menu-open' : '' }}">
-                    <a href="" class="nav-link {{ request()->is('admin/product*') ? 'active' : '' }}">
-                        <i class="fas fa-regular fa-laptop nav-icon"></i>
-                        <p>
-                            Sản phẩm
-                            <i class="fas fa-angle-left right"></i>
-                            {{-- <span class="badge badge-info right">6</span> --}}
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        @can('list-category')
-                            <li class="nav-item">
-                                <a href="/admin/product"
-                                    class="nav-link {{ request()->is('admin/product') ? 'active' : '' }}">
-                                    <i class="fas fa-regular fa-list nav-icon"></i>
-                                    <p>Danh sách</p>
-                                </a>
-                            </li>
-                        @endcan
-                        @can('add-category')
-                            <li class="nav-item">
-                                <a href="/admin/product/add"
-                                    class="nav-link {{ request()->is('admin/product/add') ? 'active' : '' }}">
-                                    <i class="fas fa-regular fa-plus nav-icon"></i>
-                                    <p>Thêm mới</p>
-                                </a>
-                            </li>
-                        @endcan
-                    </ul>
-                </li>
+            <li class="nav-item {{ request()->is('admin/product*') ? ' menu-is-opening menu-open' : '' }}">
+                <a href="" class="nav-link {{ request()->is('admin/product*') ? 'active' : '' }}">
+                    <i class="fas fa-regular fa-laptop nav-icon"></i>
+                    <p>
+                        Sản phẩm
+                        <i class="fas fa-angle-left right"></i>
+                        {{-- <span class="badge badge-info right">6</span> --}}
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    @can('list-category')
+                    <li class="nav-item">
+                        <a href="/admin/product" class="nav-link {{ request()->is('admin/product') ? 'active' : '' }}">
+                            <i class="fas fa-regular fa-list nav-icon"></i>
+                            <p>Danh sách</p>
+                        </a>
+                    </li>
+                    @endcan
+                    @can('add-category')
+                    <li class="nav-item">
+                        <a href="/admin/product/add"
+                            class="nav-link {{ request()->is('admin/product/add') ? 'active' : '' }}">
+                            <i class="fas fa-regular fa-plus nav-icon"></i>
+                            <p>Thêm mới</p>
+                        </a>
+                    </li>
+                    @endcan
+                </ul>
+            </li>
             @endcan
             @can('list-user')
-                <li class="nav-item {{ request()->is('admin/user*') ? ' menu-is-opening menu-open' : '' }}">
-                    <a href="" class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-regular fa-user"></i>
-                        <p>
-                            Tài khoản
-                            <i class="fas fa-angle-left right"></i>
+            <li class="nav-item {{ request()->is('admin/user*') ? ' menu-is-opening menu-open' : '' }}">
+                <a href="" class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-regular fa-user"></i>
+                    <p>
+                        Tài khoản
+                        <i class="fas fa-angle-left right"></i>
 
-                        </p>
-                    </a>
+                    </p>
+                </a>
 
-                    <ul class="nav nav-treeview">
-                        @can('list-user')
-                            <li class="nav-item">
-                                <a href="/admin/user" class="nav-link {{ request()->is('/user') ? 'active' : '' }}">
+                <ul class="nav nav-treeview">
+                    @can('list-user')
+                    <li class="nav-item">
+                        <a href="/admin/user" class="nav-link {{ request()->is('/user') ? 'active' : '' }}">
 
-                                    <i class="fas fa-regular fa-list nav-icon"></i>
-                                    <p>Danh sách</p>
-                                </a>
-                            </li>
-                        @endcan
-                        @can('add-user')
-                            <li class="nav-item">
-                                <a href="/admin/user/add" class="nav-link {{ request()->is('user/add') ? 'active' : '' }}">
-                                    <i class="fas fa-regular fa-plus nav-icon"></i>
-                                    <p>Thêm mới</p>
-                                </a>
-                            </li>
-                        @endcan
-                    </ul>
-                </li>
+                            <i class="fas fa-regular fa-list nav-icon"></i>
+                            <p>Danh sách</p>
+                        </a>
+                    </li>
+                    @endcan
+                    @can('add-user')
+                    <li class="nav-item">
+                        <a href="/admin/user/add" class="nav-link {{ request()->is('user/add') ? 'active' : '' }}">
+                            <i class="fas fa-regular fa-plus nav-icon"></i>
+                            <p>Thêm mới</p>
+                        </a>
+                    </li>
+                    @endcan
+                </ul>
+            </li>
             @endcan
             <li class="nav-item active {{ request()->is('admin/dat-lich/') ? ' menu-is-opening menu-open' : '' }}">
                 <a href="" class="nav-link">
@@ -245,117 +243,89 @@
                 <ul class="nav nav-treeview">
 
                     @can('add-booking')
-                        <li class="nav-item">
-                            <a href="{{ route('dat-lich.add') }}" class="nav-link">
-                                <i class="fas fa-regular fa-plus nav-icon"></i>
-                                <p>Thêm mới</p>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a href="{{ route('dat-lich.add') }}" class="nav-link">
+                            <i class="fas fa-regular fa-plus nav-icon"></i>
+                            <p>Thêm mới</p>
+                        </a>
+                    </li>
                     @endcan
                     @can('list-booking')
-                        <li class="nav-item">
-                            <a href="{{ route('sua-chua.danh-sach-chua-xac-nhan') }}" class="nav-link">
-                                <i class="fas fa-clipboard nav-icon"></i>
-                                <p>DS máy chưa xác nhận</p>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a href="{{ route('sua-chua.danh-sach-chua-xac-nhan') }}" class="nav-link">
+                            <i class="fas fa-clipboard nav-icon"></i>
+                            <p>DS máy chưa xác nhận</p>
+                        </a>
+                    </li>
                     @endcan
                     {{-- <li class="nav-item">
                         <a href="{{ route('dat-lich.user_epair') }}" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
+                            <i class="far fa-circle nav-icon"></i>
                             <p>DS được phân công</p>
                         </a>
                     </li> --}}
                     @can('list-repair')
-                        <li class="nav-item">
-                            <a href="{{ route('sua-chua.danh-sach-cho-sua') }}" class="nav-link">
-                                <i class="fas fa-notes-medical nav-icon"></i>
-                                <p>DS máy chờ sửa </p>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a href="{{ route('sua-chua.danh-sach-cho-sua') }}" class="nav-link">
+                            <i class="fas fa-notes-medical nav-icon"></i>
+                            <p>DS máy chờ sửa </p>
+                        </a>
+                    </li>
                     @endcan
                     @can('list-repair')
-                        <li class="nav-item">
-                            <a href="{{ route('sua-chua.danh-sach-da-sua-xong') }}" class="nav-link">
-                                <i class="fas fa-clipboard-check nav-icon"></i>
-                                <p>DS máy đã sửa xong</p>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a href="{{ route('sua-chua.danh-sach-da-sua-xong') }}" class="nav-link">
+                            <i class="fas fa-clipboard-check nav-icon"></i>
+                            <p>DS máy đã sửa xong</p>
+                        </a>
+                    </li>
                     @endcan
                     @can('list-repair')
-                        <li class="nav-item">
-                            <a href="{{ route('dat-lich.user_epair') }}" class="nav-link">
-                                <i class="fas fa-clipboard-list nav-icon"></i>
-                                <p>DS được phân công </p>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a href="{{ route('dat-lich.user_epair') }}" class="nav-link">
+                            <i class="fas fa-clipboard-list nav-icon"></i>
+                            <p>DS được phân công </p>
+                        </a>
+                    </li>
                     @endcan
                 </ul>
             </li>
             @can('list-product')
-                <li class="nav-item {{ request()->is('admin/detail-product*') ? ' menu-is-opening menu-open' : '' }}">
-                    <a href="" class="nav-link {{ request()->is('admin/detail-product*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            Chi tiết sản phẩm
-                            <i class="fas fa-angle-left right"></i>
-                            {{-- <span class="badge badge-info right">6</span> --}}
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        @can('list-product')
-                            <li class="nav-item">
-                                <a href="/admin/detail-product"
-                                    class="nav-link {{ request()->is('admin/detail-product') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Danh sách</p>
-                                </a>
-                            </li>
-                        @endcan
-                        @can('add-product')
-                            <li class="nav-item">
-                                <a href="/admin/detail-product/add"
-                                    class="nav-link {{ request()->is('admin/detail-product/add') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Thêm mới</p>
-                                </a>
-                            </li>
-                        @endcan
-                    </ul>
-                </li>
-            @endcan
-            <li class="nav-item {{ request()->is('admin/sua-chua*') ? ' menu-is-opening menu-open' : '' }}">
-                <a href="" class="nav-link {{ request()->is('admin/sua-chua*') ? 'active ' : '' }}">
-                    <!-- <li class="nav-item {{ request()->is('admin/category*') ? ' menu-is-opening menu-open' : '' }}">
-                <a href="" class="nav-link {{ request()->is('admin/category*') ? 'active ' : '' }}">
+            <li class="nav-item {{ request()->is('admin/detail-product*') ? ' menu-is-opening menu-open' : '' }}">
+                <a href="" class="nav-link {{ request()->is('admin/detail-product*') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-copy"></i>
                     <p>
-                        Category
+                        Chi tiết sản phẩm
                         <i class="fas fa-angle-left right"></i>
-                        <span class="badge badge-info right">6</span>
+                        {{-- <span class="badge badge-info right">6</span> --}}
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
+                    @can('list-product')
                     <li class="nav-item">
-                        <a href="/admin/category"
-                            class="nav-link {{ request()->is('admin/category') ? 'active' : '' }}">
+                        <a href="/admin/detail-product"
+                            class="nav-link {{ request()->is('admin/detail-product') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Danh sách</p>
                         </a>
                     </li>
+                    @endcan
+                    @can('add-product')
                     <li class="nav-item">
-                        <a href="/admin/category/add"
-                            class="nav-link {{ request()->is('admin/category/add') ? 'active' : '' }}">
+                        <a href="/admin/detail-product/add"
+                            class="nav-link {{ request()->is('admin/detail-product/add') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Thêm mới</p>
                         </a>
                     </li>
-
+                    @endcan
                 </ul>
+            </li>
+            @endcan
+            <li class="nav-item {{ request()->is('admin/sua-chua*') ? ' menu-is-opening menu-open' : '' }}">
+                <a href="" class="nav-link {{ request()->is('admin/sua-chua*') ? 'active ' : '' }}">
 
-            </li> -->
-            <li
-                class="nav-item {{ request()->is('admin/category_component*') ? ' menu-is-opening menu-open' : '' }}">
+            <li class="nav-item {{ request()->is('admin/category_component*') ? ' menu-is-opening menu-open' : '' }}">
                 <a href="" class="nav-link {{ request()->is('admin/category_component*') ? 'active ' : '' }}">
                     <i class="nav-icon fas fa-list-ul"></i>
                     <p>
@@ -373,20 +343,20 @@
                         </a>
                     </li>
                     @can('add-category')
-                        <li class="nav-item">
-                            <a href="/admin/category_component/add"
-                                class="nav-link {{ request()->is('admin/category_component/add') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm mới</p>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a href="/admin/category_component/add"
+                            class="nav-link {{ request()->is('admin/category_component/add') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Thêm mới</p>
+                        </a>
+                    </li>
                     @endcan
 
                 </ul>
 
             </li>
-        @endcan
-        @can('list-product')
+            {{-- @endcan --}}
+            @can('list-product')
             <li class="nav-item {{ request()->is('admin/component*') ? ' menu-is-opening menu-open' : '' }}">
                 <a href="" class="nav-link {{ request()->is('admin/component*') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-th-list"></i>
@@ -398,27 +368,27 @@
                 </a>
                 <ul class="nav nav-treeview">
                     @can('list-product')
-                        <li class="nav-item">
-                            <a href="/admin/component"
-                                class="nav-link {{ request()->is('admin/component') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Danh sách</p>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a href="/admin/component"
+                            class="nav-link {{ request()->is('admin/component') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Danh sách</p>
+                        </a>
+                    </li>
                     @endcan
                     @can('add-product')
-                        <li class="nav-item">
-                            <a href="/admin/component/add"
-                                class="nav-link {{ request()->is('admin/component/add') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm mới</p>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a href="/admin/component/add"
+                            class="nav-link {{ request()->is('admin/component/add') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Thêm mới</p>
+                        </a>
+                    </li>
                     @endcan
                 </ul>
             </li>
-        @endcan
-        @can('list-bill')
+            @endcan
+            @can('list-bill')
             <li class="nav-item {{ request()->is('admin/bills*') ? ' menu-is-opening menu-open' : '' }}">
                 <a href="" class="nav-link {{ request()->is('admin/bills*') ? 'active ' : '' }}">
                     <i class="nav-icon fas fa-copy"></i>
@@ -430,77 +400,77 @@
                 </a>
                 <ul class="nav nav-treeview">
                     @can('list-bill')
-                        <li class="nav-item">
-                            <a href="/admin/bill" class="nav-link {{ request()->is('admin/bill') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Danh sách</p>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a href="/admin/bill" class="nav-link {{ request()->is('admin/bill') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Danh sách</p>
+                        </a>
+                    </li>
                     @endcan
                 </ul>
             </li>
-        @endcan
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-money-check"></i>
-                <p>
-                    Tin Tức
-                    <i class="fas fa-angle-left right"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="/admin/bill" class="nav-link {{ request()->is('admin/bill') ? 'active' : '' }}">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Danh sách</p>
+            @endcan
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-money-check"></i>
+                    <p>
+                        Tin Tức
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="/admin/bill" class="nav-link {{ request()->is('admin/bill') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Danh sách</p>
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Tin Tức
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/admin/tin-tuc" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Danh Sách</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/admin/tin-tuc/add" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Thêm Mới</p>
+                                    </a>
+                                </li>
+                            </ul>
+                    </li>
+                    <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>
-                                Tin Tức
+                                Danh Mục
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/admin/tin-tuc" class="nav-link">
+                                <a href="/admin/danh-muc-tin-tuc" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Danh Sách</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/admin/tin-tuc/add" class="nav-link">
+                                <a href="/admin/danh-muc-tin-tuc/add" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Thêm Mới</p>
                                 </a>
                             </li>
                         </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>
-                            Danh Mục
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="/admin/danh-muc-tin-tuc" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Danh Sách</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/admin/danh-muc-tin-tuc/add" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm Mới</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-        @can('list-role')
+                    </li>
+                </ul>
+            </li>
+            @can('list-role')
             <li class="nav-item {{ request()->is('admin/roles*') ? ' menu-is-opening menu-open' : '' }}">
                 <a href="" class="nav-link {{ request()->is('admin/roles*') ? 'active ' : '' }}">
                     <i class="fas fa-user-tag nav-icon"></i>
@@ -518,8 +488,8 @@
                     </li>
                 </ul>
             </li>
-        @endcan
-    </ul>
-</nav>
-<!-- /.sidebar-menu -->
+            @endcan
+        </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
 </div>

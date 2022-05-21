@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Support\Facades\Route;
+
 class HomeController extends Controller
 {
 
@@ -25,15 +26,15 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {   
-        session()->put('url_path',FacadesRequest::path());
+    {
+        session()->put('url_path', FacadesRequest::path());
         $product_hot_sell = Product::select('billdetail.*', 'products.*', DB::raw('SUM(billdetail.quaty) As total'))
-        ->join('billdetail', 'billdetail.product_id', '=', 'products.id')
-        ->groupBy('products.id')
-        ->where('status',1)
-        ->orderBy('total' ,'DESC')
-        ->get()
-        ->take(8);
+            ->join('billdetail', 'billdetail.product_id', '=', 'products.id')
+            ->groupBy('products.id')
+            ->where('status', 1)
+            ->orderBy('total', 'DESC')
+            ->get()
+            ->take(8);
         $ComputerCompany = ComputerCompany::all();
         $productNew = Product::where('status', 1)->orderBy('id', 'DESC')->get()->take(8);
         // dd($productNew);
@@ -42,59 +43,58 @@ class HomeController extends Controller
         // $searchData = compact('keyword', 'computerCompany_id');
 
         $news = News::all();
-        return view('website.index', compact('products', 'ComputerCompany', 'productNew', 'images','product_hot_sell','news'));
+        return view('website.index', compact('products', 'ComputerCompany', 'productNew', 'images', 'product_hot_sell', 'news'));
     }
     public function logout(Request $request)
     {
         Auth::logout();
         return redirect('/');
-
     }
     public function show(Request $request)
     {
         // dd($product=Product::all());
 
         // dd($keyword, $cate_id, $rq_column_names, $rq_order_by);
-        
+
         $ComputerCompany = ComputerCompany::all();
-        $productNew = Product::where('status',1)->orderBy('id', 'DESC')->get()->take(4);
+        $productNew = Product::where('status', 1)->orderBy('id', 'DESC')->get()->take(4);
         // dd($productNew);
-        $products = Product::where('status',1)->get();
-        foreach($products as $product){
-        $images = DB::table('product_images')->get();
-        }   
+        $products = Product::where('status', 1)->get();
+        foreach ($products as $product) {
+            $images = DB::table('product_images')->get();
+        }
         // $searchData = compact('keyword', 'computerCompany_id');
-        return view('website.product', compact('products', 'ComputerCompany','productNew'  ));
+        return view('website.product', compact('products', 'ComputerCompany', 'productNew',));
         // return response()->json($products);
     }
     public function detail($slug)
-    {   
+    {
         $ComputerCompany = ComputerCompany::all();
-        $pro = Product::where('slug',$slug)->first();
+        $pro = Product::where('slug', $slug)->first();
         // dd($ComputerCompany);
         if (!$pro || !$ComputerCompany) {
-            $productNew = Product::where('status',1)->orderBy('id', 'DESC')->get()->take(4);
-            $products = Product::where('status',1)->get();
+            $productNew = Product::where('status', 1)->orderBy('id', 'DESC')->get()->take(4);
+            $products = Product::where('status', 1)->get();
             $images = DB::table('product_images')->get();
-            return view('website.product',compact('productNew','ComputerCompany','products','images'))->with('error','Không tìm thấy sản phẩm');
+            return view('website.product', compact('productNew', 'ComputerCompany', 'products', 'images'))->with('error', 'Không tìm thấy sản phẩm');
         }
         // $countPro = Product::where('');
         // ->join('computer_companies', 'products.companyComputer_id', '=', 'computer_companies.id')->select()->first();
-        $detailPro = DB::table('attribute_value')->where('product_id',$pro->id)->get();
+        $detailPro = DB::table('attribute_value')->where('product_id', $pro->id)->get();
         // dd(DB::table('attribute_value')->where('product_id',$id)->get());
-        $products = Product::where('companyComputer_id', $pro->companyComputer_id)->where('status',1)->get()->take(4);
+        $products = Product::where('companyComputer_id', $pro->companyComputer_id)->where('status', 1)->get()->take(4);
         $images = DB::table('product_images')->get();
         // dd($detailPro);
 
         return view(
             'website.product-detail',
-            compact('pro','detailPro','products','images')
+            compact('pro', 'detailPro', 'products', 'images')
         );
     }
     public function company($id)
-    {   
-        $products = Product::where('companyComputer_id',$id)->get();;
-        
+    {
+        $products = Product::where('companyComputer_id', $id)->get();;
+
         $ComputerCompany = ComputerCompany::find($id);
         $images = DB::table('product_images')->get();
         // dd($ComputerCompany = ComputerCompany::find($id)->first());
@@ -103,11 +103,11 @@ class HomeController extends Controller
         // $pro = Product::find($id);
         // $detailPro = DetailProduct::where('id', $companyComputer_id)->get();
         if ($ComputerCompany == NULL) {
-            return back()->with('error','Không tìm thấy danh mục sản phẩm');
+            return back()->with('error', 'Không tìm thấy danh mục sản phẩm');
         }
         return view(
             'website.product-category',
-            compact('products','ComputerCompany','images')
+            compact('products', 'ComputerCompany', 'images')
         );
     }
 }
