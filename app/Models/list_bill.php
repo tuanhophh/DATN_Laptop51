@@ -21,7 +21,7 @@ class list_bill extends Model
 
     public function booking()
     {
-        return $this->belongsToMany(Booking::class, 'booking_details', 'id', 'booking_detail_id');
+        return $this->belongsToMany(Booking::class, 'booking_details', 'booking_detail_id', 'booking_id');
     }
     /**
      * Get the booking_detail associated with the Bill
@@ -30,7 +30,7 @@ class list_bill extends Model
      */
     public function booking_detail()
     {
-        return $this->hasOne(BookingDetail::class, 'booking_detail_id', 'id');
+        return $this->hasOne(BookingDetail::class, 'id', 'booking_detail_id');
     }
     /**
      * Get the component that owns the list_bill
@@ -45,5 +45,10 @@ class list_bill extends Model
     public function bill_user()
     {
         return $this->hasOne(BillUser::class, 'code', 'bill_code');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

@@ -23,7 +23,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;"  id="dropdown-notification">
                 @foreach (Auth::user()->notifications as $notification)
-                <a href="{{$notification->data['url']}}" @if($notification->unread()) style="background:#f8f9fa;" @endif" class="dropdown-item">
+                <a href="{{$notification->data['url']}}" @if($notification->unread()) style="background:#f8f9fa;" @endif class="dropdown-item">
                     <div class="media">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">

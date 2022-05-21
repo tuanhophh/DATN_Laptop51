@@ -17,9 +17,9 @@ class Booking extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function bookingDetail()
+    public function booking_detail()
     {
-        return $this->hasMany(BookingDetail::class, 'booking_id', 'id');
+        return $this->hasOne(BookingDetail::class, 'booking_id', 'id');
     }
     /**
      * The roles that belong to the Booking

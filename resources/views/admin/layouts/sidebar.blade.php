@@ -214,7 +214,7 @@
                 <ul class="nav nav-treeview">
                     @can('list-user')
                     <li class="nav-item">
-                        <a href="/admin/user" class="nav-link {{ request()->is('/user') ? 'active' : '' }}">
+                        <a href="/admin/user" class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}">
 
                             <i class="fas fa-regular fa-list nav-icon"></i>
                             <p>Danh sách</p>
@@ -232,8 +232,8 @@
                 </ul>
             </li>
             @endcan
-            <li class="nav-item active {{ request()->is('admin/dat-lich/') ? ' menu-is-opening menu-open' : '' }}">
-                <a href="" class="nav-link">
+            <li class="nav-item active {{ request()->is('admin/dat-lich*') ? ' menu-is-opening menu-open' : '' }}">
+                <a href="" class="nav-link {{ request()->is('admin/dat-lich*') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-clipboard-list"></i>
                     <p>
                         Danh sách đặt lịch
@@ -244,16 +244,16 @@
 
                     @can('add-booking')
                     <li class="nav-item">
-                        <a href="{{ route('dat-lich.add') }}" class="nav-link">
-                            <i class="fas fa-regular fa-plus nav-icon"></i>
+                        <a href="{{ route('dat-lich.add') }}" class="nav-link {{ request()->is('admin/dat-lich/tao-moi') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
                             <p>Thêm mới</p>
                         </a>
                     </li>
                     @endcan
                     @can('list-booking')
                     <li class="nav-item">
-                        <a href="{{ route('sua-chua.danh-sach-chua-xac-nhan') }}" class="nav-link">
-                            <i class="fas fa-clipboard nav-icon"></i>
+                        <a href="{{ route('sua-chua.danh-sach-chua-xac-nhan') }}" class="nav-link {{ request()->is('admin/dat-lich/danh-sach-chua-xac-nhan') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
                             <p>DS máy chưa xác nhận</p>
                         </a>
                     </li>
@@ -266,65 +266,32 @@
                     </li> --}}
                     @can('list-repair')
                     <li class="nav-item">
-                        <a href="{{ route('sua-chua.danh-sach-cho-sua') }}" class="nav-link">
-                            <i class="fas fa-notes-medical nav-icon"></i>
+                        <a href="{{ route('sua-chua.danh-sach-cho-sua') }}" class="nav-link {{ request()->is('admin/dat-lich/danh-sach-cho-sua') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
                             <p>DS máy chờ sửa </p>
                         </a>
                     </li>
                     @endcan
                     @can('list-repair')
                     <li class="nav-item">
-                        <a href="{{ route('sua-chua.danh-sach-da-sua-xong') }}" class="nav-link">
-                            <i class="fas fa-clipboard-check nav-icon"></i>
+                        <a href="{{ route('sua-chua.danh-sach-da-sua-xong') }}" class="nav-link {{ request()->is('admin/dat-lich/danh-sach-da-sua-xong') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
                             <p>DS máy đã sửa xong</p>
                         </a>
                     </li>
                     @endcan
                     @can('list-repair')
                     <li class="nav-item">
-                        <a href="{{ route('dat-lich.user_epair') }}" class="nav-link">
-                            <i class="fas fa-clipboard-list nav-icon"></i>
+                        <a href="{{ route('dat-lich.user_epair') }}" class="nav-link {{ request()->is('admin/dat-lich/user_epair') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
                             <p>DS được phân công </p>
                         </a>
                     </li>
                     @endcan
                 </ul>
             </li>
-            @can('list-product')
-            <li class="nav-item {{ request()->is('admin/detail-product*') ? ' menu-is-opening menu-open' : '' }}">
-                <a href="" class="nav-link {{ request()->is('admin/detail-product*') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-copy"></i>
-                    <p>
-                        Chi tiết sản phẩm
-                        <i class="fas fa-angle-left right"></i>
-                        {{-- <span class="badge badge-info right">6</span> --}}
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    @can('list-product')
-                    <li class="nav-item">
-                        <a href="/admin/detail-product"
-                            class="nav-link {{ request()->is('admin/detail-product') ? 'active' : '' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Danh sách</p>
-                        </a>
-                    </li>
-                    @endcan
-                    @can('add-product')
-                    <li class="nav-item">
-                        <a href="/admin/detail-product/add"
-                            class="nav-link {{ request()->is('admin/detail-product/add') ? 'active' : '' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Thêm mới</p>
-                        </a>
-                    </li>
-                    @endcan
-                </ul>
-            </li>
-            @endcan
-            <li class="nav-item {{ request()->is('admin/sua-chua*') ? ' menu-is-opening menu-open' : '' }}">
-                <a href="" class="nav-link {{ request()->is('admin/sua-chua*') ? 'active ' : '' }}">
-
+            
+            @can('list-category')
             <li class="nav-item {{ request()->is('admin/category_component*') ? ' menu-is-opening menu-open' : '' }}">
                 <a href="" class="nav-link {{ request()->is('admin/category_component*') ? 'active ' : '' }}">
                     <i class="nav-icon fas fa-list-ul"></i>
@@ -389,11 +356,11 @@
             </li>
             @endcan
             @can('list-bill')
-            <li class="nav-item {{ request()->is('admin/bills*') ? ' menu-is-opening menu-open' : '' }}">
-                <a href="" class="nav-link {{ request()->is('admin/bills*') ? 'active ' : '' }}">
-                    <i class="nav-icon fas fa-copy"></i>
+            <li class="nav-item {{ request()->is('admin/bill*') ? ' menu-is-opening menu-open' : '' }}">
+                <a href="" class="nav-link {{ request()->is('admin/bill*') ? 'active ' : '' }}">
+                    <i class="nav-icon fas fa-money-bill"></i>
                     <p>
-                        Hóa đơn
+                        Danh sách đặt lịch
                         <i class="fas fa-angle-left right"></i>
                         <span class="badge badge-info right">6</span>
                     </p>
@@ -404,6 +371,16 @@
                         <a href="/admin/bill" class="nav-link {{ request()->is('admin/bill') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Danh sách</p>
+                        </a>
+                    </li>
+                    @endcan
+
+                    @can('list-bill')
+
+                    <li class="nav-item">
+                        <a href="/admin/bill" class="nav-link {{ request()->is('admin/bill/aa') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
+                            <p>Hóa đơn</p>
                         </a>
                     </li>
                     @endcan
