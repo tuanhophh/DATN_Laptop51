@@ -219,6 +219,7 @@ Route::prefix('user')->group(function () {
     Route::get('edit/{id}', [UserController::class, 'editForm'])->name('user.edit')->middleware('can:edit-user');
     Route::post('edit/{id}', [UserController::class, 'saveEdit'])->middleware('can:edit-user');
 });
+
 Route::prefix('roles')->group(function () {
     Route::get('/', [RoleController::class, 'index'])->name('roles.index');
     Route::get('add', [RoleController::class, 'create'])->name('roles.create');
@@ -226,4 +227,6 @@ Route::prefix('roles')->group(function () {
     Route::get('remove/{id}', [RoleController::class, 'remove'])->name('roles.remove');
     Route::get('edit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
     Route::post('edit/{id}', [RoleController::class, 'update'])->name('roles.update');
+});
+
 });

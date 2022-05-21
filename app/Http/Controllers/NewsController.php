@@ -86,7 +86,7 @@ class NewsController extends Controller
         $query = News::where('title', 'like', "%$keyword%");
         $news = $query->paginate($pageSize);
         $category_news = Categories_new::all();
-        $news->load('category_news','user');
+        // $news->load('category_news','user');
         $searchData = compact('keyword');
         return view('website.news.tin-tuc', compact('news','category_news','searchData'));
     }

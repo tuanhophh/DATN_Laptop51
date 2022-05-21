@@ -37,231 +37,75 @@
         <!-- BREADCRUMBS SETCTION END -->
 
         <!-- Start page content -->
-        <div id="page-content" class="page-wrapper section">
+        <section id="page-content" class="page-wrapper section">
 
             <!-- BLOG SECTION START -->
             <div class="blog-section mb-50">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-9 order-lg-2 order-1">
-                            <div class="row">
-                                <!-- blog-option start -->
-                                <div class="col-lg-12">
-                                    <div class="blog-option box-shadow mb-30  clearfix">
-                                        <!-- categories -->
-                                        <div class="dropdown f-left">
-                                            <button class="option-btn">
-                                                Danh mục
-                                                <i class="zmdi zmdi-chevron-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-width mt-30">
-                                                <aside class="widget widget-categories box-shadow">
-                                                    <h6 class="widget-title border-left mb-20">Danh mục</h6>
-                                                    <div id="cat-treeview-2" class="product-cat">
-                                                        <ul>
-                                                            <li class="closed"><a href="#">Brand One</a>
-                                                                <ul>
-                                                                    <li><a href="#">Mobile</a></li>
-                                                                    <li><a href="#">Tab</a></li>
-                                                                    <li><a href="#">Watch</a></li>
-                                                                    <li><a href="#">Head Phone</a></li>
-                                                                    <li><a href="#">Memory</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="open"><a href="#">Brand Two</a>
-                                                                <ul>
-                                                                    <li><a href="#">Mobile</a></li>
-                                                                    <li><a href="#">Tab</a></li>
-                                                                    <li><a href="#">Watch</a></li>
-                                                                    <li><a href="#">Head Phone</a></li>
-                                                                    <li><a href="#">Memory</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="closed"><a href="#">Accessories</a>
-                                                                <ul>
-                                                                    <li><a href="#">Footwear</a></li>
-                                                                    <li><a href="#">Sunglasses</a></li>
-                                                                    <li><a href="#">Watches</a></li>
-                                                                    <li><a href="#">Utilities</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="closed"><a href="#">Top Brands</a>
-                                                                <ul>
-                                                                    <li><a href="#">Mobile</a></li>
-                                                                    <li><a href="#">Tab</a></li>
-                                                                    <li><a href="#">Watch</a></li>
-                                                                    <li><a href="#">Head Phone</a></li>
-                                                                    <li><a href="#">Memory</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="closed"><a href="#">Jewelry</a>
-                                                                <ul>
-                                                                    <li><a href="#">Footwear</a></li>
-                                                                    <li><a href="#">Sunglasses</a></li>
-                                                                    <li><a href="#">Watches</a></li>
-                                                                    <li><a href="#">Utilities</a></li>
-                                                                </ul>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </aside>
-                                            </div>
-                                        </div>
-                                        <!-- Tags -->
-                                        <div class="dropdown f-left">
-                                            <button class="option-btn">
-                                                Người đăng
-                                                <i class="zmdi zmdi-chevron-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-width mt-30">
-                                                <aside class="widget widget-tags box-shadow">
-                                                    <h6 class="widget-title border-left mb-20">Người đăng</h6>
-                                                    <ul class="widget-tags-list">
-                                                        <li><a href="#">Admin</a></li>
-                                                        <li><a href="#">Lễ tân</a></li>
-                                                        <li><a href="#">Thợ sửa</a></li>
-                                                    </ul>
-                                                </aside>
-                                            </div>
-                                        </div>
+                        <div class="col-lg-9">
+                            <div class="blog-details-area">
+                                <!-- blog-details-photo -->
+                                <div class="blog-details-photo bg-img-1 p-20 mb-30">
+                                    <img src="{{ asset($news->image) }}" alt="">
+                                    <div class="today-date bg-img-1">
+                                        <span class="meta-date">{{ $news->created_at->format('d') }}</span>
+                                        <span class="meta-month">Tháng {{ $news->created_at->format('m') }}</span>
                                     </div>
                                 </div>
-                                <!-- blog-option end -->
-                            </div>
-                            <div class="row">
-                                <!-- blog-item start -->
-                                <div class="col">
-                                    <div class="template-component-header-subheader">
-                                        <h2>{{ $news->title }}</h2>
-                                        <div></div>
-                                        <span> {{ $news->created_at->format('M-d-Y') }} -
-                                            @if (!empty($news->category_news->name))
-                                                {{ $news->category_news->name }}
-                                            @endif
-                                        </span>
-                                    </div>
-                                    <div class="template-clear-fix template-align-center">
-
-                                        <!-- Text -->
-                                        <p>
-                                            {!! $news->description !!}
-                                        </p>
-
-                                        <!-- Space -->
-                                        <div class="template-component-space template-component-space-2"></div>
-                                    </div>
+                                <!-- blog-details-title -->
+                                <h3 class="blog-details-title mb-30">{{ $news->title }}</h3>
+                                <p>{{ $news->description_short }}</p>
+                                <!-- blog-description -->
+                                <div class="blog-description mb-60">
+                                    <p>{!! $news->description !!}</p>
                                 </div>
-                                <!-- blog-item end -->
+                                <!--  -->
                             </div>
                         </div>
-                        <!-- sidebar -->
-                        <div class="col-lg-3 order-lg-1 order-2">
+                        <div class="col-lg-3">
                             <!-- widget-search -->
-                            <aside class="widget-search mb-30">
-                                <form action="#">
-                                    <input type="text" placeholder="Tìm kiếm...">
-                                    <button type="submit"><i class="zmdi zmdi-search"></i></button>
-                                </form>
-                            </aside>
+
                             <!-- widget-categories -->
                             <aside class="widget widget-categories box-shadow mb-30">
                                 <h6 class="widget-title border-left mb-20">Danh mục tin tức</h6>
                                 <div id="cat-treeview" class="product-cat">
                                     <ul>
-                                        <li class="closed"><a href="#">Brand One</a>
-                                            <ul>
-                                                <li><a href="#">Mobile</a></li>
-                                                <li><a href="#">Tab</a></li>
-                                                <li><a href="#">Watch</a></li>
-                                                <li><a href="#">Head Phone</a></li>
-                                                <li><a href="#">Memory</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="open"><a href="#">Brand Two</a>
-                                            <ul>
-                                                <li><a href="#">Mobile</a></li>
-                                                <li><a href="#">Tab</a></li>
-                                                <li><a href="#">Watch</a></li>
-                                                <li><a href="#">Head Phone</a></li>
-                                                <li><a href="#">Memory</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="closed"><a href="#">Accessories</a>
-                                            <ul>
-                                                <li><a href="#">Footwear</a></li>
-                                                <li><a href="#">Sunglasses</a></li>
-                                                <li><a href="#">Watches</a></li>
-                                                <li><a href="#">Utilities</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="closed"><a href="#">Top Brands</a>
-                                            <ul>
-                                                <li><a href="#">Mobile</a></li>
-                                                <li><a href="#">Tab</a></li>
-                                                <li><a href="#">Watch</a></li>
-                                                <li><a href="#">Head Phone</a></li>
-                                                <li><a href="#">Memory</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="closed"><a href="#">Jewelry</a>
-                                            <ul>
-                                                <li><a href="#">Footwear</a></li>
-                                                <li><a href="#">Sunglasses</a></li>
-                                                <li><a href="#">Watches</a></li>
-                                                <li><a href="#">Utilities</a></li>
-                                            </ul>
-                                        </li>
+                                        @foreach ($category_news as $item)
+                                            <li class="closed">
+                                                <a href="{{ route('category', ['id' => $item->id]) }}">
+                                                    <span>{{ $item->name }}</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </aside>
-
                             <!-- widget-product -->
                             <aside class="widget widget-product box-shadow">
                                 <h6 class="widget-title border-left mb-20">Tin tức liên quan</h6>
                                 <!-- product-item start -->
-                                <div class="product-item">
-                                    <div class="product-img">
-                                        <a href="single-product.html">
-                                            <img src="img/product/4.jpg" alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="single-product.html">Product Name</a>
-                                        </h6>
-                                        <h3 class="pro-price">$ 869.00</h3>
-                                    </div>
-                                </div>
-                                <!-- product-item end -->
-                                <!-- product-item start -->
-                                <div class="product-item">
-                                    <div class="product-img">
-                                        <a href="single-product.html">
-                                            <img src="img/product/8.jpg" alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="single-product.html">Product Name</a>
-                                        </h6>
-                                        <h3 class="pro-price">$ 869.00</h3>
-                                    </div>
-                                </div>
-                                <!-- product-item end -->
-                                <!-- product-item start -->
-                                <div class="product-item">
-                                    <div class="product-img">
-                                        <a href="single-product.html">
-                                            <img src="img/product/12.jpg" alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="single-product.html">Product Name</a>
-                                        </h6>
-                                        <h3 class="pro-price">$ 869.00</h3>
-                                    </div>
-                                </div>
+
+                                @foreach ($news_all as $item)
+                                    @if ($item->category_news_id == $news->category_news_id && $item->status == 1)
+                                        <div class="product-item">
+                                            <div class="product-img">
+                                                <a href="{{ route('tin-tuc-detail', ['id' => $item->id]) }}">
+                                                    <img src="{{ asset($item->image) }}" alt="" width="100" />
+                                                </a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h6 class="product-title">
+                                                    <a
+                                                        href="{{ route('tin-tuc-detail', ['id' => $item->id]) }}">{{ $item->title }}</a>
+                                                </h6>
+                                                <h3 class="pro-price">{{ $item->created_at->format('d-m-Y') }}
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+
                                 <!-- product-item end -->
                             </aside>
                         </div>
@@ -269,7 +113,8 @@
                 </div>
             </div>
             <!-- BLOG SECTION END -->
-        </div>
+
+        </section>
         <!-- End page content -->
 
         <!-- START FOOTER AREA -->

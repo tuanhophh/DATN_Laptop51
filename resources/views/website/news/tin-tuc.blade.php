@@ -59,56 +59,21 @@
                                                     <h6 class="widget-title border-left mb-20">Danh mục</h6>
                                                     <div id="cat-treeview-2" class="product-cat">
                                                         <ul>
-                                                            <li class="closed"><a href="#">Brand One</a>
-                                                                <ul>
-                                                                    <li><a href="#">Mobile</a></li>
-                                                                    <li><a href="#">Tab</a></li>
-                                                                    <li><a href="#">Watch</a></li>
-                                                                    <li><a href="#">Head Phone</a></li>
-                                                                    <li><a href="#">Memory</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="open"><a href="#">Brand Two</a>
-                                                                <ul>
-                                                                    <li><a href="#">Mobile</a></li>
-                                                                    <li><a href="#">Tab</a></li>
-                                                                    <li><a href="#">Watch</a></li>
-                                                                    <li><a href="#">Head Phone</a></li>
-                                                                    <li><a href="#">Memory</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="closed"><a href="#">Accessories</a>
-                                                                <ul>
-                                                                    <li><a href="#">Footwear</a></li>
-                                                                    <li><a href="#">Sunglasses</a></li>
-                                                                    <li><a href="#">Watches</a></li>
-                                                                    <li><a href="#">Utilities</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="closed"><a href="#">Top Brands</a>
-                                                                <ul>
-                                                                    <li><a href="#">Mobile</a></li>
-                                                                    <li><a href="#">Tab</a></li>
-                                                                    <li><a href="#">Watch</a></li>
-                                                                    <li><a href="#">Head Phone</a></li>
-                                                                    <li><a href="#">Memory</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="closed"><a href="#">Jewelry</a>
-                                                                <ul>
-                                                                    <li><a href="#">Footwear</a></li>
-                                                                    <li><a href="#">Sunglasses</a></li>
-                                                                    <li><a href="#">Watches</a></li>
-                                                                    <li><a href="#">Utilities</a></li>
-                                                                </ul>
-                                                            </li>
+                                                            @foreach ($category_news as $item)
+                                                                <li class="closed">
+                                                                    <a
+                                                                        href="{{ route('category', ['id' => $item->id]) }}">
+                                                                        <span>{{ $item->name }}</span>
+                                                                    </a>
+                                                                </li>
+                                                            @endforeach
                                                         </ul>
                                                     </div>
                                                 </aside>
                                             </div>
                                         </div>
                                         <!-- Tags -->
-                                        <div class="dropdown f-left">
+                                        {{-- <div class="dropdown f-left">
                                             <button class="option-btn">
                                                 Người đăng
                                                 <i class="zmdi zmdi-chevron-down"></i>
@@ -123,236 +88,45 @@
                                                     </ul>
                                                 </aside>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <!-- blog-option end -->
                             </div>
                             <div class="row">
-                                <!-- blog-item start -->
-                                <div class="col-md-6">
-                                    <div class="blog-item">
-                                        <img src="img/blog/1.jpg" alt="">
-                                        <div class="blog-desc">
-                                            <h5 class="blog-title"><a href="single-blog.html">dummy Blog name</a>
-                                            </h5>
-                                            <p>There are many variations of passages of psum available, but the majority
-                                                have suffered alterat on in some form, by injected humour, randomis
-                                                words which don't look even slightly.</p>
-                                            <div class="read-more">
-                                                <a href="single-blog.html">Read more</a>
+                                @foreach ($news as $item)
+                                    @if ($item->status == 1)
+                                        <!-- blog-item start -->
+                                        <div class="col-md-6">
+                                            <div class="blog-item-2">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="blog-image">
+                                                            <a
+                                                                href="{{ route('tin-tuc-detail', ['id' => $item->id]) }}"><img
+                                                                    src="{{ asset($item->image) }}" alt=""></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="blog-desc">
+                                                            <h5 class="blog-title-2"><a
+                                                                    href="{{ route('tin-tuc-detail', ['id' => $item->id]) }}">{{ $item->title }}</a>
+                                                            </h5>
+                                                            <p>{{ $item->description_short }}</p>
+                                                            <div class="read-more">
+
+                                                                <a class="button extra-small"
+                                                                    href="{{ route('tin-tuc-detail', ['id' => $item->id]) }}">
+                                                                    <span class="text-uppercase">Đọc Ngay</span> </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <ul class="blog-meta">
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                                </li>
-                                            </ul>
                                         </div>
-                                    </div>
-                                </div>
-                                <!-- blog-item end -->
-                                <!-- blog-item start -->
-                                <div class="col-md-6">
-                                    <div class="blog-item">
-                                        <img src="img/blog/2.jpg" alt="">
-                                        <div class="blog-desc">
-                                            <h5 class="blog-title"><a href="single-blog.html">dummy Blog name</a>
-                                            </h5>
-                                            <p>There are many variations of passages of psum available, but the majority
-                                                have suffered alterat on in some form, by injected humour, randomis
-                                                words which don't look even slightly.</p>
-                                            <div class="read-more">
-                                                <a href="single-blog.html">Read more</a>
-                                            </div>
-                                            <ul class="blog-meta">
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- blog-item end -->
-                                <!-- blog-item start -->
-                                <div class="col-md-6">
-                                    <div class="blog-item">
-                                        <img src="img/blog/3.jpg" alt="">
-                                        <div class="blog-desc">
-                                            <h5 class="blog-title"><a href="single-blog.html">dummy Blog name</a>
-                                            </h5>
-                                            <p>There are many variations of passages of psum available, but the majority
-                                                have suffered alterat on in some form, by injected humour, randomis
-                                                words which don't look even slightly.</p>
-                                            <div class="read-more">
-                                                <a href="single-blog.html">Read more</a>
-                                            </div>
-                                            <ul class="blog-meta">
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- blog-item end -->
-                                <!-- blog-item start -->
-                                <div class="col-md-6">
-                                    <div class="blog-item">
-                                        <img src="img/blog/4.jpg" alt="">
-                                        <div class="blog-desc">
-                                            <h5 class="blog-title"><a href="single-blog.html">dummy Blog name</a>
-                                            </h5>
-                                            <p>There are many variations of passages of psum available, but the majority
-                                                have suffered alterat on in some form, by injected humour, randomis
-                                                words which don't look even slightly.</p>
-                                            <div class="read-more">
-                                                <a href="single-blog.html">Read more</a>
-                                            </div>
-                                            <ul class="blog-meta">
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- blog-item end -->
-                                <!-- blog-item start -->
-                                <div class="col-md-6">
-                                    <div class="blog-item">
-                                        <img src="img/blog/5.jpg" alt="">
-                                        <div class="blog-desc">
-                                            <h5 class="blog-title"><a href="single-blog.html">dummy Blog name</a>
-                                            </h5>
-                                            <p>There are many variations of passages of psum available, but the majority
-                                                have suffered alterat on in some form, by injected humour, randomis
-                                                words which don't look even slightly.</p>
-                                            <div class="read-more">
-                                                <a href="single-blog.html">Read more</a>
-                                            </div>
-                                            <ul class="blog-meta">
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- blog-item end -->
-                                <!-- blog-item start -->
-                                <div class="col-md-6">
-                                    <div class="blog-item">
-                                        <img src="img/blog/6.jpg" alt="">
-                                        <div class="blog-desc">
-                                            <h5 class="blog-title"><a href="single-blog.html">dummy Blog name</a>
-                                            </h5>
-                                            <p>There are many variations of passages of psum available, but the majority
-                                                have suffered alterat on in some form, by injected humour, randomis
-                                                words which don't look even slightly.</p>
-                                            <div class="read-more">
-                                                <a href="single-blog.html">Read more</a>
-                                            </div>
-                                            <ul class="blog-meta">
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- blog-item end -->
-                                <!-- blog-item start -->
-                                <div class="col-md-6">
-                                    <div class="blog-item">
-                                        <img src="img/blog/1.jpg" alt="">
-                                        <div class="blog-desc">
-                                            <h5 class="blog-title"><a href="single-blog.html">dummy Blog name</a>
-                                            </h5>
-                                            <p>There are many variations of passages of psum available, but the majority
-                                                have suffered alterat on in some form, by injected humour, randomis
-                                                words which don't look even slightly.</p>
-                                            <div class="read-more">
-                                                <a href="single-blog.html">Read more</a>
-                                            </div>
-                                            <ul class="blog-meta">
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- blog-item end -->
-                                <!-- blog-item start -->
-                                <div class="col-md-6">
-                                    <div class="blog-item">
-                                        <img src="img/blog/7.jpg" alt="">
-                                        <div class="blog-desc">
-                                            <h5 class="blog-title"><a href="single-blog.html">dummy Blog name</a>
-                                            </h5>
-                                            <p>There are many variations of passages of psum available, but the majority
-                                                have suffered alterat on in some form, by injected humour, randomis
-                                                words which don't look even slightly.</p>
-                                            <div class="read-more">
-                                                <a href="single-blog.html">Read more</a>
-                                            </div>
-                                            <ul class="blog-meta">
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- blog-item end -->
+                                        <!-- blog-item end -->
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                         <!-- sidebar -->
@@ -360,7 +134,8 @@
                             <!-- widget-search -->
                             <aside class="widget-search mb-30">
                                 <form action="#">
-                                    <input type="text" placeholder="Tìm kiếm...">
+                                    <input type="text" name="keyword" value="{{ $searchData['keyword'] }}"
+                                        placeholder="Tìm kiếm...">
                                     <button type="submit"><i class="zmdi zmdi-search"></i></button>
                                 </form>
                             </aside>
@@ -369,100 +144,40 @@
                                 <h6 class="widget-title border-left mb-20">Danh mục tin tức</h6>
                                 <div id="cat-treeview" class="product-cat">
                                     <ul>
-                                        <li class="closed"><a href="#">Brand One</a>
-                                            <ul>
-                                                <li><a href="#">Mobile</a></li>
-                                                <li><a href="#">Tab</a></li>
-                                                <li><a href="#">Watch</a></li>
-                                                <li><a href="#">Head Phone</a></li>
-                                                <li><a href="#">Memory</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="open"><a href="#">Brand Two</a>
-                                            <ul>
-                                                <li><a href="#">Mobile</a></li>
-                                                <li><a href="#">Tab</a></li>
-                                                <li><a href="#">Watch</a></li>
-                                                <li><a href="#">Head Phone</a></li>
-                                                <li><a href="#">Memory</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="closed"><a href="#">Accessories</a>
-                                            <ul>
-                                                <li><a href="#">Footwear</a></li>
-                                                <li><a href="#">Sunglasses</a></li>
-                                                <li><a href="#">Watches</a></li>
-                                                <li><a href="#">Utilities</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="closed"><a href="#">Top Brands</a>
-                                            <ul>
-                                                <li><a href="#">Mobile</a></li>
-                                                <li><a href="#">Tab</a></li>
-                                                <li><a href="#">Watch</a></li>
-                                                <li><a href="#">Head Phone</a></li>
-                                                <li><a href="#">Memory</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="closed"><a href="#">Jewelry</a>
-                                            <ul>
-                                                <li><a href="#">Footwear</a></li>
-                                                <li><a href="#">Sunglasses</a></li>
-                                                <li><a href="#">Watches</a></li>
-                                                <li><a href="#">Utilities</a></li>
-                                            </ul>
-                                        </li>
+                                        @foreach ($category_news as $item)
+                                            <li class="closed">
+                                                <a href="{{ route('category', ['id' => $item->id]) }}">
+                                                    <span>{{ $item->name }}</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </aside>
 
                             <!-- widget-product -->
                             <aside class="widget widget-product box-shadow">
-                                <h6 class="widget-title border-left mb-20">Tin tức liên quan</h6>
+                                <h6 class="widget-title border-left mb-20">Tin tức HOT</h6>
                                 <!-- product-item start -->
-                                <div class="product-item">
-                                    <div class="product-img">
-                                        <a href="single-product.html">
-                                            <img src="img/product/4.jpg" alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="single-product.html">Product Name</a>
-                                        </h6>
-                                        <h3 class="pro-price">$ 869.00</h3>
-                                    </div>
-                                </div>
-                                <!-- product-item end -->
-                                <!-- product-item start -->
-                                <div class="product-item">
-                                    <div class="product-img">
-                                        <a href="single-product.html">
-                                            <img src="img/product/8.jpg" alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="single-product.html">Product Name</a>
-                                        </h6>
-                                        <h3 class="pro-price">$ 869.00</h3>
-                                    </div>
-                                </div>
-                                <!-- product-item end -->
-                                <!-- product-item start -->
-                                <div class="product-item">
-                                    <div class="product-img">
-                                        <a href="single-product.html">
-                                            <img src="img/product/12.jpg" alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="single-product.html">Product Name</a>
-                                        </h6>
-                                        <h3 class="pro-price">$ 869.00</h3>
-                                    </div>
-                                </div>
+                                @foreach ($news as $item)
+                                    @if ($item->status == 1)
+                                        <div class="product-item">
+                                            <div class="product-img">
+                                                <a href="{{ route('tin-tuc-detail', ['id' => $item->id]) }}">
+                                                    <img src="{{ asset($item->image) }}" alt="" width="100" />
+                                                </a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h6 class="product-title">
+                                                    <a
+                                                        href="{{ route('tin-tuc-detail', ['id' => $item->id]) }}">{{ $item->title }}</a>
+                                                </h6>
+                                                <h3 class="pro-price">{{ $item->created_at->format('d-m-Y') }}
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
                                 <!-- product-item end -->
                             </aside>
                         </div>

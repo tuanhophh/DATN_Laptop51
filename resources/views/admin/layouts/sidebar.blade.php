@@ -437,9 +437,6 @@
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-money-check"></i>
-            <li class="nav-item {{ request()->is('admin/bills*') ? ' menu-is-opening menu-open' : '' }}">
-                <a href="" class="nav-link {{ request()->is('admin/bills*') ? 'active ' : '' }}">
-                    <i class="nav-icon fas fa-money-bill"></i>
                     <p>
                         Tin Tức
                         <i class="fas fa-angle-left right"></i>
