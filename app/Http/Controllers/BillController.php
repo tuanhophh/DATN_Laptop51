@@ -22,8 +22,10 @@ class BillController extends Controller
             ->with('booking_detail')
             ->whereHas('booking_detail', function ($q) use ($request) {
                 if ($request->status == 'Chờ xử lý') {
-                    $q->where('status_booking', '=', null)
-                        ->orWhere('status_booking', '=', 'received');
+                    $q->where('status_booking', '=', null);
+                }
+                if ($request->status == 'Tiếp nhận máy') {
+                    $q->where('status_booking', '=', 'received');
                 }
                 if ($request->status == 'Hủy') {
                     $q->where('status_booking', '=', 'cancel');
@@ -56,7 +58,7 @@ class BillController extends Controller
                 if ($request->code ?? null) {
                     $q->with('list_bill');
                     $q->whereHas('list_bill', function ($e) use ($request) {
-                        $e->where('codebill', $request->code);
+                        $e->where('codebill','like','%'. $request->code.'%');
                     });
                 };
             })

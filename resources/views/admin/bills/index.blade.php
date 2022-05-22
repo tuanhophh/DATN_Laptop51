@@ -1,5 +1,5 @@
 @extends('admin.layouts.main')
-@section('title', 'Danh sách đặt hàng')
+@section('title', 'Danh sách đặt lịch')
 @section('content')
 
     @if (Session::has('success'))
@@ -29,6 +29,7 @@
             <select name="status" class="form-control ">
                 <option value="">Tất cả</option>
                 <option value="Chờ xử lý">Chờ xử lý</option>
+                <option value="Tiếp nhận máy">Tiếp nhận máy</option>
                 <option value="Đang chờ sửa">Đang chờ sửa</option>
                 <option value="Đang sửa">Đang sửa</option>
                 <option value="Hoàn thành sửa">Hoàn thành sửa
@@ -45,7 +46,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered text-center">
                     <thead>
                         <th>STT</th>
                         <th>Người mua</th>
@@ -94,7 +95,9 @@
                                     @elseif($item->booking_detail->status_booking == null)
                                         <p class="text-info">Chờ xử lý</p>
                                     @elseif($item->booking_detail->status_booking == 'latch')
-                                        @if ($item->booking_detail->status_repair == 'waiting')
+                                    @if ($item->booking_detail->status_repair == null)
+                                            <p class="text-info">Tiếp nhận máy</p>
+                                        @elseif ($item->booking_detail->status_repair == 'waiting')
                                             <p class="text-info">Đang chờ sửa</p>
                                         @elseif($item->booking_detail->status_repair == 'fixing')
                                             <p class="text-info">Đang sửa</p>
@@ -106,7 +109,7 @@
                                             @endif
                                         @endif
                                     @elseif($item->booking_detail->status_booking == 'received')
-                                        <p class="text-info"></p>
+                                        <p class="text-info">Tiếp nhận máy</p>
                                     @endif
 
                                 </td>
@@ -117,31 +120,32 @@
                                 {{-- {{dd($item)}} --}}
                                 <td>
                                     @can('list-bill')
-                                        @if ($item->booking_detail->status_booking == 'cancel')
+                                        {{-- @if ($item->booking_detail->status_booking == 'cancel')
                                             <a href="{{ route('dat-lich.hoa-don', ['id' => $item->id]) }}"
                                                 class="btn btn-sm btn-success">Chi
                                                 tiết hủy</a>
-                                        @endif
-                                        @if ($item->booking_detail->status_booking == null)
+                                        @endif --}}
+                                        {{-- @if ($item->booking_detail->status_booking == null)
                                             <a href="{{ route('dat-lich.hoa-don', ['id' => $item->id]) }}"
                                                 class="btn btn-sm btn-success">Chi
                                                 tiết chờ xử lý</a>
-                                        @endif
-                                        @if ($item->booking_detail->status_repair == 'waiting')
+                                        @endif --}}
+                                        
+                                        {{-- @if ($item->booking_detail->status_repair == 'waiting')
                                             <a href="{{ route('dat-lich.hoa-don', ['id' => $item->id]) }}"
                                                 class="btn btn-sm btn-success">Chi
                                                 tiết chờ sửa</a>
-                                        @endif
+                                        @endif --}}
                                         {{-- @if ($item->booking_detail->status_repair == 'fixing')
                                             <a href="{{ route('dat-lich.hoa-don', ['id' => $item->id]) }}"
                                                 class="btn btn-sm btn-success">Chi
                                                 tiết đang sửa</a>
                                         @endif --}}
-                                        @if ($item->booking_detail->status_repair == 'finish' && !isset($item->booking_detail->list_bill->type))
+                                        {{-- @if ($item->booking_detail->status_repair == 'finish' && !isset($item->booking_detail->list_bill->type))
                                             <a href="{{ route('dat-lich.hoa-don', ['id' => $item->id]) }}"
                                                 class="btn btn-sm btn-success">Chi
                                                 tiết đã sửa xong</a>
-                                        @endif
+                                        @endif --}}
                                         @if ($item->booking_detail->status_repair == 'finish' && isset($item->booking_detail->list_bill->type))
                                             <a href="{{ route('dat-lich.hoa-don', ['id' => $item->id]) }}"
                                                 class="btn btn-sm btn-success">Chi
