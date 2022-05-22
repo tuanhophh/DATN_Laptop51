@@ -40,7 +40,7 @@
                     @foreach ($computers as $item)
                     <option @if ($item->id==$booking_detail->company_computer_id)
                         selected
-                        @endif value="{{ $item->id }}">{{ $item->name_company }} </option>
+                        @endif value="{{ $item->id }}">{{ $item->company_name }} </option>
                     @endforeach
 
 
@@ -76,7 +76,7 @@
         <div class="mx-auto container ">
             <button type="submit" class="btn btn-success " name="btn" value="luu_xuat">Lưu và xuất phiếu</button>
             <button type="submit" name="btn" id="" class="btn btn-primary " value="luu"> Lưu thông tin</button>
-            <a name="" id="" class="btn btn-info" href="#" role="button">Xuất phiếu</a>
+            {{-- <a name="" id="" class="btn btn-info" href="#" role="button">Xuất phiếu</a> --}}
         </div>
 
     </form>

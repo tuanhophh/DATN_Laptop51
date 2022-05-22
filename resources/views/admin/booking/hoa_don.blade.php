@@ -2,6 +2,10 @@
 @section('content')
 {{-- <button>Xuất hóa đơn</button>
 --}}
+
+
+
+
 <div class="container">
     @if ($booking_detail->list_bill)
     <a name="" id="" class="btn btn-primary" target="_blank"
@@ -31,38 +35,38 @@
             <tr>
                 <td scope="row">{{ $key +1}}</td>
                 <td>{{ $p->name_product }}</td>
-                <td>{{ $p->unit_price }}</td>
+                <td>{{number_format( $p->unit_price,0, ',', '.' ) }}</td>
                 <td>{{ $p->quantity }}</td>
-                <td class="tt">{{ $p->into_money }}</td>
+                <td class="tt">{{ number_format( $p->into_money,0, ',', '.' )}}</td>
                 <td> </td>
             </tr>
             @endforeach
             <tr>
                 <td></td>
                 <th colspan="3">Tổng</th>
-                <th id="tong"> 1</th>
+                <th id="tong"> {{ number_format( array_sum(array_column($repair_parts->toArray(),'into_money')),0, ',',
+                    '.' ) }} VND</th>
             </tr>
-            <tr>
+            {{-- <tr>
                 <td></td>
                 <th colspan="3">Số tiền khách trả</th>
                 <th id="tong">
                     <div class="form-group">
-                        {{-- <label for=""></label> --}}
                         <form action="" method="POST" id="form_tien_khach_tra">
                             @csrf
                             <input type="number" onchange="tinhTien()" value="@if (!empty($list_bill->customers_pay))
-                            {{ $list_bill->customers_pay }}
-                        @endif" class="form-control col-4" name="customers_pay" id="" aria-describedby="helpId"
-                                placeholder=" VND">
+                                        {{ $list_bill->customers_pay }}
+                                    @endif" class="form-control col-4" name="customers_pay" id=""
+                                aria-describedby="helpId" placeholder=" VND">
                         </form>
                     </div>
                 </th>
-            </tr>
-            <tr>
+            </tr> --}}
+            {{-- <tr>
                 <td></td>
                 <th colspan="3">Tiền thừa</th>
                 <th id="tien_thua"> </th>
-            <tr>
+            <tr> --}}
 
         </tbody>
     </table>
@@ -70,7 +74,7 @@
     <button form="form_tien_khach_tra" type="submit" class="btn btn-success">Lưu Hóa Đơn</button>
 </div>
 
-<script>
+{{-- <script>
     tt=document.getElementsByClassName('tt')
     tong=document.getElementById('tong')
 // Array(tt).map(function(a){
@@ -93,6 +97,6 @@ function tinhTien(){
         // console.log(customers_pay[0].va);
 
 }
-</script>
+</script> --}}
 
 @endsection

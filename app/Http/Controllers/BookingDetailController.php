@@ -12,6 +12,7 @@ use App\Models\list_bill;
 use App\Models\RepairPart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 // use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 use PDF;
 
@@ -212,5 +213,23 @@ class BookingDetailController extends Controller
             }
             return redirect(route('dat-lich.tiep-nhan-may', ['booking_detail_id' => $booking_detail_id]));
         }
+    }
+
+    public function sendMailFinishMember($booking_detail_id)
+    {
+        $booking_detail = BookingDetail::find($booking_detail_id);
+        if ($booking_detail) {
+            $booking_detail->load('booking');
+            $data = [
+                'booking_detail' => $booking_detail,
+            ];
+            $email = $booking_detail->booking->email;
+            Mail::send('admin.mail.coifirm_finish_menber', $data, function ($message) use ($email) {
+                $message->from('manhhung17062001@gmail.com', 'Cửa hàng laptop51');
+                $message->to($email, 'John Doe');
+                $message->subject('Thông báo sửa máy hoàn thành');
+            });
+        }
+        return back();
     }
 }

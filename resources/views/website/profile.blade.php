@@ -116,16 +116,6 @@
                         <i class="fa fa-money text-center mr-1"></i>
                         Lịch sử mua hàng
                     </a>
-                    <a class="nav-link td-title-1" id="application-tab" data-toggle="pill" href="#application"
-                        role="tab" aria-controls="application" aria-selected="false">
-                        <i class="fa fa-tv text-center mr-1"></i>
-                        Lịch sử
-                    </a>
-                    <a class="nav-link td-title-1" id="notification-tab" data-toggle="pill" href="#notification"
-                        role="tab" aria-controls="notification" aria-selected="false">
-                        <i class="fa fa-bell text-center mr-1"></i>
-                        ...
-                    </a>
                 </div>
             </div>
             <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
@@ -163,14 +153,11 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="td-title-2">Ảnh đại diện: </label>
-                                    <label for="firstimg" class="submit-btn-1 mt-1 mb-0 pt-2 mr-2 px-2 rounded-pill">
-                                        Nhấn vào đây để đổi ảnh đại diện
-                                    </label>
                                     @error('avatar')
                                         <p class="text-danger p-0 m-0">{{ $message }}
                                         </p>
                                     @enderror
-                                    <input style="display: none;visibility: none;" type="file"
+                                    <input type="file"
                                         onchange="doAfterSelectImage(this)" id="firstimg" name="avatar">
                                 </div>
                             </div>
@@ -401,62 +388,6 @@
                     </table>
                 @endif
 
-            </div>
-            <div class="tab-pane fade" id="application" role="tabpanel" aria-labelledby="application-tab">
-                <h3 class="mb-4">Application Settings</h3>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="app-check">
-                                <label class="form-check-label" for="app-check">
-                                    App check
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                                <label class="form-check-label" for="defaultCheck2">
-                                    Lorem ipsum dolor sit.
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <button class="btn btn-primary">Update</button>
-                    <button class="btn btn-light">Cancel</button>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
-                <h3 class="mb-4">Notification Settings</h3>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="notification1">
-                        <label class="form-check-label" for="notification1">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum accusantium accusamus,
-                            neque cupiditate quis
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="notification2">
-                        <label class="form-check-label" for="notification2">
-                            hic nesciunt repellat perferendis voluptatum totam porro eligendi.
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="notification3">
-                        <label class="form-check-label" for="notification3">
-                            commodi fugiat molestiae tempora corporis. Sed dignissimos suscipit
-                        </label>
-                    </div>
-                </div>
-                <div>
-                    <button class="btn btn-primary">Update</button>
-                    <button class="btn btn-light">Cancel</button>
                 </div>
             </div>
         </div>

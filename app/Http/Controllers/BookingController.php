@@ -55,7 +55,7 @@ class BookingController extends Controller
       // dd($request);
       $request->validate([
          'full_name' => 'required',
-         'phone' => 'required||numeric||max:11||min:10p78o',
+         'phone' => 'required||numeric',
          'email' => 'required||regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
          'interval' => 'required',
          'repair_type' => 'required'
@@ -279,7 +279,10 @@ class BookingController extends Controller
             //    // $booking_detail->status_repair = 'waiting';
             //    $booking_detail->save();
             // }
-            return redirect(route('sua-chua.danh-sach-chua-xac-nhan'));
+            // return redirect(route('sua-chua.danh-sach-chua-xac-nhan'));
+
+
+            return back();
          }
       }
       if ($request->staff) {
@@ -301,7 +304,29 @@ class BookingController extends Controller
                $check->save();
                // }
             }
-            // dd($check);
+
+            $data['title'] = 'Bạn có máy cần sửa:';
+            $data['from'] = 1;
+            $data['to'] = 1;
+            $data['code'] =    $request->booking_detail_id;
+            $data['url'] = '/admin/dat-lich/chi-tiet/' . $booking_detail->id;
+            $users = User::where('id_role', 1)->get();
+            foreach ($users as $user) {
+               $user->notify(new TestNotification($data));
+            }
+            $options = array(
+               'cluster' => 'ap1',
+               'encrypted' => true
+            );
+
+            $pusher = new Pusher(
+               env('PUSHER_APP_KEY'),
+               env('PUSHER_APP_SECRET'),
+               env('PUSHER_APP_ID'),
+               $options
+            );
+
+            $pusher->trigger('my-channel', 'my-event', $data);
             return redirect(route('sua-chua.danh-sach-cho-sua'));
          }
       }

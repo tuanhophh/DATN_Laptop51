@@ -1,6 +1,6 @@
 <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
-    <div class="user-panel mt-3 pb-3 mb-3 text-center text-uppercase">
+    <div class="user-panel mt-3 pb-3 mb-3 text-center ">
         {{-- @if (isset($_SESSION['AUTH']))
         <div class="image">
             <img src="{{ '/public/adminlte/'}}dist/img/user2-160x160.jpg" class="img-circle elevation-2"
