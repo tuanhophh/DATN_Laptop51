@@ -6,7 +6,7 @@
             <tr>
                 <th scope="col" class="sort" data-sort="name">Tên máy</th>
                 <th scope="col" class="sort" data-sort="budget">Tên khách hàng</th>
-                <th scope="col" class="sort" data-sort="status">SDT</th>
+                <th scope="col" class="sort" data-sort="status">Số điện thoại</th>
                 <th scope="col">Hình thức sửa</th>
                 <th scope="col">Trạng thái</th>
                 <th scope="col" class="sort" data-sort="completion">Nhân viên</th>

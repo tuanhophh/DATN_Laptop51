@@ -195,7 +195,7 @@ class BookingDetailController extends Controller
             $booking = Booking::find($booking_detail->booking_id)->fill([
                 'full_name' => $request->full_name,
                 'phone' => $request->phone,
-                'email' => $request->email,
+                // 'email' => $request->email,
                 'interval' => $request->interval
             ])->save();
             $booking_detail->comment = $request->comment;

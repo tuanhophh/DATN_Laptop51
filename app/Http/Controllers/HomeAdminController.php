@@ -14,6 +14,7 @@ use App\Models\Booking;
 use App\Models\CategoryComponent;
 use App\Models\Component;
 use App\Models\ComponentComputerConpany;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Validator;
 
 class HomeAdminController extends Controller

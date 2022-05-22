@@ -30,7 +30,7 @@
         <div class="form-group col-4">
             <label for="">Tên máy</label>
             <input class="form-control" type="text" name="name_computer" value="{{ $booking_detail->name_computer }}">
-            <small id="helpId" class="form-text text-muted">Help text</small>
+            {{-- <small id="helpId" class="form-text text-muted">Help text</small> --}}
         </div>
         <div class="col-4">
             <div class="form-group">
