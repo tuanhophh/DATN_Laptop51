@@ -106,7 +106,7 @@
                         <div class="card">
 
                             <div class="card-header">
-                                <h4>Lựa chọn linh kiện muốn thay thế</h4>
+                                <h4>Chọn linh kiện thay thế</h4>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -175,7 +175,7 @@
                             </div>
                             <div class="form-group ">
                                 <label for=""></label>
-                                <h5>Mô tả sửa chữa, lưu ý cho khách hàng</h5>
+                                <h5>Ghi chú: </h5>
                                 <textarea class="form-control" name="repair" id="ckeditor1" rows="3"></textarea>
 
 

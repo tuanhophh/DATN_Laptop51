@@ -34,9 +34,12 @@
                                     @foreach($ComputerCompany as $ComputerCom)
                                     <div class="brand-item">
                                         <div class="single-brand-product">
-                                            <a href="/cua-hang/{{$ComputerCom->id}}"><img
+                                            {{-- <a href="/cua-hang/{{$ComputerCom->id}}"><img
                                                     src="{{asset($ComputerCom->logo)}}"
-                                                    width="60" alt=""></a>
+                                                    width="100" alt=""></a> --}}
+                                                    <img
+                                                    src="{{asset($ComputerCom->logo)}}"
+                                                    width="100" alt=""></a>
                                         </div>
                                     </div>
                                     @endforeach
