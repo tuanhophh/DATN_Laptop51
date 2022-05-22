@@ -56,7 +56,7 @@ class BillController extends Controller
                 if ($request->code ?? null) {
                     $q->with('list_bill');
                     $q->whereHas('list_bill', function ($e) use ($request) {
-                        $e->where('codebill', $request->code);
+                        $e->where('codebill','like','%'. $request->code.'%');
                     });
                 };
             })

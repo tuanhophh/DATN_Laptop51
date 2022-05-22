@@ -322,7 +322,7 @@
                 </ul>
 
             </li>
-            {{-- @endcan --}}
+            @endcan
             @can('list-product')
             <li class="nav-item {{ request()->is('admin/component*') ? ' menu-is-opening menu-open' : '' }}">
                 <a href="" class="nav-link {{ request()->is('admin/component*') ? 'active' : '' }}">
@@ -362,7 +362,7 @@
                     <p>
                         Danh sách đặt lịch
                         <i class="fas fa-angle-left right"></i>
-                        <span class="badge badge-info right">6</span>
+                        {{-- <span class="badge badge-info right">6</span> --}}
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
@@ -388,18 +388,9 @@
             </li>
             @endcan
             <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-money-check"></i>
-                    <p>
-                        Tin Tức
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="/admin/bill" class="nav-link {{ request()->is('admin/bill') ? 'active' : '' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Danh sách</p>
+                        
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
@@ -422,29 +413,7 @@
                                 </li>
                             </ul>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>
-                                Danh Mục
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="/admin/danh-muc-tin-tuc" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Danh Sách</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/admin/danh-muc-tin-tuc/add" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Thêm Mới</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    
                 </ul>
             </li>
             @can('list-role')
