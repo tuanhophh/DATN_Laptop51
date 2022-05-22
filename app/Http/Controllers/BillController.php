@@ -24,12 +24,15 @@ class BillController extends Controller
                 if ($request->status == 'Chờ xử lý') {
                     $q->where('status_booking', '=', null);
                 }
+
                 if ($request->status == 'Tiếp nhận máy') {
                     $q->where('status_booking', '=', 'received');
                 }
+
                 if ($request->status == 'Hủy') {
                     $q->where('status_booking', '=', 'cancel');
                 }
+
                 if ($request->status == 'Đang chờ sửa') {
                     $q->where('status_booking', '=', 'latch')
                         ->where('status_repair', '=', 'fixing');
@@ -55,6 +58,7 @@ class BillController extends Controller
                         $e->where('type', 2);
                     });
                 };
+                
                 if ($request->code ?? null) {
                     $q->with('list_bill');
                     $q->whereHas('list_bill', function ($e) use ($request) {
