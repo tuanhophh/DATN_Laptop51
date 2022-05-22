@@ -5,10 +5,10 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         {{-- <li class="nav-item d-none d-sm-inline-block">
-            <a href="/" class="nav-link">Home</a>
+            <a href="/" class="nav-link">Trang chủ</a>
         </li> --}}
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/logout" class="nav-link">LogOut</a>
+            <a href="/logout" class="nav-link">Đăng xuất</a>
         </li>
     </ul>
 
@@ -23,15 +23,13 @@
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;"  id="dropdown-notification">
                 @foreach (Auth::user()->notifications as $notification)
-                <a href="{{$notification->data['url']}}" @if($notification->unread()) style="background:#f8f9fa;" @endif" class="dropdown-item">
+                <a href="{{$notification->data['url']}}" @if($notification->unread()) style="background:#f8f9fa;" @endif class="dropdown-item">
                     <div class="media">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
                             {{ $notification->data['title'] }}
                               
                             </h3>
-                            <p class="text-sm">Mã hóa đơn: {{ $notification->data['code'] }}
-                            </p>
                             <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{$notification->created_at->diffForHumans();}}
                             <span class="float-right text-sm text-primary"> @if($notification->unread())<i class="fa fa-circle" aria-hidden="true"></i>@endif</span>   
                         </p>

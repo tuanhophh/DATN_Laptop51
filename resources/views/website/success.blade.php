@@ -38,11 +38,17 @@
                                             {{ $request->phone }}</h3>
 
                                     </div>
+
+                                    {{-- <div>Tên máy: {{ $booking_detail->name_computer }}</div> --}}
                                     <div class="col-lg-6">
+                                        <h3><b>Tên máy:</b>
+                                            {{ $booking_detail->name_computer }}</h3>
                                         <h3><b>Hãng máy:</b>
-                                            DELL</h3>
+                                            {{ $booking_detail->computerCompany->company_name }}</h3>
                                         <h3><b>Khung giờ sửa:</b>
-                                            8h-10h</h3>
+                                            {{ $details['interval'] }}
+
+                                        </h3>
                                         <h3><b>Ngày sửa:</b>
                                             {{ $request->date }}</h3>
 

@@ -14,10 +14,13 @@ use App\Models\Product;
 use App\Models\RepairPart;
 use App\Models\User;
 use App\Models\UserRepair;
+use App\Notifications\TestNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Mail;
 use Nexmo\Laravel\Facade\Nexmo;
+use Pusher\Pusher;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class BookingController extends Controller
 {
@@ -33,6 +36,17 @@ class BookingController extends Controller
    {
       $computers = ComputerCompany::all();
       $booking_detail = BookingDetail::find($id);
+      foreach (Auth::user()->unreadNotifications as $notification) {
+         if ($notification->data['url'] ===  '/' . FacadesRequest::path()) {
+            $userUnreadNotification = auth()->user()
+               ->unreadNotifications
+               ->where('id', $notification->id)
+               ->first();
+            if ($userUnreadNotification) {
+               $userUnreadNotification->markAsRead();
+            }
+         }
+      };
       // dd($booking_detail->booking->id);
       return view('admin.booking.edit', compact('booking_detail', 'computers'));
    }
@@ -139,17 +153,17 @@ class BookingController extends Controller
          'interval' => $request->interval,
          'date' => $request->date,
       ];
-      $model = Booking::create($data_booking);
+      $booking = Booking::create($data_booking);
 
 
       $data_booking_detail = [
-         'booking_id' => $model->id,
+         'booking_id' => $booking->id,
          'company_computer_id' => $request->company_computer_id,
          'description' => $request->description,
          'name_computer' => $request->name_computer
       ];
       $booking_detail = BookingDetail::create($data_booking_detail);
-
+      $booking_detail->load('computerCompany');
 
       // dd(config('mail.from.name'));
       $details = [
@@ -187,8 +201,30 @@ class BookingController extends Controller
       //    return back()->with('msg', '<script>	alert("Đặt lịch thành công");	</script>');
       // } else {
 
+      $data['title'] = 'Đặt lịch từ: ' .  $request->full_name;
+      $data['from'] = 1;
+      $data['to'] = 1;
+      $data['code'] =  $booking->id;
+      $data['url'] = '/admin/dat-lich/chi-tiet/' . $booking_detail->id;
+      $users = User::where('id_role', 1)->get();
+      foreach ($users as $user) {
+         $user->notify(new TestNotification($data));
+      }
+      $options = array(
+         'cluster' => 'ap1',
+         'encrypted' => true
+      );
+
+      $pusher = new Pusher(
+         env('PUSHER_APP_KEY'),
+         env('PUSHER_APP_SECRET'),
+         env('PUSHER_APP_ID'),
+         $options
+      );
+
+      $pusher->trigger('my-channel', 'my-event', $data);
       if ($request->btn == 'client') {
-         return view('website.success', compact('request'));
+         return view('website.success', compact('booking', 'booking_detail', 'request', 'details'));
       }
 
       return back()->with('msg', '<script>alert("Đặt lịch thành công");	</script>');
@@ -326,24 +362,43 @@ class BookingController extends Controller
       $booking_detail = BookingDetail::find($id);
 
       if ($booking_detail) {
-         // $repair_part = RepairPart::where('component_id', $booking_detail->id)->get();
-         // $arr_PD_id = array_column($repair_part->toArray(), 'component_id');
+         $repair_part = RepairPart::where('booking_detail_id', $booking_detail->id)->get();
+         $arr_component_id = array_column($repair_part->toArray(), 'component_id');
 
          $arr_quantity = $request->soluong;
 
          if ($request->repairs) {
             foreach ($request->repairs as $k => $r) {
-               // if (in_array($r, $arr_PD_id) == false) {
-               $dt = [
-                  'booking_detail_id' => $id,
-                  'component_id' => $r,
-                  'unit_price' => detailComponent($r)->price,
-                  'quantity' => $arr_quantity[$r],
-                  'into_money' => detailComponent($r)->price * $arr_quantity[$r],
-                  'name_product' => detailComponent($r)->name_component
-               ];
-
-               RepairPart::create($dt);
+               if (in_array($r, $arr_component_id) == false) {
+                  $dt = [
+                     'booking_detail_id' => $id,
+                     'component_id' => $r,
+                     'unit_price' => detailComponent($r)->price,
+                     'quantity' => $arr_quantity[$r],
+                     'into_money' => detailComponent($r)->price * $arr_quantity[$r],
+                     'name_product' => detailComponent($r)->name_component
+                  ];
+                  $component = Component::find($r);
+                  $q = $component->qty;
+                  $component->qty = $q - $arr_quantity[$r];
+                  $component->save();
+                  RepairPart::create($dt);
+               } else {
+                  $repair_part = RepairPart::where('booking_detail_id', $booking_detail->id)->where('component_id', $r)->first();
+                  $dt = [
+                     'booking_detail_id' => $id,
+                     'component_id' => $r,
+                     'unit_price' => detailComponent($r)->price,
+                     'quantity' => $arr_quantity[$r] + $repair_part->quantity,
+                     'into_money' => detailComponent($r)->price * ($arr_quantity[$r] + $repair_part->quantity),
+                     'name_product' => detailComponent($r)->name_component
+                  ];
+                  $component = Component::find($r);
+                  $q = $component->qty;
+                  $component->qty = $q - $arr_quantity[$r];
+                  $component->save();
+                  $repair_part->fill($dt)->save();
+               }
             }
          }
          if ($request->product_repair) {
@@ -379,9 +434,9 @@ class BookingController extends Controller
    }
 
 
-   public function danhSachMayCanSua()
-   {
-   }
+   // public function danhSachMayCanSua()
+   // {
+   // }
 
 
    public function userRepair()
@@ -489,5 +544,29 @@ class BookingController extends Controller
          ->get();
       dd($booking_details);
       return view('admin.booking.ds_da_giao_khach', compact('booking_details'));
+   }
+   public function chiTiet($id)
+   {
+      $booking_detail = BookingDetail::find($id);
+      if ($booking_detail->interval == 1) {
+         $booking_detail->khung_gio = '8h-10h';
+      } elseif ($booking_detail->interval == 2) {
+         $booking_detail->khung_gio = '10h-12h';
+      } elseif ($booking_detail->interval == 3) {
+         $booking_detail->khung_gio = '12h-14h';
+      } elseif ($booking_detail->interval == 4) {
+         $booking_detail->khung_gio = '14h-16h';
+      } elseif ($booking_detail->interval == 5) {
+         $booking_detail->khung_gio = '16h-18h';
+      } elseif ($booking_detail->interval == 6) {
+         $booking_detail->khung_gio = '18h-20h';
+      } else {
+
+         $booking_detail->khung_gio = '20h-22h';
+      }
+      $booking_detail->load('booking');
+      if ($booking_detail) {
+         return view('admin.booking.chi-tiet-dat-lich', compact('booking_detail'));
+      }
    }
 }

@@ -238,6 +238,7 @@ $(".js-select2").select2({
 </script>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script>
+    
 // Enable pusher logging - don't include this in production
 Pusher.logToConsole = true;
 
@@ -255,8 +256,6 @@ channel.bind('my-event', function(data) {
                             ${data.title}
                               
                             </h3>
-                            <p class="text-sm">Mã hóa đơn: ${data.code}
-                            </p>
                             <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 1 giây trước
                             <span class="float-right text-sm text-primary"><i class="fa fa-circle" aria-hidden="true"></i></span>   
                         </p>

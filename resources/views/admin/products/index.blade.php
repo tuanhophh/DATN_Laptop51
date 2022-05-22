@@ -17,14 +17,58 @@
     </button>
 </div>
 @endif
-<a class="btn btn-warning" href="{{ route('export-product') }}">Export Data</a>
-<a class="btn btn-info" href="{{ route('view-import-product') }}">Import Data</a>
+<div class="row">
+    <div class="col-2 text-right">
+        <a class="btn btn-warning" href="{{ route('export-product') }}">Export Data</a>
+    </div>
+    <div class="col-2">
+        <a class="btn btn-info" href="{{ route('view-import-product') }}">Import Data</a>
+    </div>
 
+<form action="{{ route('product.index') }}" method="GET" class="col-8">
+    <div class="row">
+        <div class="col-3">
+        <div class="form-group">
+        <input type="text" class="form-control" name="name" id="" aria-describedby="helpId"
+            placeholder="Tìm kiếm theo tên">
+    </div>
+        </div>
+        <div class="col-3">
+        <div class="form-group">
+        <select name="companyComputer_id" class="form-control ">
+            <option value="0">Hãng máy</option>
+            @foreach($ComputerCompany as $com)
+            <option value="{{$com->id}}">{{$com->company_name}}</option>
+            @endforeach
+        </select>
+    </div>
+        </div>
+        <div class="col-3">
+        <div class="form-group">
+        <select name="status" class="form-control ">
+            <option value="0">Trạng thái</option>
+            <option value="1">Đang hiện</option>
+            <option value="2">Đang ẩn</option>
+        </select>
+    </div>
+        </div>
+        <div class="col-3">
+        <div>
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </div>
+        </div>
+    </div>
+
+
+
+
+</form>
+</div>
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                
+
             </div>
             <div class="card-body">
                 <table class="table table-bordered">
@@ -50,43 +94,47 @@
                             <td style="max-width: 480px;">{{ $item->name }}</td>
                             <td>
                                 {{ $item->companyComputer->company_name }}
-                            </td> 
+                            </td>
                             <td>{{ $item->import_price }}</td>
                             <td>{{ $item->price }}</td>
                             <td>{{ $item->qty }}</td>
                             <td>{{ $item->insurance }} tháng</td>
                             <td>
-                             {{ $item->status == 1 ? 'Đang hiện ' : 'Đang ẩn' }}
+                                @if($item->status == 1)
+                                <p class="text-success mb-0">Đang hiện</p>
+                                @else
+                                <p class="text-danger mb-0">Đang ẩn</p>
+                                @endif
                             </td>
                             <td>
                                 @can('edit-product')
                                 <!-- <a href="{{ route('nhap-sanpham.add', ['id' => $item->id]) }}"
                                     class="btn btn-sm btn-success">Thêm SL</a> -->
 
-                                    <a href="{{ route('product.edit', ['id' => $item->id]) }}"
-                                        class="btn btn-sm btn-warning">Sửa</a>
-                                    @endcan
-                                    @can('delete-product')
-                                    @if($item->status === 0)
-                                    <form class="d-inline" action="product/show-hide/{{$item->id}}" method="POST">
-                                        @csrf
-                                        <input name="id" hidden value="{{$item->id}}">
-                                        <button style="font:14px" class="btn btn-sm btn-success" type="submit">
-                                            Hiện
-                                        </button>
-                                    </form>
-                                    @endif
-                                    @if($item->status === 1)
-                                    <form class="d-inline" action="product/show-hide/{{$item->id}}" method="POST">
-                                        @csrf
-                                        <input name="id" hidden value="{{$item->id}}">
-                                        <button class="btn btn-sm btn-danger" type="submit">
-                                            Ẩn
-                                        </button>
-                                    </form>
-                                    @endif
-                                    @endcan
-                                
+                                <a href="{{ route('product.edit', ['id' => $item->id]) }}"
+                                    class="btn btn-sm btn-warning">Sửa</a>
+                                @endcan
+                                @can('delete-product')
+                                @if($item->status === 0)
+                                <form class="d-inline" action="product/show-hide/{{$item->id}}" method="POST">
+                                    @csrf
+                                    <input name="id" hidden value="{{$item->id}}">
+                                    <button style="font:14px" class="btn btn-sm btn-success" type="submit">
+                                        Hiện
+                                    </button>
+                                </form>
+                                @endif
+                                @if($item->status === 1)
+                                <form class="d-inline" action="product/show-hide/{{$item->id}}" method="POST">
+                                    @csrf
+                                    <input name="id" hidden value="{{$item->id}}">
+                                    <button class="btn btn-sm btn-danger" type="submit">
+                                        Ẩn
+                                    </button>
+                                </form>
+                                @endif
+                                @endcan
+
 
                                 <!-- <a onclick="return confirm('Bạn có chắc muốn xóa')"
                                     href="{{route('product.remove', ['id' => $item->id])}}"
