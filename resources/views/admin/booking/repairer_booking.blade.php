@@ -82,8 +82,7 @@
                     {{-- <a name="" id="" class="btn btn-primary" href="{{ route('dat-lich.edit', ['id'=>$b->id]) }}"
                         role="button">Sửa thông tin</a> --}}
                     <a name="" id="" class="btn btn-info" href="{{ route('dat-lich.hoa-don', ['id'=>$b->id]) }}"
-                        role="button">Chi tiết sửa
-                        chữa</a>
+                        role="button">Chi tiết sửa chữa</a>
                     {{-- <a name="" id="" class="btn btn-danger"
                         href="{{ route('dat-lich.deleteBookingDetail', ['id'=>$b->id]) }}" role="button">Xóa</a> --}}
                 </td>

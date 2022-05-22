@@ -32,12 +32,16 @@
                             <div class="by-brand-product">
                                 <div class="active-by-brand slick-arrow-2">
                                     <!-- single-brand-product start -->
-                                    @foreach ($ComputerCompany as $ComputerCom)
-                                        <div class="brand-item">
-                                            <div class="single-brand-product">
-                                                <a href="/cua-hang/{{ $ComputerCom->id }}"><img
-                                                        src="{{ asset($ComputerCom->logo) }}" width="60" alt=""></a>
-                                            </div>
+
+                                    @foreach($ComputerCompany as $ComputerCom)
+                                    <div class="brand-item">
+                                        <div class="single-brand-product">
+                                            {{-- <a href="/cua-hang/{{$ComputerCom->id}}"><img
+                                                    src="{{asset($ComputerCom->logo)}}"
+                                                    width="100" alt=""></a> --}}
+                                                    <img
+                                                    src="{{asset($ComputerCom->logo)}}"
+                                                    width="100" alt=""></a>
                                         </div>
                                     @endforeach
                                     <!-- single-brand-product end -->
