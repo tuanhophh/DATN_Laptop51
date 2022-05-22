@@ -29,22 +29,22 @@
 <body style="max-width: 1024px;">
     <div>
         <h4 style="text-align: center">HÓA ĐƠN SỬA CHỮA</h4>
-        <p>Ho va ten: {{ $booking_detail->booking->full_name }}</p>
-        <p>So dien thoai: {{ $booking_detail->booking->phone }}</p>
+        <p>Họ tên: {{ $booking_detail->booking->full_name }}</p>
+        <p>Số điện thoại: {{ $booking_detail->booking->phone }}</p>
         <p>Tên máy: {{ $booking_detail->name_computer }}</p>
         {{-- <p>Hãng máy: {{ $booking_detail->computerCompany->company_name }}</p> --}}
 
-        <h5>Danh sach linh kien</h5>
+        <h5>DANH SÁCH LINH KIỆN</h5>
 
         <table class="table" border="1" draggable="false" style="border: red solid 1px">
             <thead>
                 <tr>
                     <th>STT</th>
-                    <th>Ten linh kien</th>
-                    <th>Don gia</th>
-                    <th>So luong</th>
-                    <th>Thanh tien</th>
-                    <th>Ghi chu</th>
+                    <th>Tên linh kiện</th>
+                    <th>Đơn giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                    <th>Ghi chú</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,7 +63,7 @@
                     <th colspan="" class="tong-tien">{{ $booking_detail_bill->total_price }}</th>
                     <td></td>
                 </tr>
-                <tr>
+                {{-- <tr>
                     <th colspan='4'>Khách trả</th>
                     <th colspan="" class="tong-tien">{{ $booking_detail_bill->customers_pay }}</th>
                     <td></td>
@@ -72,7 +72,7 @@
                     <th colspan='4'>Tiền thừa</th>
                     <th colspan="" class="tong-tien">{{ $booking_detail_bill->excess_cash }}</th>
                     <td></td>
-                </tr>
+                </tr> --}}
             </tbody>
 
         </table>
