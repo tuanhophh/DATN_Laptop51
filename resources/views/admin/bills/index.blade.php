@@ -1,5 +1,5 @@
 @extends('admin.layouts.main')
-@section('title', 'Danh sách đặt hàng')
+@section('title', 'Danh sách đặt lịch')
 @section('content')
 
     @if (Session::has('success'))
@@ -29,6 +29,7 @@
             <select name="status" class="form-control ">
                 <option value="">Tất cả</option>
                 <option value="Chờ xử lý">Chờ xử lý</option>
+                <option value="Tiếp nhận máy">Tiếp nhận máy</option>
                 <option value="Đang chờ sửa">Đang chờ sửa</option>
                 <option value="Đang sửa">Đang sửa</option>
                 <option value="Hoàn thành sửa">Hoàn thành sửa
@@ -108,7 +109,7 @@
                                             @endif
                                         @endif
                                     @elseif($item->booking_detail->status_booking == 'received')
-                                        <p class="text-info"></p>
+                                        <p class="text-info">Tiếp nhận máy</p>
                                     @endif
 
                                 </td>
