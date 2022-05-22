@@ -166,7 +166,7 @@
     </div>
   </div>
 
-  <div class=" border border-success col-6" id="form_may">
+  <div class="col-6" id="form_may">
 
     <div class="row">
       {{-- <h5 class="mx-auto">Máy 1</h5> --}}

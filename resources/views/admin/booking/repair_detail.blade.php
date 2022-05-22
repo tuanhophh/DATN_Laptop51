@@ -123,63 +123,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-                            <div class="form-group ">
-                                {{-- <label for=""></label> --}}
-                                {{-- <h5>Mô tả sửa chữa (Sửa linh kiện gì, giá tiền sửa là bn)</h5>
-                                <textarea class="form-control" name="description" id="ckeditor1" rows="3"></textarea>
-                                Giá tiền sửa chữa
-                                <input type="number" class="form-control" name="into_money"> --}}
-
-                                <div>
-                                    <table class="table table-hover table-inverse table-responsive">
-                                        <thead class="thead-inverse">
-                                            <tr>
-                                                <th>Tên linh kiện sửa</th>
-                                                <th> Giá tiền sửa</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="ds_linh_kien_sua">
-                                            <tr id="form_linh_kien_sua">
-                                                <td class="col-9">
-                                                    <input type="text" name="product_repair[]" value=""
-                                                        placeholder="Nhập linh kiện" class="form-control">
-                                                    {{-- <select name="category_component_id" id="" class="form-control"
-                                                        onchange="selectComponents(this)" style="width: 200px;">
-                                                        @foreach ($categories as $c)
-                                                        <option value="{{ $c->id }}">{{ $c->name_category }}</option>
-
-                                                        @endforeach
-                                                    </select>
-                                                    <select class="itemName form-control" name="repairs[]" onchange=""
-                                                        multiple='multiple'>
-
-
-                                                    </select> --}}
-
-                                                </td>
-                                                <td> <input type="text" name="price_product_repair[]"
-                                                        placeholder="Nhập giá tiền" value="0" class="form-control"></td>
-                                                <td></td>
-                                            </tr>
-
-                                        </tbody>
-
-
-                                    </table><button type="button" onclick="add()" name="" id=""
-                                        class="btn btn-primary">Thêm linh
-                                        kiện</button>
-                                </div>
-
-                            </div>
-                            <div class="form-group ">
-                                <label for=""></label>
-                                <h5>Mô tả sửa chữa, lưu ý cho khách hàng</h5>
-                                <textarea class="form-control" name="repair" id="ckeditor1" rows="3"></textarea>
-
-
-                            </div>
                             <h3>Danh sách linh kiện thay thế:</h3>
                             <div>
                                 <table class="table">
@@ -202,15 +145,61 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                            <div class="form-group ">
+                                {{-- <label for=""></label> --}}
+                                {{-- <h5>Mô tả sửa chữa (Sửa linh kiện gì, giá tiền sửa là bn)</h5>
+                                <textarea class="form-control" name="description" id="ckeditor1" rows="3"></textarea>
+                                Giá tiền sửa chữa
+                                <input type="number" class="form-control" name="into_money"> --}}
+
+                                <div>
+                                    <table class="table table-hover table-inverse table-responsive">
+                                        <thead class="thead-inverse">
+                                            <tr>
+                                                <th>Tên linh kiện sửa</th>
+                                                <th> Giá tiền sửa</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ds_linh_kien_sua">
+                                            <tr id="form_linh_kien_sua">
+                                                <td class="col-9">
+                                                    <input type="text" name="product_repair[]" value=""
+                                                        placeholder="Nhập linh kiện" class="form-control">
+                                                </td>
+                                                <td> <input type="text" name="price_product_repair[]"
+                                                        placeholder="Nhập giá tiền" value="0" class="form-control">
+                                                </td>
+                                                <td>
+
+                                                </td>
+
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <button type="button" onclick="add()" name="" id="" class="btn btn-primary">Thêm
+                                        linh
+                                        kiện</button>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for=""></label>
+                                <h5>Ghi chú</h5>
+                                <textarea class="form-control" name="repair" id="ckeditor1" rows="3"></textarea>
+                            </div>
+
                             {{-- <button type="submit">Hoàn thành sửa</button> --}}
                             <div class="d-flex justify-content-between">
                                 <div><a name="btn" id="" class="btn btn-danger" href="#" role="button">Hủy sửa</a>
                                     {{-- <button type="submit" class="btn btn-primary" name="btn" value="pause">Tạm dừng
                                         sửa</button> --}}
                                 </div>
-                                <div><button name="btn" type="submit" value="finish" class="btn btn-success">Hoàn
+                                <div>
+                                    <button name="btn" type="submit" value="finish" class="btn btn-success">Hoàn
                                         thành sửa</button>
                                 </div>
+
                             </div>
                     </form>
 
@@ -252,13 +241,13 @@ for (var i = 0; i < options.length; i++){
             
                         <td class="">  ${j}</td>
                         <td class="">${data.name_component}</td>
-                        <td><input type="number" id="sl${j}" onchange="sumPrice(this,${j})" name="soluong[${data.id}]" value="1"> </td>
+                        <td><input type="number" id="sl${j}" onchange="sumPrice(this,${j})" min="1" max="${data.qty}" name="soluong[${data.id}]" value="1"> </td>
                         <td id="dg${j}" >${data.price}</td>
                         <td id="tt${j}" >${data.price}</td>
 
                  </tr>`; 
                  document.getElementById('abc').innerHTML=html
-  j++
+                  j++
                     }
               })
             
@@ -291,6 +280,9 @@ for (var i = 0; i < options.length; i++){
     ds_linh_kien_sua.appendChild(node);
     }
     
+    function remove(){
+        
+    }
 
 
 

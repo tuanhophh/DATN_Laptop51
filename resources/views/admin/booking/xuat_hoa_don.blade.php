@@ -63,7 +63,7 @@
                     <th colspan="" class="tong-tien">{{ $booking_detail_bill->total_price }}</th>
                     <td></td>
                 </tr>
-                <tr>
+                {{-- <tr>
                     <th colspan='4'>Khách trả</th>
                     <th colspan="" class="tong-tien">{{ $booking_detail_bill->customers_pay }}</th>
                     <td></td>
@@ -72,7 +72,7 @@
                     <th colspan='4'>Tiền thừa</th>
                     <th colspan="" class="tong-tien">{{ $booking_detail_bill->excess_cash }}</th>
                     <td></td>
-                </tr>
+                </tr> --}}
             </tbody>
 
         </table>

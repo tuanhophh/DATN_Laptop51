@@ -51,6 +51,27 @@
                                             {{ $booking_detail->booking->date }}</h3>
 
                                     </div>
+                                    <div class="form-group d-flex" width="50px">
+                                        {{-- <label for=""></label> --}}
+                                        <form action="{{ route('dat-lich.chuyen-trang-thai') }}" method="POST"
+                                            class="d-flex">
+                                            @csrf
+                                            <select class="form-control" name="status_booking" id="">
+                                                <option @if ($booking_detail->status_booking=='received')selected
+                                                    @endif value="received">Chưa xác nhận</option>
+                                                <option @if ($booking_detail->status_booking=='latch')selected
+                                                    @endif value="latch">Xác nhận</option>
+                                                <option @if ($booking_detail->status_booking=='cancel')selected
+                                                    @endif value="cancel">Hủy bỏ</option>
+
+                                            </select>
+                                            <input type="hidden" name="booking_detail_id"
+                                                value="{{ $booking_detail->id }}">
+
+                                            <button class="btn btn-primary" type="submit">Chọn</button>
+
+                                        </form>
+                                    </div>
                                     <div class="col">
                                         <h3><b>Mô tả:</b>
                                             <br>

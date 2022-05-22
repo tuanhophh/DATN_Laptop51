@@ -104,13 +104,23 @@ Route::middleware(['auth', 'account.admin'])->group(function () {
     // Route::prefix('login')->group(function () {
     //     Route::get('/', [LoginController::class, 'index'])->name('admin.login');
     // });
+
+    // Route::prefix('login')->group(function () {
+    //     Route::get('/', [LoginController::class, 'index'])->name('admin.login');
+    // });
     Route::prefix('dat-lich')->group(function () {
+        Route::get('chi-tiet/{id}', [BookingController::class, 'chiTiet'])->name('dat-lich.chi-tiet');
+
         Route::get('/', [BookingController::class, 'listBookingDetail'])->name('dat-lich.index');
         Route::post('/', [BookingController::class, 'selectStatusBooking']);
-        Route::get('chi-tiet/{id}', [BookingController::class, 'chiTiet'])->name('dat-lich.chi-tiet');
+
         Route::get('/danh-sach-may', [BookingController::class, 'listBookingDetail'])->name('dat-lich.danh-sach-may');
         Route::post('/danh-sach-may', [BookingController::class, 'selectUserRepair']);
         // Route::get('/danh-sach-may-phan-cong', [BookingController::class, 'listBookingDetail'])->name('dat-lich.danh-sach-may');
+
+        Route::get('send-mail-finish-member/{booking_detail_id}', [BookingDetailController::class, 'sendMailFinishMember'])->name('dat-lich.send-mail-finish-member');
+
+
 
 
         Route::get('tao-moi', [BookingController::class, 'formCreateBooking'])->name('dat-lich.add')->middleware('can:add-booking');
@@ -219,11 +229,11 @@ Route::middleware(['auth', 'account.admin'])->group(function () {
     });
 
     Route::prefix('roles')->group(function () {
-        Route::get('/', [RoleController::class, 'index'])->name('roles.index');
-        Route::get('add', [RoleController::class, 'create'])->name('roles.create');
-        Route::post('add', [RoleController::class, 'store'])->name(('roles.store'));
-        Route::get('remove/{id}', [RoleController::class, 'remove'])->name('roles.remove');
-        Route::get('edit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
-        Route::post('edit/{id}', [RoleController::class, 'update'])->name('roles.update');
+        Route::get('/', [RoleController::class, 'index'])->name('roles.index')->middleware('can:list-role');
+        Route::get('add', [RoleController::class, 'create'])->name('roles.create')->middleware('can:add-role');
+        Route::post('add', [RoleController::class, 'store'])->name(('roles.store'))->middleware('can:add-role');
+        Route::get('remove/{id}', [RoleController::class, 'remove'])->name('roles.remove')->middleware('can:delete-role');
+        Route::get('edit/{id}', [RoleController::class, 'edit'])->name('roles.edit')->middleware('can:edit-role');
+        Route::post('edit/{id}', [RoleController::class, 'update'])->name('roles.update')->middleware('can:edit-role');
     });
 });

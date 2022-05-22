@@ -25,11 +25,11 @@
             <div style="display: inline-block;">
                 <div><b>Tên máy:</b> {{ $booking_detail->name_computer }} </div><br>
                 <div><span><b style="padding-left: 50px">Hãng
-                            mãy:</b>
+                            máy:</b>
                         {{
                         $booking_detail->computerCompany->company_name}}</span></div>
             </div>
-            <br><b>Ngày đặt:</b>{{
+            <br><b>Ngày đặt:</b>{{ ' '.
             $booking_detail->created_at
             }}
             <br><br>
@@ -57,6 +57,23 @@
             <td>
                 <div>
                     <h4>KHÁCH HÀNG</h4>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+
+                    <h4><b>{{ Auth::user()->name }}</b></h4>
+
+                </div>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <div>
+                    <h4></h4>
                 </div>
             </td>
         </tr>
