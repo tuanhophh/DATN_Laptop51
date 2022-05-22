@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use App\Models\DetailProduct;
 use App\Models\Product;
 use App\Models\RepairPart;
+use App\Models\RoleUser;
 use App\Models\User;
 use App\Models\UserRepair;
 use App\Notifications\TestNotification;
@@ -173,7 +174,7 @@ class BookingController extends Controller
          'interval' => $request->interval,
          'repair_type' => $request->repair_type,
          'desc' => $booking_detail->description,
-         'status' => "đang chờ",
+         'status' => "Đang chờ",
       ];
 
       if ($details['interval'] == 1) {
@@ -194,7 +195,7 @@ class BookingController extends Controller
       }
       // dd($details);
 
-      // dispatch(new SendOrderSuccessEmail($details));
+      dispatch(new SendOrderSuccessEmail($details));
       // $mod = $request->all(); 
       // dd($mod);
       // if ($request->btn == 'admin') {
@@ -310,10 +311,10 @@ class BookingController extends Controller
             $data['to'] = 1;
             $data['code'] =    $request->booking_detail_id;
             $data['url'] = '/admin/dat-lich/chi-tiet/' . $booking_detail->id;
-            $users = User::where('id_role', 1)->get();
-            foreach ($users as $user) {
-               $user->notify(new TestNotification($data));
-            }
+            $user = User::find($request->staff);
+            // foreach ($users as $user) {
+            $user->notify(new TestNotification($data));
+            // }
             $options = array(
                'cluster' => 'ap1',
                'encrypted' => true
@@ -447,6 +448,38 @@ class BookingController extends Controller
          $booking_detail->status_repair = 'finish';
          $booking_detail->repair = $request->description_repair;
          $booking_detail->save();
+
+         //notify
+         $data['title'] = 'Máy đã sửa xong: ' .  $booking_detail->full_name;
+
+         $data['from'] = 1;
+         $data['to'] = 1;
+         $data['code'] =  $booking_detail->id;
+         $data['url'] = '/admin/dat-lich/danh-sach-da-sua-xong';
+         $users = User::where('id_role', 1)->get();
+         foreach ($users as $user) {
+            $user->notify(new TestNotification($data));
+         }
+         $options = array(
+            'cluster' => 'ap1',
+            'encrypted' => true
+         );
+
+         $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+         );
+
+         $pusher->trigger('my-channel', 'my-event', $data);
+         // if ($request->btn == 'client') {
+         //    return view('website.success', compact('booking', 'booking_detail', 'request', 'details'));
+         // }
+
+         // return back()->with('msg', '<script>alert("Đặt lịch thành công");	</script>');
+
+
          // }         
          $user_repair =   UserRepair::where('booking_detail_id', $booking_detail->id)->first();
          if (!empty($user_repair)) {
@@ -509,7 +542,10 @@ class BookingController extends Controller
    {
       $booking_details = BookingDetail::join('bookings', 'booking_details.booking_id', 'bookings.id')
          ->where('status_repair', 'waiting')->orWhere('status_repair', 'fixing')->where('status_booking', 'latch')->get();
-      $users = User::all();
+      $users = RoleUser::where('role_id', 15)->join('users', 'role_user.user_id', 'users.id')->orderBy('users.id')->get();
+
+
+
       return view('admin.booking.ds_cho_sua', compact('booking_details', 'users'));
    }
    public function DanhSachChuaXacNhan()

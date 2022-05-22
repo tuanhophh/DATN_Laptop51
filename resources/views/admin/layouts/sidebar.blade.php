@@ -264,7 +264,7 @@
                             <p>DS được phân công</p>
                         </a>
                     </li> --}}
-                    @can('list-repair')
+                    @can('list-booking')
                     <li class="nav-item">
                         <a href="{{ route('sua-chua.danh-sach-cho-sua') }}" class="nav-link">
                             <i class="fas fa-notes-medical nav-icon"></i>
@@ -322,8 +322,8 @@
                 </ul>
             </li>
             @endcan
-            <li class="nav-item {{ request()->is('admin/sua-chua*') ? ' menu-is-opening menu-open' : '' }}">
-                <a href="" class="nav-link {{ request()->is('admin/sua-chua*') ? 'active ' : '' }}">
+            {{-- <li class="nav-item {{ request()->is('admin/sua-chua*') ? ' menu-is-opening menu-open' : '' }}">
+                <a href="" class="nav-link {{ request()->is('admin/sua-chua*') ? 'active ' : '' }}"> --}}
 
             <li class="nav-item {{ request()->is('admin/category_component*') ? ' menu-is-opening menu-open' : '' }}">
                 <a href="" class="nav-link {{ request()->is('admin/category_component*') ? 'active ' : '' }}">
