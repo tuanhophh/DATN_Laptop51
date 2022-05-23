@@ -19,6 +19,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {   
         $products=Product::paginate(10);
+        $products->load('image_product');
         $ComputerCompany = ComputerCompany::all();
         $products = Product::when($request->name, function ($query, $name) {
             return $query->where('name', 'like', "%{$name}%");
@@ -34,7 +35,7 @@ class ProductController extends Controller
             }
         })->when($request->companyComputer_id, function ($query, $companyComputer_id) {
             return $query->where('companyComputer_id','=',$companyComputer_id);
-        })->orderBy('status', 'DESC')->paginate(9);
+        })->orderBy('status', 'DESC')->paginate(10);
         
         return view('admin.products.index', compact('products','ComputerCompany'));
     }

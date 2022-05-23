@@ -42,7 +42,7 @@
                             </ul>
                         </div>
                     @endif
-                    <button class="btn btn-success">Import User Data</button>
+                    <button class="btn btn-success">Import Product Data</button>
                 </form>
             </div>
         </div>
