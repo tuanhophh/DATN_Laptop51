@@ -1,5 +1,5 @@
 @extends('admin.layouts.main')
-@section('content')
+@section('content')<h3 class="text-center">DANH SÁCH ĐƯỢC PHÂN CÔNG</h3>
 <div class="table-responsive container">
     <table class="table align-items-center table-flush">
         <thead class="thead-light">
@@ -37,7 +37,7 @@
                                 <option @if ($b->active==4) selected @endif value="4">Đã trả khách</option>
                             </select>
                             <input type="hidden" name="booking_detail_id" value="{{ $b->id }}">
-                          
+
                             <button class="btn btn-primary" type="submit">Chọn</button>
                         </form>
                     </div>
@@ -59,9 +59,9 @@
                                     @endif value="{{ $u->id }}">{{ $u->name }}</option>
                                 @endforeach
                             </select><input type="hidden" name="booking_detail_id" value="{{ $b->id }}">
-                          
+
                             <button class="btn btn-primary" type="submit">Chọn</button>
-                           
+
                         </form>
                     </div>
                 </td> --}}

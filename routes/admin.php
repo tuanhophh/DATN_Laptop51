@@ -225,11 +225,11 @@ Route::middleware(['auth', 'account.admin'])->group(function () {
         Route::get('/delete/{id}', [Categories_NewsController::class, 'remove'])->name('category_news.remove');
     });
     Route::post('chuyen-trang-thai', [BookingController::class, 'selectStatusBooking'])->name('dat-lich.chuyen-trang-thai');
-    Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaPhanTho'])->name('sua-chua.danh-sach-chua-phan-tho');
-    Route::get('/danh-sach-da-sua-xong', [BookingController::class, 'DanhSachDaSuaXong'])->name('sua-chua.danh-sach-da-sua-xong');
-    Route::get('/danh-sach-cho-sua', [BookingController::class, 'DanhSachChoSua'])->name('sua-chua.danh-sach-cho-sua');
-    Route::get('/danh-sach-chua-xac-nhan', [BookingController::class, 'DanhSachChuaXacNhan'])->name('sua-chua.danh-sach-chua-xac-nhan');
-    Route::get('/danh-sach-da-giao-khach', [BookingController::class, 'DanhSachDaGiaoKhach'])->name('sua-chua.danh-sach-da-giao-khach');
+    Route::get('/dat-lich/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaPhanTho'])->name('sua-chua.danh-sach-chua-phan-tho')->middleware('can:list-booking');
+    Route::get('/dat-lich/danh-sach-da-sua-xong', [BookingController::class, 'DanhSachDaSuaXong'])->name('sua-chua.danh-sach-da-sua-xong');
+    Route::get('/dat-lich/danh-sach-cho-sua', [BookingController::class, 'DanhSachChoSua'])->name('sua-chua.danh-sach-cho-sua')->middleware('can:list-booking');
+    Route::get('/dat-lich/danh-sach-chua-xac-nhan', [BookingController::class, 'DanhSachChuaXacNhan'])->name('sua-chua.danh-sach-chua-xac-nhan')->middleware('can:list-booking');
+    Route::get('/dat-lich/danh-sach-da-giao-khach', [BookingController::class, 'DanhSachDaGiaoKhach'])->name('sua-chua.danh-sach-da-giao-khach');
 
     // Route::get('/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaPhanTho']);
 

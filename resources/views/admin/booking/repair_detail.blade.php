@@ -218,8 +218,8 @@
                                                 <th> Giá tiền sửa</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="ds_linh_kien_sua">
-                                            <tr id="form_linh_kien_sua">
+                                        <tbody class="ds_linh_kien_sua">
+                                            <tr class="form_linh_kien_sua" onclick="remove(this)">
                                                 <td class="col-9">
                                                     <input type="text" name="product_repair[]" value=""
                                                         placeholder="Nhập linh kiện" class="form-control">
@@ -228,7 +228,8 @@
                                                         placeholder="Nhập giá tiền" value="0" class="form-control">
                                                 </td>
                                                 <td>
-
+                                                    <button class="btn_remove" type="button"
+                                                        onclick="remove(this)">Xóa</button>
                                                 </td>
 
                                             </tr>
@@ -330,15 +331,20 @@ for (var i = 0; i < options.length; i++){
 
 
     function add(){
-    ds_linh_kien_sua=document.getElementById('ds_linh_kien_sua');
-    form_linh_kien_sua=document.getElementById('form_linh_kien_sua');
+    ds_linh_kien_sua=document.getElementsByClassName('ds_linh_kien_sua')[0];
+    form_linh_kien_sua=document.getElementsByClassName('form_linh_kien_sua')[0];
     const node = document.createElement("tr")
     node.innerHTML=form_linh_kien_sua.innerHTML
     ds_linh_kien_sua.appendChild(node);
     }
     
-    function remove(){
-        
+    function remove(obj){
+// form_linh_kien_sua=document.getElementsByClassName('form_linh_kien_sua')[0];
+//         console.log(ds_linh_kien_sua[0]);
+//         ds_linh_kien_sua=document.getElementsByClassName('ds_linh_kien_sua')[0];
+console.log(obj.children);
+        child=obj;
+        child.parent.removeChild(child);
     }
 
 
