@@ -35,4 +35,10 @@ class Product extends Model
     {
         return $this->hasOne(bill_detail::class);
     }
+
+    public function image_product()
+    {
+        return $this->hasMany(ImageProduct::class,'product_id','id');
+    }
+
 }

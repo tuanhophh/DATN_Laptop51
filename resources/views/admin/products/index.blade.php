@@ -71,11 +71,12 @@
 
             </div>
             <div class="card-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered text-center">
                     <thead>
-                        <th class="px-0 text-center" style="width: 1px;">STT</th>
+                        <th class="px-0 " style="width: 1px;">STT</th>
                         <th style="max-width: 480px;">Tên</th>
                         <th>Hãng</th>
+                        <th>Ảnh</th>
                         <th>Giá mua</th>
                         <th>Giá bán</th>
                         <th>Số lượng</th>
@@ -95,7 +96,12 @@
                             <td>
                                 {{ $item->companyComputer->company_name }}
                             </td>
-                            <td>{{ $item->import_price }}</td>
+                            <td>
+                                {{-- @foreach($item->image_product[0] as $item2) --}}
+                                <img src="{{asset($item->image_product[0]->path)}}" alt="" width="100">
+                                {{-- @endforeach --}}
+                            </td>
+                            <td>{{ ($item->import_price) }}</td>
                             <td>{{ $item->price }}</td>
                             <td>{{ $item->qty }}</td>
                             <td>{{ $item->insurance }} tháng</td>

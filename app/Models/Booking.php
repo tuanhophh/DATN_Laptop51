@@ -9,7 +9,7 @@ class Booking extends Model
 {
     use HasFactory;
     protected $table = 'bookings';
-    public $fillable = ['full_name', 'phone', 'company_computer_id', 'email', 'expected_cost', 'repair', 'repair_type', 'time', 'description', 'active', 'interval'];
+    public $fillable = ['full_name', 'phone', 'company_computer_id', 'email', 'expected_cost', 'repair', 'repair_type', 'time', 'description', 'active', 'interval', 'date'];
 
 
     /**
@@ -17,9 +17,9 @@ class Booking extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function bookingDetail()
+    public function booking_detail()
     {
-        return $this->hasMany(BookingDetail::class, 'booking_id', 'id');
+        return $this->hasOne(BookingDetail::class, 'booking_id', 'id');
     }
     /**
      * The roles that belong to the Booking

@@ -32,9 +32,10 @@
                                 <div class="box-shadow mb-30 clearfix">
                                     <!-- short-by -->
 
-                                    <form action="{{ route('website.product') }}" method="GET" class="m-0 pt-4 p-0 f-right">
-                                    <!-- <span class="ml-10" style="color:#ff7f00">Tên sản phẩm: </span>     -->
-                                    <input style="width: 30% !important; height: auto !important;" type="text"
+                                    <form action="{{ route('website.product') }}" method="GET"
+                                        class="m-0 pt-4 p-0 f-right">
+                                        <!-- <span class="ml-10" style="color:#ff7f00">Tên sản phẩm: </span>     -->
+                                        <input style="width: 30% !important; height: auto !important;" type="text"
                                             placeholder="Lọc theo tên" name="name">
                                         <!-- <span class="pl-20" style="color:#ff7f00">
                                             Hãng:
@@ -75,15 +76,15 @@
                                             @foreach($productNew as $product)
                                             <?php
 
-if (!function_exists('currency_format')) {
-    function currency_format($product, $suffix = ' VNĐ')
-    {
-        if (!empty($product)) {
-            return number_format($product, 0, ',', '.') . "{$suffix}";
-        }
-    }
-}
-?>
+                                                if (!function_exists('currency_format')) {
+                                                    function currency_format($product, $suffix = ' VNĐ')
+                                                    {
+                                                        if (!empty($product)) {
+                                                            return number_format($product, 0, ',', '.') . "{$suffix}";
+                                                        }
+                                                    }
+                                                }
+                                                ?>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="product-item">
                                                     <div class="product-img">

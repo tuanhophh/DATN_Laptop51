@@ -6,4 +6,5 @@ Giờ sửa: <br>
 Hình thức sửa: {{ $repair_type=='TN'?'Tại nhà':"Tại cửa hàng" }} <br>
 Mô tả: {!! $description !!}
 
-Cảm ơn bạn đã đặt lịch
+Cảm ơn bạn đã tin tưởng Laptop 51! 
+Kính chúc bạn một ngày tốt lành!

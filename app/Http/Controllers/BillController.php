@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\BillUser;
 use App\Models\bill_detail;
+use App\Models\Booking;
+use App\Models\BookingDetail;
 use App\Models\list_bill;
 use App\Models\Product;
 use Brian2694\Toastr\Facades\Toastr;
@@ -16,44 +18,55 @@ class BillController extends Controller
 {
     public function index(Request $request)
     {
-        $bills = list_bill::all();
+        $bills = Booking::query()
+            ->with('booking_detail')
+            ->whereHas('booking_detail', function ($q) use ($request) {
+                if ($request->status == 'Chờ xử lý') {
+                    $q->where('status_booking', '=', null);
+                }
 
-        $bills = list_bill::when($request->code, function ($query, $code) {
-            return $query->where('code', 'like', "%{$code}%");
-        })->when($request->status, function ($query) use ($request) {
-            if($request->status == 5){
-                return $query->where('status', '=', '0' );
-            }
-            if($request->status == 1){
-                return $query->where('status', '=', '1' );
-            }
-            if($request->status == 2){
-                return $query->where('status', '=', '2');
-            }
-            if($request->status == 3){
-                return $query->where('status', '=', '3');
-            }
-            if($request->status == 4){
-                return $query->where('status', '=' , '4');
-            }
-            if($request->status == 0){
-                return $query->orderBy('status','ASC');
-            }
-        })->when($request->type, function ($query) use ($request) {
-            if($request->type == 0){
-                return $query->where('type', '=', '0' );
-            }
-            if($request->type == 1){
-                return $query->where('type', '=', '1' );
-            }
-            if($request->type == 2){
-                return $query->where('type', '=', '2');
-            }
-        })->orderBy('created_at', 'DESC')->paginate(9);
-        
-        $bill_user = BillUser::all();
+                if ($request->status == 'Tiếp nhận máy') {
+                    $q->where('status_booking', '=', 'received');
+                }
 
-        return view('admin.bills.index', compact('bills', 'bill_user'));
+                if ($request->status == 'Hủy') {
+                    $q->where('status_booking', '=', 'cancel');
+                }
+
+                if ($request->status == 'Đang chờ sửa') {
+                    $q->where('status_booking', '=', 'latch')
+                        ->where('status_repair', '=', 'fixing');
+                }
+
+                if ($request->status == 'Đang sửa') {
+                    $q->where('status_booking', '=', 'latch')
+                        ->where('status_repair', '=', 'waiting');
+                }
+
+                if ($request->status == 'Hoàn thành sửa') {
+                    $q->where('status_booking', '=', 'latch')
+                        ->where('status_repair', '=', 'finish');
+                    $q->with('list_bill');
+                    $q->whereHas('list_bill', function ($e) use ($request) {
+                        $e->where('type', '!=', 2);
+                    });
+                }
+
+                if ($request->code ?? null) {
+                        $q->where('code','like','%'. $request->code.'%');
+                    };
+
+                if ($request->status == 'Đã thanh toán') {
+                    $q->with('list_bill');
+                    $q->whereHas('list_bill', function ($e) use ($request) {
+                        $e->where('type', 2);
+                    });
+                };
+            })
+
+            ->orderBy('created_at', 'DESC')->paginate(9);
+
+        return view('admin.bills.index', compact('bills'));
     }
     public function show(Request $request)
     {
@@ -108,14 +121,14 @@ class BillController extends Controller
         );
     }
     public function saveEdit(Request $request, $id)
-    {   
+    {
         $list_bill = list_bill::find($id);
         $list_bill['method'] = $request->method;
-        $bill_detail = bill_detail::where('bill_code',$list_bill->code)->get();
-        if(($list_bill->status == 0 || $list_bill->status ==3)  && ($request->status == 2 || $request->status == 4)){
-            foreach($bill_detail as $bill_d){
-            $products = Product::where('id', $bill_d->product_id)->get();
-                foreach($products as $product){
+        $bill_detail = bill_detail::where('bill_code', $list_bill->code)->get();
+        if (($list_bill->status == 0 || $list_bill->status == 3)  && ($request->status == 2 || $request->status == 4)) {
+            foreach ($bill_detail as $bill_d) {
+                $products = Product::where('id', $bill_d->product_id)->get();
+                foreach ($products as $product) {
                     $product->qty = $product->qty - $bill_d->quaty;
                     $product->save();
                 }
@@ -123,7 +136,7 @@ class BillController extends Controller
         }
         $list_bill['status'] = $request->status;
         $list_bill['total_price'] = $request->total_price;
-        $bill_user = BillUser::where('bill_code',$list_bill->code)->orderBy('created_at','DESC')->first();
+        $bill_user = BillUser::where('bill_code', $list_bill->code)->orderBy('created_at', 'DESC')->first();
         $bill_user['name'] = $request->name;
         $bill_user['email'] = $request->email;
         $bill_user['phone'] = $request->phone;
@@ -131,7 +144,7 @@ class BillController extends Controller
         $bill_user['note'] = $request->note;
         $list_bill->save();
         $bill_user->save();
-        Toastr::success('Sửa hóa đơn thành công','Thành công');
+        Toastr::success('Sửa hóa đơn thành công', 'Thành công');
         return redirect()->route('bill.index');
     }
 }
