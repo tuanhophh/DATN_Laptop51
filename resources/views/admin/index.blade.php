@@ -163,6 +163,7 @@
 
                     <ul class="list-group" id='listtopdata'>
                         @foreach ($datasanphamban as $key => $sanpham)
+
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             {{ $sanpham[0]['name'] }}
                             <span class="badge badge-primary badge-pill">{{ $sanpham[0]['quaty'] }}</span>
@@ -195,17 +196,36 @@
             </div>
         </div>
 
-
+        <?php
+                                                        if (!function_exists('currency_format')) {
+                                                            function currency_format($bill_d, $suffix = ' VNĐ')
+                                                            {
+                                                                if (!empty($bill_d)) {
+                                                                    return number_format($bill_d, 0, ',', '.') . "{$suffix}";
+                                                                }
+                                                            }
+                                                        }
+                                                        ?>
+                                                                <?php
+                                                        if (!function_exists('currency')) {
+                                                            function currency($bill_d)
+                                                            {
+                                                                if (!empty($bill_d)) {
+                                                                    return number_format($bill_d, 0, ',', '.');
+                                                                }
+                                                            }
+                                                        }
+                                                        ?>
     </div>
     <div class="row">
         <div class="col-6">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Tổng doanh thu: <span id='tongdoanhthu'>
-                            {{ $doanhthutong }}</span>
-                        Vnđ</h5>
+                            {{ currency_format($doanhthutong) }}</span>
+                    </h5><br>
                     <input type="button" style="display:none" id='sotiennhap' value="{{ $sotiennhap }}">
-                    <input type="button" style="display:none" id='sotienlai' value="{{ $sotienlai }}">
+                    <input type="button" style="display:none" id='sotienlai' value="{{$sotienlai}}">
                     <canvas id="doanhthuchart">
 
                     </canvas>
@@ -217,9 +237,9 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Tổng doanh thu sửa chữa: <span id='tongdoanhthusuachua'>
-                            {{ $doanhthusuachua }}</span>
-                        Vnđ</h5>
-                    <input type="button" style="display:none" id='sotiennhapsuachua' value="{{ $sotiennhapSua }}">
+                            {{ currency_format($doanhthusuachua) }}</span>
+                        </h5>
+                    <input type="button" style="display:none" id='sotiennhapsuachua' value="{{$sotiennhapSua}}">
                     <input type="button" style="display:none" id='sotienlaisuachua' value="{{ $sotienlaisuachua }}">
                     <canvas id="doanhthusuachua">
 
@@ -231,8 +251,8 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Tổng doanh thu bán: <span id='doanhthutongban'>
-                            {{ $doanhthutongban }}</span>
-                        Vnđ</h5>
+                            {{ currency_format($doanhthutongban) }}</span>
+                    </h5>
                     <input type="button" style="display:none" id='sotiennhapban' value="{{ $sotiennhapOrder }}">
                     <input type="button" style="display:none" id='sotienlaiban' value="{{ $sotienlaiban }}">
                     <canvas id="doanhthuban">

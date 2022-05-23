@@ -69,7 +69,7 @@
                                 @can('delete-user')
                                 <button type="button" class="btn btn-sm btn-danger"><a
                                         style="color:white;  text-decoration: none;"
-                                        onclick="return confirm('Bạn có chắc muốn User')"
+                                      
                                         href="{{ route('user.remove', ['id'=>$item->id]) }}"> Xóa</a></button>
                                 @endcan
                                 @endif

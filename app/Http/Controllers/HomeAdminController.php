@@ -102,7 +102,12 @@ class HomeAdminController extends Controller
     foreach ($socacsanphamdaban as $sanpham) {
       $product = Product::find($sanpham)['name'];
       if ($product ?? null) {
-        array_push($datasanphamban, [['name' => $product, 'quaty' => bill_detail::where('product_id', $sanpham)->count()]]);
+        array_push($datasanphamban, [['name' => $product[0]->name,'quaty' => bill_detail::query()
+        ->with('list_bill')
+        ->whereHas('list_bill', function ($q) {
+          $q->where('status', '=', 2);
+        })
+        ->where('product_id', $sanpham)->count()]]);
       }
     }
 

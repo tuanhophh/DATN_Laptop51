@@ -43,7 +43,7 @@
                                 @endcan
                                 @can('delete-category')
                                 <a href="{{ route('category.remove', ['id' => $item->id]) }}"
-                                    onclick="return confirm('Bạn có chắc muốn xóa')"
+                                 
                                     class="btn btn-sm btn-danger">Xóa</a>
                                 @endcan
 

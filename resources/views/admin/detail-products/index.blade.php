@@ -107,7 +107,7 @@
                                     class="btn btn-sm btn-warning">Sửa</a>
                                 @endcan
                                 @can('delete-product')
-                                <a onclick="return confirm('Bạn có chắc muốn xóa')"
+                                <a 
                                     href="{{route('detail-product.remove', ['id' => $item->id])}}"
                                     class="btn btn-sm btn-danger">Xóa</a>
                                 @endcan

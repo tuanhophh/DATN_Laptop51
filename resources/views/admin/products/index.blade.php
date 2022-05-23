@@ -71,7 +71,7 @@
 
             </div>
             <div class="card-body">
-                <table class="table table-bordered text-center">
+                <table class="table table-bordered">
                     <thead>
                         <th class="px-0 " style="width: 1px;">STT</th>
                         <th style="max-width: 480px;">Tên</th>
@@ -80,8 +80,7 @@
                         <th>Giá mua</th>
                         <th>Giá bán</th>
                         <th>Số lượng</th>
-                        <th class="px-0 text-center">Bảo hành</th>
-                        <th class="px-0 text-center">Trạng thái</th>
+                        <th class="">Trạng thái</th>
                         <th>
                             @can('add-product')
                             <a class="btn btn-sm btn-info" href="{{ route('product.add') }}">Thêm</a>
@@ -91,8 +90,18 @@
                     <tbody>
                         @foreach ($products as $item)
                         <tr>
+                        <?php
+                                            if (!function_exists('currency_format')) {
+                                                function currency_format($cont, $suffix = ' VNĐ')
+                                                {
+                                                    if (!empty($cont)) {
+                                                        return number_format($cont, 0, ',', '.') . "{$suffix}";
+                                                    }
+                                                }
+                                            }
+                                            ?>
                             <td>{{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}</td>
-                            <td style="max-width: 480px;">{{ $item->name }}</td>
+                            <td style="max-width: 350px;">{{ $item->name }}</td>
                             <td>
                                 {{ $item->companyComputer->company_name }}
                             </td>
@@ -101,10 +110,10 @@
                                 <img src="{{asset($item->image_product[0]->path)}}" alt="" width="100">
                                 {{-- @endforeach --}}
                             </td>
-                            <td>{{ ($item->import_price) }}</td>
-                            <td>{{ $item->price }}</td>
+                            <td>{{ currency_format($item->import_price) }}</td>
+                            <td>{{ currency_format($item->price) }}</td>
                             <td>
-                                @if($item->qty == 0) 
+                                @if($item->qty <= 0) 
                                 <p class="text-danger"> Hết hàng</p>
                                 @elseif($item->qty < 5)
                                 <p class="text-danger"> {{$item->qty}}</p>
@@ -112,7 +121,6 @@
                                 <p>{{$item->qty}}</p>
                                 @endif
                             </td>
-                            <td>{{ $item->insurance }} tháng</td>
                             <td>
                                 @if($item->status == 1)
                                 <p class="text-success mb-0">Đang hiện</p>

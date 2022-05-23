@@ -6,6 +6,7 @@ use App\Http\Requests\ProfileRequest;
 use App\Models\Bill;
 use App\Models\bill_detail;
 use App\Models\BookingDetail;
+use App\Models\list_bill;
 use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
@@ -51,11 +52,10 @@ class ProfileController extends Controller
         return view('website.profile', compact('user', 'bill', 'bill_user', 'bill_detail', 'img_product'))->with('message', 'Đăng nhập thành công');
     }
 
-    public function cancelOrder(Request $request, $code)
+    public function cancelOrder(Request $request)
     {
-        $data = Bill::where('code', $code)->first();
-        $data['payment_status'] = 0;
-        // dd($data);
+        $data = list_bill::where('code', $request->code)->first();
+        $data->status = 1;
         $data->save();
         return redirect()->back();
     }

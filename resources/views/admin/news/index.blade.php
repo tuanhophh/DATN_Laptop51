@@ -76,7 +76,7 @@
                         <td> <button type="button" class="btn btn-primary"><a style="color:white;  text-decoration: none;"
                                     href="{{ route('news.edit', ['id' => $item->id]) }}"> Sửa</a></button>
                             <button type="button" class="btn btn-danger"><a style="color:white;  text-decoration: none;"
-                                    onclick="return confirm('Bạn có chắc muốn xóa tin tức này không')"
+                                 
                                     href="{{ route('news.remove', ['id' => $item->id]) }}"> Xóa</a></button>
                         </td>
                     </tr>

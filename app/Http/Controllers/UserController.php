@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     public function index(){
-        $users = User::orderBy('id_role','desc')->get();
+        $users = User::orderBy('id_role','desc')->paginate(10);
         // $users->load('roles');
         return view('admin.users.index', [
             'users' => $users,

@@ -46,7 +46,7 @@
                         <td> <button type="button" class="btn btn-primary"><a style="color:white;  text-decoration: none;"
                                     href="{{ route('category_news.edit', ['id' => $item->id]) }}"> Sửa</a></button>
                             <button type="button" class="btn btn-danger"><a style="color:white;  text-decoration: none;"
-                                    onclick="return confirm('Bạn có chắc muốn Danh mục tin tức')"
+                                 
                                     href="{{ route('category_news.remove', ['id' => $item->id]) }}"> Xóa</a></button>
                         </td>
                     </tr>
