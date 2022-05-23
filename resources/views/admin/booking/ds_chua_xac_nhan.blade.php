@@ -117,8 +117,8 @@
                         role="button">Sửa chữa</a>
                     @endif --}}
                     @can('edit-booking')
-                    <a name="" id="" class="btn btn-primary" href="{{ route('dat-lich.edit', ['id'=>$b->id]) }}"
-                        role="button">Sửa thông tin</a>
+                    <a name="" id="" class="btn btn-primary" href="{{ route('dat-lich.chi-tiet', ['id'=>$b->id]) }}"
+                        role="button">Chi tiết</a>
                     <a name="" id="" class="btn btn-info" @if ($b->status_booking!='latch')
                         style="display: none"
                         @endif

@@ -95,6 +95,115 @@
                     </div>
                 </div>
             </div>
+            <div class="about-section mb-80">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="section-title text-left ">
+                                <h2 class="uppercase">Chính sách đổi trả và hoàn tiền: </h2>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="about-photo p-20 bg-img-1">
+                                <img src="{{ asset('client') }}/img/others/b.jpg" alt="" height="250">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="about-description mt-50">
+                                <h6 class="mb-40"><b>Trường hợp được đổi/trả hàng</b></h6>
+                                <p><b> Sản phẩm mua rồi nhưng không ưng ý</b></p>
+                                <p><i>Người mua có thể trả hàng khi không vừa ý trong vòng 1h kể từ khi nhận hàng,
+                                        tratoanthang.com sẽ đổi sản phẩm cho khách. Sản phẩm muốn đổi hoặc trả cần giữ
+                                        sản
+                                        phâm nguyên đai, chưa mở nắp, chưa sử dụng. Không nhất thiết còn tem mác hay
+                                        hỏng
+                                        hộp. Không bị méo mó, biến dạng.</i> </p>
+                            </div>
+                            <div class="about-description mt-50">
+                                <p><b>Sản phẩm mua bị lỗi – Quá hạn sử dụng.</b></p>
+                                <p><i>Quý khách vui lòng kiểm tra sản phẩm trước khi thanh toán. Trong trường hợp sản
+                                        phẩm bị hư hại trong quá trình vận chuyển, quý khách vui lòng từ chối và gửi lại
+                                        sản phẩm cho chúng tôi</i> </p>
+                                <p><i>Sản phẩm không sử dụng được ngay khi được giao.
+                                        Trước tiên, hãy dành thời gian đọc kỹ tem hướng dẫn sử dụng và chắc rằng sản
+                                        phẩm phù hợp với nhu cầu của bạn. Vui lòng liên hệ ngay cho chúng tôi để được hỗ
+                                        trợ hồi trả lại hàng</i> </p>
+                            </div>
+                            <div class="about-description mt-50">
+                                <p><b>Sản phẩm giao không đúng theo đơn đặt hàng</b></p>
+                                <p><i>Bạn nghĩ rằng sản phẩm giao cho bạn không đúng với đơn đặt hàng? Hãy liên hệ với
+                                        chúng tôi càng sớm càng tốt, hệ thống của chúng tôi sẽ kiểm tra nếu hàng của bạn
+                                        bị gửi nhầm. Trong trường hợp đó, chúng tôi sẽ thay thế đúng mặt hàng bạn yêu
+                                        cầu (khi có hàng).</i> </p>
+                            </div>
+                            <div class="about-description mt-50">
+                                <p><b>Điều kiện đổi trả hàng: </b></p>
+                                <p><i>Điều kiện về thời gian đổi trả: trong vòng 01 ngày kể từ khi nhận được hàng và
+                                        phải liên hệ gọi ngay cho chúng tôi theo số điện thoại trên để được xác nhận đổi
+                                        trả hàng.</i> </p>
+                            </div>
+                            <div class="about-description mt-50">
+                                <p><b>Điều kiện đổi trả hàng:
+                                    </b></p>
+                                <p><i>
+                                        – Sản phẩm gửi lại phải còn nguyên đai nguyên kiện <br>
+                                        – Phiếu bảo hành (nếu có) và tem của công ty trên sản phẩm còn nguyên vẹn. <br>
+                                        – Sản phẩm đổi/ trả phải còn đầy đủ hộp, giấy Hướng dẫn sử dụng và chưa qua sử
+                                        dụng.<br>
+                                        – Quý khách chịu chi phí vận chuyển, đóng gói, thu hộ tiền, chi phí liên lạc tối
+                                        đa tương đương 20% giá trị đơn hàng.</i> </p>
+                            </div>
+                            <div class="about-description mt-50">
+                                <p><b>Quy trình đổi trả hàng:
+                                    </b></p>
+                                <p><i> <b>Bước 1:</b> Sau khi nhận được hàng. Yêu cầu quý vị kiểm tra kỹ 1 lần trước khi
+                                        nhận
+                                        hàng. Nếu có vấn đề xin vui lòng liên hệ Trung tâm hỗ trợ khách hàng tại thời
+                                        điểm nhân viên giao hàng còn ở đó. <br>
+                                        – Trường hợp sau khi nhân viên giao hàng đã đi <br>
+                                        – Nếu muốn đổi trả hàng có thể liên hệ với chúng tôi để được xử lý và hẹn lịch
+                                        đổi trả hàng. <br>
+                                        <b>Bước 2:</b> Sau khi Trung tâm hỗ trợ khách hàng thông báo lịch hẹn nhận hàng
+                                        trả.</i> </p>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="about-description mt-50">
+                                <h6 class="mb-40"><b>Chính sách bảo hành:</b></h6>
+                                <p><b>1. Trường hợp được bảo hành: </b></p>
+                                <p><i>- Sản phẩm trong thời hạn còn bảo hành. <br>
+                                        - Lỗi về máy, pin và bị hư hỏng do các điều kiện tự nhiên, không có sự tác động
+                                        của con người. <br>
+                                        - Sản phẩm được bảo hành theo quy định của nhà cung cấp. <br>
+                                        - Quý khách xuất trình phiếu bảo hành khi bảo hành.</i> </p>
+                            </div>
+                            <div class="about-description mt-50">
+                                <p><b>2. Trường hợp không được bảo hành: </b></p>
+                                <p><i>- Sản phẩm đã quá thời hạn ghi trên Phiếu bảo hành hoặc mất Phiếu bảo hành. <br>
+                                        - Phiếu bảo hành không ghi rõ mã số sản phẩm và ngày mua hàng. <br>
+                                        - Mã số sản phẩm và Phiếu bảo hành không trùng khớp nhau hoặc không xác định
+                                        được vì bất kỳ lý do nào. <br>
+                                        - Sản phẩm bị trầy xước do quá trình sử dụng lâu ngày. <br>
+                                        - Sản phẩm bị bể móp, biến dạng do bị va đập. <br>
+                                        - Khách hàng tự ý can thiệp vào máy của sản phẩm hoặc đem đến một nơi nào khác
+                                        sửa chữa.</i> </p>
+                            </div>
+                            <div class="about-description mt-50">
+                                <p><b>3. Điều kiện đổi trả hàng hoặc hoàn tiền 100%: </b></p>
+                                <p><i>- Sản phẩm phát hiện bị lỗi của nhà sản xuất khi nhận hàng. <br>
+                                        - Sản phẩm không giống với sản phẩm mà Quý khách đã đặt hàng trên website của
+                                        chúng tôi.</i> </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- ABOUT SECTION END -->
 
             <!-- TEAM SECTION START -->

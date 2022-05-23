@@ -26,7 +26,7 @@
                         <th>STT</th>
                         <th>Tên thuộc tính</th>
                         <th>
-                            {{-- @can('add-category_component') --}}
+                            {{-- @can('add-category') --}}
                             <a class="btn btn-info" href="{{route('category_component.add')}}">Thêm</a>
                             {{-- @endcan --}}
                         </th>
@@ -37,11 +37,11 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->name_category }}</td>
                             <td>
-                                @can('edit-category_component')
+                                @can('edit-category')
                                 <a href="{{ route('category_component.edit', ['id' => $item->id]) }}"
                                     class="btn btn-sm btn-warning">Sửa</a>
                                 @endcan
-                                @can('delete-category_component')
+                                @can('delete-category')
                                 <a href="{{ route('category_component.remove', ['id' => $item->id]) }}"
                                     onclick="return confirm('Bạn có chắc muốn xóa')"
                                     class="btn btn-sm btn-danger">Xóa</a>

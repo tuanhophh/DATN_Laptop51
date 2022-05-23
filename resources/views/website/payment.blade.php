@@ -101,10 +101,10 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="breadcrumbs-inner">
-                                <h1 class="breadcrumbs-title">Chi tiết sản phẩm</h1>
+                                <h1 class="breadcrumbs-title">Thanh toán</h1>
                                 <ul class="breadcrumb-list">
                                     <li><a href="/">Trang chủ</a></li>
-                                    <li>Chi tiết sản phẩm</li>
+                                    <li>Thanh toán</li>
                                 </ul>
                             </div>
                         </div>
@@ -163,25 +163,25 @@
                                                         <small
                                                             class="font-italic text-danger p-0 m-0">{{ $message }}</small>
                                                         @enderror
-                                                        <input type="text" name="name" value="{{ old('name') }}"
+                                                        <input type="text" name="name" value="{{ old('name',Auth::user()->name ) }}"
                                                             placeholder="Họ và tên người nhận">
                                                         @error('email')
                                                         <small
                                                             class="font-italic text-danger p-0 m-0">{{ $message }}</small>
                                                         @enderror
                                                         <input type="text" type="email" name="email"
-                                                            value="{{ old('email') }}" placeholder="Địa chỉ email">
+                                                            value="{{ old('email',Auth::user()->email) }}" placeholder="Địa chỉ email">
                                                         @error('phone')
                                                         <small
                                                             class="font-italic text-danger p-0 m-0">{{ $message }}</small>
                                                         @enderror
-                                                        <input type="text" name="phone" value="{{ old('phone') }}"
+                                                        <input type="text" name="phone" value="{{ old('phone',Auth::user()->phone) }}"
                                                             placeholder="Số điện thoại">
                                                         @error('address')
                                                         <small
                                                             class="font-italic text-danger p-0 m-0">{{ $message }}</small>
                                                         @enderror
-                                                        <input type="text" name="address" value="{{ old('address') }}"
+                                                        <input type="text" name="address" value="{{ old('address',Auth::user()->adddress) }}"
                                                             placeholder="Địa chỉ nhà">
 
                                                         <textarea class="custom-textarea" name="note"

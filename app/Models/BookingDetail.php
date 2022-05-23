@@ -25,14 +25,11 @@ class BookingDetail extends Model
      */
     public function list_bill()
     {
-        return $this->hasOne(list_bill::class, 'id', 'booking_detail_id');
+        return $this->hasOne(list_bill::class, 'booking_detail_id', 'id');
     }
     /**
      * The roles that belong to the BookingDetail
      *
      */
-    public function user_repair()
-    {
-        return $this->hasOne(UserRepair::class, 'booking_detail_id');
-    }
+    
 }

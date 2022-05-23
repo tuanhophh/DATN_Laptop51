@@ -172,7 +172,7 @@
                     </div>
                     <div class="form-group">
                         <label for="order_desc">Nội dung thanh toán</label>
-                        <textarea class="form-control" cols="20" id="order_desc" name="order_desc" rows="2">Noi dung thanh toan</textarea>
+                        <textarea class="form-control" cols="20" id="order_desc" name="order_desc" rows="2">Thanh toán cho đơn hàng: {{$code_length}}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="bank_code">Ngân hàng</label>

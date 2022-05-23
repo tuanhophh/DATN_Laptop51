@@ -105,11 +105,12 @@
 @section('content')<script src="ckeditor/plugins/ckeditor_wiris/integration/WIRISplugins.js?viewer=image"></script>
 
 <script src="ckeditor/plugins/ckeditor_wiris/integration/WIRISplugins.js?viewer=image"></script>
-
-<form action="" class="row-8" method="POST" enctype="multipart/form-data">
+<h2><b>SỬA THÔNG TIN</b></h2>
+<form action="" class="row" method="POST" enctype="multipart/form-data">
   @csrf
-  <div class="col-4">
-    <div class="col-4">
+
+  <div class="col-6">
+    <div class="col-3">
       <label for="">Họ Tên</label>
       <input type="text" class="form-control " value="{{ $booking_detail->booking->full_name}}" name="full_name" id=""
         aria-describedby="helpId" placeholder="">
@@ -117,7 +118,7 @@
       <small id="helpId" class="form-text text-danger">{{ $message }}</small>
       @enderror</small>
     </div>
-    <div class="col-4">
+    <div class="col-3">
       <label for="">Số điện thoại</label>
       <input type="text" class="form-control" name="phone" value="{{ $booking_detail->booking->phone}}" id=""
         aria-describedby="helpId" placeholder="">
@@ -131,11 +132,12 @@
     @error('email')
     <small id="helpId" class="form-text text-danger">{{ $message }}</small>
     @enderror</small>
+    {{--
   </div>
 
 
 
-  <div class="col-4">
+  <div class="col-4"> --}}
     <div class="form-group">
       <label for="">Thời gian</label>
       <select class="form-control" name="interval" id="">
@@ -163,17 +165,18 @@
       </select>
     </div>
   </div>
-  <div class="row border border-success " id="form_may">
 
-    <div class="col-4">
+  <div class=" border border-success col-6" id="form_may">
+
+    <div class="row">
       {{-- <h5 class="mx-auto">Máy 1</h5> --}}
-      <div class="form-group">
+      <div class="form-group col">
         <label for="">Tên máy tính</label>
         <input type="text" class="form-control" name="name_computer" value="{{ $booking_detail->name_computer }}" id=""
           aria-describedby="" placeholder="">
         {{-- <small id="" class="form-text text-muted">Help text</small> --}}
       </div>
-      <div class="col-4">
+      <div class="col">
         <div class="form-group">
           <label for="">Hãng máy tính</label>
 
@@ -231,7 +234,7 @@
       rows="3">{{ $booking_detail->description }}</textarea>
   </div>
 </div> --}}
-<script src="//cdn.ckeditor.com/4.18.0/full/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.18.0/basic/ckeditor.js"></script>
 
 {{-- <script src="{{asset('ckeditor')}}/ckeditor.js">
 </script> --}}

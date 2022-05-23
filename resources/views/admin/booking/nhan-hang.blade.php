@@ -30,7 +30,7 @@
         <div class="form-group col-4">
             <label for="">Tên máy</label>
             <input class="form-control" type="text" name="name_computer" value="{{ $booking_detail->name_computer }}">
-            <small id="helpId" class="form-text text-muted">Help text</small>
+            {{-- <small id="helpId" class="form-text text-muted">Help text</small> --}}
         </div>
         <div class="col-4">
             <div class="form-group">
@@ -40,7 +40,7 @@
                     @foreach ($computers as $item)
                     <option @if ($item->id==$booking_detail->company_computer_id)
                         selected
-                        @endif value="{{ $item->id }}">{{ $item->name_company }} </option>
+                        @endif value="{{ $item->id }}">{{ $item->company_name }} </option>
                     @endforeach
 
 
@@ -76,7 +76,7 @@
         <div class="mx-auto container ">
             <button type="submit" class="btn btn-success " name="btn" value="luu_xuat">Lưu và xuất phiếu</button>
             <button type="submit" name="btn" id="" class="btn btn-primary " value="luu"> Lưu thông tin</button>
-            <a name="" id="" class="btn btn-info" href="#" role="button">Xuất phiếu</a>
+            {{-- <a name="" id="" class="btn btn-info" href="#" role="button">Xuất phiếu</a> --}}
         </div>
 
     </form>

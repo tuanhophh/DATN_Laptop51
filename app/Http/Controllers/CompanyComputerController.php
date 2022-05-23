@@ -47,17 +47,18 @@ class CompanyComputerController extends Controller
         if ($request->hasFile('anh')) {
             $imgPath = $request->file('anh')->store('products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
-            $request->merge(['logo'=>$imgPath]);
+            // $request->merge(['logo'=>$imgPath]);
         }
-        $model->company_name = $request->company_name;
         $model->logo = $request->logo;
+        $model->company_name = $request->company_name;
         // dd($model);
         $model->save();
         return redirect(route('CompanyComputer.index'))->with('success', 'Thêm thành công');
     }
 
     public function editForm($id)
-    {
+    {   
+        
         $CompanyComputer = ComputerCompany::find($id);
         if (empty($CompanyComputer)) {
             return redirect(route('CompanyComputer.index'))->with('error', 'Không tìm thấy danh mục');
@@ -67,16 +68,28 @@ class CompanyComputerController extends Controller
             compact('CompanyComputer')
         );
     }
-    public function saveEdit(CompanyComputerRequest $request, $id)
+    public function saveEdit(Request $request, $id)
     {
+        $request->validate([
+            'company_name' => ['required'
+                    ],
+                    'anh' => [
+                        'image','mimes:jpg,png,jpeg,gif,svg'
+                    ]
+        ],
+        [
+            'company_name.required' => 'Hãy nhập tên máy tính',
+            'anh.image' => 'Phải là ảnh',
+            'anh.mimes' => 'Sai dịnh dạng ảnh'
+        ]);
         $model = ComputerCompany::find($id);
         if ($request->hasFile('anh')) {
             $imgPath = $request->file('anh')->store('products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
             $request->merge(['logo'=>$imgPath]);
+            $model->logo = $imgPath;
         }
         $model->company_name = $request->company_name;
-        $model->logo = $request->logo;
         $model->save();
         return redirect(route('CompanyComputer.index'))->with('success', 'Sửa thành công');
     }

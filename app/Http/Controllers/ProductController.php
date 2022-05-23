@@ -9,6 +9,7 @@ use App\Models\ComputerCompany;
 use App\Models\Product;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -16,9 +17,27 @@ use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     public function index(Request $request)
-    {
+    {   
         $products=Product::paginate(10);
-        return view('admin.products.index', compact('products'));
+        $products->load('image_product');
+        $ComputerCompany = ComputerCompany::all();
+        $products = Product::when($request->name, function ($query, $name) {
+            return $query->where('name', 'like', "%{$name}%");
+        })->when($request->status, function ($query) use ($request) {
+            if($request->status == 1){
+                return $query->where('status', '=', '1' );
+            }
+            if($request->status == 2){
+                return $query->where('status', '=', '0' );
+            }
+            if($request->status == 0){
+                return $query->orderBy('created_at','DESC');
+            }
+        })->when($request->companyComputer_id, function ($query, $companyComputer_id) {
+            return $query->where('companyComputer_id','=',$companyComputer_id);
+        })->orderBy('status', 'DESC')->paginate(10);
+        
+        return view('admin.products.index', compact('products','ComputerCompany'));
     }
 
     public function remove($id)

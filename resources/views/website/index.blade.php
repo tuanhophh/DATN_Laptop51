@@ -14,6 +14,7 @@
     @include('layout_client.style')
 
 </head>
+
 <body>
     <div class="wrapper">
         @include('layout_client.menu')
@@ -31,17 +32,14 @@
                             <div class="by-brand-product">
                                 <div class="active-by-brand slick-arrow-2">
                                     <!-- single-brand-product start -->
+
                                     @foreach($ComputerCompany as $ComputerCom)
                                     <div class="brand-item">
                                         <div class="single-brand-product">
-                                            {{-- <a href="/cua-hang/{{$ComputerCom->id}}"><img
+                                           <a href="/cua-hang/{{$ComputerCom->id}}"><img
                                                     src="{{asset($ComputerCom->logo)}}"
-                                                    width="100" alt=""></a> --}}
-                                                    <img
-                                                    src="{{asset($ComputerCom->logo)}}"
-                                                    width="100" alt=""></a>
+                                                    width="150" alt=""></a>
                                         </div>
-                                    </div>
                                     @endforeach
                                     <!-- single-brand-product end -->
                                 </div>
@@ -62,28 +60,28 @@
                             </div>
                             <div class="featured-product">
                                 <div class="active-featured-product slick-arrow-2">
-                                @foreach ($productNew as $item)
-                                <?php
-                    
-                                    if (!function_exists('currency_format')) {
-                                        function currency_format($item, $suffix = ' VNĐ')
-                                        {
-                                            if (!empty($item)) {
-                                                return number_format($item, 0, ',', '.') . "{$suffix}";
+                                    @foreach ($productNew as $item)
+                                        <?php
+                                        
+                                        if (!function_exists('currency_format')) {
+                                            function currency_format($item, $suffix = ' VNĐ')
+                                            {
+                                                if (!empty($item)) {
+                                                    return number_format($item, 0, ',', '.') . "{$suffix}";
+                                                }
                                             }
                                         }
-                                    }
-                                    ?>
-                                    <div class="product-item">
-                                        <div class="product-img">
-                                            @foreach ($images as $image)
-                                            @if ($image->product_id == $item->id)
-                                            <a href="/san-pham/{{ $item->slug }}">
-                                                <img src="{{ asset($image->path) }}"
-                                                    alt="{{ asset($image->path) }}" />
-                                            </a>
-                                            @break;
-                                            @endif
+                                        ?>
+                                        <div class="product-item">
+                                            <div class="product-img">
+                                                @foreach ($images as $image)
+                                                    @if ($image->product_id == $item->id)
+                                                        <a href="/san-pham/{{ $item->slug }}">
+                                                            <img src="{{ asset($image->path) }}"
+                                                                alt="{{ asset($image->path) }}" />
+                                                        </a>
+                                                    @break;
+                                                @endif
                                             @endforeach
                                         </div>
                                         <div class="product-info">
@@ -91,207 +89,123 @@
                                                 <a href="/san-pham/{{ $item->slug }}">{{ $item->name }}
                                                 </a>
                                             </h6>
-                                            <h3 class="pro-price mb-0"><a href="/san-pham/{{ $item->slug }}">{{ currency_format($item->price) }}</a> </h3>
+                                            <h3 class="pro-price mb-0"><a
+                                                    href="/san-pham/{{ $item->slug }}">{{ currency_format($item->price) }}</a>
+                                            </h3>
                                         </div>
                                     </div>
-                                    @endforeach
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        
-            <!-- PRODUCT TAB SECTION START -->
-            <div class="product-tab-section mb-50">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="section-title text-left mb-40">
-                                <h2 class="uppercase">Sản Phẩm Bán Chạy</h2>
-                            </div>
-                        </div>
+        </div>
 
-                        <div class="col-lg-12">
-                            <!-- Tab panes -->
-                            <div class="featured-product">
-                                <div class="active-featured-product slick-arrow-2">
-                                        <!-- product-item start -->
-                                        @foreach($product_hot_sell as $product_hot)
-                                        <?php
-                    
-                                            if (!function_exists('currency_format')) {
-                                                function currency_format($product_hot, $suffix = ' VNĐ')
-                                                {
-                                                    if (!empty($product_hot)) {
-                                                        return number_format($product_hot, 0, ',', '.') . "{$suffix}";
-                                                    }
-                                                }
+        <!-- PRODUCT TAB SECTION START -->
+        <div class="product-tab-section mb-50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="section-title text-left mb-40">
+                            <h2 class="uppercase">Sản Phẩm Bán Chạy</h2>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <!-- Tab panes -->
+                        <div class="featured-product">
+                            <div class="active-featured-product slick-arrow-2">
+                                <!-- product-item start -->
+                                @foreach ($product_hot_sell as $product_hot)
+                                    <?php
+                                    
+                                    if (!function_exists('currency_format')) {
+                                        function currency_format($product_hot, $suffix = ' VNĐ')
+                                        {
+                                            if (!empty($product_hot)) {
+                                                return number_format($product_hot, 0, ',', '.') . "{$suffix}";
                                             }
-                                            ?>
-                             
-                                        <div class="product-item">
+                                        }
+                                    }
+                                    ?>
+
+                                    <div class="product-item">
                                         <div class="product-img">
                                             @foreach ($images as $image)
-                                            @if ($image->product_id == $product_hot->id)
-                                            <a href="/san-pham/{{ $product_hot->slug }}">
-                                                <img src="{{ asset($image->path) }}"
-                                                    alt="{{ asset($image->path) }}" />
-                                            </a>
-                                            @break;
+                                                @if ($image->product_id == $product_hot->id)
+                                                    <a href="/san-pham/{{ $product_hot->slug }}">
+                                                        <img src="{{ asset($image->path) }}"
+                                                            alt="{{ asset($image->path) }}" />
+                                                    </a>
+                                                @break;
                                             @endif
-                                            @endforeach
-                                        </div>
-                                        <div class="product-info">
-                                            <h6 class="product-title">
-                                                <a href="/san-pham/{{ $product_hot->slug }}">{{ $product_hot->name }}
-                                                </a>
-                                            </h6>
-                                            <h3 class="pro-price mb-0"><a href="/san-pham/{{ $item->slug }}">{{ currency_format($product_hot->price) }}</a> </h3>
-                                        </div>
-                                    </div>
-                                        
                                         @endforeach
-                                        <!-- product-item end -->
-
+                                    </div>
+                                    <div class="product-info">
+                                        <h6 class="product-title">
+                                            <a href="/san-pham/{{ $product_hot->slug }}">{{ $product_hot->name }}
+                                            </a>
+                                        </h6>
+                                        <h3 class="pro-price mb-0"><a
+                                                href="/san-pham/{{ $item->slug }}">{{ currency_format($product_hot->price) }}</a>
+                                        </h3>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach
+                            <!-- product-item end -->
+
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- PRODUCT TAB SECTION END -->
-
-            <!-- BLOG SECTION START -->
-            <div class="blog-section mb-50">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="section-title text-left mb-40">
-                                <h2 class="uppercase">Tin Tức Mới Nhất</h2>
-                            </div>
-                            <div class="blog">
-                                <div class="active-blog">
-                                    <div class="blog-item">
-                                        <img src="{{ asset('client') }}/img/blog/1.jpg" alt="">
-                                        <div class="blog-desc">
-                                            <h5 class="blog-title"><a href="single-blog.html">FPT Shop đã giao hơn
-                                                    1.500 máy trong ngày đầu tiên mở bán iPhone 13 Series Xanh lá</a>
-                                            </h5>
-                                            <p>Hơn 1.500 máy đã được FPT Shop & F.Studio by FPT đã giao trong ngày đầu
-                                                tiên mở bán iPhone 13 Series Xanh lá. Đồng thời, hệ thống dành tặng ưu
-                                                đãi đến 6 triệu, nhân đôi bảo hành thành 2 năm, trả góp 0%... cho khách
-                                                hàng chọn mua siêu phẩm này.</p>
-                                            <div class="read-more">
-                                                <a href="single-blog.html">Đọc Thêm</a>
-                                            </div>
-                                            <ul class="blog-meta">
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="blog-item">
-                                        <img src="{{ asset('client') }}/img/blog/2.jpg" alt="">
-                                        <div class="blog-desc">
-                                            <h5 class="blog-title"><a href="single-blog.html">Chào đón shop gia
-                                                    dụng thứ 100, FPT Shop ưu đãi cực sốc đến 50%++</a></h5>
-                                            <p>Từ ngày 18 – 30/04, 99 cửa hàng gia dụng FPT Shop tung loạt ưu đãi “hot”
-                                                như: giảm giá đến 50%++, mua 1 tặng 1, đổi mới trong 100 ngày, sản phẩm
-                                                giá sốc… chào đón thành viên thứ 100 sắp “trình làng”.</p>
-                                            <div class="read-more">
-                                                <a href="single-blog.html">Đọc Thêm</a>
-                                            </div>
-                                            <ul class="blog-meta">
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="blog-item">
-                                        <img src="{{ asset('client') }}/img/blog/3.jpg" alt="">
-                                        <div class="blog-desc">
-                                            <h5 class="blog-title"><a href="single-blog.html">Sắm laptop Dell tại
-                                                    FPT Shop, khách hàng được ưu đãi trả góp 0% lãi suất đến 24
-                                                    tháng</a></h5>
-                                            <p>Từ nay đến 31/12/2022, chủ thẻ tín dụng mua laptop Dell tại FPT Shop được
-                                                hưởng ưu đãi trả góp không lãi suất đến 24 tháng qua ứng dụng Quà tặng
-                                                Galaxy.</p>
-                                            <div class="read-more">
-                                                <a href="single-blog.html">Đọc Thêm</a>
-                                            </div>
-                                            <ul class="blog-meta">
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="blog-item">
-                                        <img src="{{ asset('client') }}/img/blog/1.jpg" alt="">
-                                        <div class="blog-desc">
-                                            <h5 class="blog-title"><a href="single-blog.html">Tuần lễ vàng, tất cả
-                                                    laptop tại Trung tâm Laptop FPT Shop giảm sốc 10%</a></h5>
-                                            <p>Từ ngày 15 – 21/04/2022, khách hàng chọn mua laptop tại Trung tâm Laptop
-                                                FPT Shop được giảm ngay 10%. Ngoài ra, hệ thống còn tặng nhiều ưu đãi
-                                                thiết thực khác và miễn phí lắp đặt, giao hàng tận nhà trên toàn quốc.
-                                            </p>
-                                            <div class="read-more">
-                                                <a href="single-blog.html">Đọc Thêm</a>
-                                            </div>
-                                            <ul class="blog-meta">
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- BLOG SECTION END -->
-        </section>
-        <!-- End page content -->
-
-        <!-- START FOOTER AREA -->
-        @include('layout_client.footer')
-        <!-- END FOOTER AREA -->
-
+        </div>
     </div>
-    @include('layout_client.script')
+</div>
+<!-- PRODUCT TAB SECTION END -->
+
+<!-- BLOG SECTION START -->
+<div class="blog-section mb-50">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="section-title text-left mb-40">
+                <h2 class="uppercase">Tin Tức Mới Nhất</h2>
+            </div>
+            <div class="blog">
+                <div class="active-blog">
+                    @foreach ($news as $item)
+                        <div class="blog-item">
+                            <img src="{{ $item->image }}" alt="">
+                            <div class="blog-desc">
+                                <h5 class="blog-title"><a
+                                        href="tin-tuc/{{ $item->id }}">{{ $item->title }}</a>
+                                </h5>
+                                <p>{{ $item->description_short }}</p>
+                                <div class="read-more">
+                                    <a href="tin-tuc/{{ $item->id }}">Đọc Thêm</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- BLOG SECTION END -->
+</section>
+<!-- End page content -->
+
+<!-- START FOOTER AREA -->
+@include('layout_client.footer')
+<!-- END FOOTER AREA -->
+
+</div>
+@include('layout_client.script')
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
-</script>
+integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
 </html>
