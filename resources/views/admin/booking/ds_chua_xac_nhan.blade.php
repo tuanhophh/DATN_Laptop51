@@ -133,5 +133,8 @@
 
         </tbody>
     </table>
+
+    {{ $booking_details->links() }}
+
 </div>
 @endsection

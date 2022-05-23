@@ -43,17 +43,17 @@
                         role="button">Chi tiết
                         sửa
                         chữa</a>
-                    <a name="" id="" class="btn btn-primary"
-                        href="{{ route('dat-lich.send-mail-finish-member', ['booking_detail_id'=>$b->id]) }}"
-                        role="button">Gửi mail</a>
+
                     @endcan
-                    {{-- <a name="" id="" class="btn btn-danger"
-                        href="{{ route('dat-lich.deleteBookingDetail', ['id'=>$b->id]) }}" role="button">Xóa</a> --}}
+                    @can('list-booking')
+                    <a name="" id="" class="btn btn-danger"
+                        href="{{ route('dat-lich.deleteBookingDetail', ['id'=>$b->id]) }}" role="button">Xóa</a>
+                    @endcan
                 </td>
             </tr>
             @endforeach
 
         </tbody>
-    </table>
+    </table>{{ $booking_details->appends($_GET)->links() }}
 </div>
 @endsection

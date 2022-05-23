@@ -51,16 +51,16 @@
                 @foreach ($bill_detail as $key=>$p)
                 <tr>
                     <td scope="row">{{ $key +1}}</td>
-                    <td>{{ $p->description }}</td>
-                    <td>{{ $p->ban }}</td>
+                    <td>{{$p->description }}</td>
+                    <td>{{currency_format( $p->ban )}}</td>
                     <td>{{ $p->quaty }}</td>
-                    <td>{{ $p->ban*$p->quaty }}</td>
+                    <td>{{ currency_format($p->ban*$p->quaty )}}</td>
                     <td></td>
                 </tr>
                 @endforeach
                 <tr>
                     <th colspan='4'>TỔNG</th>
-                    <th colspan="" class="tong-tien">{{ $booking_detail_bill->total_price }}</th>
+                    <th colspan="" class="tong-tien">{{ currency_format($booking_detail_bill->total_price )}}</th>
                     <td></td>
                 </tr>
                 {{-- <tr>
@@ -82,7 +82,7 @@
 
 
     </div>
-    <div class="nguoi" style="">
+    <div class="nguoi" style="*">
         <div>
             <h5>Người xuất</h5>
 

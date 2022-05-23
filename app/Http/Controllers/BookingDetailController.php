@@ -46,8 +46,9 @@ class BookingDetailController extends Controller
                 'booking_detail_id' => $booking_detail_id,
                 'date' => now(),
                 'total_price' => array_sum(array_column($repair_parts->toArray(), 'into_money')),
-                // 'customers_pay' => null,
-                // 'excess_cash' => $request->excess_cash,
+                'type' => 2,
+                'status' => 2,
+                'method' => 1,
 
             ];
             if (!$list_bill) {
@@ -56,8 +57,9 @@ class BookingDetailController extends Controller
                     'booking_detail_id' => $booking_detail_id,
                     'date' => now(),
                     'total_price' => array_sum(array_column($repair_parts->toArray(), 'into_money')),
-                    // 'customers_pay' => $request->customers_pay,
-                    // 'excess_cash' => $request->excess_cash,
+                    'type' => 2,
+                    'status' => 2,
+                    'method' => 1,
 
                 ];
                 $bill_repair =    list_bill::create($data);
@@ -110,7 +112,8 @@ class BookingDetailController extends Controller
                 'excess_cash' => $request->customers_pay - array_sum(array_column($repair_parts->toArray(), 'into_money')),
                 'type' => 2,
                 'status' => 2,
-                'method' => 1
+                'method' => 1,
+
             ];
             if (!$list_bill) {
                 $data = [
@@ -121,6 +124,7 @@ class BookingDetailController extends Controller
                     'customers_pay' => $request->customers_pay,
                     'excess_cash' => $request->excess_cash,
                     'type' => 2,
+                    'status' => 2,
 
                 ];
                 $bill_repair =    list_bill::create($data);

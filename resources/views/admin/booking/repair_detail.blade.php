@@ -203,49 +203,7 @@
                                 </table>
                             </div>
 
-                            <div class="form-group ">
-                                {{-- <label for=""></label> --}}
-                                {{-- <h5>Mô tả sửa chữa (Sửa linh kiện gì, giá tiền sửa là bn)</h5>
-                                <textarea class="form-control" name="description" id="ckeditor1" rows="3"></textarea>
-                                Giá tiền sửa chữa
-                                <input type="number" class="form-control" name="into_money"> --}}
 
-                                <div>
-                                    <table class="table table-hover table-inverse table-responsive">
-                                        <thead class="thead-inverse">
-                                            <tr>
-                                                <th>Tên linh kiện sửa</th>
-                                                <th> Giá tiền sửa</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="ds_linh_kien_sua">
-                                            <tr class="form_linh_kien_sua" onclick="remove(this)">
-                                                <td class="col-9">
-                                                    <input type="text" name="product_repair[]" value=""
-                                                        placeholder="Nhập linh kiện" class="form-control">
-                                                </td>
-                                                <td> <input type="text" name="price_product_repair[]"
-                                                        placeholder="Nhập giá tiền" value="0" class="form-control">
-                                                </td>
-                                                <td>
-                                                    <button class="btn_remove" type="button"
-                                                        onclick="remove(this)">Xóa</button>
-                                                </td>
-
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                    <button type="button" onclick="add()" name="" id="" class="btn btn-primary">Thêm
-                                        linh
-                                        kiện</button>
-                                </div>
-                            </div>
-                            <div class="form-group ">
-                                <label for=""></label>
-                                <h5>Ghi chú</h5>
-                                <textarea class="form-control" name="repair" id="ckeditor1" rows="3"></textarea>
-                            </div>
 
                             {{-- <button type="submit">Hoàn thành sửa</button> --}}
                             <div class="d-flex justify-content-between">

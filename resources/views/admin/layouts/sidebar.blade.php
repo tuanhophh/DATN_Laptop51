@@ -161,7 +161,7 @@
                         </a>
                     </li>
                     @endcan
-                    @can('list-repair')
+                    @can('edit-repair')
                     <li class="nav-item">
                         <a href="{{ route('dat-lich.user_epair') }}"
                             class="nav-link {{ request()->is('admin/dat-lich/user_epair') ? 'active' : '' }}">

@@ -47,6 +47,6 @@
             @endforeach
 
         </tbody>
-    </table>
+    </table>{{ $booking_details->links() }}
 </div>
 @endsection
