@@ -237,7 +237,7 @@
                 <a href="" class="nav-link {{ request()->is('admin/bill*') ? 'active ' : '' }}">
                     <i class="nav-icon fas fa-money-bill"></i>
                     <p>
-                        Quản lý đặt lịch
+                        Quản lý hóa đơn
                         <i class="fas fa-angle-left right"></i>
                         {{-- <span class="badge badge-info right">6</span> --}}
                     </p>
@@ -247,17 +247,16 @@
                     <li class="nav-item">
                         <a href="/admin/bill" class="nav-link {{ request()->is('admin/bill') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Danh sách</p>
+                            <p>Đặt lịch</p>
                         </a>
                     </li>
                     @endcan
 
                     @can('list-bill')
-
                     <li class="nav-item">
-                        <a href="/admin/bill" class="nav-link {{ request()->is('admin/bill/aa') ? 'active' : '' }}">
+                        <a href="/admin/bill/2" class="nav-link {{ request()->is('admin/bill/2') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Hóa đơn</p>
+                            <p>Mua hàng</p>
                         </a>
                     </li>
                     @endcan
