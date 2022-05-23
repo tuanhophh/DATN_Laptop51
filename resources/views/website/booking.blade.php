@@ -56,19 +56,22 @@
                                                 chính sác thông tin của bạn</h4>
                                         </div>
                                         <div class="col-lg-6">
+                                            <label for="">Họ và Tên</label> <font color="red">*</font>
                                             <input type="text" name="full_name" value="{{ old('full_name') }}"
-                                                placeholder="Họ và Tên">@error('full_name')
+                                                placeholder="Họ tên">@error('full_name')
                                             <small id="helpId" class="form-text text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="col-lg-6">
-                                            <input type="text" name="email" value="{{ old('email') }}"
+                                            <label for="">Eamil</label> <font color="red">*</font>
+                                            <input type="text" name="Email" value="{{ old('email') }}"
                                                 placeholder="Email">
                                             @error('email')
                                             <small id="helpId" class="form-text text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="col-lg-6">
+                                            <label for="">Tên máy</label> <font color="red">*</font>
                                             <input type="text" value="{{ old('name_computer') }}" name="name_computer"
                                                 placeholder="Tên máy">
                                             @error('name_computer')
@@ -77,8 +80,9 @@
                                         </div>
 
                                         <div class="col-lg-6">
+                                            <label for="">Số điện thoại</label> <font color="red">*</font>
                                             <input type="text" value="{{ old('phone') }}" name="phone"
-                                                placeholder="Số điện thoại">
+                                                placeholder="09********">
                                             @error('phone')
                                             <small id="helpId" class="form-text text-danger">{{ $message }}</small>
                                             @enderror
@@ -91,6 +95,7 @@
                                             </select>
                                         </div> --}}
                                         <div class="col-lg-6">
+                                            <label for="">Thương hiệu máy</label> <font color="red">*</font>
                                             <select name="company_computer_id" id="con_ht">
                                                 <option value="company_computer_id" hidden>Thương hiệu máy</option>
                                                 @foreach ($company_computer as $item)
@@ -107,6 +112,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-lg-6">
+                                            <label for="">Khung giờ sửa chữa</label> <font color="red">*</font>
                                             <select name="interval" id="con_ht">
                                                 <option hidden value="">Khung giờ sửa chữa</option>
                                                 <option value="1">8h-10h</option>
@@ -121,6 +127,7 @@
                                             @enderror
                                         </div>
                                         <div class="col">
+                                            <label for="">Ngày mang đến</label> <font color="red">*</font>
                                             <input type="date" id="date" min="{{ now()->format('Y-m-d') }}" name="date"
                                                 value="{{ old('date') }}" placeholder="Ngày">
                                             @error('date')
@@ -128,6 +135,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-lg-12">
+                                            <label for="">Mô tả</label> 
                                             <textarea class="custom-textarea" name="description" id="ckeditor"
                                                 placeholder="Nội dung...">{{ old('description') }}</textarea>
 
