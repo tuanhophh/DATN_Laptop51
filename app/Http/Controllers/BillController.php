@@ -52,17 +52,14 @@ class BillController extends Controller
                     });
                 }
 
+                if ($request->code ?? null) {
+                        $q->where('code','like','%'. $request->code.'%');
+                    };
+
                 if ($request->status == 'Đã thanh toán') {
                     $q->with('list_bill');
                     $q->whereHas('list_bill', function ($e) use ($request) {
                         $e->where('type', 2);
-                    });
-                };
-                
-                if ($request->code ?? null) {
-                    $q->with('list_bill');
-                    $q->whereHas('list_bill', function ($e) use ($request) {
-                        $e->where('codebill','like','%'. $request->code.'%');
                     });
                 };
             })
