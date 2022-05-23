@@ -67,7 +67,7 @@
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-<strong>Copyright &copy; Đăt lịch sửa chữa và quản lí cửa hàng Laptop 51</strong>
+<strong>Copyright &copy; Đặt lịch sửa chữa và quản lí cửa hàng Laptop 51</strong>
        
         <div class="float-right d-none d-sm-inline-block">
          
