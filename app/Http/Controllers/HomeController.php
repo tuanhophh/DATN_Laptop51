@@ -134,7 +134,7 @@ class HomeController extends Controller
         
         session()->put('url_path',FacadesRequest::path());
         return view(
-            'website.product',
+            'website.product-category',
             compact('products', 'ComputerCompany', 'images','id','product_hot_sell','images_product_list','productNew')
         );
     }

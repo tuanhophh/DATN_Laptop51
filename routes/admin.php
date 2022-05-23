@@ -37,9 +37,11 @@ Route::middleware(['auth','account.admin'])->group(function () {
 Route::get('/', [HomeAdminController::class, 'index'])->name('admin.dashboard');
 Route::prefix('bill')->group(function () {
     Route::get('/', [BillController::class, 'index'])->name('bill.index');
+    Route::get('/2', [BillController::class, 'index2'])->name('bill.index2');
     Route::get('detail/{id}', [BillController::class, 'detail'])->name('bill.detail');
     Route::get('edit/{id}', [BillController::class, 'edit'])->name('bill.edit');
     Route::post('edit/{id}', [BillController::class, 'saveEdit']);
+    Route::post('send-message', [BillController::class, 'sendMessage'])->name('send.message');
 });
 Route::prefix('CompanyComputer')->group(function () {
     Route::get('/', [CompanyComputerController::class, 'index'])->name('CompanyComputer.index')->middleware('can:list-category');

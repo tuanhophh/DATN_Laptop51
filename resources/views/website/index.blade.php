@@ -36,7 +36,7 @@
                                         <div class="single-brand-product">
                                             <a href="/cua-hang/{{$ComputerCom->id}}"><img
                                                     src="{{asset($ComputerCom->logo)}}"
-                                                    width="60" alt=""></a>
+                                                    width="150" alt=""></a>
                                         </div>
                                     </div>
                                     @endforeach
