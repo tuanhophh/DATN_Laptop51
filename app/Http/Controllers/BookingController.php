@@ -522,7 +522,7 @@ class BookingController extends Controller
    {
       // dd(1);
       $booking_details = BookingDetail::join('bookings', 'booking_details.booking_id', 'bookings.id')
-         ->where('status_repair', 'null')->where('status_booking', 'latch')->get();
+         ->where('status_repair', 'null')->where('status_booking', 'latch')->paginate(10);
       // dd($booking_details);
 
       $users = User::all();
@@ -531,7 +531,7 @@ class BookingController extends Controller
    public function DanhSachDaSuaXong()
    {
       $booking_details = BookingDetail::join('bookings', 'booking_details.booking_id', 'bookings.id')
-         ->where('status_repair', 'finish')->get();
+         ->where('status_repair', 'finish')->orderBy('bookings.updated_at', 'desc')->paginate(10);
       foreach ($booking_details as $b) {
          if (!$b->list_bill) {
          }
@@ -541,7 +541,9 @@ class BookingController extends Controller
    public function DanhSachChoSua()
    {
       $booking_details = BookingDetail::join('bookings', 'booking_details.booking_id', 'bookings.id')
-         ->where('status_repair', 'waiting')->orWhere('status_repair', 'fixing')->where('status_booking', 'latch')->get();
+         ->where('status_repair', 'waiting')->orWhere('status_repair', 'fixing')->where('status_booking', 'latch')->paginate(10);
+
+      // dd($booking_details);
       $users = RoleUser::where('role_id', 15)->join('users', 'role_user.user_id', 'users.id')->orderBy('users.id')->get();
 
 
@@ -553,26 +555,11 @@ class BookingController extends Controller
 
 
 
-      // $booking_details = BookingDetail::query()
-      //    ->with('booking');
-      //    $booking_details->whereHas('booking', function ($p) {
-      //       $p->where('phone', 'like', '%' . $_GET['key_search'] . '%')->get();
-      //    });
-      // }  // if (isset($_GET['key_search'])) {
 
-      // $booking_details->get();
-      // dd($booking_details->get());
-      //    ->where('status_repair', null)->orWhereNull('status_booking');
       $booking_details = BookingDetail::join('bookings', 'booking_details.booking_id', 'bookings.id')
          ->where('status_repair', null)->orWhereNull('status_booking')
-         ->orderBy("bookings.id", 'desc')->get();
+         ->orderBy("bookings.id", 'desc')->paginate(10);
 
-
-      // if (isset($_GET)) {
-      //    $booking_details = BookingDetail::join('bookings', 'booking_details.booking_id', 'bookings.id')
-      //       ->where('status_repair', null)->orWhereNull('status_booking')
-      //       ->orderBy("bookings.id", 'desc')->where('phone', 'like', '%' . trim($_GET['key_search']) . '%')->where('status_booking', 'like', '%' . trim($_GET['status']) . '%')->get();
-      // }
 
       return view('admin.booking.ds_chua_xac_nhan', compact('booking_details'));
    }
@@ -602,7 +589,7 @@ class BookingController extends Controller
          // ->where('status_repair', null)->orWhereNull('status_booking')
          ->join('list_bill', 'booking_details.id', 'list_bill.booking_detail_id')
          ->where('type', 2)->orderBy('list_bill.id', 'desc')
-         ->get();
+         ->paginate(10);
       dd($booking_details);
       return view('admin.booking.ds_da_giao_khach', compact('booking_details'));
    }
