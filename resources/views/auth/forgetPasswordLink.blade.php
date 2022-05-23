@@ -63,7 +63,7 @@
                             </div>
                         </form>
                         @else
-                        <h5 class="text-center">Bạn đã đổi mật khẩu, vui lòng<a style="color: #ff7f00;" href="/home"> nhấn vào đây </a>để quay lại trang chủ</h5>
+                        <h5 class="text-center">Liên kết không tồn tại.<a style="color: #ff7f00;" href="/home"> nhấn vào đây </a>để quay lại trang chủ</h5>
                         @endif
 
                     </div>

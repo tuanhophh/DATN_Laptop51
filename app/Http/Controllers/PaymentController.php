@@ -281,7 +281,7 @@ class PaymentController extends Controller
         // Update trạng thái đơn hàng
         if ($data['vnp_response_code'] == 00) {
             $payment_status = list_bill::where('code', $data['bill_code'])->first();
-            $payment_status->status = 2;
+            $payment_status->status = 3;
             // dd($request->all());
             $payment_status->update();
             Payment::insert($data);

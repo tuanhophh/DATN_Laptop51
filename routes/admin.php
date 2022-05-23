@@ -39,9 +39,11 @@ Route::middleware(['auth', 'account.admin'])->group(function () {
     Route::get('/', [HomeAdminController::class, 'index'])->name('admin.dashboard');
     Route::prefix('bill')->group(function () {
         Route::get('/', [BillController::class, 'index'])->name('bill.index');
+        Route::get('/2', [BillController::class, 'index2'])->name('bill.index2');
         Route::get('detail/{id}', [BillController::class, 'detail'])->name('bill.detail');
         Route::get('edit/{id}', [BillController::class, 'edit'])->name('bill.edit');
         Route::post('edit/{id}', [BillController::class, 'saveEdit']);
+        Route::post('send-message', [BillController::class, 'sendMessage'])->name('send.message');
     });
     Route::prefix('CompanyComputer')->group(function () {
         Route::get('/', [CompanyComputerController::class, 'index'])->name('CompanyComputer.index')->middleware('can:list-category');
@@ -92,35 +94,80 @@ Route::middleware(['auth', 'account.admin'])->group(function () {
             $components = Component::where('category_component_id', $category_component_id)->get();
             return $components;
         });
-        Route::get('get-detail/{id}', function ($id) {
-            $component = Component::find($id);
-
-            if ($component) {
-                // dd($component);
-                return response()->json($component);
-            }
+        Route::prefix('CompanyComputer')->group(function () {
+            Route::get('/', [CompanyComputerController::class, 'index'])->name('CompanyComputer.index')->middleware('can:list-category');
+            Route::get('/remove/{id}', [CompanyComputerController::class, 'remove'])->name('CompanyComputer.remove')->middleware('can:delete-category');
+            Route::get('add', [CompanyComputerController::class, 'addForm'])->name('CompanyComputer.add')->middleware('can:add-category');
+            Route::post('add', [CompanyComputerController::class, 'saveAdd'])->middleware('can:add-category');
+            Route::get('edit/{id}', [CompanyComputerController::class, 'editForm'])->name('CompanyComputer.edit')->middleware('can:edit-category');
+            Route::post('edit/{id}', [CompanyComputerController::class, 'saveEdit'])->middleware('can:edit-category');
+            Route::get('detail/{id}', [CompanyComputerController::class, 'detail'])->middleware('can:list-category');
         });
+        Route::prefix('nhap_sanpham')->group(function () {
+            Route::get('/', [NhapsanphamController::class, 'index'])->name('nhap-sanpham.index');
+            Route::get('/remove/{id}', [NhapsanphamController::class, 'remove'])->name('nhap-sanpham.remove');
+            Route::get('add/{id}', [NhapsanphamController::class, 'addForm'])->name('nhap-sanpham.add');
+            Route::post('add/{id}', [NhapsanphamController::class, 'saveAdd']);
+            Route::get('edit/{id}', [NhapsanphamController::class, 'editForm'])->name('nhap-sanpham.edit');
+            Route::post('edit/{id}', [NhapsanphamController::class, 'saveEdit']);
+            Route::get('detail/{id}', [NhapsanphamController::class, 'detail']);
+        });
+        Route::prefix('product')->group(function () {
+            Route::get('/', [ProductController::class, 'index'])->name('product.index')->middleware('can:list-product');
+            Route::get('/remove/{id}', [ProductController::class, 'remove'])->name('product.remove')->middleware('can:delete-product');
+            Route::get('add', [ProductController::class, 'addForm'])->name('product.add')->middleware('can:add-product');
+            Route::post('add', [ProductController::class, 'saveAdd'])->middleware('can:add-product');
+            Route::get('edit/{id}', [ProductController::class, 'editForm'])->name('product.edit')->middleware('can:edit-product');
+            Route::post('edit/{id}', [ProductController::class, 'saveEdit'])->middleware('can:edit-product');
+            Route::get('detail/{id}', [ProductController::class, 'detail'])->middleware('can:edit-product');
+            Route::post('show-hide/{id}', [ProductController::class, 'ShowHide'])->name('product.show-hide')->middleware('can:edit-product');
+        });
+        Route::prefix('detail-product')->group(function () {
+            Route::get('/', [DetailProductController::class, 'index'])->name('detail-product.index')->middleware('can:list-product');
+            Route::get('/remove/{id}', [DetailProductController::class, 'remove'])->name('detail-product.remove')->middleware('can:delete-product');
+            Route::get('add', [DetailProductController::class, 'addForm'])->name('detail-product.add')->middleware('can:add-product');
+            Route::post('add', [DetailProductController::class, 'saveAdd'])->middleware('can:add-product');
+            Route::get('edit/{id}', [DetailProductController::class, 'editForm'])->name('detail-product.edit')->middleware('can:edit-product');
+            Route::post('edit/{id}', [DetailProductController::class, 'saveEdit'])->middleware('can:edit-product');
+            Route::get('detail/{id}', [DetailProductController::class, 'detail'])->middleware('can:list-product');
+        });
+        Route::prefix('component')->group(function () {
+            Route::get('/', [ComponentController::class, 'index'])->name('component.index')->middleware('can:list-product');
+            Route::get('/remove/{id}', [ComponentController::class, 'remove'])->name('component.remove')->middleware('can:delete-product');
+            Route::get('add', [ComponentController::class, 'addForm'])->name('component.add')->middleware('can:add-product');
+            Route::post('add', [ComponentController::class, 'saveAdd'])->middleware('can:add-product');
+            Route::get('edit/{id}', [ComponentController::class, 'editForm'])->name('component.edit')->middleware('can:edit-product');
+            Route::post('edit/{id}', [ComponentController::class, 'saveEdit'])->middleware('can:edit-product');
+            Route::get('detail/{id}', [ComponentController::class, 'detail'])->middleware('can:list-product');
+            Route::get('query/{category_component_id}', function ($category_component_id) {
+                $components = Component::where('category_component_id', $category_component_id)->get();
+                return $components;
+            });
+            Route::get('get-detail/{id}', function ($id) {
+                $component = Component::find($id);
+
+                if ($component) {
+                    // dd($component);
+                    return response()->json($component);
+                }
+            });
+        });
+        // Route::prefix('login')->group(function () {
+        //     Route::get('/', [LoginController::class, 'index'])->name('admin.login');
+        // });
+
+
     });
     // Route::prefix('login')->group(function () {
     //     Route::get('/', [LoginController::class, 'index'])->name('admin.login');
     // });
-
-    // Route::prefix('login')->group(function () {
-    //     Route::get('/', [LoginController::class, 'index'])->name('admin.login');
-    // });
     Route::prefix('dat-lich')->group(function () {
-        Route::get('chi-tiet/{id}', [BookingController::class, 'chiTiet'])->name('dat-lich.chi-tiet');
-
         Route::get('/', [BookingController::class, 'listBookingDetail'])->name('dat-lich.index');
         Route::post('/', [BookingController::class, 'selectStatusBooking']);
 
         Route::get('/danh-sach-may', [BookingController::class, 'listBookingDetail'])->name('dat-lich.danh-sach-may');
         Route::post('/danh-sach-may', [BookingController::class, 'selectUserRepair']);
         // Route::get('/danh-sach-may-phan-cong', [BookingController::class, 'listBookingDetail'])->name('dat-lich.danh-sach-may');
-
-        Route::get('send-mail-finish-member/{booking_detail_id}', [BookingDetailController::class, 'sendMailFinishMember'])->name('dat-lich.send-mail-finish-member');
-
-
 
 
         Route::get('tao-moi', [BookingController::class, 'formCreateBooking'])->name('dat-lich.add')->middleware('can:add-booking');
