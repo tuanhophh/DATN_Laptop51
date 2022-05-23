@@ -26,7 +26,11 @@ class CompanyComputerRequest extends FormRequest
         $requestRule =  [
             'company_name' => [
                 'required','unique:computer_companies,company_name,'.$this->id
+            
             ],
+            'anh' => [
+                'required','image','mimes:jpg,png,jpeg,gif,svg'
+            ]
         ];
         return $requestRule;
     }
@@ -36,6 +40,9 @@ class CompanyComputerRequest extends FormRequest
         return [
             'company_name.required' => 'Hãy nhập tên máy tính',
             'company_name.unique' => 'Tên máy tính đã tồn tại',
+            'anh.required' => 'Hãy nhập ảnh',
+            'anh.image' => 'Là ảnh',
+            'anh.mimes' => 'Sai định dạng ảnh'
         ];
     }
 }

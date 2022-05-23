@@ -190,7 +190,7 @@
         </table>
         <div class="d-flex justify-content-end mb-2 mr-2">
             <br>
-            <a href="{{ route('bill.index') }}" class="btn btn-sm btn-danger">Quay lai</a>
+            <a href="{{ route('bill.index2') }}" class="btn btn-sm btn-danger">Quay lai</a>
             &nbsp;
         </div>
     </div>

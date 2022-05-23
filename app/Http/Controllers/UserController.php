@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\User;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -80,6 +81,7 @@ class UserController extends Controller
             $roleIds = $request->role_id;
             $user->roles()->attach($request->role_id);
             DB::commit();
+            Toastr::success('Tạo tài khoản thành công','Thành công');
             return redirect(route('user.index'));
 
         }catch (\Exception $exception){
@@ -96,6 +98,7 @@ class UserController extends Controller
             Storage::delete($imgPath);
         }
         $model->delete(); 
+        Toastr::success('Xóa tài khoản thành công','Thành công');
         return redirect(route('user.index'));
     }
     public function editForm($id)
@@ -118,7 +121,6 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required','string','min:3','max:25'],
             'phone' => ['required', 'numeric','unique:users,phone,'.$id, 'regex:/^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/'],
-            'address' => ['required','string','min:3','max:50'],
             'email' => ['required','email','unique:users,email,'.$id],
             'id_role' => ['required'],
             // 'password' => ['required', 'string','min:8','max:50']
@@ -136,10 +138,6 @@ class UserController extends Controller
                 'email.email' => 'Email phải có đuôi @',
                 'email.unique' => 'Email đã được tồn tại',
                 'id_role.required' => 'Vui lòng cấp quyền truy cập',
-                'address.required' => 'Vui lòng nhập địa chỉ',
-                'address.string' => 'Địa chỉ phải là chuỗi ký tự',
-                'address.min' => 'Địa chỉ có độ dài lớn hơn 3 kí tự',
-                'address.max' => 'Địa chỉ có độ dài nhỏ hơn 50 kí tự',
                 // 'password.required' => 'Vui lòng nhập mật khẩu',
                 // 'password.string' => 'Mật khẩu phải là chuỗi',
                 // 'password.min' => 'Mật khẩu phải lớn hơn 8 kí tự',
@@ -176,6 +174,7 @@ class UserController extends Controller
                  $user->save();
                 //  $user->update('avatar' => )
             }
+            Toastr::success('Sửa tài khoản thành công','Thành công');
             return redirect()->route('user.index');
         }catch (\Exception $exception){
             DB::rollBack();

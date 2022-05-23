@@ -103,7 +103,15 @@
                             </td>
                             <td>{{ ($item->import_price) }}</td>
                             <td>{{ $item->price }}</td>
-                            <td>{{ $item->qty }}</td>
+                            <td>
+                                @if($item->qty == 0) 
+                                <p class="text-danger"> Hết hàng</p>
+                                @elseif($item->qty < 5)
+                                <p class="text-danger"> {{$item->qty}}</p>
+                                @else
+                                <p>{{$item->qty}}</p>
+                                @endif
+                            </td>
                             <td>{{ $item->insurance }} tháng</td>
                             <td>
                                 @if($item->status == 1)
@@ -116,7 +124,7 @@
                                 @can('edit-product')
                                 <!-- <a href="{{ route('nhap-sanpham.add', ['id' => $item->id]) }}"
                                     class="btn btn-sm btn-success">Thêm SL</a> -->
-
+                                
                                 <a href="{{ route('product.edit', ['id' => $item->id]) }}"
                                     class="btn btn-sm btn-warning">Sửa</a>
                                 @endcan
@@ -150,7 +158,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center pt-3">
                     {{ $products->appends($_GET)->links() }}
                 </div>
             </div>

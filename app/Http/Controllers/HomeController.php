@@ -107,7 +107,6 @@ class HomeController extends Controller
         }
         return view(
             'website.product-category',
-
             compact('products', 'ComputerCompany', 'images','id','product_hot_sell','images_product_list','productNew')
         );
     }
