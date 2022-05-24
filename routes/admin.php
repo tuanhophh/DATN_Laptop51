@@ -151,33 +151,33 @@ Route::middleware(['auth', 'account.admin'])->group(function () {
     });
     Route::prefix('tin-tuc')->group(function () {
         //list
-        Route::get('/', [NewsController::class, 'index'])->name('news.index');
+        Route::get('/', [NewsController::class, 'index'])->name('news.index')->middleware('can:list-news');
         //remove
-        Route::get('/delete/{id}', [NewsController::class, 'remove'])->name('news.remove');
+        Route::get('/delete/{id}', [NewsController::class, 'remove'])->name('news.remove')->middleware('can:delete-news');
 
 
         //add
-        Route::get('/add', [NewsController::class, 'add'])->name('news.add');
+        Route::get('/add', [NewsController::class, 'add'])->name('news.add')->middleware('can:add-news');
         Route::post('/add', [NewsController::class, 'save_add']);
 
         //edit
-        Route::get('/edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
+        Route::get('/edit/{id}', [NewsController::class, 'edit'])->name('news.edit')->middleware('can:edit-news');
         Route::post('/edit/{id}', [NewsController::class, 'save_edit']);
     });
     Route::prefix('danh-muc-tin-tuc')->group(function () {
         //list
-        Route::get('/', [Categories_NewsController::class, 'index'])->name('category_news.index');
+        Route::get('/', [Categories_NewsController::class, 'index'])->name('category_news.index')->middleware('can:list-news');
 
         //add
-        Route::get('/add', [Categories_NewsController::class, 'add'])->name('category_news.add');
+        Route::get('/add', [Categories_NewsController::class, 'add'])->name('category_news.add')->middleware('can:add-news');
         Route::post('/add', [Categories_NewsController::class, 'save_add']);
 
         //edit
-        Route::get('/edit/{id}', [Categories_NewsController::class, 'edit'])->name('category_news.edit');
+        Route::get('/edit/{id}', [Categories_NewsController::class, 'edit'])->name('category_news.edit')->middleware('can:edit-news');
         Route::post('/edit/{id}', [Categories_NewsController::class, 'save_edit']);
 
         //remove
-        Route::get('/delete/{id}', [Categories_NewsController::class, 'remove'])->name('category_news.remove');
+        Route::get('/delete/{id}', [Categories_NewsController::class, 'remove'])->name('category_news.remove')->middleware('can:delete-news');
     });
     Route::post('chuyen-trang-thai', [BookingController::class, 'selectStatusBooking'])->name('dat-lich.chuyen-trang-thai');
     Route::get('/dat-lich/danh-sach-chua-phan-tho', [BookingController::class, 'DanhSachChuaPhanTho'])->name('sua-chua.danh-sach-chua-phan-tho')->middleware('can:list-booking');

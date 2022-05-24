@@ -46,7 +46,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div><br><br><br>
                 <!-- BY BRAND SECTION END -->
 
                 <!-- FEATURED PRODUCT SECTION START -->

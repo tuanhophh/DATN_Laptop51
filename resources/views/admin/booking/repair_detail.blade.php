@@ -140,8 +140,8 @@
                                                 <th> Giá tiền sửa</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="ds_linh_kien_sua">
-                                            <tr id="form_linh_kien_sua">
+                                        <tbody class="ds_linh_kien_sua">
+                                            <tr class="form_linh_kien_sua">
                                                 <td class="col-9">
                                                     <input type="text" name="product_repair[]" value=""
                                                         placeholder="Nhập linh kiện" class="form-control">
@@ -291,19 +291,13 @@ for (var i = 0; i < options.length; i++){
     function add(){
     ds_linh_kien_sua=document.getElementsByClassName('ds_linh_kien_sua')[0];
     form_linh_kien_sua=document.getElementsByClassName('form_linh_kien_sua')[0];
+    console.log(ds_linh_kien_sua);
     const node = document.createElement("tr")
     node.innerHTML=form_linh_kien_sua.innerHTML
     ds_linh_kien_sua.appendChild(node);
     }
     
-    function remove(obj){
-// form_linh_kien_sua=document.getElementsByClassName('form_linh_kien_sua')[0];
-//         console.log(ds_linh_kien_sua[0]);
-//         ds_linh_kien_sua=document.getElementsByClassName('ds_linh_kien_sua')[0];
-console.log(obj.children);
-        child=obj;
-        child.parent.removeChild(child);
-    }
+   
 
 
 

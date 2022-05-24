@@ -19,7 +19,7 @@
 
             @foreach ($booking_details as $b)
             <tr>
-                <td>{{ $b->name_computer }}</td>
+                <td><a href="{{ route('dat-lich.chi-tiet', ['id'=>$b->id]) }}">{{ $b->name_computer }}</a></td>
                 <td>{{ $b->full_name }}</td>
                 {{-- <td>{{ $b->booking->phone }}</td> --}}
                 <td>{{ $b->phone }}</td>

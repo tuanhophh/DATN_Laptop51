@@ -59,7 +59,7 @@ class BookingController extends Controller
          'phone' => 'required||numeric',
          'email' => 'required||regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
          'interval' => 'required',
-         'repair_type' => 'required'
+         // 'repair_type' => 'required'
       ]);
       $booking_detail = BookingDetail::find($id);
       if ($booking_detail) {
@@ -79,7 +79,7 @@ class BookingController extends Controller
          ]);
          $booking->save();
       }
-      return redirect(route('dat-lich.danh-sach-may'));
+      return redirect(route('sua-chua.danh-sach-chua-xac-nhan'));
    }
    public function listBooking()
    {
@@ -161,7 +161,8 @@ class BookingController extends Controller
          'booking_id' => $booking->id,
          'company_computer_id' => $request->company_computer_id,
          'description' => $request->description,
-         'name_computer' => $request->name_computer
+         'name_computer' => $request->name_computer,
+         'status_booking' => 'received',
       ];
       $booking_detail = BookingDetail::create($data_booking_detail);
       $booking_detail->load('computerCompany');
@@ -429,6 +430,9 @@ class BookingController extends Controller
          }
          if ($request->product_repair) {
             foreach ($request->product_repair as $key => $value) {
+               if ($value == '' || $value == null || $request->price_product_repair[$key] == null || $request->price_product_repair[$key] == '') {
+                  continue;
+               }
                $dt = [
                   'booking_detail_id' => $id,
                   // 'detail_product_id' => $r,
@@ -502,6 +506,7 @@ class BookingController extends Controller
       if (Auth::check()) {
          $booking_details = UserRepair::where('user_id', Auth::id())
             ->join('booking_details', 'user_repairs.booking_detail_id', 'booking_details.id')
+            ->where('status_repair', '!=', 'finish')
             ->join('bookings', 'booking_details.booking_id', 'bookings.id')
             ->get();
          // dd($booking_details);
@@ -553,12 +558,17 @@ class BookingController extends Controller
    public function DanhSachChuaXacNhan()
    {
 
+      if (!empty($_GET)) {
+         $booking_details = BookingDetail::join('bookings', 'booking_details.booking_id', 'bookings.id')
+            ->where('status_repair', null)->where('status_booking', 'like', '%' . $_GET['status'] . '%')
+            ->orderBy("bookings.id", 'desc')->paginate(10);
+      } else {
 
 
-
-      $booking_details = BookingDetail::join('bookings', 'booking_details.booking_id', 'bookings.id')
-         ->where('status_repair', null)->orWhereNull('status_booking')
-         ->orderBy("bookings.id", 'desc')->paginate(10);
+         $booking_details = BookingDetail::join('bookings', 'booking_details.booking_id', 'bookings.id')
+            ->where('status_repair', null)->orWhereNull('status_booking')
+            ->orderBy("bookings.id", 'desc')->paginate(10);
+      }
 
 
       return view('admin.booking.ds_chua_xac_nhan', compact('booking_details'));

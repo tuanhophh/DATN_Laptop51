@@ -61,14 +61,26 @@
                                 </div>
                                 <hr>
                                 <h1 class="text-center">
-                                    <a href="{{ route('sua-chua.danh-sach-chua-xac-nhan', ['id'=>1]) }}"
+
+                                    @can('list-booking') <a
+                                        href="{{ route('sua-chua.danh-sach-chua-xac-nhan', ['id'=>1]) }}"
                                         class="button extra-small ">
                                         <span class="text-uppercase">Quay lại</span>
                                     </a>
                                     <a href="{{ route('dat-lich.edit', ['id'=>$booking_detail->id]) }}"
                                         class="button extra-small " style="background-color: blue">
                                         <span class="text-uppercase">Sửa thông tin</span>
-                                    </a>
+                                    </a>@endcan
+                                    @can('edit-repair')
+                                    @if ($booking_detail->status_repair=='waiting' ||
+                                    $booking_detail->status_repair=='fixing'
+                                    )
+
+                                    <a href="{{ route('suachua.get', ['id'=>$booking_detail->id]) }}"
+                                        class="button extra-small " style="background-color: blue">
+                                        <span class="text-uppercase">Sửa chữa</span>
+                                    </a>@endif
+                                    @endcan
                                 </h1>
                             </div>
                             <br>

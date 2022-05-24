@@ -17,27 +17,28 @@ use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     public function index(Request $request)
-    {   
-        $products=Product::paginate(10);
+    {
+        $products = Product::paginate(10);
         $products->load('image_product');
+        // dd($products);
         $ComputerCompany = ComputerCompany::all();
         $products = Product::when($request->name, function ($query, $name) {
             return $query->where('name', 'like', "%{$name}%");
         })->when($request->status, function ($query) use ($request) {
-            if($request->status == 1){
-                return $query->where('status', '=', '1' );
+            if ($request->status == 1) {
+                return $query->where('status', '=', '1');
             }
-            if($request->status == 2){
-                return $query->where('status', '=', '0' );
+            if ($request->status == 2) {
+                return $query->where('status', '=', '0');
             }
-            if($request->status == 0){
-                return $query->orderBy('created_at','DESC');
+            if ($request->status == 0) {
+                return $query->orderBy('created_at', 'DESC');
             }
         })->when($request->companyComputer_id, function ($query, $companyComputer_id) {
-            return $query->where('companyComputer_id','=',$companyComputer_id);
+            return $query->where('companyComputer_id', '=', $companyComputer_id);
         })->orderBy('status', 'DESC')->paginate(10);
-        
-        return view('admin.products.index', compact('products','ComputerCompany'));
+
+        return view('admin.products.index', compact('products', 'ComputerCompany'));
     }
 
     public function remove($id)
@@ -91,7 +92,7 @@ class ProductController extends Controller
             }
             DB::table('product_images')->insert($insert);
         }
-        Toastr::success('Tạo sản phẩm thành công','Thành công');
+        Toastr::success('Tạo sản phẩm thành công', 'Thành công');
 
         return redirect(route('product.index'));
     }
@@ -141,7 +142,7 @@ class ProductController extends Controller
                 $insert[$key]['path'] = $path;
             }
             foreach ($images as $image) {
-                
+
                 $id = $image->id;
                 $image_path = $image->path;
                 // if($image_path){
@@ -151,7 +152,7 @@ class ProductController extends Controller
             }
             DB::table('product_images')->insert($insert);
         }
-        Toastr::success('Sửa sản phẩm thành công','Thành công');
+        Toastr::success('Sửa sản phẩm thành công', 'Thành công');
         return redirect(route('product.index'));
     }
 
@@ -161,12 +162,12 @@ class ProductController extends Controller
         if ($model->status == 1) {
             $model['status'] = 0;
             $model->save();
-            Toastr::success('Ẩn sản phẩm thành công','Thành công');
+            Toastr::success('Ẩn sản phẩm thành công', 'Thành công');
             return back();
         } else {
             $model['status'] = 1;
             $model->save();
-            Toastr::success('Hiện sản phẩm thành công','Thành công');
+            Toastr::success('Hiện sản phẩm thành công', 'Thành công');
             return back();
         }
     }

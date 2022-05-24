@@ -5,6 +5,7 @@
     <table class="table align-items-center table-flush">
         <thead class="thead-light">
             <tr>
+                <th scope="col" class="sort" data-sort="name">STT</th>
                 <th scope="col" class="sort" data-sort="name">Tên máy</th>
                 <th scope="col" class="sort" data-sort="budget">Tên khách hàng</th>
                 <th scope="col" class="sort" data-sort="status">Số điện thoại</th>
@@ -19,9 +20,10 @@
 
 
 
-            @foreach ($booking_details as $b)
+            @foreach ($booking_details as $k=>$b)
             <tr>
-                <td>{{ $b->name_computer }}</td>
+                <td>{{ $k+1 }}</td>
+                <td><a href="{{ route('dat-lich.chi-tiet', ['id'=>$b->id]) }}">{{ $b->name_computer }}</a></td>
                 <td>@if (!empty($b->booking->full_name))
                     {{ $b->booking->full_name }}
 

@@ -25,44 +25,44 @@
         <a class="btn btn-info" href="{{ route('view-import-product') }}">Import Data</a>
     </div>
 
-<form action="{{ route('product.index') }}" method="GET" class="col-8">
-    <div class="row">
-        <div class="col-3">
-        <div class="form-group">
-        <input type="text" class="form-control" name="name" id="" aria-describedby="helpId"
-            placeholder="Tìm kiếm theo tên">
-    </div>
+    <form action="{{ route('product.index') }}" method="GET" class="col-8">
+        <div class="row">
+            <div class="col-3">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="name" id="" aria-describedby="helpId"
+                        placeholder="Tìm kiếm theo tên">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <select name="companyComputer_id" class="form-control ">
+                        <option value="0">Hãng máy</option>
+                        @foreach($ComputerCompany as $com)
+                        <option value="{{$com->id}}">{{$com->company_name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <select name="status" class="form-control ">
+                        <option value="0">Trạng thái</option>
+                        <option value="1">Đang hiện</option>
+                        <option value="2">Đang ẩn</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-3">
+                <div>
+                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                </div>
+            </div>
         </div>
-        <div class="col-3">
-        <div class="form-group">
-        <select name="companyComputer_id" class="form-control ">
-            <option value="0">Hãng máy</option>
-            @foreach($ComputerCompany as $com)
-            <option value="{{$com->id}}">{{$com->company_name}}</option>
-            @endforeach
-        </select>
-    </div>
-        </div>
-        <div class="col-3">
-        <div class="form-group">
-        <select name="status" class="form-control ">
-            <option value="0">Trạng thái</option>
-            <option value="1">Đang hiện</option>
-            <option value="2">Đang ẩn</option>
-        </select>
-    </div>
-        </div>
-        <div class="col-3">
-        <div>
-        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-    </div>
-        </div>
-    </div>
 
 
 
 
-</form>
+    </form>
 </div>
 <div class="row">
     <div class="col-12">
@@ -90,7 +90,7 @@
                     <tbody>
                         @foreach ($products as $item)
                         <tr>
-                        <?php
+                            <?php
                                             if (!function_exists('currency_format')) {
                                                 function currency_format($cont, $suffix = ' VNĐ')
                                                 {
@@ -105,21 +105,24 @@
                             <td>
                                 {{ $item->companyComputer->company_name }}
                             </td>
+
+
                             <td>
+                                @if(sizeof( $item->image_product)!= 0)
                                 {{-- @foreach($item->image_product[0] as $item2) --}}
                                 <img src="{{asset($item->image_product[0]->path)}}" alt="" width="100">
                                 {{-- @endforeach --}}
+                                @endif
                             </td>
+
                             <td>{{ currency_format($item->import_price) }}</td>
                             <td>{{ currency_format($item->price) }}</td>
                             <td>
-                                @if($item->qty <= 0) 
-                                <p class="text-danger"> Hết hàng</p>
-                                @elseif($item->qty < 5)
-                                <p class="text-danger"> {{$item->qty}}</p>
-                                @else
-                                <p>{{$item->qty}}</p>
-                                @endif
+                                @if($item->qty <= 0) <p class="text-danger"> Hết hàng</p>
+                                    @elseif($item->qty < 5) <p class="text-danger"> {{$item->qty}}</p>
+                                        @else
+                                        <p>{{$item->qty}}</p>
+                                        @endif
                             </td>
                             <td>
                                 @if($item->status == 1)
@@ -132,7 +135,7 @@
                                 @can('edit-product')
                                 <!-- <a href="{{ route('nhap-sanpham.add', ['id' => $item->id]) }}"
                                     class="btn btn-sm btn-success">Thêm SL</a> -->
-                                
+
                                 <a href="{{ route('product.edit', ['id' => $item->id]) }}"
                                     class="btn btn-sm btn-warning">Sửa</a>
                                 @endcan

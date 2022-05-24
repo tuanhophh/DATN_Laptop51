@@ -15,7 +15,7 @@
     <style>
         table {
             border-collapse: collapse;
-            width: 760px;
+            width: 660px;
 
         }
 
@@ -23,18 +23,45 @@
             display: flex;
             justify-content: center
         }
+
+        .chu_ky {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .chu_ky td {
+            justify-items: end;
+            height: 100px;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
     </style>
 </head>
 
 <body style="max-width: 1024px;">
     <div>
+        <h2 style="text-align: center">CỬA HÀNG LAPTOP51</h2>
+        <h3 style="text-align: center">Địa chỉ: Số 1 Trịnh Văn Bô, Nam Từ Liêm, Hà Nội</h3>
+        <p style="text-align: right"><i>Hotline:</i> 0399958700</p>
+        {{-- <h2 style="text-align: center">GIẤY HẸN</h2> --}}
         <h4 style="text-align: center">HÓA ĐƠN SỬA CHỮA</h4>
-        <p>Họ tên: {{ $booking_detail->booking->full_name }}</p>
-        <p>Số điện thoại: {{ $booking_detail->booking->phone }}</p>
-        <p>Tên máy: {{ $booking_detail->name_computer }}</p>
+        <p style="text-align: center"><i>Mã hóa đơn: <b>{{ $booking_detail->code }}</b></i></p>
+        {{-- <h5 class="text-center"><i>Số hóa đơn: <b>{{ $booking_detail->code }}</b></i></h5><br> --}}
+        <div class="row" style="">
+            <p class="col-3"><b>Họ và tên:</b> {{ $booking_detail->booking->full_name }}</p>
+            <p class="col-3"><b>Số điện thoại: </b> {{ $booking_detail->booking->phone }}</p>
+            {{--
+        </div>
+        <div class="row"> --}}
+            <p class="col-3"> <b> Tên máy: </b>{{ $booking_detail->name_computer }}</p>
+            <p class="col-3"> <b> Kiểu máy: </b>{{ $booking_detail->computerCompany->company_name }}</p>
+        </div>
         {{-- <p>Hãng máy: {{ $booking_detail->computerCompany->company_name }}</p> --}}
 
-        <h5>DANH SÁCH LINH KIỆN</h5>
+        <h5>DANH SÁCH SỬA CHỮA VÀ THAY THẾ</h5>
 
         <table class="table" border="1" draggable="false" style="border: red solid 1px">
             <thead>
@@ -78,17 +105,37 @@
         </table>
 
         {{-- Mô tả sửa chữa: {{ $data }} --}}
+        <p style="font-size: 13px">Xin cám ơn quý khách đã sử dụng dịch vụ sửa chữa của chúng tôi. Nếu có bất cứ thắc
+            mắc hay vấn đề gì xin quý
+            khách vui lòng liên hệ <i>SDT: 0399958700</i> </p>
 
 
 
     </div>
+    <table class="chu_ky">
+
+        <tr>
+            <td>
+                <h5>Người xuất</h5>
+            </td>
+            <td>
+                <h5>Người nhận</h5>
+            </td>
+        </tr>
+        <tr>
+            <td>@if (Auth::check())
+                {{ Auth::user()->name }}
+                @endif</td>
+        </tr>
+    </table>
+
     <div class="nguoi" style="*">
         <div>
-            <h5>Người xuất</h5>
+
 
         </div>
         <div>
-            <h5>Người nhận</h5>
+
 
         </div>
     </div>

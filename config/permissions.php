@@ -1,6 +1,6 @@
 <?php
 
-return[
+return [
     'access' => [
         'list-category' => 'list-category',
         'add-category' => 'add-category',
@@ -31,6 +31,12 @@ return[
         'add-repair' => 'add-repair',
         'edit-repair' => 'edit-repair',
         'delete-repair' => 'delete-repair',
+        'add-news' => 'add-news',
+        'edit-news' => 'edit-news',
+        'delete-news' => 'delete-news',
+        'list-news' => 'list-news',
+        // 'delete-news' => 'delete-news',
+
+
     ]
-]
-?>
+];

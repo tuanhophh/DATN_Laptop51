@@ -133,7 +133,7 @@
                         <a href="{{ route('sua-chua.danh-sach-chua-xac-nhan') }}"
                             class="nav-link {{ request()->is('admin/dat-lich/danh-sach-chua-xac-nhan') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>DS máy chưa xác nhận</p>
+                            <p>DS máy đặt lịch</p>
                         </a>
                     </li>
                     @endcan
@@ -303,35 +303,7 @@
                 </ul>
             </li>
             @endcan
-            <li class="nav-item">
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
 
-                        <a href="#" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>
-                                Tin Tức
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="/admin/tin-tuc" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Danh Sách</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/admin/tin-tuc/add" class="nav-link">
-                                    <i class="fas fa-regular fa-plus nav-icon"></i>
-                                    <p>Thêm Mới</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                </ul>
-            </li>
 
             @can('list-user')
             <li class="nav-item {{ request()->is('admin/user*') ? ' menu-is-opening menu-open' : '' }}">
@@ -385,6 +357,64 @@
                 </ul>
             </li>
             @endcan
+            @can('list-news')
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-money-check"></i>
+                    <p>
+                        Tin Tức
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>
+                                Tin Tức
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/admin/tin-tuc" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Danh Sách</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/admin/tin-tuc/add" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Thêm Mới</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>
+                                Danh Mục
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/admin/danh-muc-tin-tuc" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Danh Sách</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/admin/danh-muc-tin-tuc/add" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Thêm Mới</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>@endcan
         </ul>
     </nav>
     <!-- /.sidebar-menu -->

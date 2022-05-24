@@ -6,7 +6,7 @@
 
 
 
-<div class="container">
+<div class="container" style="background-color: white">
     @can('list-booking')
 
     @if ($booking_detail->list_bill)
@@ -17,11 +17,18 @@
     @endcan
 
     <h4 class="text-center"><b>HÓA ĐƠN SỬA CHỮA</b></h4>
-    <h5 class="text-center"><i>Số hóa đơn: <b>{{ $booking_detail->code }}</b></i></h5>
-    <p>Họ và tên: {{ $booking_detail->booking->full_name }}</p>
-    <p>Tên máy: {{ $booking_detail->name_computer }}</p>
-    <p>Số điện thoại: {{ $booking_detail->booking->phone }}</p>
-    <h5>Danh sách linh kiện sủa chữa và thay thế</h5>
+    <div class="row">
+        <p class="col-3"><b>Họ và tên:</b> {{ $booking_detail->booking->full_name }}</p>
+        <p class="col-3"><b>Số điện thoại: </b> {{ $booking_detail->booking->phone }}</p>
+    </div>
+    {{-- <p><b>Họ và tên:</b> {{ $booking_detail->booking->full_name }}</p> --}}
+    <div class="row">
+        <p class="col-3"> <b> Tên máy: </b>{{ $booking_detail->name_computer }}</p>
+        <p class="col-3"> <b> Kiểu máy: </b>{{ $booking_detail->computerCompany->company_name }}</p>
+    </div><br>
+
+    {{-- <p>Số điện thoại: {{ $booking_detail->booking->phone }}</p> --}}
+    <h5><b>Danh sách linh kiện sủa chữa và thay thế</b></h5>
 
     <table class="table">
         <thead>

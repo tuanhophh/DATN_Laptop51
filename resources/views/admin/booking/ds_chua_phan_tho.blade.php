@@ -20,7 +20,7 @@
 
             @foreach ($booking_details as $b)
             <tr>
-                <td>{{ $b->name_computer }}</td>
+                <td><a href="{{ route('dat-lich.chi-tiet', ['id'=>$b->id]) }}">{{ $b->name_computer }}</a></td>
                 <td>@if (!empty($b->booking->full_name))
                     {{ $b->booking->full_name }}
 

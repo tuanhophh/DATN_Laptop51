@@ -6,27 +6,36 @@
 
     <form action="" class="row ml-3">
 
-        <div class="form-group ">
+        {{-- <div class="form-group ">
             <input type="text" class="form-control" @if (!empty($_GET['key_search'])) value="{{ $_GET['key_search'] }}"
                 @endif name="key_search" id="" placeholder="Số diện thoại...">
         </div>
         <div class="form-group">
 
             <select class="form-control" name="status" id="">
-                <option value="">Tất cả</option>
+                <option value="c">Tất cả</option>
 
                 <option @if (isset($_GET['status'])&& !empty($_GET['status']=='received' )) selected @endif
-                    value="received"> Chưa xác nhận
+                    value="received">
+                    Chưa xác nhận
                 </option>
-                {{-- <option @if (!empty($_GET['status']=='latch' )) selected @endif value="latch">Xác nhận</option>
-                <option @if (!empty($_GET['status']=='cancel' )) selected @endif value="cancel">Hủy bỏ</option> --}}
+                <option @if (!empty($_GET['status']=='latch' ) && !empty($_GET['status']=='latch' )) selected @endif
+                    value="latch">Xác nhận</option>
+                <option @if (!empty($_GET['status']=='cancel' ) && !empty($_GET['status']=='cancel' )) selected @endif
+                    value="cancel">Hủy bỏ</option>
             </select>
+        </div> --}}
+        <div>
+            <button type="submit" class="btn btn-primary">Tất cả</button>
+            <button type="submit" name="status" value="received" class="btn btn-primary">Chưa xác nhận</button>
+            <button type="submit" name="status" value="latch" class="btn btn-primary">Đã xác nhận</button>
+            <button type="submit" name="status" value="cancel" class="btn btn-primary">Hủy bỏ</button>
         </div>
-        <div><button type="submit" class="btn btn-primary">Tìm kiếm</button></div>
     </form>
     <table class="table align-items-center table-flush">
         <thead class="thead-light">
             <tr>
+                <th scope="col" class="sort" data-sort="name">STT</th>
                 <th scope="col" class="sort" data-sort="name">Tên máy</th>
                 <th scope="col" class="sort" data-sort="budget">Tên khách hàng</th>
                 <th scope="col" class="sort" data-sort="status">Số điện thoại</th>
@@ -42,7 +51,8 @@
 
             @foreach ($booking_details as $b)
             <tr>
-                <td>{{ $b->name_computer }}</td>
+                <td>{{ $loop->iteration }}</td>
+                <td><a href="{{ route('dat-lich.chi-tiet', ['id'=>$b->id]) }}">{{ $b->name_computer }}</a></td>
                 <td>@if (!empty($b->booking->full_name))
                     {{ $b->booking->full_name }}
 

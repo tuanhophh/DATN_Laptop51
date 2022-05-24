@@ -23,7 +23,7 @@ class ProductImport implements ToModel, WithStartRow, WithValidation, SkipsOnErr
 
     public function model(array $row)
     {
-        $category = ComputerCompany::query()->where("company_name","=", $row[7])->first();
+        $category = ComputerCompany::query()->where("company_name", "=", $row[7])->first();
 
         if ($row[6] == "Không bán") {
             $row[6] = 0;
@@ -33,7 +33,7 @@ class ProductImport implements ToModel, WithStartRow, WithValidation, SkipsOnErr
 
         return Product::query()->updateOrCreate([
             'name' => $row[0]
-        ],[
+        ], [
             'image' => $row[1],
             'import_price' => $row[2],
             'price' => $row[3],
@@ -54,7 +54,6 @@ class ProductImport implements ToModel, WithStartRow, WithValidation, SkipsOnErr
     {
         return [
             '0' => 'required|exists:products,id',
-            '1' => 'required|string',
             '6' => 'required',
             '3' => 'required|integer|min:0',
             '4' => 'nullable|numeric|min:0',
@@ -69,14 +68,13 @@ class ProductImport implements ToModel, WithStartRow, WithValidation, SkipsOnErr
         return [
             '0.required' => 'Tên sản phẩm không được để trống',
             '0.exists' => 'Tên sản phẩm đã tồn tại',
-            '1.required' => 'Ảnh không được để trống',
             '2.required' => 'Giá không được để trống',
             '2.integer' => 'Kiểu dữ liệu phải là số',
             '2.min' => 'Giá nhỏ nhất bằng 0',
             '3.required' => 'Giá không được để trống',
             '3.integer' => 'Kiểu dữ liệu phải là số',
             '3.min' => 'Giá nhỏ nhất bằng 0',
-            
+
             '4.numeric' => 'Kiểu dữ liệu phải là số',
             '4.min' => 'Số lượng nhỏ nhất bằng 0',
             '6.required' => 'Trạng thái không được để trống',

@@ -5,11 +5,13 @@
     <table class="table align-items-center table-flush">
         <thead class="thead-light">
             <tr>
+                {{-- <th></th> --}}
+                <th scope="col" class="sort" data-sort="name">STT</th>
                 <th scope="col" class="sort" data-sort="name">Tên máy</th>
                 <th scope="col" class="sort" data-sort="budget">Tên khách hàng</th>
                 <th scope="col" class="sort" data-sort="status">SDT</th>
-                <th scope="col">Hình thức sửa</th>
-                <th scope="col">Trạng thái</th>
+                <th scope="col">Nhân viên</th>
+                {{-- <th scope="col">Trạng thái</th> --}}
                 <th scope="col" class="sort" data-sort="completion">Nhân viên</th>
                 @can('add-booking')
                 <th scope="col"><a href="{{ route('dat-lich.add') }}">Tạo mới</a></th>
@@ -22,18 +24,19 @@
 
             @foreach ($booking_details as $b)
             <tr>
-                <td>{{ $b->name_computer }}</td>
+                <td>{{ $loop->iteration }}</td>
+                <td><a href="{{ route('dat-lich.chi-tiet', ['id'=>$b->id]) }}">{{ $b->name_computer }}</a></td>
                 <td>@if (!empty($b->booking->full_name))
                     {{ $b->booking->full_name }}
 
                     @endif</td>
                 <td>{{ $b->booking->phone }}</td>
-                <td>@if ($b->repair_type=='TN')
+                {{-- <td>@if ($b->repair_type=='TN')
                     {{ 'Tại nhà' }}
                     @else
                     {{ 'Đem đến cửa hàng' }}
-                    @endif</td>
-
+                    @endif</td> --}}
+                <td>{{ $b->users[0]->name }}</td>
 
                 <td class="mx-auto">
 
@@ -45,10 +48,10 @@
                         chữa</a>
 
                     @endcan
-                    @can('list-booking')
+                    {{-- @can('list-booking')
                     <a name="" id="" class="btn btn-danger"
                         href="{{ route('dat-lich.deleteBookingDetail', ['id'=>$b->id]) }}" role="button">Xóa</a>
-                    @endcan
+                    @endcan --}}
                 </td>
             </tr>
             @endforeach

@@ -29,8 +29,8 @@ class HomeAdminController extends Controller
     $total_category = ComputerCompany::count('id');
     $total_product = Product::count('id');
     $total_user = User::count('id');
-    $total_mua_hang = list_bill::where('type', 1)->where('status',2)->count('id');
-    $total_dat_lich = list_bill::where('type', 2)->where('status',2)->count('id');
+    $total_mua_hang = list_bill::where('type', 1)->where('status', 2)->count('id');
+    $total_dat_lich = list_bill::where('type', 2)->where('status', 2)->count('id');
     $total_category_component = CategoryComponent::count('id');
     $total_component = Component::count('id');
 
@@ -59,7 +59,7 @@ class HomeAdminController extends Controller
       ->whereHas('list_bill', function ($q) {
         $q->where('status', '=', 2);
       })
-      ->where('product_id','=',null)->where('component_id','!=',null)->get();
+      ->where('product_id', '=', null)->where('component_id', '!=', null)->get();
     foreach ($billSua as $item) {
       $item->total_nhap = ($item->nhap * $item->quaty);
       $item->total_ban = ($item->ban * $item->quaty);
@@ -77,7 +77,7 @@ class HomeAdminController extends Controller
       ->whereHas('list_bill', function ($q) {
         $q->where('status', '=', 2);
       })
-      ->where('product_id','!=',null)->where('component_id','=',null)->get();
+      ->where('product_id', '!=', null)->where('component_id', '=', null)->get();
     foreach ($billBan as $item) {
       $item->total_nhap = ($item->nhap * $item->quaty);
       $item->total_ban = ($item->ban * $item->quaty);
@@ -94,7 +94,7 @@ class HomeAdminController extends Controller
       ->whereHas('list_bill', function ($q) {
         $q->where('status', '=', 2);
       })
-      ->where('product_id','!=',null)->where('component_id','=',null)
+      ->where('product_id', '!=', null)->where('component_id', '=', null)
       ->distinct()->limit(10)
       ->pluck('product_id');
     $datasanphamban = [];
@@ -102,12 +102,13 @@ class HomeAdminController extends Controller
     foreach ($socacsanphamdaban as $sanpham) {
       $product = Product::find($sanpham)['name'];
       if ($product ?? null) {
-        array_push($datasanphamban, [['name' => $product[0]->name,'quaty' => bill_detail::query()
-        ->with('list_bill')
-        ->whereHas('list_bill', function ($q) {
-          $q->where('status', '=', 2);
-        })
-        ->where('product_id', $sanpham)->count()]]);
+        // dd($product);
+        array_push($datasanphamban, [['name' => $product, 'quaty' => bill_detail::query()
+          ->with('list_bill')
+          ->whereHas('list_bill', function ($q) {
+            $q->where('status', '=', 2);
+          })
+          ->where('product_id', $sanpham)->count()]]);
       }
     }
 

@@ -4,16 +4,17 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Gate;
 
-class PermissionGateAndPolicyAccess{
+class PermissionGateAndPolicyAccess
+{
 
 
     public function setGateAndPolicyAccess()
-    {       
+    {
         $this->defineGateCategory();
-
     }
 
-    public function defineGateCategory(){
+    public function defineGateCategory()
+    {
 
 
         Gate::define('dash-board', 'App\Policies\DashBoardPolicy@view');
@@ -47,7 +48,7 @@ class PermissionGateAndPolicyAccess{
         Gate::define('add-role', 'App\Policies\RolePolicy@create');
         Gate::define('edit-role', 'App\Policies\RolePolicy@update');
         Gate::define('delete-role', 'App\Policies\RolePolicy@delete');
-    
+
         //  Phân quyền
         Gate::define('list-booking', 'App\Policies\BookingPolicy@view');
         Gate::define('add-booking', 'App\Policies\BookingPolicy@create');
@@ -59,7 +60,11 @@ class PermissionGateAndPolicyAccess{
         Gate::define('add-repair', 'App\Policies\RepairPolicy@create');
         Gate::define('edit-repair', 'App\Policies\RepairPolicy@update');
         Gate::define('delete-repair', 'App\Policies\RepairPolicy@delete');
+
+        // Tin tức
+        Gate::define('list-news', 'App\Policies\NewsPolicy@view');
+        Gate::define('add-news', 'App\Policies\NewsPolicy@create');
+        Gate::define('edit-news', 'App\Policies\NewsPolicy@update');
+        Gate::define('delete-news', 'App\Policies\NewsPolicy@delete');
     }
-    
 }
-?>
