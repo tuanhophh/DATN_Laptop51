@@ -11,12 +11,12 @@
     <table>
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Image</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Desc</th>
+                <th>Tên</th>
+                <th>Hãng</th>
+                <th>Ảnh</th>
+                <th>Giá nhập</th>
+                <th>Giá bán</th>
+                <th>Số lượng</th>
                 <th>Status</th>
             </tr>
         </thead>

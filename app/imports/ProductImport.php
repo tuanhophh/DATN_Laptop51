@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\ComputerCompany;
+use App\Models\ImageProduct;
 use App\Models\Product;
 use App\User;
 use Illuminate\Validation\Rule;
@@ -23,26 +24,38 @@ class ProductImport implements ToModel, WithStartRow, WithValidation, SkipsOnErr
 
     public function model(array $row)
     {
-        $category = ComputerCompany::query()->where("company_name", "=", $row[7])->first();
+        $category = ComputerCompany::query()->where("company_name", "=", $row[1])->first();
 
-        if ($row[6] == "Không bán") {
-            $row[6] = 0;
-        } elseif ($row[6] == "Bán") {
+        if ($row[6] == "Đang hiện") {
             $row[6] = 1;
+        } elseif ($row[6] == "Đang ẩn") {
+            $row[6] = 0;
         }
 
-        return Product::query()->updateOrCreate([
-            'name' => $row[0]
-        ], [
-            'image' => $row[1],
-            'import_price' => $row[2],
-            'price' => $row[3],
-            'qty' => intval($row[4]),
-            'desc' => $row[5],
-            'status' => $row[6],
+
+
+        $a = Product::query()->updateOrCreate([
+            'name' => $row[0],
             'companyComputer_id' => $category->id,
-            'insurance' => $row[8]
+            'import_price' => $row[3],
+            'price' => $row[4],
+            'qty' => intval($row[5]),
+            'status' => $row[6],
+            'desc_short' => $row[7],
+            'ram' => $row[8],
+            'cpu' => $row[9],
+            'cardgraphic' => $row[10],
+            'screen' => $row[11],
+            'harddrive' => $row[12],
+            'slug' => $row[13],
+
         ]);
+        if ($row[2] ?? null) {
+            ImageProduct::query()->updateOrCreate([
+                'path' => $row[2],
+                'product_id' => $a->id
+            ]);
+        }
     }
 
     public function startRow(): int
@@ -53,13 +66,20 @@ class ProductImport implements ToModel, WithStartRow, WithValidation, SkipsOnErr
     public function rules(): array
     {
         return [
-            '0' => 'required|exists:products,id',
-            '6' => 'required',
-            '3' => 'required|integer|min:0',
+            '0' => 'bail|required',
+            '1' => 'bail|required|exists:computer_companies,company_name',
+            '6' => 'bail|required',
+            '3' => 'required|numeric|min:0',
             '4' => 'nullable|numeric|min:0',
-            '2' => 'required|integer|min:0',
-            '7' => 'required|exists:computer_companies,company_name',
-            '8' => 'required|numeric',
+            '5' => 'bail|nullable|integer|min:0',
+            '2' => 'bail|nullable',
+            '7' =>'bail|required',
+            '8' =>'bail|required',
+            '9' =>'bail|required',
+            '10' =>'bail|required',
+            '11' =>'bail|required',
+            '12' =>'bail|required',
+            '13' =>'bail|required',
         ];
     }
 
@@ -67,21 +87,25 @@ class ProductImport implements ToModel, WithStartRow, WithValidation, SkipsOnErr
     {
         return [
             '0.required' => 'Tên sản phẩm không được để trống',
-            '0.exists' => 'Tên sản phẩm đã tồn tại',
-            '2.required' => 'Giá không được để trống',
-            '2.integer' => 'Kiểu dữ liệu phải là số',
-            '2.min' => 'Giá nhỏ nhất bằng 0',
-            '3.required' => 'Giá không được để trống',
-            '3.integer' => 'Kiểu dữ liệu phải là số',
-            '3.min' => 'Giá nhỏ nhất bằng 0',
-
-            '4.numeric' => 'Kiểu dữ liệu phải là số',
-            '4.min' => 'Số lượng nhỏ nhất bằng 0',
+            '3.required' => 'Giá nhập không được để trống',
+            '3.numeric' => 'Giá nhập phải là số',
+            '3.min' => 'Giá nhập nhỏ nhất bằng 0',
+            '4.required' => 'Giá bán không được để trống',
+            '4.numeric' => 'Giá bán phải là số',
+            '4.min' => 'Giá bán nhỏ nhất bằng 0',
+            '5.integer' => 'Số lượng phải là số',
+            '5.min' => 'Số lượng nhỏ nhất bằng 0',
             '6.required' => 'Trạng thái không được để trống',
-            '7.required' => 'Danh mục laptop không được để trống',
-            '7.exists' => 'Danh mục không tồn tại',
-            '8.required' => 'Bảo hành không được để trống',
-            '8.numeric' => 'Bảo hành phải là một số'
+            '1.required' => 'Danh mục laptop không được để trống',
+            '1.exists' => 'Danh mục không tồn tại',
+            '7.required' => 'Mô tả ngắn không được để trống',
+            '8.required' => 'Ram không được để trống',
+            '9.required' => 'Cpu không được để trống',
+            '10.required' => 'cardgraphic không được để trống',
+            '11.required' => 'Màn hình không được để trống',
+            '12.required' => 'harddrive không được để trống',
+            '13.required' => 'Đường dẫn không được để trống',
+
         ];
     }
 }

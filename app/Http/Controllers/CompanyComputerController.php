@@ -47,7 +47,7 @@ class CompanyComputerController extends Controller
         if ($request->hasFile('anh')) {
             $imgPath = $request->file('anh')->store('products');
             $imgPath = str_replace('public/', 'storage/', $imgPath);
-            // $request->merge(['logo'=>$imgPath]);
+            $request->merge(['logo'=>$imgPath]);
         }
         $model->logo = $request->logo;
         $model->company_name = $request->company_name;

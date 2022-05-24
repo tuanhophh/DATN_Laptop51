@@ -18,45 +18,62 @@ class ProductExport implements FromCollection, WithHeadings
     // */
     public function collection()
     {
+
         $data = Product::all();
-        $data->load('companyComputer');
-        
+        $data->load('companyComputer',);
+
         foreach ($data as $row) {
-            if($row->status===0){
-                $row->status="Không bán";
-            }elseif($row->status===1){
-                $row->status="Bán";
+            if ($row->status == 0) {
+                $row->status = "Đang ẩn";
+            } elseif ($row->status == 1) {
+                $row->status = "Đang hiện";
             }
-            
+            if(sizeof($row->image_product)>0){
+                // dd(array_column($row->image_product->toArray(),'path')[0]);
+                $row->image_product->path=array_column($row->image_product->toArray(),'path')[0];
+            }else{
+                $row->image_product->path='';
+            }
+
             $order[] = array(
                 '0' => $row->name,
-                '1' => $row->image,
-                '2' => $row->import_price,
-                '3' => $row->price,
-                '4' => $row->qty,
-                '5' => $row->desc,
+                '1' => $row->companyComputer->company_name,
+                '2' => $row->image_product->path,
+                '3' => $row->import_price,
+                '4' => $row->price,
+                '5' => $row->qty,
                 '6' => $row->status,
-                '7' => $row->companyComputer->company_name,
-                '8'=>$row->insurance,
+                '7' => $row->desc_short,
+                '8' =>$row->ram,
+                '9'=> $row->cpu,
+                '10'=>$row->cardgraphic,
+                '11' =>$row->screen,
+                '12' =>$row->harddrive,
+                '13' =>$row->slug
             );
         }
 
         return (collect($order));
     }
 
-    
+
     public function headings(): array
     {
         return [
             'Tên',
+            'Danh mục sản phẩm',
             'Ảnh',
             'Giá nhập',
-            'Giá',
+            'Giá bán',
             'Số lượng',
-            'Mô tả',
             'Trạng thái',
-            'Loại sản phẩm',
-            'Bảo hành'
+            'Mô tả ngắn',
+            'Ram',
+            'Cpu',
+            'cardgraphic',
+            'screen',
+            'harddrive',
+            'slug'
         ];
     }
 }
