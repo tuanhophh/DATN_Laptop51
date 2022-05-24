@@ -42,13 +42,38 @@
                                     class="btn btn-sm btn-warning">Sửa</a>
                                 @endcan
                                 @can('delete-category')
-                                <a href="{{ route('category_component.remove', ['id' => $item->id]) }}"
+                                {{-- <a href="{{ route('category_component.remove', ['id' => $item->id]) }}"
                                     onclick="return confirm('Bạn có chắc muốn xóa')"
-                                    class="btn btn-sm btn-danger">Xóa</a>
+                                    class="btn btn-sm btn-danger">Xóa</a> --}}
+                                    <button data-toggle="modal" data-target="#exampleModalCenter{{ $item->id }}"
+                                        class="btn btn-danger">
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
                                 @endcan
 
                             </td>
                         </tr>
+                        <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter{{ $item->id }}" tabindex="-1"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Xóa?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Bạn có chắc chắn muốn xóa không?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                    <a href="{{ route('category_component.remove', $item->id) }}" class="btn btn-danger">Xóa</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                         @endforeach
                     </tbody>
                 </table>

@@ -174,38 +174,7 @@
             </li>
 
             @can('list-category')
-            @can('list-product')
-            <li class="nav-item {{ request()->is('admin/detail-product*') ? ' menu-is-opening menu-open' : '' }}">
-                <a href="" class="nav-link {{ request()->is('admin/detail-product*') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-copy"></i>
-                    <p>
-                        Chi tiết sản phẩm
-                        <i class="fas fa-angle-left right"></i>
-                        {{-- <span class="badge badge-info right">6</span> --}}
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    @can('list-product')
-                    <li class="nav-item">
-                        <a href="/admin/detail-product"
-                            class="nav-link {{ request()->is('admin/detail-product') ? 'active' : '' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Danh sách</p>
-                        </a>
-                    </li>
-                    @endcan
-                    @can('add-product')
-                    <li class="nav-item">
-                        <a href="/admin/detail-product/add"
-                            class="nav-link {{ request()->is('admin/detail-product/add') ? 'active' : '' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Thêm mới</p>
-                        </a>
-                    </li>
-                    @endcan
-                </ul>
-            </li>
-            @endcan
+            
             {{-- <li class="nav-item {{ request()->is('admin/sua-chua*') ? ' menu-is-opening menu-open' : '' }}">
                 <a href="" class="nav-link {{ request()->is('admin/sua-chua*') ? 'active ' : '' }}"> --}}
 

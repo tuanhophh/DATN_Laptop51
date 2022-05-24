@@ -87,6 +87,7 @@ class HomeController extends Controller
     }
     public function detail($slug)
     {   
+
         $ComputerCompany = ComputerCompany::all();
         $pro = Product::where('slug', $slug)->first();
         // dd($ComputerCompany);

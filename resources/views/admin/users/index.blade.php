@@ -51,10 +51,10 @@
                             <td> {{$item->phone}} </td>
                             <td>
                                 @if($item->id_role == 0)
-                                <p class="d-inline bg-info rounded-pill p-2">Người dùng</p>
+                                <p >Người dùng</p>
                                 @else
                                 @foreach($item->roles as $role)
-                                 <p class="d-inline bg-info rounded-pill p-2">{{$role->name}}</p>
+                                 <p>{{$role->name}}</p>
                                  @endforeach
                                 @endif
                             </td>

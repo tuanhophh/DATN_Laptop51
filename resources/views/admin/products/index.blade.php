@@ -108,7 +108,7 @@
 
 
                             <td>
-                                @if(sizeof( $item->image_product)!= 0)
+                                @if(sizeof($item->image_product)>0)
                                 {{-- @foreach($item->image_product[0] as $item2) --}}
                                 <img src="{{asset($item->image_product[0]->path)}}" alt="" width="100">
                                 {{-- @endforeach --}}
