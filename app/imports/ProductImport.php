@@ -50,6 +50,7 @@ class ProductImport implements ToModel, WithStartRow, WithValidation, SkipsOnErr
             'slug' => $row[13],
 
         ]);
+        // dd($a);
         if ($row[2] ?? null) {
             ImageProduct::query()->updateOrCreate([
                 'path' => $row[2],

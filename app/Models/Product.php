@@ -13,7 +13,7 @@ class Product extends Model
     use SoftDeletes;
     protected $table = "products";
     protected $dates = ['deleted_at'];
-    public $fillable = ['name', 'image','desc_short', 'import_price', 'price', 'qty', 'desc', 'status', 'companyComputer_id', 'insurance'];
+    public $fillable = ['name', 'image','desc_short', 'import_price', 'price', 'qty', 'desc', 'status', 'companyComputer_id', 'insurance','ram','cpu','cardgraphic','screen','harddrive','slug'];
     public function companyComputer()
     {
         return $this->belongsTo(ComputerCompany::class, 'companyComputer_id');
