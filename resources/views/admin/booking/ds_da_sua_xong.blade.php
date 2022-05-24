@@ -48,10 +48,11 @@
                         chữa</a>
 
                     @endcan
-                    {{-- @can('list-booking')
-                    <a name="" id="" class="btn btn-danger"
-                        href="{{ route('dat-lich.deleteBookingDetail', ['id'=>$b->id]) }}" role="button">Xóa</a>
-                    @endcan --}}
+
+                    @can('list-booking')<a name="" id="" class="btn btn-primary"
+                        href="{{ route('dat-lich.send-mail-finish-member', ['booking_detail_id'=>$b->id]) }}"
+                        role="button">Gửi mail</a>
+                    @endcan
                 </td>
             </tr>
             @endforeach

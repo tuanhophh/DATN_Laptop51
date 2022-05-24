@@ -224,8 +224,10 @@ class BookingDetailController extends Controller
         $booking_detail = BookingDetail::find($booking_detail_id);
         if ($booking_detail) {
             $booking_detail->load('booking');
+            $repair_parts = RepairPart::where('booking_detail_id', $booking_detail_id)->get();
+
             $data = [
-                'booking_detail' => $booking_detail,
+                'booking_detail' => $booking_detail, 'repair_parts' => $repair_parts,
             ];
             $email = $booking_detail->booking->email;
             Mail::send('admin.mail.coifirm_finish_menber', $data, function ($message) use ($email) {

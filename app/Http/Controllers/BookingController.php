@@ -345,6 +345,7 @@ class BookingController extends Controller
       Booking::destroy($id);
       return redirect('dat-lich.danh-sach-may');
    }
+
    public function repairDetail($id)
    {
       $booking_detail = BookingDetail::find($id);
@@ -356,7 +357,8 @@ class BookingController extends Controller
          $booking = $booking_detail->booking()->first();
          $categories = CategoryComponent::all();
          $components = Component::join('component_computer_conpanies', 'components.id', 'component_computer_conpanies.component_id')
-            ->where('computer_conpany_id', $booking_detail->company_computer_id)->select('components.id as id', 'name_component')
+            ->where('computer_conpany_id', $booking_detail->company_computer_id)->select('components.id as id', 'name_component', 'qty')
+            ->where('qty', '>', 0)
             ->get();;
          $repair_parts = RepairPart::where('booking_detail_id', $id)->get();
          $arr_pd = array_column($repair_parts->toArray(), 'detail_product_id');
